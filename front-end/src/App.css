@@ -99,13 +99,26 @@
     --color-gray-1000: #505050;
 }
 
-  .main-home {
-      background: linear-gradient(270deg,
-              rgba(0, 0, 0, 0.6) 33.85%,
-              rgba(243, 244, 246, 0.1) 100%),
-          url("/img/home.png");
-      background-size: cover;
-      background-repeat: no-repeat;
-      width: 100%;
-      height: 100vh;
-  }
+.main-home {
+    background:
+        url("/img/home.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+}
+
+.custom-underline {
+    position: relative;
+    display: inline-block;
+}
+
+.custom-underline::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    background-color: var(--color-primary);
+    bottom: -4px;
+    left: 0;
+}

@@ -1,10 +1,13 @@
 import './App.css'
-import Home from './pages/Home/home'
+import { useRoutes } from 'react-router'
+import routes from './routes'
 
 function App() {
+  const router = useRoutes(routes)
+
   return (
     <>
-      <Home />
+      {router}
     </>
   )
 }

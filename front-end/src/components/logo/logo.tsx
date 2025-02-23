@@ -18,7 +18,7 @@ const Logo: React.FC<LogoProps> = ({ width, height, fontSize }) => {
         <div
           className={`font-semibold absolute -bottom-2 font-shabnamLight text-primary text-${fontSize}`}
         >
-          سقفینــــــــــــــــــــو
+          سقفینــــــــــــــــــو
         </div>
       </div>
     </div>
