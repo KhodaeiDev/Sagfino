@@ -1,1 +1,111 @@
 @import "tailwindcss";
+
+@utility container {
+    margin-right: auto;
+    margin-left: auto;
+    width: 100%;
+
+    @media (max-width: 576px) {
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    @media (min-width: 576px) {
+        max-width: calc(0.85 * 640px + 32px);
+        /* 85% of 640px + 32px padding */
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    @media (min-width: 640px) {
+        max-width: calc(0.85 * 640px + 32px);
+        /* 85% of 640px + 32px padding */
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    @media (min-width: 768px) {
+        max-width: calc(0.85 * 768px + 32px);
+        /* 85% of 768px + 32px padding */
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    @media (min-width: 1024px) {
+        max-width: calc(0.85 * 1024px + 32px);
+        /* 85% of 1024px + 32px padding */
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    @media (min-width: 1280px) {
+        max-width: calc(0.85 * 1280px + 32px);
+        /* 85% of 1280px + 32px padding */
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+
+    @media (min-width: 1536px) {
+        max-width: calc(0.85 * 1536px + 32px);
+        /* 85% of 1536px + 32px padding */
+        padding-right: 16px;
+        padding-left: 16px;
+    }
+}
+
+@font-face {
+    font-family: "shabnam bold";
+    src: url("./fonts/shabnam/Shabnam-Bold-FD-WOL.woff2") format("woff2");
+    /*400  sight*/
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "shabnam";
+    src: url("./fonts/shabnam/Shabnam-FD-WOL.woff2") format("woff2");
+    /*500  */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "shabnam Light";
+    src: url("./fonts/shabnam/Shabnam-Light-FD-WOL.woff2") format("woff2");
+    /*600  */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "shabnam Medium";
+    src: url("./fonts/shabnam/Shabnam-Medium-FD-WOL.woff2") format("woff2");
+    /*600  */
+    font-display: swap;
+}
+
+@font-face {
+    font-family: "shabnam thin";
+    src: url("./fonts/shabnam/Shabnam-Thin-FD-WOL.woff2") format("woff2");
+    /*600  */
+    font-display: swap;
+}
+
+
+@theme {
+    --font-shabnamBold: "shabnam bold";
+    --font-shabnam: "shabnam";
+    --font-shabnamLight: "shabnam Light";
+    --font-shabnamMedium: "shabnam Medium";
+    --font-shabnamThin: "shabnam thin";
+    --color-primary: #CB1B1B;
+    --color-gray-1000: #505050;
+}
+
+  .main-home {
+      background: linear-gradient(270deg,
+              rgba(0, 0, 0, 0.6) 33.85%,
+              rgba(243, 244, 246, 0.1) 100%),
+          url("/img/home.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      width: 100%;
+      height: 100vh;
+  }
