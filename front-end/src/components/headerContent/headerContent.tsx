@@ -1,4 +1,5 @@
 import { RiSearch2Line } from 'react-icons/ri'
+import Typewriter from 'typewriter-effect'
 
 const HeaderContent: React.FC = () => {
   return (
@@ -8,7 +9,23 @@ const HeaderContent: React.FC = () => {
       </h2>
       <div className=" w-53.5  md:w-xl  lg:w-4xl">
         <h3 className=" text-xs xl:text-32 lg:text-3xl md:text-2xl text-center">
-          آسانی و سرعت در پیدا کردن یک سقف تازه را در سقفینو تجربه کنید
+          <Typewriter
+            onInit={(typeWriter) => {
+              typeWriter
+                .typeString(
+                  'آسانی و سرعت در پیدا کردن یک سقف تازه را در سقفینو تجربه کنید'
+                )
+                .start()
+                .pauseFor(2000)
+                .deleteAll()
+                .typeString('سقفینو؛ سقفی برای همه')
+                .start()
+                .pauseFor(2000)
+            }}
+            options={{
+              loop: true,
+            }}
+          />
         </h3>
       </div>
       <div className=" bg-white mt-5  w-75  xl:w-3xl  lg:w-2xl  md:w-xl text-black rounded-2xl flex flex-col  gap-1.5 py-1.5 md:py-3.5  px-5 md:px-7">
