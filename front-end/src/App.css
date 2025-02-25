@@ -98,6 +98,9 @@
     --color-primary: #CB1B1B;
     --color-gray-1000: #505050;
     --color-Gray-1: #FAFAFA;
+    --color-Gray-35: #353535;
+    --text-32: 32px;
+    --text-54: 54px
 }
 
 .main-home {
@@ -119,18 +122,39 @@
 @utility custom-underline {
     position: relative;
     display: inline-block;
-}
 
-@media (hover: hover) {
-    .hover\:custom-underline:hover::after {
+    &::after {
         content: '';
         position: absolute;
         width: 100%;
         height: 1px;
         background-color: var(--color-primary);
-        bottom: -4px;
-        left: 0;
+        bottom: -5px;
+        right: 0;
+    }
+}
+
+@utility custom-underline-hover {
+    position: relative;
+    display: inline-block;
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background-color: var(--color-primary);
+        bottom: -5px;
+        right: 0;
+        opacity: 0;
+        transition: opacity 1s ease;
+    }
+}
+
+@media (hover: hover) {
+    .hover\:custom-underline-hover:hover::after {
         opacity: 1;
+        transition: opacity 1s ease;
     }
 }
 

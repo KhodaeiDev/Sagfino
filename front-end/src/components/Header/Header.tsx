@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Logo from '../logo/logo'
+import HeaderContent from '../headerContent/headerContent'
 import { NavLink } from 'react-router'
 import { CgProfile } from 'react-icons/cg'
 import { IoIosAddCircleOutline } from 'react-icons/io'
@@ -15,7 +16,7 @@ const Header: React.FC = () => {
 
   return (
     <>
-      <div className="main-home hidden lg:flex ">
+      <div className="main-home hidden lg:flex flex-col gap-40 ">
         <div className="container  pt-10">
           <div className="w-auto h-25 md:h-28.75 bg-white px-8 py-6.5 flex items-center justify-between text-base xl:text-xl rounded-2xl">
             <div className="flex items-center gap-2 lg:gap-11">
@@ -27,7 +28,7 @@ const Header: React.FC = () => {
                   <NavLink
                     to={'/rent'}
                     className={({ isActive }) =>
-                      `hover:text-primary  hover:custom-underline  ${
+                      `hover:text-primary  hover:custom-underline-hover  ${
                         isActive ? 'text-primary custom-underline' : ' '
                       }`
                     }
@@ -39,7 +40,7 @@ const Header: React.FC = () => {
                   <NavLink
                     to={'/shopping'}
                     className={({ isActive }) =>
-                      `hover:text-primary  hover:custom-underline ${
+                      `hover:text-primary  hover:custom-underline-hover ${
                         isActive ? 'text-primary custom-underline' : ' '
                       }`
                     }
@@ -51,7 +52,7 @@ const Header: React.FC = () => {
                   <NavLink
                     to={'/estate'}
                     className={({ isActive }) =>
-                      `hover:text-primary  hover:custom-underline ${
+                      `hover:text-primary  hover:custom-underline-hover ${
                         isActive ? 'text-primary custom-underline' : ' '
                       }`
                     }
@@ -63,7 +64,7 @@ const Header: React.FC = () => {
                 <NavLink
                   to={'/consultants'}
                   className={({ isActive }) =>
-                    `hover:text-primary  hover:custom-underline ${
+                    `hover:text-primary  hover:custom-underline-hover ${
                       isActive ? 'text-primary custom-underline' : ' '
                     }`
                   }
@@ -96,13 +97,14 @@ const Header: React.FC = () => {
             </div>
           </div>
         </div>
+        <HeaderContent />
       </div>
 
       <div
         className={`${
           isOpen
             ? 'fixed top-0 left-0 w-full h-full z-50 bg-white transform transition duration-1000 ease-in-out translate-x-0'
-            : 'fixed top-0 left-0 w-full h-full z-50 bg-white transform transition duration-1000 ease-in-out -translate-x-full'
+            : 'fixed top-0 left-0 w-full h-full z-50 bg-white transform transition duration-1000 ease-in-out -translate-x-full overflow-y-auto'
         } lg:hidden shadow-md`}
       >
         <div className=" flex justify-end p-4">
@@ -242,7 +244,9 @@ const Header: React.FC = () => {
           <NavLink to={'/registerAnAd'}> ثبت آگهی</NavLink>
         </div>
       </div>
-      <div className="main-home flex lg:hidden "></div>
+      <div className="main-home  flex flex-col items-center justify-between  lg:hidden  ">
+        <HeaderContent />
+      </div>
     </>
   )
 }
