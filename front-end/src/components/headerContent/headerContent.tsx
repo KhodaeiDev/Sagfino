@@ -7,7 +7,7 @@ const HeaderContent: React.FC = () => {
       <h2 className="   text-base xl:text-54 lg:text-5xl md:text-3xl">
         سقفینو؛ سقفی برای همه
       </h2>
-      <div className=" w-53.5  md:w-xl  lg:w-4xl">
+      <div className=" w-53.5 h-14.5 md:h-auto md:w-xl  lg:w-4xl">
         <h3 className=" text-xs xl:text-32 lg:text-3xl md:text-2xl text-center">
           <Typewriter
             onInit={(typeWriter) => {
@@ -28,7 +28,7 @@ const HeaderContent: React.FC = () => {
           />
         </h3>
       </div>
-      <div className=" bg-white mt-5  w-75  xl:w-3xl  lg:w-2xl  md:w-xl text-black rounded-2xl flex flex-col  gap-1.5 py-1.5 md:py-3.5  px-5 md:px-7">
+      <div className=" bg-white  mt-2  lg:mt-5  w-75  xl:w-3xl  lg:w-2xl  md:w-xl text-black rounded-2xl flex flex-col  gap-1.5 py-1.5 md:py-3.5  px-5 md:px-7">
         <div className=" flex  justify-center items-center gap-20 md:gap-50 lg:gap-70 font-shabnamMedium text-lg  md:text-2xl  md:mb-1 ">
           <span>اجاره</span>
           <span>خرید</span>

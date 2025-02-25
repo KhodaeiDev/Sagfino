@@ -101,7 +101,9 @@
     --color-Gray-35: #353535;
     --text-32: 32px;
     --text-54: 54px;
-    --text-gray-71 :#717171
+    --text-gray-71: #717171;
+    --color-boxHelp: #F9F9F9;
+    --text-boxHelp: #E1E1E1
 }
 
 .main-home {
@@ -116,7 +118,7 @@
 @media (max-width: 768px) {
     .main-home {
         width: 100%;
-        height: 215px;
+        height: 250px;
     }
 }
 
