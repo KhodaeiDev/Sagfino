@@ -52,6 +52,26 @@ export default function Home() {
             btnTitle={''}
             btnHref={''}
           />
+          <div className=" grid grid-cols-2  lg:grid-cols-3   gap-4 lg:gap-32  2xl:px-30">
+            <div className=" py-4 px-7 center flex-col  lg:py-6 lg:px-4 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl">
+              <img src="../../../public/svg/pana.svg" alt="svg" />
+              <h5 className=" text-black text-xs text-center lg:text-lg font-shabnam ">
+                مقایسه و بررسی صدها ملک براحتی و در کمترین زمان{' '}
+              </h5>
+            </div>
+            <div className=" py-4 px-7 center flex-col  lg:py-6 lg:px-4 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl">
+              <img src="../../../public/svg/pana.svg" alt="svg" />
+              <h5 className=" text-black text-xs text-center lg:text-lg font-shabnam ">
+                مقایسه و بررسی صدها ملک براحتی و در کمترین زمان{' '}
+              </h5>
+            </div>
+            <div className=" py-4 px-7 center flex-col  lg:py-6 lg:px-4 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl">
+              <img src="../../../public/svg/pana.svg" alt="svg" />
+              <h5 className=" text-black text-xs text-center lg:text-lg font-shabnam ">
+                مقایسه و بررسی صدها ملک براحتی و در کمترین زمان{' '}
+              </h5>
+            </div>
+          </div>
         </div>
       </div>
     </>

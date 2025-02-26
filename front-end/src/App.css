@@ -90,6 +90,7 @@
 
 
 @theme {
+    --breakpoint-2xl: 1500px;
     --font-shabnamBold: "shabnam bold";
     --font-shabnam: "shabnam";
     --font-shabnamLight: "shabnam Light";
