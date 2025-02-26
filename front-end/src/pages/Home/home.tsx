@@ -2,6 +2,11 @@ import Header from '../../components/Header/Header'
 import SectionHeader from '../../components/sectionHeader/sectionHeader'
 import BoxHelp from '../../components/boxHelp/boxHelp'
 import PublicBox from '../../components/publicBox/publicBox'
+import NewsBox from '../../components/newsBox/newsBox'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import { Navigation } from 'swiper/modules'
+import 'swiper/css'
+import 'swiper/css/navigation'
 
 export default function Home() {
   return (
@@ -71,6 +76,63 @@ export default function Home() {
                 مقایسه و بررسی صدها ملک براحتی و در کمترین زمان{' '}
               </h5>
             </div>
+          </div>
+        </div>
+      </div>
+      {/* News Saghfinoo */}
+      <div className="News Saghfinoo    mt-12 lg:mt-22 mb-32">
+        <div className="container">
+          <SectionHeader
+            title={'آخرین اخبار املاک را از سقفینو دنبال کنید'}
+            dec={''}
+            center={false}
+            btnTitle={''}
+            btnHref={''}
+          />
+          <div className=" ">
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={20}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Navigation]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 3,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                0: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+              }}
+              className="mySwiper mySwiper-home-news"
+            >
+              <SwiperSlide>
+                <NewsBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <NewsBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <NewsBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <NewsBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <NewsBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <NewsBox />
+              </SwiperSlide>
+            </Swiper>
           </div>
         </div>
       </div>
