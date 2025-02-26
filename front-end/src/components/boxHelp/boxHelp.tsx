@@ -3,7 +3,11 @@ const BoxHelp: React.FC = () => {
     <>
       <div className="   bg-boxHelp  border border-boxHelp  rounded-2xl  p-6 lg:p-8">
         <div className=" flex flex-col gap-2.5">
-          <img src="../../../public/svg/illustration 2.svg" alt="svg" />
+          <img
+            className=" mix-blend-darken"
+            src="../../../public/svg/illustration 2.svg"
+            alt="svg"
+          />
           <h1 className=" font-shabnamBold text-center  text-sm md:text-lg  lg:text-xl  text-Gray-35 ">
             مالک هستید؟
           </h1>

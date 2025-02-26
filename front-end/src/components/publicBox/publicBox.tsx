@@ -1,4 +1,4 @@
-const PublicBox = () => {
+const PublicBox: React.FC = () => {
   return (
     <>
       <div className=" bg-boxHelp  border  border-gray-D9  rounded-lg">

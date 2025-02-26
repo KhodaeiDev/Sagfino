@@ -3,6 +3,7 @@ import SectionHeader from '../../components/sectionHeader/sectionHeader'
 import BoxHelp from '../../components/boxHelp/boxHelp'
 import PublicBox from '../../components/publicBox/publicBox'
 import NewsBox from '../../components/newsBox/newsBox'
+import Footer from '../../components/footer/footer'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
@@ -136,6 +137,7 @@ export default function Home() {
           </div>
         </div>
       </div>
+      <Footer></Footer>
     </>
   )
 }
