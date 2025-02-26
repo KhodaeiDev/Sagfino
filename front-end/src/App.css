@@ -99,11 +99,13 @@
     --color-gray-1000: #505050;
     --color-Gray-1: #FAFAFA;
     --color-Gray-35: #353535;
+    --color-boxHelp: #F9F9F9;
     --text-32: 32px;
     --text-54: 54px;
     --text-gray-71: #717171;
-    --color-boxHelp: #F9F9F9;
-    --text-boxHelp: #E1E1E1
+    --text-gray-21: #212121;
+    --text-boxHelp: #E1E1E1;
+    --color-gray-D9: #D9D9D9
 }
 
 .main-home {
