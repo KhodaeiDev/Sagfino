@@ -11,6 +11,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import React from 'react'
 import { NavLink } from 'react-router'
+import ConsultantBox from '../../components/consultantBox/consultantBox'
 
 const Home: React.FC = () => {
   return (
@@ -209,9 +210,46 @@ const Home: React.FC = () => {
             }}
             navigation={true}
             modules={[Navigation]}
+            breakpoints={{
+              1200: {
+                slidesPerView: 4,
+                spaceBetween: 20,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+              0: {
+                slidesPerView: 2,
+                spaceBetween: 20,
+              },
+            }}
+            className="mySwiper mySwiper-Consultan"
           >
-
-            
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
+            <SwiperSlide>
+              <ConsultantBox />
+            </SwiperSlide>
           </Swiper>
         </div>
       </div>
