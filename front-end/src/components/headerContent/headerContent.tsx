@@ -1,7 +1,12 @@
 import { RiSearch2Line } from 'react-icons/ri'
 import Typewriter from 'typewriter-effect'
+import { useState } from 'react'
+
+type ButtonType = 'rent' | 'buy'
 
 const HeaderContent: React.FC = () => {
+  const [activeButton, setActiveButton] = useState<ButtonType>('rent')
+
   return (
     <div className=" mt-10 md:mt-25 lg:mt-0 center flex-col  text-white font-shabnamBold  gap-0.5  xl:gap-5">
       <h2 className="   text-base xl:text-54 lg:text-5xl md:text-3xl">
@@ -28,13 +33,43 @@ const HeaderContent: React.FC = () => {
           />
         </h3>
       </div>
+      {/* search box */}
       <div className=" bg-white  mt-2  lg:mt-5  w-75  xl:w-3xl  lg:w-2xl  md:w-xl text-black rounded-2xl flex flex-col  gap-1.5 py-1.5 md:py-3.5  px-5 md:px-7">
+        {/* button */}
         <div className=" flex  justify-center items-center gap-20 md:gap-50 lg:gap-70 font-shabnamMedium text-lg  md:text-2xl  md:mb-1 ">
-          <span>اجاره</span>
-          <span>خرید</span>
+          <span
+            className={`cursor-pointer`}
+            onClick={() =>
+              setActiveButton(activeButton === 'rent' ? null : 'rent')
+            }
+          >
+            اجاره
+          </span>
+          <span
+            className={`cursor-pointer`}
+            onClick={() =>
+              setActiveButton(activeButton === 'buy' ? null : 'buy')
+            }
+          >
+            خرید
+          </span>
         </div>
-        <div className="border-b  border-Gray-35"></div>
-
+        {/* Border */}
+        <div className="border-b border-Gray-35 w-full mt-2">
+          <div className="flex">
+            <div
+              className={`h-0.5 w-1/2 ${
+                activeButton === 'rent' ? 'bg-red-500' : 'bg-Gray-35'
+              }`}
+            ></div>
+            <div
+              className={`h-0.5 w-1/2 ${
+                activeButton === 'buy' ? 'bg-red-500' : 'bg-Gray-35'
+              }`}
+            ></div>
+          </div>
+        </div>
+        {/* Input */}
         <div className=" w-full mb-0 md:m-1  ">
           <div className=" flex items-center gap-1.5 ">
             <RiSearch2Line className=" text-2xl md:text-3xl  text-Gray-35 " />

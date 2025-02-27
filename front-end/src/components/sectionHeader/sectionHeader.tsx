@@ -24,7 +24,11 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
               center ? ' items-center ' : ' items-start'
             } font-shabnamBold   text-sm  md:text-32 text-Gray-35 `}
           >
-            <div className=" flex items-center justify-between">
+            <div
+              className={` w-full flex items-center  ${
+                center ? ' justify-center' : ' justify-between '
+              } `}
+            >
               <h3 className=" text-gray-21">{title}</h3>
               {btnTitle ? (
                 <NavLink

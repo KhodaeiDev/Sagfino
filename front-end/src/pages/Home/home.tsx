@@ -2,6 +2,7 @@ import Header from '../../components/Header/Header'
 import SectionHeader from '../../components/sectionHeader/sectionHeader'
 import BoxHelp from '../../components/boxHelp/boxHelp'
 import PublicBox from '../../components/publicBox/publicBox'
+import ProductBox from '../../components/productBox/productBox'
 import NewsBox from '../../components/newsBox/newsBox'
 import { Footer, FooterMobail } from '../../components/footer/footer'
 import { Swiper, SwiperSlide } from 'swiper/react'
@@ -9,15 +10,17 @@ import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import React from 'react'
+import { NavLink } from 'react-router'
 
 const Home: React.FC = () => {
   return (
     <>
       {/* Header */}
       <Header />
-      {/*HousingHelp  */}
-      <div className="HousingHelp  mt-14 lg:mt-26">
-        <div className="container">
+      {/*HousingHelp => SearchUser  LatestHomeListings */}
+      <div className=" mt-14 lg:mt-26">
+        {/* HousingHelp */}
+        {/* <div className="container">
           <SectionHeader
             title={'سقفینو چطور به خانه‌دار شدن شما کمک می‌کند '}
             dec={''}
@@ -30,11 +33,32 @@ const Home: React.FC = () => {
             <BoxHelp />
             <BoxHelp />
           </div>
+        </div> */}
+        {/* LatestHomeListings */}
+        <div className="container">
+          <SectionHeader
+            title={'جدیدترین خانه‌های اجاره‌ای تهران '}
+            dec={''}
+            center={false}
+            btnTitle={'مشاهده همه'}
+            btnHref={''}
+          />
+          <div className=" grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
+            <ProductBox></ProductBox>
+            <ProductBox></ProductBox>
+            <ProductBox></ProductBox>
+            <ProductBox></ProductBox>
+            <ProductBox></ProductBox>
+            <ProductBox></ProductBox>
+            <ProductBox></ProductBox>
+            <ProductBox></ProductBox>
+          </div>
         </div>
       </div>
       {/* PropertyTypesSection */}
       <div className="PropertyTypesSection mt-12 lg:mt-22">
-        <div className="container">
+        {/* /* PropertyTypesSection  */}
+        {/* <div className="container">
           <SectionHeader
             title={'در سقفینو دنبال چه نوع ملکی هستید'}
             dec={''}
@@ -47,6 +71,45 @@ const Home: React.FC = () => {
             <PublicBox />
             <PublicBox />
             <PublicBox />
+          </div>
+        </div> */}
+        {/* services */}
+        <div className="container">
+          <SectionHeader
+            title={'سقفینو فرصتی برای همه'}
+            dec={'اگر مالک یا در جست‌‌وجوی سقفی نو هستید، کلیک کنید'}
+            center={true}
+            btnTitle={''}
+            btnHref={''}
+          />
+          <div className=" grid  grid-cols-2 lg:grid-cols-3 xl:gap-4  lg:gap-6  ">
+            <NavLink
+              to={''}
+              className=" py-6  center flex-col  lg:py-6 lg:px-16 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl"
+            >
+              <img src="../../../public/img/Photo.png" alt="svg" />
+              <h5 className=" mt-5 text-black text-xs  lg:text-2xl font-shabnam ">
+                با ثبت آسان آگهی، ملک خود را برای اجاره یا فروش اعلان کنید
+              </h5>
+            </NavLink>
+            <NavLink
+              to={''}
+              className=" py-6  center flex-col  lg:py-6 lg:px-16 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl"
+            >
+              <img src="../../../public/img/Photo.png" alt="svg" />
+              <h5 className=" mt-5 text-black text-xs  lg:text-2xl font-shabnam ">
+                با ثبت آسان آگهی، ملک خود را برای اجاره یا فروش اعلان کنید
+              </h5>
+            </NavLink>
+            <NavLink
+              to={''}
+              className=" py-6  center flex-col  lg:py-6 lg:px-16 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl"
+            >
+              <img src="../../../public/img/Photo.png" alt="svg" />
+              <h5 className=" mt-5 text-black text-xs  lg:text-2xl font-shabnam ">
+                با ثبت آسان آگهی، ملک خود را برای اجاره یا فروش اعلان کنید
+              </h5>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -82,18 +145,18 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      {/* News Saghfinoo */}
+      {/* News Saghfinoo||estate Consultant */}
       <div className="News Saghfinoo  mt-12 lg:mt-22 mb-32">
         <div className="container">
-          <SectionHeader
+          {/*  News Saghfinoo */}
+          {/* <SectionHeader
             title={'آخرین اخبار املاک را از سقفینو دنبال کنید'}
             dec={''}
             center={false}
             btnTitle={''}
             btnHref={''}
-          />
-          <div className=" ">
-            <Swiper
+          /> */}
+          {/* <Swiper
               slidesPerView={3}
               spaceBetween={20}
               pagination={{
@@ -135,8 +198,21 @@ const Home: React.FC = () => {
               <SwiperSlide>
                 <NewsBox />
               </SwiperSlide>
-            </Swiper>
-          </div>
+            </Swiper> */}
+
+          {/* Consultant */}
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={20}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Navigation]}
+          >
+
+            
+          </Swiper>
         </div>
       </div>
       {/* Footer */}
