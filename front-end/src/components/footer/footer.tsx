@@ -5,10 +5,10 @@ import { TbBrandInstagramFilled } from 'react-icons/tb'
 import { FaTelegram } from 'react-icons/fa'
 import Logo from '../logo/logo'
 
-const Footer = () => {
+const Footer: React.FC = () => {
   return (
     <>
-      <div className=" bg-boxHelp  ">
+      <div className=" bg-boxHelp  hidden lg:flex flex-col ">
         <div className="container ">
           <div className="px-8  pt-12">
             <SectionHeader
@@ -48,24 +48,24 @@ const Footer = () => {
               </div>
 
               <div className=" flex flex-col gap-2.5 font-shabnam">
-                <h5 className=" text-sm">بازارهای املاک و مستغلات</h5>
+                <h5 className=" text-sm"> بیشترین جستوجو </h5>
                 <NavLink
                   className={'text-xs  text-gray-71 font-shabnam mt-0.5'}
                   to={''}
                 >
-                  بازار املاک و مستغلات تهران
+                  اپارتمان نزدیک متر
                 </NavLink>
                 <NavLink
                   className={'text-xs  text-gray-71 font-shabnam'}
                   to={''}
                 >
-                  بازار املاک و مستغلات تهران
+                  خانه نزدیک به خیابان اصلی
                 </NavLink>
                 <NavLink
                   className={'text-xs  text-gray-71 font-shabnam'}
                   to={''}
                 >
-                  بازار املاک و مستغلات تهران
+                  اپارتمان تک واحد
                 </NavLink>
                 <NavLink
                   className={'text-xs  text-gray-71 font-shabnam'}
@@ -76,34 +76,28 @@ const Footer = () => {
               </div>
 
               <div className=" flex flex-col gap-2.5 font-shabnam">
-                <h5 className=" text-sm">بازارهای املاک و </h5>
+                <h5 className=" text-sm"> پر امتیاز ترین مشاورین املاک </h5>
                 <NavLink
                   className={'  text-xs  text-gray-71 font-shabnam mt-0.5'}
                   to={''}
                 >
-                  بازار املاک و مستغلات تهران
+                  علی کریمی
                 </NavLink>
                 <NavLink
                   className={' text-xs text-gray-71  font-shabnam'}
                   to={''}
                 >
-                  بازار املاک و مستغلات تهران
+                  مهران خدایی
                 </NavLink>
                 <NavLink
                   className={'   !text-xs text-gray-71  font-shabnam'}
                   to={''}
                 >
-                  بازار املاک و مستغلات تهران
-                </NavLink>
-                <NavLink
-                  className={'  !text-xs text-gray-71  font-shabnam'}
-                  to={''}
-                >
-                  بازار املاک و مستغلات تهران
+                  آروین قادری
                 </NavLink>
               </div>
 
-              <div className=" flex flex-col gap-1.5 font-shabnam">
+              <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> با ما در ارتباط باشید </h5>
                 <div className=" flex items-center gap-1 text-xs mt-0.5">
                   <FaPhoneVolume className=" text-primary" />
@@ -139,56 +133,59 @@ const Footer = () => {
                 </span>
               </div>
               {/* menu */}
-              <div className=" flex flex-col gap-1.5 font-shabnam">
+              <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> خدمات </h5>
                 <NavLink className={'text-xs text-gray-71  mt-0.5'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  اجاره
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  خرید
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  املاک و مستغلات
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  اخبار روز ملک
+                </NavLink>
+                <NavLink className={'text-xs text-gray-71'} to={''}>
+                  سوال ملکی دارید
                 </NavLink>
               </div>
-              <div className=" flex flex-col gap-1.5 font-shabnam">
-                <h5 className=" text-sm"> خدمات </h5>
+              <div className=" flex flex-col gap-2.5 font-shabnam">
+                <h5 className=" text-sm"> اطلاعات </h5>
                 <NavLink className={'text-xs text-gray-71 mt-0.5'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  تماس با ما
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  داستان سقفینو
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  پرسش های پرتکرار
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  حریم شخصی شما
                 </NavLink>
               </div>
-              <div className=" flex flex-col gap-1.5 font-shabnam">
-                <h5 className=" text-sm"> خدمات </h5>
+              <div className=" flex flex-col gap-2.5 font-shabnam">
+                <h5 className=" text-sm"> حساب کاربری </h5>
                 <NavLink className={'text-xs text-gray-71 mt-0.5'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  پروفایل من
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  ملک نشان شده
                 </NavLink>
                 <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
-                </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
-                  بازار املاک و مستغلات تهران
+                  آگهی من
                 </NavLink>
               </div>
             </div>
           </div>
         </div>
         <div className=" w-full h-12  bg-gray-ED relative center mt-30">
-          <span  className=' text-xs font-shabnam  text-gray-500'> حقوق این سایت متعلق به سقفینو است</span>
+          <span className=" text-xs font-shabnam  text-gray-500">
+            {' '}
+            حقوق این سایت متعلق به سقفینو است
+          </span>
           <img
             className="w-auto h-auto absolute   -top-30"
             src="../../../public/img/illustarion 2 1.png "
@@ -200,4 +197,116 @@ const Footer = () => {
   )
 }
 
-export default Footer
+const FooterMobail: React.FC = () => {
+  return (
+    <>
+      <div className=" !bg-boxHelp  lg:hidden">
+        <div className="container ">
+          <div className=" flex flex-col pt-15   items-start gap-y-1">
+            <Logo />
+            <h5 className=" mt-2.5  font-shabnamMedium   text-base text-gray-21">
+              سقفینو؛ سقفی برای یک زندگی ایده‌آل
+            </h5>
+            <span className=" font-shabnam  text-xs text-Gray-35">
+              تجربه لذت خانه‌دار شدن آنی و آسان
+            </span>
+          </div>
+          <div className=" flex items-center  mt-6 gap-x-10 md:gap-x-50 ">
+            <div className=" flex flex-col gap-2">
+              <span className="  font-shabnamMedium text-xs  text-gray-21 ">
+                بازارهای املاک و مستغلات
+              </span>
+              <NavLink className={' text-10 font-shabnam text-Gray-35'} to={''}>
+                تهران
+              </NavLink>
+              <NavLink className={' text-10 font-shabnam text-Gray-35'} to={''}>
+                اصفهان
+              </NavLink>
+              <NavLink className={' text-10 font-shabnam text-Gray-35'} to={''}>
+                مشهد
+              </NavLink>
+            </div>
+            <div className=" flex flex-col gap-2">
+              <span className="  font-shabnamMedium text-xs  text-gray-21 ">
+                بیشترین جست‌وجوها{' '}
+              </span>
+              <NavLink className={' text-10 font-shabnam text-Gray-35'} to={''}>
+                اپارتمان نزدیک مترو
+              </NavLink>
+              <NavLink className={' text-10 font-shabnam text-Gray-35'} to={''}>
+                آپارتمان تک واحد
+              </NavLink>
+              <NavLink className={' text-10 font-shabnam text-Gray-35'} to={''}>
+                خانه نزدیک به خیابان اصلی
+              </NavLink>
+            </div>
+          </div>
+          <div className=" mt-4">
+            <span className=" text-10 text-gray-71 font-shabnam mt-8">
+              سقفینو پلی است تا به سرعت در بین هزاران آگهی ثبت‌شده جست‌وجو کنید.
+              ملک مورد نظر را پیدا کنید و برای انجام معامله‌ای مطمئن، با مشاورین
+              املاک معتمد و متخصص شهرتان در ارتباط باشید.
+            </span>
+          </div>
+          <div className=" flex items-center  gap-6  md:gap-12  mt-4">
+            <div className=" flex flex-col gap-2.5 font-shabnam">
+              <h5 className=" text-xs"> خدمات </h5>
+              <NavLink className={' text-10 text-gray-71'} to={''}>
+                اجاره
+              </NavLink>
+              <NavLink className={' text-10 text-gray-71'} to={''}>
+                خرید
+              </NavLink>
+              <NavLink className={' text-10 text-gray-71'} to={''}>
+                املاک و مستغلات
+              </NavLink>
+            </div>
+            <div className=" flex flex-col gap-2.5 font-shabnam">
+              <h5 className=" text-xs"> با ما در ارتباط باشید </h5>
+              <div className=" flex items-center gap-1 text-xs ">
+                <FaPhoneVolume className=" text-primary" />
+                <span className=" font-shabnam   text-10 text-gray-71 ">
+                  تلفن
+                </span>
+              </div>
+              <div className=" flex items-center gap-1 text-xs">
+                <TbBrandInstagramFilled className=" text-primary" />
+                <span className=" font-shabnam   text-10 text-gray-71 ">
+                  اینستاگرام
+                </span>
+              </div>
+              <div className=" flex items-center gap-1 text-xs">
+                <FaTelegram className=" text-primary" />
+                <span className=" font-shabnam   text-10 text-gray-71 ">
+                  تلگرام
+                </span>
+              </div>
+            </div>
+            <div className=" flex flex-col gap-2.5 font-shabnam">
+              <h5 className=" text-xs"> اطلاعات </h5>
+              <NavLink className={' text-10 text-gray-71 '} to={''}>
+                تماس با ما
+              </NavLink>
+              <NavLink className={'text-10 text-gray-71'} to={''}>
+                داستان سقفینو
+              </NavLink>
+              <NavLink className={'text-10 text-gray-71'} to={''}>
+                پرسش های پرتکرار
+              </NavLink>
+            </div>
+          </div>
+          <div className=" w-full h-12  center mt-10">
+            <span className=" text-xs font-shabnam  text-gray-500"></span>
+            <img
+              className="w-auto h-auto "
+              src="../../../public/img/illustarion 2 1.png "
+              alt="img"
+            />
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
+
+export { Footer, FooterMobail }

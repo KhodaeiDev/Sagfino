@@ -3,15 +3,17 @@ import SectionHeader from '../../components/sectionHeader/sectionHeader'
 import BoxHelp from '../../components/boxHelp/boxHelp'
 import PublicBox from '../../components/publicBox/publicBox'
 import NewsBox from '../../components/newsBox/newsBox'
-import Footer from '../../components/footer/footer'
+import { Footer, FooterMobail } from '../../components/footer/footer'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
+import React from 'react'
 
-export default function Home() {
+const Home: React.FC = () => {
   return (
     <>
+      {/* Header */}
       <Header />
       {/*HousingHelp  */}
       <div className="HousingHelp  mt-14 lg:mt-26">
@@ -49,7 +51,7 @@ export default function Home() {
         </div>
       </div>
       {/*Customer-service */}
-      <div className="Customer-service  mt-8 lg:mt-22">
+      <div className="Customer-service mt-8 lg:mt-22">
         <div className="container">
           <SectionHeader
             title={'همه به شما مشاوره می‌دهند!'}
@@ -81,7 +83,7 @@ export default function Home() {
         </div>
       </div>
       {/* News Saghfinoo */}
-      <div className="News Saghfinoo    mt-12 lg:mt-22 mb-32">
+      <div className="News Saghfinoo  mt-12 lg:mt-22 mb-32">
         <div className="container">
           <SectionHeader
             title={'آخرین اخبار املاک را از سقفینو دنبال کنید'}
@@ -137,7 +139,11 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <Footer></Footer>
+      {/* Footer */}
+      <Footer />
+      <FooterMobail />
     </>
   )
 }
+
+export default Home
