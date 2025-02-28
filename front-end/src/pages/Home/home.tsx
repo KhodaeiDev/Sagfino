@@ -1,9 +1,9 @@
 import Header from '../../components/Header/Header'
 import SectionHeader from '../../components/sectionHeader/sectionHeader'
-import BoxHelp from '../../components/boxHelp/boxHelp'
-import PublicBox from '../../components/publicBox/publicBox'
+// import BoxHelp from '../../components/boxHelp/boxHelp'
+// import PublicBox from '../../components/publicBox/publicBox'
 import ProductBox from '../../components/productBox/productBox'
-import NewsBox from '../../components/newsBox/newsBox'
+// import NewsBox from '../../components/newsBox/newsBox'
 import { Footer, FooterMobail } from '../../components/footer/footer'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
@@ -12,6 +12,7 @@ import 'swiper/css/navigation'
 import React from 'react'
 import { NavLink } from 'react-router'
 import ConsultantBox from '../../components/consultantBox/consultantBox'
+import BoxEstate from '../../components/boxEstate/boxEstate'
 
 const Home: React.FC = () => {
   return (
@@ -114,9 +115,9 @@ const Home: React.FC = () => {
           </div>
         </div>
       </div>
-      {/*Customer-service */}
+      {/*Customer-service || Top real estate */}
       <div className="Customer-service mt-8 lg:mt-22">
-        <div className="container">
+        {/* <div className="container">
           <SectionHeader
             title={'همه به شما مشاوره می‌دهند!'}
             dec={'اما در سقفینو مشاوران املاک کِنار شما می‌مانند'}
@@ -144,20 +145,77 @@ const Home: React.FC = () => {
               </h5>
             </div>
           </div>
-        </div>
-      </div>
-      {/* News Saghfinoo||estate Consultant */}
-      <div className="News Saghfinoo  mt-12 lg:mt-22 mb-32">
+        </div> */}
         <div className="container">
-          {/*  News Saghfinoo */}
-          {/* <SectionHeader
+          <SectionHeader
+            title={'املاک برتر تهران '}
+            dec={''}
+            center={false}
+            btnTitle={''}
+            btnHref={''}
+          />
+          <Swiper
+            slidesPerView={3}
+            spaceBetween={24}
+            pagination={{
+              clickable: true,
+            }}
+            navigation={true}
+            modules={[Navigation]}
+            breakpoints={{
+              1200: {
+                slidesPerView: 4,
+                spaceBetween: 24,
+              },
+              768: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+              },
+              0: {
+                slidesPerView: 2,
+                spaceBetween: 16,
+              },
+            }}
+            className="mySwiper mySwiper-top-state"
+          >
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+            <SwiperSlide>
+              <BoxEstate />
+            </SwiperSlide>
+          </Swiper>
+        </div>
+        {/* News Saghfinoo||estate Consultant */}
+        <div className="News Saghfinoo  mt-12 lg:mt-22 mb-32">
+          <div className="container">
+            {/*  News Saghfinoo */}
+            {/* <SectionHeader
             title={'آخرین اخبار املاک را از سقفینو دنبال کنید'}
             dec={''}
             center={false}
             btnTitle={''}
             btnHref={''}
           /> */}
-          {/* <Swiper
+            {/* <Swiper
               slidesPerView={3}
               spaceBetween={20}
               pagination={{
@@ -201,56 +259,64 @@ const Home: React.FC = () => {
               </SwiperSlide>
             </Swiper> */}
 
-          {/* Consultant */}
-          <Swiper
-            slidesPerView={3}
-            spaceBetween={20}
-            pagination={{
-              clickable: true,
-            }}
-            navigation={true}
-            modules={[Navigation]}
-            breakpoints={{
-              1200: {
-                slidesPerView: 4,
-                spaceBetween: 20,
-              },
-              768: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-              0: {
-                slidesPerView: 2,
-                spaceBetween: 20,
-              },
-            }}
-            className="mySwiper mySwiper-Consultan"
-          >
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-            <SwiperSlide>
-              <ConsultantBox />
-            </SwiperSlide>
-          </Swiper>
+            {/* Consultant */}
+            <SectionHeader
+              title={'مشاورین برتر تهران '}
+              dec={''}
+              center={false}
+              btnTitle={''}
+              btnHref={''}
+            />
+            <Swiper
+              slidesPerView={3}
+              spaceBetween={20}
+              pagination={{
+                clickable: true,
+              }}
+              navigation={true}
+              modules={[Navigation]}
+              breakpoints={{
+                1200: {
+                  slidesPerView: 4,
+                  spaceBetween: 20,
+                },
+                768: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+                0: {
+                  slidesPerView: 2,
+                  spaceBetween: 20,
+                },
+              }}
+              className="mySwiper mySwiper-Consultan"
+            >
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+              <SwiperSlide>
+                <ConsultantBox />
+              </SwiperSlide>
+            </Swiper>
+          </div>
         </div>
       </div>
       {/* Footer */}
