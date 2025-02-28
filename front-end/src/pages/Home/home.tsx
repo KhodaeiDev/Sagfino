@@ -94,7 +94,7 @@ const Home: React.FC = () => {
             btnTitle={''}
             btnHref={''}
           />
-          <div className=" grid  grid-cols-2 lg:grid-cols-3 xl:gap-4  lg:gap-6  ">
+          <div className=" grid  grid-cols-2 lg:grid-cols-3 xl:gap-4  gap-4 lg:gap-6  ">
             <NavLink
               to={''}
               className=" py-6  center flex-col  lg:py-6 lg:px-16 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl"
