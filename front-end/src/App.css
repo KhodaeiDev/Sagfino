@@ -94,6 +94,26 @@ body {
     font-family: "shabnam";
 }
 
+.modals-parent {
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    display: flex;
+    align-items: center;
+    background-color: rgb(0, 0, 0, 0.5);
+    justify-content: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: 4s all ease-in-out;
+    z-index: 10000;
+}
+
+.modals-parent.active {
+    visibility: visible;
+    opacity: 1;
+}
+
 @theme {
     --breakpoint-2xl: 1500px;
     --font-shabnamBold: "shabnam bold";
@@ -116,7 +136,7 @@ body {
     --color-gray-D9: #D9D9D9;
     --color-gray-ED: #EDEDED;
     --color-gray-90: #909090;
-    --color-blue-tick:#4570B5
+    --color-blue-tick: #4570B5
 }
 
 .main-home {
@@ -175,10 +195,8 @@ body {
     }
 }
 
-/* برای مرورگرهای وب کیت مانند کروم و سافاری */
 ::-webkit-scrollbar {
     width: 16px;
-    /* عرض اسکرول بار */
 }
 
 ::-webkit-scrollbar-track {

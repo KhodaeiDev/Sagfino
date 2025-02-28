@@ -1,9 +1,16 @@
 import { IoIosCheckmark } from 'react-icons/io'
 
-const BoxEstate = () => {
+interface RealEstateModalProps {
+  openModal: () => void
+}
+
+const BoxEstate: React.FC<RealEstateModalProps> = ({ openModal }) => {
   return (
     <>
-      <div className=" border border-boxHelp rounded-2xl flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)]    items-center px-5 xl:px-12 py-4  xl:py-8 ">
+      <div
+        onClick={openModal}
+        className=" cursor-pointer border border-boxHelp rounded-2xl flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)]    items-center px-5 xl:px-12 py-4  xl:py-8 "
+      >
         <div className="w-23.25 h-16.5    mb-2">
           <img
             className="w-full h-full "

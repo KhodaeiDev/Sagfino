@@ -9,12 +9,22 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import React from 'react'
+import React, { useState } from 'react'
 import { NavLink } from 'react-router'
 import ConsultantBox from '../../components/consultantBox/consultantBox'
 import BoxEstate from '../../components/boxEstate/boxEstate'
+import RealEstateModal from '../../components/RealEstateInfoModal/RealEstateModal'
 
 const Home: React.FC = () => {
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+
+  const openModal = () => {
+    setIsModalVisible(true)
+  }
+  const closeModal = () => {
+    setIsModalVisible(false)
+  }
+
   return (
     <>
       {/* Header */}
@@ -179,28 +189,28 @@ const Home: React.FC = () => {
             className="mySwiper mySwiper-top-state"
           >
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate />
+              <BoxEstate openModal={openModal} />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -322,6 +332,12 @@ const Home: React.FC = () => {
       {/* Footer */}
       <Footer />
       <FooterMobail />
+      {isModalVisible && (
+        <RealEstateModal
+          isModalVisible={isModalVisible}
+          closeModal={closeModal}
+        />
+      )}
     </>
   )
 }
