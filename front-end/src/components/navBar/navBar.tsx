@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
   return (
     <>
       <div className="container  pt-10">
-        <div className="w-auto h-25 md:h-28.75 bg-white px-8 py-6.5 flex items-center justify-between text-base xl:text-xl rounded-2xl">
+        <div className="w-auto h-25 md:h-28.75  bg-gray-f9 px-8 py-6.5 flex items-center justify-between text-base xl:text-xl rounded-2xl">
           <div className="flex items-center gap-2 lg:gap-11">
             <NavLink to={'/'}>
               <Logo />
@@ -27,7 +27,7 @@ const NavBar: React.FC = () => {
             <ul className=" flex items-center justify-between gap-3 xl:gap-6 text-gray-1000">
               <li>
                 <NavLink
-                  to={'/rent'}
+                  to={'/Rent/Rent'}
                   className={({ isActive }) =>
                     `hover:text-primary  hover:custom-underline-hover  ${
                       isActive ? 'text-primary custom-underline' : ' '

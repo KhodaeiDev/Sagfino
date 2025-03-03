@@ -1,6 +1,9 @@
+import { NavBar } from '../../components/navBar/navBar'
 
 export default function Rent() {
   return (
-    <div>Renr</div>
+    <>
+      <NavBar />
+    </>
   )
 }

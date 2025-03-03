@@ -5,7 +5,7 @@ const Logo: React.FC = () => {
     <div className="flex flex-col items-center relative">
       <div>
         <img
-          src="img/logo.png"
+          src="/img/logo.png"
           alt="logo"
           className={`w-20 h-15 xl:w-32 xl:h-16  `}
         />
