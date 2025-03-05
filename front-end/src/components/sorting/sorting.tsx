@@ -2,9 +2,7 @@ import React from 'react'
 import SelectBox from '../selectBox/selectBox'
 import { RiSearch2Line } from 'react-icons/ri'
 import { TbFilterSearch } from 'react-icons/tb'
-
 import { useState } from 'react'
-
 const Sorting: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
 
@@ -86,7 +84,7 @@ const Sorting: React.FC = () => {
         </div>
       </div>
       <div className="container">
-        <div className="md:hidden flex items-center justify-between mt-9 ">
+        <div className="md:hidden flex items-center justify-between mt-9  mb-5 ">
           <div>
             <span className="font-shabnam text-sm text-primary">
               ۴۷.۵۰۷ مورد

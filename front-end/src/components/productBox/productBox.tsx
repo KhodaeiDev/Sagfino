@@ -32,7 +32,7 @@ export default function ProductBox() {
   ]
 
   return (
-    <div className=" h-49   md:h-80 border border-boxHelp rounded-xl">
+    <div className="   xs:h-56 sm:h-69  md:h-80 border border-boxHelp rounded-xl">
       {isLoading ? (
         <div className="flex justify-center items-center w-full">
           <CustomSkeletonLoader

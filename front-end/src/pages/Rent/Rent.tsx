@@ -7,6 +7,8 @@ import { useState } from 'react'
 import BoxEstate from '../../components/boxEstate/boxEstate'
 import SectionHeader from '../../components/sectionHeader/sectionHeader'
 import RealEstateModal from '../../components/RealEstateInfoModal/RealEstateModal'
+import Pagination from '../../components/pagination/pagination'
+import { Footer, FooterMobail } from '../../components/footer/footer'
 
 const Rent: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
@@ -72,7 +74,7 @@ const Rent: React.FC = () => {
             btnHref={''}
           />
           <div className="container">
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4 mt-4">
+            <div className="grid grid-cols-2  lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4 mt-4">
               <BoxEstate openModal={openModal} />
               <BoxEstate openModal={openModal} />
               <BoxEstate openModal={openModal} />
@@ -94,12 +96,19 @@ const Rent: React.FC = () => {
           </div>
         </div>
       </div>
+      <div className="container mt-5 mb-25.5">
+        <div className=" flex items-center justify-center gap-3 ">
+          <Pagination />
+        </div>
+      </div>
       {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}
           closeModal={closeModal}
         />
       )}
+      <Footer />
+      <FooterMobail />
     </>
   )
 }
