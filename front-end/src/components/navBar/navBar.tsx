@@ -18,7 +18,7 @@ interface MenueMobailProps {
 const NavBar: React.FC = () => {
   return (
     <>
-      <div className="container  pt-10">
+      <div className="  container  pt-10">
         <div className="w-auto h-25 md:h-28.75  bg-gray-f9 px-8 py-6.5 flex items-center justify-between text-base xl:text-xl rounded-2xl">
           <div className="flex items-center gap-2 lg:gap-11">
             <NavLink to={'/'}>
@@ -240,20 +240,22 @@ const NavBarMobail: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   return (
     <>
-      <div className=" flex lg:hidden w-auto h-25 md:h-28.75 bg-white px-8 py-6.5  items-center justify-between text-base xl:text-xl ">
-        <button
-          className={` hamburger ${isOpen ? 'open' : ''} lg:!hidden `}
-          onClick={() => setIsOpen(!isOpen)}
-        >
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-          <span className="hamburger-line"></span>
-        </button>
-        <NavLink to={'/'}>
-          <Logo />
-        </NavLink>
-        <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
-          <NavLink to={'/registerAnAd'}> ثبت آگهی</NavLink>
+      <div className="container">
+        <div className=" flex lg:hidden w-auto h-25 md:h-28.75 bg-white px-0  md:px-8 py-6.5  items-center justify-between text-base xl:text-xl ">
+          <button
+            className={` hamburger ${isOpen ? 'open' : ''} lg:!hidden `}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </button>
+          <NavLink to={'/'}>
+            <Logo />
+          </NavLink>
+          <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
+            <NavLink to={'/registerAnAd'}> ثبت آگهی</NavLink>
+          </div>
         </div>
       </div>
       <MenueMobail isOpen={isOpen} setIsOpen={setIsOpen} />
