@@ -10,9 +10,9 @@ export default function ProductBox() {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000); 
-    return () => clearTimeout(timer);
-  }, []);
+    const timer = setTimeout(() => setIsLoading(false), 2000)
+    return () => clearTimeout(timer)
+  }, [])
 
   const width = 600
   const height = 800
@@ -32,7 +32,7 @@ export default function ProductBox() {
   ]
 
   return (
-    <div className="h-80 border border-boxHelp rounded-xl">
+    <div className=" h-49   md:h-80 border border-boxHelp rounded-xl">
       {isLoading ? (
         <div className="flex justify-center items-center w-full">
           <CustomSkeletonLoader

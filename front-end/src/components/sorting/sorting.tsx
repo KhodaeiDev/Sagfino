@@ -93,7 +93,7 @@ const Sorting: React.FC = () => {
             </span>
           </div>
           <div className=' flex items-center gap-2' >
-            <div className=" flex items-center justify-evenly gap-2   cursor-pointer text-gray-1000 border-blue-400  shadow-blue-400/50  shadow-lg p-3 border w-31.5 h-8  rounded-lg">
+            <div className=" flex items-center justify-evenly    cursor-pointer text-gray-1000 border-blue-400  shadow-blue-400/50  shadow-lg p-3 border w-25.5 h-8  rounded-lg">
               <TbFilterSearch className=" text-lg" />
               <span>فیلتر ها </span>
             </div>
