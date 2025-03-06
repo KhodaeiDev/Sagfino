@@ -39,7 +39,7 @@ const NavBar: React.FC = () => {
               </li>
               <li>
                 <NavLink
-                  to={'/shopping'}
+                  to={'/shopping/shopping'}
                   className={({ isActive }) =>
                     `hover:text-primary  hover:custom-underline-hover ${
                       isActive ? 'text-primary custom-underline' : ' '
