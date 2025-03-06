@@ -14,14 +14,12 @@
 
     @media (min-width: 576px) {
         max-width: calc(0.85 * 640px + 32px);
-        /* 85% of 640px + 32px padding */
         padding-right: 16px;
         padding-left: 16px;
     }
 
     @media (min-width: 640px) {
         max-width: calc(0.85 * 640px + 32px);
-        /* 85% of 640px + 32px padding */
         padding-right: 16px;
         padding-left: 16px;
     }
@@ -106,7 +104,7 @@ body {
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: 4s all ease-in-out;
+    transition: 1s all ease-in-out;
     z-index: 10000;
 }
 

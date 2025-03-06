@@ -9,9 +9,11 @@ import SectionHeader from '../../components/sectionHeader/sectionHeader'
 import RealEstateModal from '../../components/RealEstateInfoModal/RealEstateModal'
 import Pagination from '../../components/pagination/pagination'
 import { Footer, FooterMobail } from '../../components/footer/footer'
+import FilteringModal from '../../components/filteringModal/filteringModal'
 
 const Rent: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
+  const [isopenModalFiltering, setOpenModalFiltering] = useState<boolean>(false)
 
   const handleSelect = (option: string) => {
     setSelectedOption(option)
@@ -25,6 +27,14 @@ const Rent: React.FC = () => {
   const closeModal = () => {
     setIsModalVisible(false)
   }
+
+  const openModalFiltering = () => {
+    setOpenModalFiltering(true)
+  }
+  const closeModalFiltering = () => {
+    setOpenModalFiltering(false)
+  }
+
   return (
     <>
       <div className=" hidden lg:flex">
@@ -35,7 +45,7 @@ const Rent: React.FC = () => {
       </div>
 
       <div>
-        <Sorting />
+        <Sorting openModalFiltering={openModalFiltering} />
         <div className="container">
           {/* sorting */}
           <div className=" hidden  md:flex  gap-2 my-6 items-center justify-between">
@@ -109,6 +119,9 @@ const Rent: React.FC = () => {
       )}
       <Footer />
       <FooterMobail />
+      {isopenModalFiltering && (
+        <FilteringModal closeModalFiltering={closeModalFiltering} />
+      )}
     </>
   )
 }

@@ -3,7 +3,12 @@ import SelectBox from '../selectBox/selectBox'
 import { RiSearch2Line } from 'react-icons/ri'
 import { TbFilterSearch } from 'react-icons/tb'
 import { useState } from 'react'
-const Sorting: React.FC = () => {
+
+type SortingProps = {
+  openModalFiltering: () => void
+}
+
+const Sorting: React.FC<SortingProps> = ({ openModalFiltering }) => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
 
   const handleSelect = (option: string) => {
@@ -37,7 +42,10 @@ const Sorting: React.FC = () => {
               <li>بازرگانی </li>
             </SelectBox>
 
-            <div className=" flex items-center gap-2   cursor-pointer text-gray-1000 border-blue-400  shadow-blue-400/50  shadow-lg p-3 border w-41.5 h-12  rounded-lg">
+            <div
+              onClick={openModalFiltering}
+              className=" flex items-center gap-2   cursor-pointer text-gray-1000 border-blue-400  shadow-blue-400/50  shadow-lg p-3 border w-41.5 h-12  rounded-lg"
+            >
               <TbFilterSearch className=" text-2xl" />
               <span>فیلتر های بیشتر </span>
             </div>
@@ -90,8 +98,11 @@ const Sorting: React.FC = () => {
               ۴۷.۵۰۷ مورد
             </span>
           </div>
-          <div className=' flex items-center gap-2' >
-            <div className=" flex items-center justify-evenly    cursor-pointer text-gray-1000 border-blue-400  shadow-blue-400/50  shadow-lg p-3 border w-25.5 h-8  rounded-lg">
+          <div className=" flex items-center gap-2">
+            <div
+              onClick={openModalFiltering}
+              className=" flex items-center justify-evenly    cursor-pointer text-gray-1000 border-blue-400  shadow-blue-400/50  shadow-lg p-3 border w-25.5 h-8  rounded-lg"
+            >
               <TbFilterSearch className=" text-lg" />
               <span>فیلتر ها </span>
             </div>
