@@ -23,12 +23,17 @@ export class UsersService {
     return await this.userRepository.save(newUser);
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findOne(phone: string) {
+    const user = await this.userRepository.findOne({ where: { phone } });
+    if (!user) {
+      return false;
+    }
+
+    return user;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} user`;
+  findAll() {
+    return `This action returns all users`;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

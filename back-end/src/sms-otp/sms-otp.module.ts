@@ -5,5 +5,6 @@ import { SmsOtpController } from './sms-otp.controller';
 @Module({
   controllers: [SmsOtpController],
   providers: [SmsOtpService],
+  exports: [SmsOtpService],
 })
 export class SmsOtpModule {}
