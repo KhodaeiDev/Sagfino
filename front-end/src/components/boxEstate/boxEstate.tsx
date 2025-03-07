@@ -39,7 +39,7 @@ const BoxEstate: React.FC<RealEstateModalProps> = ({ openModal }) => {
     <>
       <div
         onClick={openModal}
-        className="  h-84 cursor-pointer border border-boxHelp rounded-2xl flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] items-center px-5 xl:px-12 py-4 xl:py-8"
+        className=" xs:h-80 sm:h-70 md:h-74  lg:h-80 cursor-pointer border border-boxHelp rounded-2xl flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] items-center px-5 xl:px-12 py-4 xl:py-8"
       >
         {isLoading ? (
           <CustomSkeletonLoader

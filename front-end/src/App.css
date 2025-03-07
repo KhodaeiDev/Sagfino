@@ -6,21 +6,20 @@
     margin-left: auto;
     width: 100%;
 
-    @media (max-width: 576px) {
+    @media (min-width: 320px) {
+    
         padding-right: 16px;
         padding-left: 16px;
     }
 
     @media (min-width: 576px) {
         max-width: calc(0.85 * 640px + 32px);
-        /* 85% of 640px + 32px padding */
         padding-right: 16px;
         padding-left: 16px;
     }
 
     @media (min-width: 640px) {
         max-width: calc(0.85 * 640px + 32px);
-        /* 85% of 640px + 32px padding */
         padding-right: 16px;
         padding-left: 16px;
     }
@@ -105,7 +104,7 @@ body {
     justify-content: center;
     opacity: 0;
     visibility: hidden;
-    transition: 4s all ease-in-out;
+    transition: 1s all ease-in-out;
     z-index: 10000;
 }
 
@@ -116,6 +115,8 @@ body {
 
 @theme {
     --breakpoint-2xl: 1500px;
+    --breakpoint-xs: 320px;
+    --breakpoint-sm: 420px;
     --font-shabnamBold: "shabnam bold";
     --font-shabnam: "shabnam";
     --font-shabnamLight: "shabnam Light";
@@ -129,11 +130,11 @@ body {
     --color-gray-1000: #505050;
     --color-Gray-1: #FAFAFA;
     --color-Gray-35: #353535;
-    --color-boxHelp: #fdfdfd;
+    --color-boxHelp: #E1E1E1;
     --color-gray-71: #717171;
     --color-gray-21: #212121;
     --color-gray-f9: #f9f9f9;
-    --color-boxHelp: #E1E1E1;
+    --color-gray-E1: #E1E1E1;
     --color-gray-D9: #D9D9D9;
     --color-gray-ED: #EDEDED;
     --color-gray-AD: #ADADAD;
