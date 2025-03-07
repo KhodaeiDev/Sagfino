@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
+import { SmsOtpModule } from './sms-otp/sms-otp.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { UsersModule } from './users/users.module';
       entities: [__dirname + '/**/entities/*.entity{.ts,.js}'],
     }),
     UsersModule,
+    SmsOtpModule,
   ],
   controllers: [],
   providers: [],
