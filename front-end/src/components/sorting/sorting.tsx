@@ -92,7 +92,7 @@ const Sorting: React.FC<SortingProps> = ({ openModalFiltering }) => {
         </div>
       </div>
       <div className="container">
-        <div className="md:hidden flex items-center justify-between mt-9  mb-5 ">
+        <div className="md:hidden xs:flex-col sm:flex items-center justify-between mt-9  mb-5 ">
           <div>
             <span className="font-shabnam text-sm text-primary">
               ۴۷.۵۰۷ مورد
