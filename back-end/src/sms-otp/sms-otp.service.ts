@@ -26,6 +26,11 @@ export class SmsOtpService {
         inputData: [{ 'verification-code': +code }],
       });
 
+      const existCode = await this.redisService.get(sendOtpDto.phone);
+      if (existCode) {
+        await this.redisService.del(sendOtpDto.phone);
+      }
+
       const expireTime = 120;
       await this.redisService.set(sendOtpDto.phone, code, expireTime);
 
