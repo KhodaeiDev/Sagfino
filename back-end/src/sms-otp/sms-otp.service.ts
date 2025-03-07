@@ -33,11 +33,19 @@ export class SmsOtpService {
       const expireTime = 120;
       await this.client.setex(phone, expireTime, code);
 
-      return response.data;
+      return response.data; // کد برای فلان شماره تلفن ارسال شد
     } catch (error) {
       console.error('SMS Error:', error.response?.data || error.message);
       throw new BadRequestException('خطا در ارسال پیامک');
     }
+  }
+
+  async verifyOtp(phone: string, code: string): Promise<boolean> {
+    const storedCode = await this.client.get(phone);
+    if (storedCode === code) {
+      return true;
+    }
+    return false;
   }
 
   create(createSmsOtpDto: CreateSmsOtpDto) {
