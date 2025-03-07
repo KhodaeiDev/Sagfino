@@ -25,7 +25,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
 
   return (
     <>
-      <div className="relative inline-flex  justify-center xs:w-27 xs:h-8 xl:h-12 w-29 bg-transparent rounded-lg xs:px-1.5 xs:py-1.5 px-3 py-3 shadow-lg border border-blue-400 shadow-blue-400/50">
+      <div className="relative inline-flex  justify-around xs:w-34 xs:h-8 xl:h-12 w-29 bg-transparent rounded-lg xs:px-1 xs:py-1 px-3 py-3 shadow-lg border border-blue-400 shadow-blue-400/50">
         <div
           className="flex gap-1.5 items-center cursor-pointer"
           onClick={toggleDropdown}

@@ -10,10 +10,14 @@ import RealEstateModal from '../../components/RealEstateInfoModal/RealEstateModa
 import Pagination from '../../components/pagination/pagination'
 import { Footer, FooterMobail } from '../../components/footer/footer'
 import FilteringModal from '../../components/filteringModal/filteringModal'
+import { useMediaQuery } from 'react-responsive'
+
+import { FilteringModalMobail } from '../../components/filteringModal/filteringModal'
 
 const Rent: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
   const [isopenModalFiltering, setOpenModalFiltering] = useState<boolean>(false)
+  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
   const handleSelect = (option: string) => {
     setSelectedOption(option)
@@ -120,7 +124,13 @@ const Rent: React.FC = () => {
       <Footer />
       <FooterMobail />
       {isopenModalFiltering && (
-        <FilteringModal closeModalFiltering={closeModalFiltering} />
+        <>
+          {isMobile ? (
+            <FilteringModalMobail closeModalFiltering={closeModalFiltering} />
+          ) : (
+            <FilteringModal closeModalFiltering={closeModalFiltering} />
+          )}
+        </>
       )}
     </>
   )
