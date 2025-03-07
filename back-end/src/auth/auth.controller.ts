@@ -6,18 +6,27 @@ import {
   Patch,
   Param,
   Delete,
+  Res,
+  HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { SendOtpDto } from './dto/sendOtp.dto';
 import { UpdateAuthDto } from './dto/updateAuth.dto';
+import { Response } from 'express';
 
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
 
   @Post('send-otp')
-  create(@Body() phone: SendOtpDto) {
-    return this.authService.sendOtp(phone);
+  async create(@Res() res: Response, @Body() sendOtpDto: SendOtpDto) {
+    const data = await this.authService.sendOtp(sendOtpDto);
+
+    return res.status(HttpStatus.OK).json({
+      statusCode: HttpStatus.OK,
+      message: `کد تایید به شماره تلفن ${sendOtpDto.phone} ارسال شد.`,
+      data,
+    });
   }
 
   @Get()

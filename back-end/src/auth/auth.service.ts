@@ -20,10 +20,9 @@ export class AuthService {
     return token;
   }
 
-  async sendOtp(phone: SendOtpDto) {
+  async sendOtp(sendOtpDto: SendOtpDto): Promise<void> {
     const code: string = Math.floor(10000 + Math.random() * 90000).toString();
-    await this.smsService.sendOtp(phone, code);
-    return 'کد تأیید ارسال شد';
+    await this.smsService.sendOtp(sendOtpDto, code);
   }
 
   async verifyOtp(phone: string, code: string) {
