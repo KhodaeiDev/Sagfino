@@ -1,6 +1,6 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { CreateAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
+import { SendOtpDto } from './dto/sendOtp.dto';
+import { UpdateAuthDto } from './dto/updateAuth.dto';
 import { SmsOtpService } from 'src/sms-otp/sms-otp.service';
 import jwt from 'JsonWebToken';
 import { UsersService } from 'src/users/users.service';
@@ -20,7 +20,7 @@ export class AuthService {
     return token;
   }
 
-  async sendOtp(phone: string) {
+  async sendOtp(phone: SendOtpDto) {
     const code: string = Math.floor(10000 + Math.random() * 90000).toString();
     await this.smsService.sendOtp(phone, code);
     return 'کد تأیید ارسال شد';
@@ -47,7 +47,13 @@ export class AuthService {
     };
   }
 
-  create(createAuthDto: CreateAuthDto) {
+  // async registerUser(phoneToken: string) {
+  //   const decoded = jwt.verify(phoneToken, process.env.JWT_SECRET);
+
+  //   const register = await this.userService.create()
+  // }
+
+  create(createAuthDto: SendOtpDto) {
     return 'This action adds a new auth';
   }
 

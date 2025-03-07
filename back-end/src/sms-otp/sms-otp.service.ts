@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import axios from 'axios';
-import { CreateSmsOtpDto } from './dto/create-sms-otp.dto';
+import { SendOtpDto } from './dto/sendOtp.dto';
 import { UpdateSmsOtpDto } from './dto/update-sms-otp.dto';
 import * as redis from 'redis';
 
@@ -18,20 +18,25 @@ export class SmsOtpService {
     this.client = redis.createClient();
   }
 
-  async sendOtp(phone: string, code: string) {
+  async sendOtp(phone: SendOtpDto, code: string) {
     try {
+      console.log(phone.phone);
+      console.log(code);
+
       const response = await axios.post(this.apiUrl, {
         op: 'pattern',
         user: this.user,
         pass: this.pass,
         fromNum: this.fromNum,
-        toNum: phone,
+        toNum: phone.phone,
         patternCode: this.patternCode,
-        inputData: [{ code }],
+        inputData: [{ 'verification-code': +code }],
       });
 
       const expireTime = 120;
-      await this.client.setex(phone, expireTime, code);
+      await this.client.set(phone.phone, code, 'EX', expireTime);
+
+      console.log(response.data);
 
       return response.data; // کد برای فلان شماره تلفن ارسال شد
     } catch (error) {
@@ -46,10 +51,6 @@ export class SmsOtpService {
       return true;
     }
     return false;
-  }
-
-  create(createSmsOtpDto: CreateSmsOtpDto) {
-    return 'This action adds a new smsOtp';
   }
 
   findAll() {

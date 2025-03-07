@@ -1,16 +1,19 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+} from '@nestjs/common';
 import { SmsOtpService } from './sms-otp.service';
-import { CreateSmsOtpDto } from './dto/create-sms-otp.dto';
+import { SendOtpDto } from './dto/sendOtp.dto';
 import { UpdateSmsOtpDto } from './dto/update-sms-otp.dto';
 
 @Controller('sms-otp')
 export class SmsOtpController {
   constructor(private readonly smsOtpService: SmsOtpService) {}
-
-  @Post()
-  create(@Body() createSmsOtpDto: CreateSmsOtpDto) {
-    return this.smsOtpService.create(createSmsOtpDto);
-  }
 
   @Get()
   findAll() {
