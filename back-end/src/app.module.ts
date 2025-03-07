@@ -3,6 +3,8 @@ import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UsersModule } from './users/users.module';
 import { SmsOtpModule } from './sms-otp/sms-otp.module';
+import { AuthModule } from './auth/auth.module';
+import { RedisModule } from './redis/redis.module';
 
 @Module({
   imports: [
@@ -21,6 +23,8 @@ import { SmsOtpModule } from './sms-otp/sms-otp.module';
     }),
     UsersModule,
     SmsOtpModule,
+    AuthModule,
+    RedisModule,
   ],
   controllers: [],
   providers: [],
