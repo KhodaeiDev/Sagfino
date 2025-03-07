@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from '@nestjs/common';
 import axios from 'axios';
 import { SendOtpDto } from './dto/sendOtp.dto';
-import { UpdateSmsOtpDto } from './dto/update-sms-otp.dto';
+import { VerifySmsOtpDto } from './dto/verify-sms-otp.dto';
 import { RedisService } from 'src/redis/redis.service';
 
 @Injectable()
@@ -41,9 +41,9 @@ export class SmsOtpService {
     }
   }
 
-  async verifyOtp(phone: string, code: string): Promise<boolean> {
-    const storedCode = await this.redisService.get(phone);
-    if (storedCode === code) {
+  async verifyOtp(verifySmsDto: VerifySmsOtpDto): Promise<boolean> {
+    const storedCode = await this.redisService.get(verifySmsDto.phone);
+    if (storedCode === verifySmsDto.code) {
       return true;
     }
     return false;
@@ -55,10 +55,6 @@ export class SmsOtpService {
 
   findOne(id: number) {
     return `This action returns a #${id} smsOtp`;
-  }
-
-  update(id: number, updateSmsOtpDto: UpdateSmsOtpDto) {
-    return `This action updates a #${id} smsOtp`;
   }
 
   remove(id: number) {

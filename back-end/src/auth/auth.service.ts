@@ -2,8 +2,9 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SendOtpDto } from './dto/sendOtp.dto';
 import { UpdateAuthDto } from './dto/updateAuth.dto';
 import { SmsOtpService } from 'src/sms-otp/sms-otp.service';
-import jwt from 'JsonWebToken';
+import * as jwt from 'jsonwebtoken';
 import { UsersService } from 'src/users/users.service';
+import { VerifySmsOtpDto } from 'src/sms-otp/dto/verify-sms-otp.dto';
 
 @Injectable()
 export class AuthService {
@@ -25,10 +26,12 @@ export class AuthService {
     await this.smsService.sendOtp(sendOtpDto, code);
   }
 
-  async verifyOtp(phone: string, code: string) {
-    const isValid = await this.smsService.verifyOtp(phone, code);
+  async verifyOtp(verifySmsDto: VerifySmsOtpDto) {
+    const phone: string = verifySmsDto.phone;
+
+    const isValid = await this.smsService.verifyOtp(verifySmsDto);
     if (!isValid) {
-      throw new UnauthorizedException('کد تایید نادرست است');
+      throw new UnauthorizedException('کد تایید نادرست و یا منقضی شده است');
     }
 
     const existUser = await this.userService.findOne(phone);
@@ -40,10 +43,7 @@ export class AuthService {
     const phoneToken = jwt.sign({ phone }, process.env.JWT_SECRET, {
       expiresIn: process.env.PHONE_JWT_EXPIRE,
     });
-    return {
-      message: 'تایید شد',
-      phoneToken,
-    };
+    return { phoneToken };
   }
 
   // async registerUser(phoneToken: string) {
