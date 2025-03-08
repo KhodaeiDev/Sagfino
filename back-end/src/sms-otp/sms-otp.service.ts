@@ -31,7 +31,7 @@ export class SmsOtpService {
         await this.redisService.del(sendOtpDto.phone);
       }
 
-      const expireTime = 120000;
+      const expireTime = 120;
       await this.redisService.set(sendOtpDto.phone, code, expireTime);
 
       return response.data;
