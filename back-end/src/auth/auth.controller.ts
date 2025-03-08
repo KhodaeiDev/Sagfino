@@ -14,6 +14,8 @@ import { AuthService } from './auth.service';
 import { Response } from 'express';
 import { VerifySmsOtpDto } from 'src/sms-otp/dto/verify-sms-otp.dto';
 import { SendOtpDto } from 'src/sms-otp/dto/sendOtp.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import userRoleEnum from 'src/users/enum/userRoleEnum';
 
 @Controller('auth')
 export class AuthController {
@@ -35,7 +37,20 @@ export class AuthController {
 
     return res.status(HttpStatus.OK).json({
       statusCode: HttpStatus.OK,
-      message: 'تایید شد',
+      data,
+    });
+  }
+
+  @Post('register/:phoneToken')
+  async createUser(
+    @Res() res: Response,
+    @Body() createUserDto: CreateUserDto,
+    @Param('phoneToken') phoneToken: string,
+  ) {
+    const data = await this.authService.registerUser(createUserDto, phoneToken);
+
+    return res.status(HttpStatus.CREATED).json({
+      statusCode: HttpStatus.CREATED,
       data,
     });
   }
