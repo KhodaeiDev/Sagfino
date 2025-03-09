@@ -1,10 +1,15 @@
-import { Injectable } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  Injectable,
+} from '@nestjs/common';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
 import * as bcrypt from 'bcryptjs';
+import userRoleEnum from './enum/userRoleEnum';
 
 @Injectable()
 export class UsersService {
@@ -13,14 +18,25 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto) {
-    const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-    const newUser = this.userRepository.create({
-      ...createUserDto,
-      password: hashedPassword,
-    });
+  async create(createUserDto: CreateUserDto, phone: string) {
+    try {
+      const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
+      const usersCount = await this.userRepository.count();
 
-    return await this.userRepository.save(newUser);
+      const newUser = this.userRepository.create({
+        ...createUserDto,
+        phone,
+        password: hashedPassword,
+        role: usersCount === 0 ? userRoleEnum.Admin : createUserDto.role,
+      });
+
+      await this.userRepository.save(newUser);
+
+      return newUser;
+    } catch (err) {
+      console.log(err);
+      throw new BadRequestException('خطا در ایجاد کاربر');
+    }
   }
 
   async findOne(phone: string) {
@@ -32,8 +48,9 @@ export class UsersService {
     return user;
   }
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    const users = await this.userRepository.find();
+    return users;
   }
 
   update(id: number, updateUserDto: UpdateUserDto) {

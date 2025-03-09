@@ -2,8 +2,10 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SendOtpDto } from './dto/sendOtp.dto';
 import { UpdateAuthDto } from './dto/updateAuth.dto';
 import { SmsOtpService } from 'src/sms-otp/sms-otp.service';
-import jwt from 'JsonWebToken';
+import * as jwt from 'jsonwebtoken';
 import { UsersService } from 'src/users/users.service';
+import { VerifySmsOtpDto } from 'src/sms-otp/dto/verify-sms-otp.dto';
+import { CreateUserDto } from './dto/createUser.dto';
 
 @Injectable()
 export class AuthService {
@@ -13,7 +15,7 @@ export class AuthService {
   ) {}
 
   generateAuthToken(user: any) {
-    const payload = { phone: user.phone, id: user.id };
+    const payload = { id: user.id };
     const token = jwt.sign(payload, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE,
     });
@@ -25,32 +27,45 @@ export class AuthService {
     await this.smsService.sendOtp(sendOtpDto, code);
   }
 
-  async verifyOtp(phone: string, code: string) {
-    const isValid = await this.smsService.verifyOtp(phone, code);
+  async verifyOtp(verifySmsDto: VerifySmsOtpDto) {
+    const phone: string = verifySmsDto.phone;
+
+    const isValid = await this.smsService.verifyOtp(verifySmsDto);
     if (!isValid) {
-      throw new UnauthorizedException('کد تایید نادرست است');
+      throw new UnauthorizedException('کد تایید نادرست و یا منقضی شده است');
     }
 
     const existUser = await this.userService.findOne(phone);
     if (existUser) {
+      delete existUser.password;
       const accessToken = this.generateAuthToken(existUser);
-      return { message: 'با موفقیت وارد شدید', accessToken };
+      return { message: 'با موفقیت وارد شدید', user: existUser, accessToken };
     }
 
     const phoneToken = jwt.sign({ phone }, process.env.JWT_SECRET, {
       expiresIn: process.env.PHONE_JWT_EXPIRE,
     });
-    return {
-      message: 'تایید شد',
-      phoneToken,
-    };
+    return { message: 'تایید شد', phoneToken };
   }
 
-  // async registerUser(phoneToken: string) {
-  //   const decoded = jwt.verify(phoneToken, process.env.JWT_SECRET);
+  async registerUser(createUserDto: CreateUserDto, phoneToken: string) {
+    const decodedPhone = jwt.verify(
+      phoneToken,
+      process.env.JWT_SECRET,
+    ) as jwt.JwtPayload;
 
-  //   const register = await this.userService.create()
-  // }
+    const phone: string = decodedPhone.phone;
+    const user = await this.userService.create(createUserDto, phone);
+    delete user.password;
+
+    const accessToken = this.generateAuthToken(user);
+
+    return {
+      message: 'ثبت نام با موفقیت انجام شد',
+      user,
+      accessToken,
+    };
+  }
 
   create(createAuthDto: SendOtpDto) {
     return 'This action adds a new auth';

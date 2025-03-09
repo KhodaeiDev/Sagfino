@@ -9,7 +9,6 @@ import {
 } from '@nestjs/common';
 import { SmsOtpService } from './sms-otp.service';
 import { SendOtpDto } from './dto/sendOtp.dto';
-import { UpdateSmsOtpDto } from './dto/update-sms-otp.dto';
 
 @Controller('sms-otp')
 export class SmsOtpController {
@@ -23,11 +22,6 @@ export class SmsOtpController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.smsOtpService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateSmsOtpDto: UpdateSmsOtpDto) {
-    return this.smsOtpService.update(+id, updateSmsOtpDto);
   }
 
   @Delete(':id')

@@ -10,9 +10,12 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { SendOtpDto } from './dto/sendOtp.dto';
-import { UpdateAuthDto } from './dto/updateAuth.dto';
+// import { SendOtpDto } from './dto/sendOtp.dto';
 import { Response } from 'express';
+import { VerifySmsOtpDto } from 'src/sms-otp/dto/verify-sms-otp.dto';
+import { SendOtpDto } from 'src/sms-otp/dto/sendOtp.dto';
+import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import userRoleEnum from 'src/users/enum/userRoleEnum';
 
 @Controller('auth')
 export class AuthController {
@@ -25,6 +28,29 @@ export class AuthController {
     return res.status(HttpStatus.OK).json({
       statusCode: HttpStatus.OK,
       message: `کد تایید به شماره تلفن ${sendOtpDto.phone} ارسال شد.`,
+    });
+  }
+
+  @Post('verify-otp')
+  async verifyOtp(@Res() res: Response, @Body() verifySmsDto: VerifySmsOtpDto) {
+    const data = await this.authService.verifyOtp(verifySmsDto);
+
+    return res.status(HttpStatus.OK).json({
+      statusCode: HttpStatus.OK,
+      data,
+    });
+  }
+
+  @Post('register/:phoneToken')
+  async createUser(
+    @Res() res: Response,
+    @Body() createUserDto: CreateUserDto,
+    @Param('phoneToken') phoneToken: string,
+  ) {
+    const data = await this.authService.registerUser(createUserDto, phoneToken);
+
+    return res.status(HttpStatus.CREATED).json({
+      statusCode: HttpStatus.CREATED,
       data,
     });
   }
@@ -37,11 +63,6 @@ export class AuthController {
   @Get(':id')
   findOne(@Param('id') id: string) {
     return this.authService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAuthDto: UpdateAuthDto) {
-    return this.authService.update(+id, updateAuthDto);
   }
 
   @Delete(':id')
