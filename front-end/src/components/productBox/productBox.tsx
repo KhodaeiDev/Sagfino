@@ -44,7 +44,10 @@ export default function ProductBox() {
         </div>
       ) : (
         <>
-          <NavLink className={'relative'} to={''}>
+          <NavLink
+            className={'relative'}
+            to={'/detailsProduct/detailsProduct/1'}
+          >
             <img
               className="w-full rounded-t-xl"
               src="../../../public/img/pexels-john-tekeridis-1428348.png"

@@ -7,7 +7,7 @@
     width: 100%;
 
     @media (min-width: 320px) {
-    
+
         padding-right: 16px;
         padding-left: 16px;
     }
@@ -287,4 +287,13 @@ body {
 
 .mySwiper-home-news {
     cursor: grab;
+}
+
+
+.swiper-button-prev-detailsProducts {
+    left: 35px !important;
+}
+
+.swiper-button-next-detailsProducts {
+    right: 35px !important;
 }
