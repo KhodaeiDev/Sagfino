@@ -94,7 +94,7 @@ const ModalSlaider: React.FC<ModalSlaiderProps> = ({
 
       <div
         ref={imageRef}
-        className="modal-container relative w-full max-w-4xl h-3/4 rounded-lg overflow-hidden bg-gray-800 lg:mx-0 sm:mx-4"
+        className="modal-container relative w-full max-w-4xl h-3/4 rounded-lg overflow-hidden lg:mx-0 sm:mx-4"
       >
         <button
           className="swiper-button-next swiper-button-next-detailsProducts absolute top-1/2 right-4 transform -translate-y-1/2 bg-gray-700 text-white rounded-full shadow-md p-3"

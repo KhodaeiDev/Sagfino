@@ -1,6 +1,7 @@
 import { NavBar, NavBarMobail } from '../../components/navBar/navBar'
 import React, { useState } from 'react'
 import ModalSlaider from '../../components/modalSlaider/modalSlaider'
+import PersonalInformation from '../../components/personalInformationBox/Personalinformation'
 
 const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -66,12 +67,23 @@ const DetailsProduct: React.FC = () => {
         </div>
       </div>
 
+      {/* details product */}
+
+      <div className="container  mt-12 mb-24">
+        <div className=" grid  grid-cols-24">
+          <div className=" col-span-14  w-full">arwin</div>
+          <div className=" col-span-10 w-full justify-items-end ">
+            <PersonalInformation></PersonalInformation>
+          </div>
+        </div>
+      </div>
+
       {/* Modal */}
       {isModalOpen && (
         <ModalSlaider
-          images={images} 
-          currentImage={currentImage} 
-          onClose={closeModal} 
+          images={images}
+          currentImage={currentImage}
+          onClose={closeModal}
         />
       )}
     </>
