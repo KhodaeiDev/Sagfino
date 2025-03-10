@@ -11,7 +11,7 @@ const RealEstateModal: React.FC<RealEstateModalProps> = ({
   closeModal,
   isModalVisible,
 }) => {
-  const [activeNumber, setActiveNumber] = useState<number>(0)
+  const [activeNumber, setActiveNumber] = useState<number>(1)
 
   const handleClick = (number: number) => {
     setActiveNumber(number)

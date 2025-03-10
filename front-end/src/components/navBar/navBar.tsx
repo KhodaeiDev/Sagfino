@@ -88,7 +88,7 @@ const NavBar: React.FC = () => {
           </div>
           <div className="flex items-center justify-between gap-9">
             <div className=" text-gray-1000">
-              <NavLink to={'/news'} className="hover:text-primary">
+              <NavLink to={'/auth/StepOne.tsx'} className="hover:text-primary">
                 ورود | ثبت نام
               </NavLink>
             </div>
