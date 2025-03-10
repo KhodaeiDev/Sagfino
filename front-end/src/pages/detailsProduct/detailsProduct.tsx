@@ -7,10 +7,14 @@ import { PiCarLight } from 'react-icons/pi'
 import { PiHouseLineThin } from 'react-icons/pi'
 import { TfiLayoutSliderAlt } from 'react-icons/tfi'
 import { BsBadgeWc } from 'react-icons/bs'
+import { SlDislike } from 'react-icons/sl'
+import { SlLike } from 'react-icons/sl'
 
 import React, { useState } from 'react'
 import ModalSlaider from '../../components/modalSlaider/modalSlaider'
 import PersonalInformation from '../../components/personalInformationBox/Personalinformation'
+import ProductBox from '../../components/productBox/productBox'
+import { Footer, FooterMobail } from '../../components/footer/footer'
 
 const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -43,7 +47,6 @@ const DetailsProduct: React.FC = () => {
       <div className="flex lg:hidden">
         <NavBarMobail />
       </div>
-
       {/* Main Image */}
       <div className="container mt-10 lg:mt-22">
         <div
@@ -57,7 +60,6 @@ const DetailsProduct: React.FC = () => {
           />
         </div>
       </div>
-
       {/* Images Grid */}
       <div className="container mt-6">
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -76,12 +78,11 @@ const DetailsProduct: React.FC = () => {
           ))}
         </div>
       </div>
-
       {/* Details Section */}
       <div className="container mt-12 mb-24">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-6">
           {/* Right Section */}
-          <div className="lg:col-span-6 order-last lg:order-first">
+          <div className="lg:col-span-7 order-last xl:order-first">
             <div className="flex items-center justify-between">
               <span className="text-sm lg:text-lg text-gray-90">
                 رهن و اجاره آپارتمان تهران
@@ -94,7 +95,7 @@ const DetailsProduct: React.FC = () => {
 
             {/* Property Info */}
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-              <div className="flex flex-col items-center bg-gray-f9 rounded-lg lg:rounded-2xl p-4">
+              <div className="flex flex-col items-center gap-y-1.5 bg-gray-f9 rounded-lg lg:rounded-2xl p-4">
                 <div className="flex items-center gap-x-2 text-sm lg:text-lg font-bold text-gray-35">
                   <PiPencilRulerLight className="rotate-180 w-5 h-5" />
                   <span>متراژ</span>
@@ -104,7 +105,7 @@ const DetailsProduct: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col items-center bg-gray-f9 rounded-lg lg:rounded-2xl p-4">
+              <div className="flex flex-col items-center gap-y-1.5 bg-gray-f9 rounded-lg lg:rounded-2xl p-4">
                 <div className="flex items-center gap-x-2 text-sm lg:text-lg font-bold text-gray-35">
                   <BsLamp className="w-5 h-5" />
                   <span>اتاق</span>
@@ -114,7 +115,7 @@ const DetailsProduct: React.FC = () => {
                 </p>
               </div>
 
-              <div className="flex flex-col items-center bg-gray-f9 rounded-lg lg:rounded-2xl p-4">
+              <div className="flex flex-col items-center gap-y-1.5 bg-gray-f9 rounded-lg lg:rounded-2xl p-4">
                 <div className="flex items-center gap-x-2 text-sm lg:text-lg font-bold text-gray-35">
                   <FaRegBuilding className="w-5 h-5" />
                   <span>طبقه</span>
@@ -196,7 +197,7 @@ const DetailsProduct: React.FC = () => {
               </div>
             </div>
             {/* description */}
-            <div className=" ">
+            <div>
               <h3 className=" font-shabnamBold text-xl  text-gray-21 mt-14 ">
                 توضیحات
               </h3>{' '}
@@ -218,13 +219,58 @@ const DetailsProduct: React.FC = () => {
                 </div>
               </div>
             </div>
+            {/* loction*/}
+            <div>
+              <h3 className=" font-shabnamBold text-xl  text-gray-21 mt-14 ">
+                موقعیت
+              </h3>{' '}
+              <div className="flex items-center gap-2.5  text-xs text-gray-21  lg:text-xl   flex-wrap  mt-3 ">
+                <span> آدرس :</span>
+                <span>سقز بلوار وحدت نبش کوچه گلبرگ 8</span>
+              </div>
+              <div className=" flex items-center gap-x-4  mt-10 ">
+                <div className=" flex flex-col lg:flex-row items-center gap-1  text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  border-l  border-gray-90   pl-5  ">
+                  <span> زمان ثبت آگهی :</span>
+                  <span className=" font-shabnamBold ">ساعتی پیش</span>
+                </div>
+                <div className="  flex flex-col lg:flex-row items-center gap-1 text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  border-l  border-gray-90   pl-5  ">
+                  <span> تعداد مشاهده آگهی :</span>
+                  <span className=" font-shabnamBold "> 22</span>
+                </div>
+                <div className=" flex flex-col lg:flex-row items-center gap-1  text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  ">
+                  <span> تعداد ذخیره آگهی :</span>
+                  <span className=" font-shabnamBold "> 6</span>
+                </div>
+              </div>
+            </div>
+            {/* Feedback */}
+            <div className=" flex items-center gap-x-10  text-gray-1000 mt-6 text-10 lg:text-base ">
+              <span> باز خورد شما در این آگهی چیست ؟</span>
+              <div className=" flex gap-x-6   ">
+                <SlDislike className=" w-4 h-4 lg:w-6 lg:h-6 cursor-pointer " />
+                <SlLike className=" w-4 h-4 lg:w-6 lg:h-6 cursor-pointer " />
+              </div>
+            </div>
           </div>
           {/* Left Section */}
-          <div className="lg:col-span-6  flex justify-center lg:justify-end order-first lg:order-last  lg:mt-28 ">
+          <div className="lg:col-span-5  flex justify-center xl:justify-end order-first xl:order-last  mt-5  xl:mt-28 ">
             <PersonalInformation />
           </div>
         </div>
+        {/* releted products */}
+        <div className=" mt-16 ">
+          <h3 className=" font-shabnamBold text-xl  text-gray-21 mt-14 ">
+            آگهی مشابه
+          </h3>{' '}
+          <div className=" grid  grid-cols-2 lg:grid-cols-3 gap-4 mt-6 ">
+            <ProductBox />
+            <ProductBox />
+            <ProductBox />
+          </div>
+        </div>
       </div>
+      <Footer />
+      <FooterMobail />
       {/* Modal */}
       {isModalOpen && (
         <ModalSlaider

@@ -1,7 +1,7 @@
 const PersonalInformation: React.FC = () => {
   return (
     <>
-      <div className=" w-70  h-40   md:w-sm md:h-54  border border-gray-D9 rounded-2xl p-3 lg:p-6  ">
+      <div className=" lg:w-sm  lg:h-55   w-75 h-40  border border-gray-D9 rounded-2xl p-3 lg:p-6  ">
         <div className=" grid grid-cols-12  gap-x-6 lg:gap-x-9  w-full h-full ">
           {/* content right */}
           <div className="  col-span-3 ">
