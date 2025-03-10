@@ -1,5 +1,6 @@
 import ReactDOM from 'react-dom'
 import { IoCallOutline } from 'react-icons/io5'
+import { useState } from 'react'
 
 type RealEstateModalProps = {
   closeModal: () => void
@@ -10,9 +11,15 @@ const RealEstateModal: React.FC<RealEstateModalProps> = ({
   closeModal,
   isModalVisible,
 }) => {
+  const [activeNumber, setActiveNumber] = useState<number>(0)
+
+  const handleClick = (number: number) => {
+    setActiveNumber(number)
+  }
+
   return ReactDOM.createPortal(
     <div className={`modals-parent ${isModalVisible ? 'active' : ''}`}>
-      <div className="  w-full h-full  lg:w-150 lg:h-100 bg-white lg:rounded-2xl">
+      <div className="  w-full h-full  lg:w-150 lg:h-150 bg-white lg:rounded-2xl">
         <div className="container">
           <div className=" w-full flex items-center  justify-end pl-1  pt-4 ">
             <div
@@ -29,10 +36,11 @@ const RealEstateModal: React.FC<RealEstateModalProps> = ({
               src="../../../public/img/Real Estate Logo 1.png"
               alt="img"
             />
+            {/* personal infomation */}
             <h6 className="  font-shabnamBold  mb-8 text-2xl mt-3 lg:mt-8">
               املاک توسی
             </h6>
-            <div className=" **:flex **:items-center **:gap-x-0.5 gap-y-3 flex flex-col  mb-20  **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
+            <div className=" **:flex **:items-center **:gap-x-0.5 gap-y-3 flex flex-col   **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
               <span>
                 ۰۹۱۲۳۴۵۶۷۸۹
                 <IoCallOutline className="   w-7 font-shabnam text-2xl   text-blue-tick " />
@@ -41,6 +49,42 @@ const RealEstateModal: React.FC<RealEstateModalProps> = ({
                 ۰۲۱۱۲۳۴۵۶۷۸
                 <IoCallOutline className="  w-7 font-shabnam text-2xl text-blue-tick " />
               </span>
+            </div>
+            {/* Consultant  information */}
+            <div className=" flex flex-col items-center justify-center gap-2.5  mt-14 lg:mt-8  text-xs lg:text-base text-blue-tick   font-shabnam ">
+              <div className=" flex items-center justify-between gap-2.5  ">
+                <div className=" w-4 h-4 lg:w-6 lg:h-6 border border-blue-tick rounded-full   center text-lg ">
+                  !
+                </div>
+                <span>شناسه آگهی ملک :</span>
+                <span className=" border-b-1  lg:border-b-2 border-blue-tick">
+                  2344
+                </span>
+              </div>
+              <p className=" text-gray-90 text-xs lg:text-sm ">
+                لطفاً این شناسه را هنگام تماس با مشاور به‌یاد داشته باشید
+              </p>
+            </div>
+            <div className=" flex flex-col mt-8 ">
+              <p className=" font-shabnam   text-Gray-35  text-sm ">
+                چه امتیازی به مشاور املاک توسی می دهید ؟
+              </p>
+              {/* scoring */}
+              <div className="flex flex-row-reverse items-center justify-center gap-2 mt-3 text-sm text-gray-90">
+                {[1, 2, 3, 4, 5].map((number) => (
+                  <div
+                    key={number}
+                    onClick={() => handleClick(number)}
+                    className={`center rounded-lg w-7.5 h-7.5 lg:w-8.5 lg:h-7.5 border ${
+                      activeNumber === number
+                        ? 'bg-primary text-white border-primary'
+                        : 'bg-gray-90/30 border-gray-90 text-gray-90'
+                    } cursor-pointer`}
+                  >
+                    {number}
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
