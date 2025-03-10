@@ -39,6 +39,7 @@ const Rent: React.FC = () => {
   const closeModalFiltering = () => {
     setOpenModalFiltering(false)
   }
+  document.title = 'سقفینو - خرید'
 
   return (
     <>

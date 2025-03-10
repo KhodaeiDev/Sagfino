@@ -25,6 +25,8 @@ const Home: React.FC = () => {
     setIsModalVisible(false)
   }
 
+  document.title ="سقفینو - خانه"
+
   return (
     <>
       {/* Header */}

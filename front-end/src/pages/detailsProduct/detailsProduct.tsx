@@ -20,6 +20,8 @@ const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState('')
 
+  document.title = 'سقفینو - جزئیات محصول '
+
   const images = [
     'https://swiperjs.com/demos/images/nature-1.jpg',
     'https://swiperjs.com/demos/images/nature-2.jpg',

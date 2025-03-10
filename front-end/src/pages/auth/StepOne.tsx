@@ -7,6 +7,9 @@ const StepOne: React.FC = () => {
     setIsChecked(!isChecked)
   }
 
+    document.title = 'سقفینو - احزار هویت مرحله 1'
+
+
   return (
     <>
       <div className="center h-dvh w-full bg-gray-ED ">

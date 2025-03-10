@@ -38,6 +38,9 @@ const StepTwo: React.FC = () => {
     }
   }
 
+      document.title = 'سقفینو - احزار هویت مرحله 2'
+
+
   return (
     <>
       <div className="center h-dvh w-full bg-gray-ED ">

@@ -39,6 +39,8 @@ const Rent: React.FC = () => {
     setOpenModalFiltering(false)
   }
 
+    document.title = 'سقفینو - اجاره'
+
   return (
     <>
       <div className=" hidden lg:flex">
