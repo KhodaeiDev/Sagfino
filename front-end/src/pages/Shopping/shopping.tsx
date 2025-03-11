@@ -29,6 +29,7 @@ const Rent: React.FC = () => {
   const openModal = () => {
     setIsModalVisible(true)
   }
+  
   const closeModal = () => {
     setIsModalVisible(false)
   }
@@ -36,6 +37,7 @@ const Rent: React.FC = () => {
   const openModalFiltering = () => {
     setOpenModalFiltering(true)
   }
+
   const closeModalFiltering = () => {
     setOpenModalFiltering(false)
   }

@@ -19,7 +19,7 @@ const NavBar: React.FC = () => {
   return (
     <>
       <div className="  container  pt-10">
-        <div className="w-auto h-25 md:h-28.75  bg-gray-f9 px-8 py-6.5 flex items-center justify-between text-base xl:text-xl rounded-2xl">
+        <div className="w-auto  hidden lg:flex h-25 md:h-28.75  bg-gray-f9 px-8 py-6.5 items-center justify-between text-base xl:text-xl rounded-2xl">
           <div className="flex items-center gap-2 lg:gap-11">
             <NavLink to={'/'}>
               <Logo />
@@ -88,7 +88,14 @@ const NavBar: React.FC = () => {
           </div>
           <div className="flex items-center justify-between gap-9">
             <div className=" text-gray-1000">
-              <NavLink to={'/auth/StepOne.tsx'} className="hover:text-primary">
+              <NavLink
+                to={'/auth/StepOne.tsx'}
+                className={({ isActive }) =>
+                  `hover:text-primary  hover:custom-underline ${
+                    isActive ? 'text-primary custom-underline' : ' '
+                  }`
+                }
+              >
                 ورود | ثبت نام
               </NavLink>
             </div>
@@ -120,9 +127,8 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
             x
           </div>
         </div>
-
         <NavLink
-          to={'/news'}
+          to={'/auth/StepOne.tsx'}
           className="text-xs  text-gray-1000 font-shabnamMedium "
         >
           <div className="  font-shabnamMedium flex items-center h-20 p-4  bg-Gray-1  gap-1  mt-5">
@@ -130,11 +136,10 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
             ورود یا ثبت نام
           </div>
         </NavLink>
-
         <ul className="font-shabnam  flex flex-col items-start gap-3 text-gray-1000 *:w-full    p-4 ">
           <li>
             <NavLink
-              to={'/rent'}
+              to={'/Rent/Rent'}
               className={({ isActive }) =>
                 `flex items-center justify-between w-full hover:text-primary  hover:custom-underline ${
                   isActive ? 'text-primary custom-underline' : ''
@@ -150,7 +155,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
           </li>
           <li>
             <NavLink
-              to={'/rent'}
+              to={'/Rent/Rent'}
               className={({ isActive }) =>
                 `flex items-center justify-between w-full hover:text-primary  hover:custom-underline ${
                   isActive ? 'text-primary custom-underline' : ''
@@ -166,7 +171,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
           </li>
           <li>
             <NavLink
-              to={'/rent'}
+              to={'/Shopping/shopping'}
               className={({ isActive }) =>
                 `flex items-center justify-between w-full hover:text-primary  hover:custom-underline  ${
                   isActive ? 'text-primary custom-underline' : ''
@@ -241,7 +246,7 @@ const NavBarMobail: React.FC = () => {
   return (
     <>
       <div className="container">
-        <div className=" flex lg:hidden w-auto h-25 md:h-28.75 bg-white px-0  md:px-8 py-6.5  items-center justify-between text-base xl:text-xl ">
+        <div className=" flex lg:hidden w-auto h-25 md:h-28.75  px-0  md:px-8 py-6.5  items-center justify-between text-base xl:text-xl ">
           <button
             className={` hamburger ${isOpen ? 'open' : ''} lg:!hidden `}
             onClick={() => setIsOpen(!isOpen)}

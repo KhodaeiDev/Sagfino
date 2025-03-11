@@ -160,6 +160,10 @@ body {
     }
 }
 
+.step.active {
+    color: #CB1B1B;
+}
+
 @utility custom-underline {
     position: relative;
     display: inline-block;
