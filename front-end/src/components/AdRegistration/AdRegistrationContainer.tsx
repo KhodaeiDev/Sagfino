@@ -16,8 +16,8 @@ const AdRegistrationContainer: React.FC<AdRegistrationContainerProps> = ({
             src="/img/AdRegistrationPhoto.png"
             alt=""
           />
-        </div> 
-        <div className=" w-2/3 center ">{children}</div>
+        </div>
+        <div className=" w-2/3 mt-30  px-30.5 ">{children}</div>
       </div>
     </>
   )

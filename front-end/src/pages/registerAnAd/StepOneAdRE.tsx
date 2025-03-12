@@ -1,5 +1,6 @@
 import React from 'react'
-import AdRegistrationContainer from '../../components/AdRegistrationContainer/AdRegistrationContainer'
+import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
+import ProgressBar from '../../components/AdRegistration/ProgressBar'
 
 const StepOneAdRE: React.FC = () => {
   return (
@@ -7,7 +8,9 @@ const StepOneAdRE: React.FC = () => {
       <div className=" bg-gray-ED ">
         <div className="container  py-20 ">
           <AdRegistrationContainer>
-            <ul>arwin</ul>
+            <div className=" flex flex-col w-full ">
+              <ProgressBar />
+            </div>
           </AdRegistrationContainer>
         </div>
       </div>
