@@ -100,7 +100,7 @@ const NavBar: React.FC = () => {
               </NavLink>
             </div>
             <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
-              <NavLink to={'/registerAnAd'}> ثبت آگهی</NavLink>
+              <NavLink to={'/registerAnAd/StepOneAdRE'}> ثبت آگهی</NavLink>
             </div>
           </div>
         </div>
@@ -259,7 +259,7 @@ const NavBarMobail: React.FC = () => {
             <Logo />
           </NavLink>
           <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
-            <NavLink to={'/registerAnAd'}> ثبت آگهی</NavLink>
+            <NavLink to={'/registerAnAd/StepOneAdRE'}> ثبت آگهی</NavLink>
           </div>
         </div>
       </div>
