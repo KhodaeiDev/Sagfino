@@ -1,19 +1,22 @@
-import Header from '../../components/Header/Header'
-import SectionHeader from '../../components/sectionHeader/sectionHeader'
+import Header from '../../components/shared/UIComponents/Layout/HeaderComponents/Header/Header'
+import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
 // import BoxHelp from '../../components/boxHelp/boxHelp'
 // import PublicBox from '../../components/publicBox/publicBox'
-import ProductBox from '../../components/productBox/productBox'
+import ProductBox from '../../components/shared/Cards/productBox/productBox'
 // import NewsBox from '../../components/newsBox/newsBox'
-import { Footer, FooterMobail } from '../../components/footer/footer'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router'
-import ConsultantBox from '../../components/consultantBox/consultantBox'
-import BoxEstate from '../../components/boxEstate/boxEstate'
-import RealEstateModal from '../../components/RealEstateInfoModal/RealEstateModal'
+import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
+import BoxEstate from '../../components/shared/Cards/estateBox/estateBox'
+import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 
 const Home: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
@@ -25,7 +28,7 @@ const Home: React.FC = () => {
     setIsModalVisible(false)
   }
 
-  document.title ="سقفینو - خانه"
+  document.title = 'سقفینو - خانه'
 
   return (
     <>

@@ -2,7 +2,7 @@ import React from 'react'
 import { TiTick } from 'react-icons/ti'
 
 export interface Step {
-  id: number
+  id :number
   status: 'completed' | 'active' | 'pending'
 }
 

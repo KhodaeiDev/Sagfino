@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
-import SelectBox from '../../components/selectBox/selectBox'
+import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import Btn from '../../components/AdRegistration/btn'
 import { Step } from '../../components/AdRegistration/ProgressBar'
 
@@ -21,7 +21,6 @@ const StepOneAdRE: React.FC = () => {
   const handleSelect = (option: string) => {
     setSelectedOption(option)
   }
-
 
   return (
     <>

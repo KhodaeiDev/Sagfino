@@ -1,18 +1,23 @@
-import { NavBar } from '../../components/navBar/navBar'
-import Sorting from '../../components/sorting/sorting'
-import { NavBarMobail } from '../../components/navBar/navBar'
-import ProductBox from '../../components/productBox/productBox'
-import SelectBox from '../../components/selectBox/selectBox'
+import {
+  NavBar,
+  NavBarMobail,
+} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
+import Sorting from '../../components/shared/UIComponents/FormElements/sorting/sorting'
+import ProductBox from '../../components/shared/Cards/productBox/productBox'
+import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import { useState } from 'react'
-import BoxEstate from '../../components/boxEstate/boxEstate'
-import SectionHeader from '../../components/sectionHeader/sectionHeader'
-import RealEstateModal from '../../components/RealEstateInfoModal/RealEstateModal'
-import Pagination from '../../components/pagination/pagination'
-import { Footer, FooterMobail } from '../../components/footer/footer'
-import FilteringModal from '../../components/filteringModal/filteringModal'
+import BoxEstate from '../../components/shared/Cards/estateBox/estateBox'
+import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
+import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
+import FilteringModal from '../../components/shared/Modals/filteringModal/filteringModal'
 import { useMediaQuery } from 'react-responsive'
 
-import { FilteringModalMobail } from '../../components/filteringModal/filteringModal'
+import { FilteringModalMobail } from '../../components/shared/Modals/filteringModal/filteringModal'
 // import NoProducts from '../../components/NoProducts/NoProducts'
 
 const Rent: React.FC = () => {
@@ -29,7 +34,7 @@ const Rent: React.FC = () => {
   const openModal = () => {
     setIsModalVisible(true)
   }
-  
+
   const closeModal = () => {
     setIsModalVisible(false)
   }

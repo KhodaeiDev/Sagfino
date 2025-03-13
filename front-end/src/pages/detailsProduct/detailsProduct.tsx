@@ -1,4 +1,4 @@
-import { NavBar, NavBarMobail } from '../../components/navBar/navBar'
+import { NavBar,NavBarMobail } from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
 import { RiBookmarkLine } from 'react-icons/ri'
 import { PiPencilRulerLight } from 'react-icons/pi'
 import { BsLamp } from 'react-icons/bs'
@@ -11,10 +11,13 @@ import { SlDislike } from 'react-icons/sl'
 import { SlLike } from 'react-icons/sl'
 
 import React, { useState } from 'react'
-import ModalSlaider from '../../components/modalSlaider/modalSlaider'
-import PersonalInformation from '../../components/personalInformationBox/Personalinformation'
-import ProductBox from '../../components/productBox/productBox'
-import { Footer, FooterMobail } from '../../components/footer/footer'
+import ModalSlaider from '../../components/shared/Modals/modalSlaider/modalSlaider'
+import PersonalInformation from '../../components/shared/Cards/personalInformationBox/Personalinformation'
+import ProductBox from '../../components/shared/Cards/productBox/productBox'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
