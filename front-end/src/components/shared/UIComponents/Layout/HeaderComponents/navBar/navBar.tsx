@@ -1,5 +1,5 @@
+import Logo from '../../../logo/logo'
 import { NavLink } from 'react-router'
-import Logo from '../../UIComponents/Layout/logo/logo'
 import { useState } from 'react'
 import { CgProfile } from 'react-icons/cg'
 import { IoIosAddCircleOutline } from 'react-icons/io'
@@ -89,7 +89,7 @@ const NavBar: React.FC = () => {
           <div className="flex items-center justify-between gap-9">
             <div className=" text-gray-1000">
               <NavLink
-                to={'/auth/StepOne.tsx'}
+                to={'/auth/StepOne'}
                 className={({ isActive }) =>
                   `hover:text-primary  hover:custom-underline ${
                     isActive ? 'text-primary custom-underline' : ' '

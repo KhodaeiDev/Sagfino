@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react'
 import CustomSkeletonLoader, {
   Section,
   ImageSection,
-} from '../../UIComponents/loadingSpinner/Spinner'
+} from '../../UIComponents/Feedback/loadingSpinner/Spinner'
 
 interface RealEstateModalProps {
   openModal: () => void

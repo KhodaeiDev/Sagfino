@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 
+
+
 import CustomSkeletonLoader, {
   Section,
   ImageSection,
-} from '../../UIComponents/loadingSpinner/Spinner'
+} from '../../UIComponents/Feedback/loadingSpinner/Spinner'
 
 const ConsultantBox = () => {
   const [isLoading, setIsLoading] = useState(true)
@@ -19,7 +21,7 @@ const ConsultantBox = () => {
   const imageSection: ImageSection = {
     xOffset: 0,
     yOffset: 0,
-    width: '100%', 
+    width: '100%',
     height: 300,
   }
 

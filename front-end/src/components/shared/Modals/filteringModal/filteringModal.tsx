@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ReactDOM from 'react-dom'
-import Logo from '../../UIComponents/Layout/logo/logo'
+import Logo from '../../UIComponents/logo/logo'
 import SelectBox from '../../UIComponents/FormElements/selectBox/selectBox'
 import { IoIosArrowDown } from 'react-icons/io'
 

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router'
 import { FaPhoneVolume } from 'react-icons/fa6'
 import { TbBrandInstagramFilled } from 'react-icons/tb'
 import { FaTelegram } from 'react-icons/fa'
-import Logo from '../logo/logo'
+import Logo from '../../logo/logo'
 
 const Footer: React.FC = () => {
   return (
