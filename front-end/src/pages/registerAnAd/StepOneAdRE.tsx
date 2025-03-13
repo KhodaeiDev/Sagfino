@@ -22,6 +22,9 @@ const StepOneAdRE: React.FC = () => {
     setSelectedOption(option)
   }
 
+    document.title = 'مرحله ی اول-ثبت آگهی'
+
+
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
