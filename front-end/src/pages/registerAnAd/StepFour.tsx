@@ -7,15 +7,15 @@ import Btn from '../../components/AdRegistration/btn'
 import { Step } from '../../components/AdRegistration/ProgressBar'
 
 const steps: Step[] = [
-  { id: 1, status: 'active' },
-  { id: 2, status: 'pending' },
-  { id: 3, status: 'pending' },
-  { id: 4, status: 'pending' },
+  { id: 1, status: 'completed' },
+  { id: 2, status: 'completed' },
+  { id: 3, status: 'completed' },
+  { id: 4, status: 'active' },
   { id: 5, status: 'pending' },
   { id: 6, status: 'pending' },
 ]
 
-const StepOneAdRE: React.FC = () => {
+const StepFourAdRE: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>(
     ' لطفا شهر مورد نظر خود را انتخاب کنید'
   )
@@ -24,7 +24,7 @@ const StepOneAdRE: React.FC = () => {
     setSelectedOption(option)
   }
 
-  document.title = 'مرحله ی اول-ثبت آگهی'
+  document.title = 'مرحله ی چهارم-ثبت آگهی'
 
   return (
     <>
@@ -43,7 +43,7 @@ const StepOneAdRE: React.FC = () => {
                       htmlFor=" "
                       className="  text-sm lg:text-lg font-shabnamBold "
                     >
-                      شهر
+                      پارکینگ
                     </label>
                     <div className=" mt-2 ">
                       <SelectBox
@@ -52,10 +52,8 @@ const StepOneAdRE: React.FC = () => {
                         width="w-70.5"
                         height="h-12"
                       >
-                        <li>جدیدترین</li>
-                        <li>قدیمی ترین</li>
-                        <li>ارزان ترین</li>
-                        <li>گران ترین</li>
+                        <li>دارد</li>
+                        <li> ندارد</li>
                       </SelectBox>
                     </div>
                   </div>
@@ -64,7 +62,7 @@ const StepOneAdRE: React.FC = () => {
                       className="  font-shabnamBold text-sm lg:text-lg "
                       htmlFor=""
                     >
-                      منطقه
+                      نوع سرویس بهداشتی
                     </label>
                     <div className=" mt-2 ">
                       <SelectBox
@@ -73,10 +71,9 @@ const StepOneAdRE: React.FC = () => {
                         width="w-70.5"
                         height="h-12"
                       >
-                        <li>جدیدترین</li>
-                        <li>قدیمی ترین</li>
-                        <li>ارزان ترین</li>
-                        <li>گران ترین</li>
+                        <li>ایرانی</li>
+                        <li> فرنگی</li>
+                        <li> هردو</li>
                       </SelectBox>
                     </div>
                   </div>
@@ -86,37 +83,44 @@ const StepOneAdRE: React.FC = () => {
                   {/* custom input */}
                   <div>
                     <label
-                      className=" font-shabnamBold  mb-3 text-sm lg:text-lg"
+                      className="  font-shabnamBold text-sm lg:text-lg "
                       htmlFor=""
                     >
-                      خیابان اصلی
+                      انباری
                     </label>
-                    <div className=" p-2 text-base  border-blue-400 shadow-blue-400/50 shadow-lg   flex items-center  w-72.5 h-12  border  rounded-lg mt-2 ">
-                      <input
-                        placeholder="آدرس خود را وارد کنید"
-                        className=" placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                        type="text"
-                      />
+                    <div className=" mt-2 ">
+                      <SelectBox
+                        onSelect={handleSelect}
+                        selectedOption={selectedOption}
+                        width="w-70.5"
+                        height="h-12"
+                      >
+                        <li>دارد</li>
+                        <li>ندارد</li>
+                      </SelectBox>
                     </div>
                   </div>
                   <div>
                     <label
-                      className=" font-shabnamBold  mb-3 text-sm lg:text-lg "
+                      className="  font-shabnamBold text-sm lg:text-lg "
                       htmlFor=""
                     >
-                      خیابان اصلی/کوچه
+                      آسانسور
                     </label>
-                    <div className=" p-2  text-base  flex items-center w-72.5 h-12  border shadow-lg   border-blue-400 shadow-blue-400/50  rounded-lg mt-2 ">
-                      <input
-                        placeholder="آدرس خود را وارد کنید"
-                        className=" placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                        type="text"
-                      />
+                    <div className=" mt-2 ">
+                      <SelectBox
+                        onSelect={handleSelect}
+                        selectedOption={selectedOption}
+                        width="w-70.5"
+                        height="h-12"
+                      >
+                        <li>دارد</li>
+                        <li> ندارد</li>
+                      </SelectBox>
                     </div>
                   </div>
                 </div>
               </div>
-
               <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
                 <Btn
                   title="قبلی "
@@ -134,4 +138,4 @@ const StepOneAdRE: React.FC = () => {
   )
 }
 
-export default StepOneAdRE
+export default StepFourAdRE

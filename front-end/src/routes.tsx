@@ -8,6 +8,9 @@ import StepThree from './pages/auth/StepThree'
 import StepOneAdRE from './pages/registerAnAd/StepOneAdRE'
 import StepTwoAdRE from './pages/registerAnAd/StepTwo'
 import StepThreeAdRE from './pages/registerAnAd/StepThree'
+import StepFourAdRE from './pages/registerAnAd/StepFour'
+import StepFiveAdRE from './pages/registerAnAd/StepFive'
+import StepSixAdRE from './pages/registerAnAd/StepSix'
 
 const routes = [
   { path: '/', element: <Home /> },
@@ -19,6 +22,9 @@ const routes = [
   { path: '/registerAnAd/StepOneAdRE', element: <StepOneAdRE /> },
   { path: '/registerAnAd/StepTwoAdRE', element: <StepTwoAdRE /> },
   { path: '/registerAnAd/StepThreeAdRE', element: <StepThreeAdRE /> },
+  { path: '/registerAnAd/StepFourAdRE', element: <StepFourAdRE /> },
+  { path: '/registerAnAd/StepFiveAdRE', element: <StepFiveAdRE /> },
+  { path: '/registerAnAd/StepSixAdRE', element: <StepSixAdRE /> },
   { path: '/detailsProduct/detailsProduct/:page', element: <DetailsProduct /> },
 ]
 

@@ -19,9 +19,9 @@ const steps: Step[] = [
 const StepTwoAdRE: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>(
     ' نوع معامله رو انتخاب کنید'
-    )
-    
-    document.title ="مرحله ی دوم-ثبت آگهی"
+  )
+
+  document.title = 'مرحله ی دوم-ثبت آگهی'
 
   const handleSelect = (option: string) => {
     setSelectedOption(option)
@@ -35,7 +35,7 @@ const StepTwoAdRE: React.FC = () => {
               <ProgressBar steps={steps} />
               {/* form */}
               <div className="flex flex-col">
-                <SectionHeaderAdRe />
+                <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
                 <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-10 ">
                   <div>

@@ -24,7 +24,7 @@ const StepThreeAdRE: React.FC = () => {
               <ProgressBar steps={steps} />
               {/* form */}
               <div className="flex flex-col">
-                <SectionHeaderAdRe />
+                <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
                 <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-10 ">
                   <div>
