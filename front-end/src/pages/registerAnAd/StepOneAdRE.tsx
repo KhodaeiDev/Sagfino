@@ -4,6 +4,14 @@ import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import SelectBox from '../../components/selectBox/selectBox'
 import Btn from '../../components/AdRegistration/btn'
+import { Step } from '../../components/AdRegistration/ProgressBar'
+
+const steps: Step[] = [
+  { id: 1, status: 'active' },
+  { id: 2, status: 'pending' },
+  { id: 3, status: 'pending' },
+  { id: 4, status: 'pending' },
+]
 
 const StepOneAdRE: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>(
@@ -14,13 +22,14 @@ const StepOneAdRE: React.FC = () => {
     setSelectedOption(option)
   }
 
+
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
         <div className="container py-14 md:py-20">
           <AdRegistrationContainer>
             <div className="flex flex-col w-full">
-              <ProgressBar />
+              <ProgressBar steps={steps} />
               {/* form */}
               <div className="flex flex-col">
                 <SectionHeaderAdRe />
