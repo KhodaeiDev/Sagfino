@@ -9,15 +9,17 @@ const AdRegistrationContainer: React.FC<AdRegistrationContainerProps> = ({
 }) => {
   return (
     <>
-      <div className=" flex  bg-white w-full h-screen rounded-2xl ">
-        <div className=" w-1/3  ">
+      <div className=" flex  bg-white w-full min-h-screen xl:h-screen  rounded-2xl ">
+        <div className=" hidden md:w-1/3 md:flex  ">
           <img
             className="w-full h-full rounded-r-2xl "
             src="/img/AdRegistrationPhoto.png"
             alt=""
           />
         </div>
-        <div className=" w-2/3 mt-30  px-30.5 ">{children}</div>
+        <div className=" w-full md:w-2/3  py-15  px-2 lg:px-10  xl:px-20.5 ">
+          {children}
+        </div>
       </div>
     </>
   )
