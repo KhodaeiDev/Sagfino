@@ -77,7 +77,7 @@ const StepSixAdRE: React.FC = () => {
               subdes="فرمت عکس‌ها باید webp، jpg، jpeg یا png باشد. "
             />
             <div className="container mx-auto p-4">
-              <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              <div className="grid grid-cols-1 xs:grid-cols-3 gap-4">
                 {uploadedImages.map((image, index) => (
                   <div
                     key={index}

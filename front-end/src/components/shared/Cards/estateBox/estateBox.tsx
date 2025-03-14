@@ -9,7 +9,7 @@ interface RealEstateModalProps {
   openModal: () => void
 }
 
-const BoxEstate: React.FC<RealEstateModalProps> = ({ openModal }) => {
+const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -82,4 +82,4 @@ const BoxEstate: React.FC<RealEstateModalProps> = ({ openModal }) => {
   )
 }
 
-export default BoxEstate
+export default EstateBox
