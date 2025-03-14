@@ -118,13 +118,13 @@ const StepOneAdRE: React.FC = () => {
               </div>
 
               <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
-                <Btn
+                {/* <Btn
                   title="قبلی "
                   bgColor="bg-transparent"
                   textColor="text-primary"
                   borderColor="border-primary"
-                />
-                <Btn title="ادامه " />
+                /> */}
+                <Btn title="ادامه " link="/registerAnAd/StepTwoAdRE" />
               </div>
             </div>
           </AdRegistrationContainer>

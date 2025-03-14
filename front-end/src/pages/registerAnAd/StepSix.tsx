@@ -6,7 +6,6 @@ import ProgressBar, { Step } from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import Btn from '../../components/AdRegistration/btn'
 
-// مراحل پروگرس بار
 const steps: Step[] = [
   { id: 1, status: 'completed' },
   { id: 2, status: 'completed' },
@@ -54,7 +53,6 @@ const StepSixAdRE: React.FC = () => {
     reader.readAsDataURL(file)
   }
 
-  // مدیریت حذف عکس
   const handleImageRemove = (index: number) => {
     setUploadedImages((prev) => {
       const updatedImages = [...prev]
@@ -74,7 +72,6 @@ const StepSixAdRE: React.FC = () => {
               des="اضافه کردم عکس و ویدئو باعث افزایش بازدید آگهی شما می‌شود."
               subdes="فرمت عکس‌ها باید webp، jpg، jpeg یا png باشد. "
             />
-            {/* Grid آپلودر */}
             <div className="container mx-auto p-4">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 {uploadedImages.map((image, index) => (
@@ -88,13 +85,11 @@ const StepSixAdRE: React.FC = () => {
                   >
                     {image ? (
                       <>
-                        {/* نمایش تصویر آپلودشده */}
                         <img
                           src={image}
                           alt="Uploaded"
                           className="w-full h-full object-cover rounded-lg"
                         />
-                        {/* دکمه حذف */}
                         <button
                           onClick={() => handleImageRemove(index)}
                           className="cursor-pointer absolute top-2 left-2 bg-black/50 p-2 rounded-sm text-white hover:bg-opacity-70"
@@ -122,12 +117,13 @@ const StepSixAdRE: React.FC = () => {
                 ))}
               </div>
             </div>
-            <div className="flex items-center justify-center gap-x-3 mt-10 lg:mt-25">
+            <div className="flex items-center justify-center gap-x-3 mt-7 lg:mt-12">
               <Btn
                 title="قبلی"
                 bgColor="bg-transparent"
                 textColor="text-primary"
                 borderColor="border-primary"
+                link="/registerAnAd/StepFiveAdRE"
               />
               <Btn title="ادامه" />
             </div>

@@ -47,8 +47,9 @@ const StepFiveAdRE: React.FC = () => {
                 bgColor="bg-transparent"
                 textColor="text-primary"
                 borderColor="border-primary"
+                link="/registerAnAd/StepFourAdRE"
               />
-              <Btn title="ادامه " />
+              <Btn title="ادامه " link="/registerAnAd/StepSixAdRE" />
             </div>
           </div>
         </AdRegistrationContainer>
