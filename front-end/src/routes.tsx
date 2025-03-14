@@ -12,6 +12,7 @@ import StepFourAdRE from './pages/registerAnAd/StepFour'
 import StepFiveAdRE from './pages/registerAnAd/StepFive'
 import StepSixAdRE from './pages/registerAnAd/StepSix'
 import RegisterDoneAdRE from './pages/registerAnAd/RegisterDone'
+import RegisterErrorAdRE from './pages/registerAnAd/RegisterError'
 
 const routes = [
   { path: '/', element: <Home /> },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/registerAnAd/StepFiveAdRE', element: <StepFiveAdRE /> },
   { path: '/registerAnAd/StepSixAdRE', element: <StepSixAdRE /> },
   { path: '/registerAnAd/RegisterDoneAdRE', element: <RegisterDoneAdRE /> },
+  { path: '/registerAnAd/RegisterErrorAdRE', element: <RegisterErrorAdRE /> },
   { path: '/detailsProduct/detailsProduct/:page', element: <DetailsProduct /> },
 ]
 

@@ -2,14 +2,15 @@ import React from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import Btn from '../../components/AdRegistration/btn'
-import { TiTick } from 'react-icons/ti'
+import { FaFolderOpen } from 'react-icons/fa'
+
 import {
   Footer,
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
-const RegisterDoneAdRE: React.FC = () => {
-            document.title = 'سقفینو-ثبت نام انجام شد'
+const RegisterErrorAdRE: React.FC = () => {
+  document.title = 'سقفینو-خطای ثبت نام '
 
   return (
     <>
@@ -18,24 +19,21 @@ const RegisterDoneAdRE: React.FC = () => {
           <AdRegistrationContainer>
             <div className="flex flex-col">
               <SectionHeaderAdRe
-                title="آگهی شما با موفقیت ثبت شد"
+                title="مشکلی در ثبت آگهی شما به‌وجود آمده!"
                 center={true}
               />
               {/* Notebook-style inputs */}
-
-              <div className=" center flex-col  w-full mt-10 ">
-                <img
-                  src="/img/Group 56.png"
-                  className=" relative w-sm h-55 lg:w-lg lg:h-70 "
-                  alt="img"
+              <div className=" flex flex-col  gap-y-10   items-center justify-center  gap-x-3 mt-10 lg:mt-15 ">
+                <Btn
+                  title="بازگشت به صحفه ی آگهی"
+                  link="/registerAnAd/StepOneAdRE"
+                  bgColor="bg-transparent"
+                  textColor="text-primary"
+                  borderColor="border-primary"
                 />
-                <div className="  absolute  center text-white w-20 h-20   lg:w-43.5 lg:h-43.5 bg-green-600 rounded-full ">
-                  <TiTick className=" w-30 h-30 " />
+                <div>
+                  <FaFolderOpen className=" w-45 h-45  lg:w-lg lg:h-100 text-primary-tint-6 " />
                 </div>
-              </div>
-
-              <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
-                <Btn title="انتقال به صحفه اصلی " link="/" />
               </div>
             </div>
           </AdRegistrationContainer>
@@ -47,5 +45,4 @@ const RegisterDoneAdRE: React.FC = () => {
     </>
   )
 }
-
-export default RegisterDoneAdRE
+export default RegisterErrorAdRE

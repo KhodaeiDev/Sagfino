@@ -16,6 +16,8 @@ const steps: Step[] = [
 ]
 
 const StepThreeAdRE: React.FC = () => {
+    document.title = 'مرحله ی سوم-ثبت آگهی'
+
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">

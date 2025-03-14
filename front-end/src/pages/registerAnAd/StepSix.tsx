@@ -25,7 +25,7 @@ const StepSixAdRE: React.FC = () => {
   )
 
   useEffect(() => {
-    document.title = 'مرحله ی پنج-ثبت آگهی'
+    document.title = 'مرحله ی شش-ثبت آگهی'
   }, [])
 
   const handleImageUpload = (
