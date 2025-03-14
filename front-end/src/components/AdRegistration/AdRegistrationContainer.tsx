@@ -1,4 +1,8 @@
 import React from 'react'
+import {
+  NavBar,
+  NavBarMobail,
+} from '../shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
 
 type AdRegistrationContainerProps = {
   children: React.ReactNode
@@ -9,7 +13,13 @@ const AdRegistrationContainer: React.FC<AdRegistrationContainerProps> = ({
 }) => {
   return (
     <>
-      <div className=" flex  bg-white w-full min-h-screen xl:h-screen  rounded-2xl ">
+      <div className="hidden lg:flex">
+        <NavBar />
+      </div>
+      <div className="flex lg:hidden">
+        <NavBarMobail />
+      </div>
+      <div className=" flex  bg-white w-full min-h-screen h-185 rounded-2xl my-10 ">
         <div className=" hidden md:w-1/3 md:flex  ">
           <img
             className="w-full h-full rounded-r-2xl "

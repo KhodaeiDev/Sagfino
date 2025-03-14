@@ -6,6 +6,10 @@ import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import Btn from '../../components/AdRegistration/btn'
 import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import { Step } from '../../components/AdRegistration/ProgressBar'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -29,7 +33,7 @@ const StepTwoAdRE: React.FC = () => {
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
-        <div className="container py-14 md:py-20 ">
+        <div className="container ">
           <AdRegistrationContainer>
             <div className="flex flex-col w-full">
               <ProgressBar steps={steps} />
@@ -130,6 +134,9 @@ const StepTwoAdRE: React.FC = () => {
             </div>
           </AdRegistrationContainer>
         </div>
+        {/* // Footer */}
+        <Footer />
+        <FooterMobail />
       </div>
     </>
   )
