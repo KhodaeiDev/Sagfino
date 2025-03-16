@@ -4,9 +4,10 @@ import CustomSkeletonLoader, {
   Section,
   ImageSection,
 } from '../../UIComponents/Feedback/loadingSpinner/Spinner'
+import { NavLink } from 'react-router'
 
 interface RealEstateModalProps {
-  openModal: () => void
+  openModal?: () => void 
 }
 
 const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
@@ -37,9 +38,10 @@ const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
 
   return (
     <>
-      <div
-        onClick={openModal}
-        className=" xs:h-80 sm:h-70 md:h-74  lg:h-80 cursor-pointer border border-boxHelp rounded-2xl flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] items-center px-5 xl:px-12 py-4 xl:py-8"
+      <NavLink
+        to="/RealEstateDetails/RealEstateDetails/1"
+        onClick={() => openModal && openModal()}
+        className="xs:h-80 sm:h-70 md:h-74 lg:h-80 cursor-pointer border border-boxHelp rounded-2xl flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] items-center px-5 xl:px-12 py-4 xl:py-8"
       >
         {isLoading ? (
           <CustomSkeletonLoader
@@ -77,7 +79,7 @@ const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
             </div>
           </>
         )}
-      </div>
+      </NavLink>
     </>
   )
 }

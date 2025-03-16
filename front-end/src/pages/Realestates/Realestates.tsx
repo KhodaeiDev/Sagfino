@@ -1,11 +1,11 @@
-import React, { useState } from 'react'
+import React from 'react'
 import {
   NavBar,
   NavBarMobail,
 } from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
 import EstateBox from '../../components/shared/Cards/estateBox/estateBox'
 import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
-import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+// import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import { RiSearch2Line } from 'react-icons/ri'
 import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
 import {
@@ -14,15 +14,15 @@ import {
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const Realestates: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
-  const openModal = () => {
-    setIsModalVisible(true)
-  }
+  // const openModal = () => {
+  //   setIsModalVisible(true)
+  // }
 
-  const closeModal = () => {
-    setIsModalVisible(false)
-  }
+  // const closeModal = () => {
+  //   setIsModalVisible(false)
+  // }
 
   document.title = 'سقفینو-املاک و مستغلات'
 
@@ -56,17 +56,14 @@ const Realestates: React.FC = () => {
           </div>
         </div>
         <div className=" grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4 ">
-          <EstateBox openModal={openModal} />
-          <EstateBox openModal={openModal} />
-          <EstateBox openModal={openModal} />
-          <EstateBox openModal={openModal} />
-          <EstateBox openModal={openModal} />
-          <EstateBox openModal={openModal} />
-          <EstateBox openModal={openModal} />
-          <EstateBox openModal={openModal} />
-         
-     
-      
+          <EstateBox />
+          <EstateBox />
+          <EstateBox />
+          <EstateBox />
+          <EstateBox />
+          <EstateBox />
+          <EstateBox />
+          <EstateBox />
         </div>
         <div className=" flex items-center justify-center gap-3 my-8 ">
           <Pagination />
@@ -74,12 +71,12 @@ const Realestates: React.FC = () => {
       </div>
       <Footer />
       <FooterMobail />
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}
           closeModal={closeModal}
         />
-      )}
+      )} */}
     </>
   )
 }
