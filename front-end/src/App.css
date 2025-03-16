@@ -148,6 +148,16 @@ body {
     color: #ffffff;
 }
 
+.RealEstateDetails {
+    background:
+        url("/img/Banner.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 100%;
+    height: 100vh;
+    color: #ffffff;
+}
+
 
 @media (max-width: 768px) {
     .bg-AdRegistration {
