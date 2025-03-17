@@ -17,6 +17,7 @@ import Realestates from './pages/Realestates/Realestates'
 import RealEstateDetails from './pages/RealEstateDetails/RealEstateDetails'
 import AboutUs from './pages/AboutUs/AboutUs'
 import ContactUs from './pages/ContactUs/ContactUs'
+import NotFound from './pages/404/NotFound'
 
 const routes = [
   { path: '/', element: <Home /> },
@@ -47,6 +48,7 @@ const routes = [
     path: '/Realestates/Realestates',
     element: <Realestates />,
   },
+  { path: '*', element: <NotFound /> },
 ]
 
 export default routes
