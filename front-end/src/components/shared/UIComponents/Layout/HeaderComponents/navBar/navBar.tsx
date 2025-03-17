@@ -9,6 +9,8 @@ import { IoKeyOutline } from 'react-icons/io5'
 import { LuHousePlus } from 'react-icons/lu'
 import { PiNewspaperClipping } from 'react-icons/pi'
 import { IoIosPeople } from 'react-icons/io'
+import { CiHome } from 'react-icons/ci'
+
 
 interface MenueMobailProps {
   isOpen: boolean
@@ -25,6 +27,18 @@ const NavBar: React.FC = () => {
               <Logo />
             </NavLink>
             <ul className=" flex items-center justify-between gap-3 xl:gap-6 text-gray-1000">
+              <li>
+                <NavLink
+                  to={'/'}
+                  className={({ isActive }) =>
+                    `hover:text-primary  hover:custom-underline-hover  ${
+                      isActive ? 'text-primary custom-underline' : ' '
+                    }`
+                  }
+                >
+                  خانه
+                </NavLink>
+              </li>
               <li>
                 <NavLink
                   to={'/Rent/Rent'}
@@ -138,6 +152,20 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
         </NavLink>
         <ul className="font-shabnam  flex flex-col items-start gap-3 text-gray-1000 *:w-full    p-4 ">
           <li>
+            <NavLink
+              to={'/'}
+              className={({ isActive }) =>
+                `flex items-center justify-between w-full hover:text-primary  hover:custom-underline ${
+                  isActive ? 'text-primary custom-underline' : ''
+                }`
+              }
+            >
+              <div className=" flex gap-2 mt-5">
+                <CiHome className="text-2xl" />
+                خانه
+              </div>
+              <IoIosArrowBack className="text-2xl" />
+            </NavLink>
             <NavLink
               to={'/Rent/Rent'}
               className={({ isActive }) =>

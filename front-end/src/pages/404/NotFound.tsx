@@ -10,7 +10,8 @@ import {
 import { NavLink } from 'react-router'
 
 const NotFound: React.FC = () => {
-  document.title = ' سقفینو-صحفه مورد نظر یافت نشد'
+  document.title = 'صحفه مورد نظر یافت نشد'
+
   return (
     <>
       <NavBar />

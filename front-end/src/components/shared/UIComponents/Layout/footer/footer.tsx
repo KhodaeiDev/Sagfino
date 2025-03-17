@@ -122,7 +122,9 @@ const Footer: React.FC = () => {
             <div className="grid grid-cols-4 gap-20 pt-6 pb-4 ">
               {/* logo */}
               <div className=" flex flex-col gap-2">
-                <Logo />
+                <NavLink to={'/'}>
+                  <Logo />
+                </NavLink>
                 <h6 className=" text-base font-shabnam text-Gray-35 mt-4">
                   تجربه لذت خانه‌دار شدن سریع و آسان
                 </h6>
@@ -135,46 +137,120 @@ const Footer: React.FC = () => {
               {/* menu */}
               <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> خدمات </h5>
-                <NavLink className={'text-xs text-gray-71  mt-0.5'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/Rent/Rent'}
+                >
                   اجاره
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/Shopping/shopping'}
+                >
                   خرید
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/Realestates/Realestates'}
+                >
                   املاک و مستغلات
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
-                  اخبار روز ملک
-                </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={''}
+                >
                   سوال ملکی دارید
                 </NavLink>
               </div>
               <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> اطلاعات </h5>
-                <NavLink className={'text-xs text-gray-71 mt-0.5'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/ContactUs/ContactUs'}
+                >
                   تماس با ما
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/AboutUs/AboutUs'}
+                >
                   داستان سقفینو
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/FAQ/FAQ'}
+                >
                   پرسش های پرتکرار
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={''}
+                >
                   حریم شخصی شما
                 </NavLink>
               </div>
               <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> حساب کاربری </h5>
-                <NavLink className={'text-xs text-gray-71 mt-0.5'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={''}
+                >
                   پروفایل من
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={''}
+                >
                   ملک نشان شده
                 </NavLink>
-                <NavLink className={'text-xs text-gray-71'} to={''}>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={''}
+                >
                   آگهی من
                 </NavLink>
               </div>
@@ -290,7 +366,7 @@ const FooterMobail: React.FC = () => {
               <NavLink className={'text-10 text-gray-71'} to={''}>
                 داستان سقفینو
               </NavLink>
-              <NavLink className={'text-10 text-gray-71'} to={''}>
+              <NavLink className={'text-10 text-gray-71'} to={'/FAQ/FAQ'}>
                 پرسش های پرتکرار
               </NavLink>
             </div>
