@@ -21,22 +21,43 @@ const Sorting: React.FC<SortingProps> = ({ openModalFiltering }) => {
         {/* desktop */}
         <div className=" hidden md:flex   xl:flex-row md:flex-col-reverse gap-4  items-center justify-between h-30 mt-22">
           <div className=" flex items-center justify-start gap-2 ">
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              width="w-27"
+              responsiveWidth="w-27"
+              responsiveHeight="h-12"
+            >
               <li>مسکونی </li>
               <li>تجاری </li>
               <li>بازرگانی </li>
             </SelectBox>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-27"
+              responsiveHeight="h-12"
+            >
               <li>مسکونی </li>
               <li>تجاری </li>
               <li>بازرگانی </li>
             </SelectBox>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-27"
+              responsiveHeight="h-12"
+            >
               <li>مسکونی </li>
               <li>تجاری </li>
               <li>بازرگانی </li>
             </SelectBox>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-27"
+              responsiveHeight="h-12"
+            >
               <li>مسکونی </li>
               <li>تجاری </li>
               <li>بازرگانی </li>
@@ -106,7 +127,12 @@ const Sorting: React.FC<SortingProps> = ({ openModalFiltering }) => {
               <TbFilterSearch className=" text-lg" />
               <span>فیلتر ها </span>
             </div>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth={`w-30 `}
+              responsiveHeight="h-8 "
+            >
               <li>جدیدترین</li>
               <li>قدیمی ترین</li>
               <li>ارزان ترین</li>

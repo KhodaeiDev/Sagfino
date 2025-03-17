@@ -50,8 +50,8 @@ const StepFourAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>دارد</li>
                         <li> ندارد</li>
@@ -69,8 +69,8 @@ const StepFourAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>ایرانی</li>
                         <li> فرنگی</li>
@@ -93,8 +93,8 @@ const StepFourAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>دارد</li>
                         <li>ندارد</li>
@@ -112,8 +112,8 @@ const StepFourAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>دارد</li>
                         <li> ندارد</li>
@@ -135,9 +135,9 @@ const StepFourAdRE: React.FC = () => {
             </div>
           </AdRegistrationContainer>
         </div>
-      {/* // Footer */}
-      <Footer />
-      <FooterMobail />
+        {/* // Footer */}
+        <Footer />
+        <FooterMobail />
       </div>
     </>
   )

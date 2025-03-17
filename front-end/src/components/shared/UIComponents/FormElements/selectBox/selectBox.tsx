@@ -8,14 +8,17 @@ interface SelectBoxProps {
   onSelect: (option: string) => void
   width?: string
   height?: string
+  responsiveWidth?: string
+  responsiveHeight?: string 
 }
 
 const SelectBox: React.FC<SelectBoxProps> = ({
   children,
   selectedOption,
   onSelect,
-  width = 'w-40',
-  height = 'h-12',
+
+  responsiveWidth = '',
+  responsiveHeight = '',
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
@@ -31,7 +34,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   return (
     <>
       <div
-        className={`relative inline-flex justify-between bg-transparent rounded-lg shadow-lg border px-4 border-blue-400 shadow-blue-400/50 ${width} ${height}`}
+        className={`relative inline-flex justify-between bg-transparent rounded-lg shadow-lg border px-4 border-blue-400 shadow-blue-400/50   ${responsiveWidth} ${responsiveHeight}`}
       >
         <div
           className="flex gap-1.5 items-center justify-between w-full cursor-pointer"

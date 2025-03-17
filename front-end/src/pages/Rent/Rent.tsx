@@ -62,15 +62,20 @@ const Rent: React.FC = () => {
           <div className=" hidden  md:flex  gap-2 my-6 items-center justify-between">
             <div className=" flex flex-col gap-y-3">
               <h3 className=" text-2xl font-shabnamBold">املاک اجاره‌ای</h3>
-              <span className="  font-shabnam text-primary">
+              <span className="  sm:h-9 font-shabnam text-primary">
                 ۴۷.۵۰۷ مورد یافت شد
               </span>
             </div>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-28  lg:w-48"
+              responsiveHeight="h-8  lg:h-12"
+            >
               <li>جدیدترین</li>
-              <li>قدیمی ترین</li>
-              <li>ارزان ترین</li>
-              <li>گران ترین</li>
+              <li>قدیمی‌ترین</li>
+              <li>ارزان‌ترین</li>
+              <li>گران‌ترین</li>
             </SelectBox>
           </div>
           {/* products */}

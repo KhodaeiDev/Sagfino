@@ -53,8 +53,8 @@ const StepTwoAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>جدیدترین</li>
                         <li>قدیمی ترین</li>
@@ -74,8 +74,8 @@ const StepTwoAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>جدیدترین</li>
                         <li>قدیمی ترین</li>

@@ -5,7 +5,10 @@ import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import Btn from '../../components/AdRegistration/btn'
 import { Step } from '../../components/AdRegistration/ProgressBar'
-import { Footer, FooterMobail } from '../../components/shared/UIComponents/Layout/footer/footer'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const steps: Step[] = [
   { id: 1, status: 'active' },
@@ -50,8 +53,8 @@ const StepOneAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>جدیدترین</li>
                         <li>قدیمی ترین</li>
@@ -71,8 +74,8 @@ const StepOneAdRE: React.FC = () => {
                       <SelectBox
                         onSelect={handleSelect}
                         selectedOption={selectedOption}
-                        width="w-70.5"
-                        height="h-12"
+                        responsiveWidth="w-70.5"
+                        responsiveHeight="h-12"
                       >
                         <li>جدیدترین</li>
                         <li>قدیمی ترین</li>
