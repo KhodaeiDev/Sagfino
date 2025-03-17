@@ -19,7 +19,7 @@ const AdRegistrationContainer: React.FC<AdRegistrationContainerProps> = ({
       <div className="flex lg:hidden">
         <NavBarMobail />
       </div>
-      <div className=" flex  bg-white w-full min-h-screen h-185 rounded-2xl my-10 ">
+      <div className=" flex  bg-white w-full  h-185 rounded-2xl my-10 ">
         <div className=" hidden md:w-1/3 md:flex  ">
           <img
             className="w-full h-full rounded-r-2xl "

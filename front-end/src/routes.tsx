@@ -15,11 +15,13 @@ import RegisterDoneAdRE from './pages/registerAnAd/RegisterDone'
 import RegisterErrorAdRE from './pages/registerAnAd/RegisterError'
 import Realestates from './pages/Realestates/Realestates'
 import RealEstateDetails from './pages/RealEstateDetails/RealEstateDetails'
+import AboutUs from './pages/AboutUs/AboutUs'
 
 const routes = [
   { path: '/', element: <Home /> },
   { path: '/Rent/Rent', element: <Rent /> },
   { path: '/Shopping/shopping', element: <Shopping /> },
+  { path: '/AboutUs/AboutUs', element: <AboutUs /> },
   { path: '/auth/StepOne', element: <StepOne /> },
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },

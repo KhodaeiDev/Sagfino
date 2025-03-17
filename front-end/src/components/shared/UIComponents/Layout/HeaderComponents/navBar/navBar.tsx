@@ -63,14 +63,14 @@ const NavBar: React.FC = () => {
               </li>
 
               <NavLink
-                to={'/consultants'}
+                to={'/AboutUs/AboutUs'}
                 className={({ isActive }) =>
                   `hover:text-primary  hover:custom-underline-hover ${
                     isActive ? 'text-primary custom-underline' : ' '
                   }`
                 }
               >
-                مشاورین املاک
+                درباره ما
               </NavLink>
               <li>
                 <NavLink
@@ -81,7 +81,7 @@ const NavBar: React.FC = () => {
                     }`
                   }
                 >
-                  اخبار روز
+                  ارتباط با ما
                 </NavLink>
               </li>
             </ul>
@@ -203,7 +203,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
           </li>
           <li>
             <NavLink
-              to={'/rent'}
+              to={'/AboutUs/AboutUs'}
               className={({ isActive }) =>
                 `flex items-center justify-between w-full hover:text-primary  hover:custom-underline  ${
                   isActive ? 'text-primary custom-underline' : ''
@@ -212,7 +212,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
             >
               <div className=" flex   gap-2  mt-5">
                 <IoIosPeople className="text-2xl" />
-                مشاورین املک
+                درباره ما
               </div>
               <IoIosArrowBack className="text-2xl" />
             </NavLink>
@@ -230,7 +230,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
             >
               <div className=" flex   gap-2  mt-5">
                 <PiNewspaperClipping className="text-2xl" />
-                اخبار روز
+                ارتباط با ما
               </div>
               <IoIosArrowBack className="text-2xl" />
             </NavLink>

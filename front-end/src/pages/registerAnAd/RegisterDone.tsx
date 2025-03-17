@@ -9,11 +9,11 @@ import {
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const RegisterDoneAdRE: React.FC = () => {
-            document.title = 'سقفینو-ثبت نام انجام شد'
+  document.title = 'سقفینو-ثبت نام انجام شد'
 
   return (
     <>
-      <div className="bg-AdRegistration bg-gray-ED min-h-screen">
+      <div className="bg-AdRegistration bg-gray-ED min-h-screen    ">
         <div className="container ">
           <AdRegistrationContainer>
             <div className="flex flex-col">
@@ -41,8 +41,10 @@ const RegisterDoneAdRE: React.FC = () => {
           </AdRegistrationContainer>
         </div>
         {/* // Footer */}
-        <Footer />
-        <FooterMobail />
+        <div className=' !mt-25 '>
+          <Footer />
+          <FooterMobail />
+        </div>
       </div>{' '}
     </>
   )
