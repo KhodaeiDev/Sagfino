@@ -167,16 +167,6 @@ const Footer: React.FC = () => {
                 >
                   املاک و مستغلات
                 </NavLink>
-                <NavLink
-                  className={({ isActive }) =>
-                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
-                      isActive ? 'text-primary ' : ' '
-                    }`
-                  }
-                  to={''}
-                >
-                  سوال ملکی دارید
-                </NavLink>
               </div>
               <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> اطلاعات </h5>
@@ -216,7 +206,7 @@ const Footer: React.FC = () => {
                       isActive ? 'text-primary ' : ' '
                     }`
                   }
-                  to={''}
+                  to={'/PrivacyPolicy/PrivacyPolicy'}
                 >
                   حریم شخصی شما
                 </NavLink>
@@ -229,7 +219,7 @@ const Footer: React.FC = () => {
                       isActive ? 'text-primary ' : ' '
                     }`
                   }
-                  to={''}
+                  to={'profail'}
                 >
                   پروفایل من
                 </NavLink>
@@ -239,7 +229,7 @@ const Footer: React.FC = () => {
                       isActive ? 'text-primary ' : ' '
                     }`
                   }
-                  to={''}
+                  to={'profail'}
                 >
                   ملک نشان شده
                 </NavLink>
@@ -249,7 +239,7 @@ const Footer: React.FC = () => {
                       isActive ? 'text-primary ' : ' '
                     }`
                   }
-                  to={''}
+                  to={'profail'}
                 >
                   آگهی من
                 </NavLink>
@@ -279,7 +269,9 @@ const FooterMobail: React.FC = () => {
       <div className=" !bg-boxHelp  lg:hidden">
         <div className="container ">
           <div className=" flex flex-col pt-15   items-start gap-y-1">
-            <Logo />
+            <NavLink to={'/'}>
+              <Logo />
+            </NavLink>
             <h5 className=" mt-2.5  font-shabnamMedium   text-base text-gray-21">
               سقفینو؛ سقفی برای یک زندگی ایده‌آل
             </h5>
@@ -327,13 +319,34 @@ const FooterMobail: React.FC = () => {
           <div className=" flex items-center  gap-6  md:gap-12  mt-4">
             <div className=" flex flex-col gap-2.5 font-shabnam">
               <h5 className=" text-xs"> خدمات </h5>
-              <NavLink className={' text-10 text-gray-71'} to={''}>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-10 text-gray-71  mt-0.5 hover:text-primary   ${
+                    isActive ? 'text-primary ' : ' '
+                  }`
+                }
+                to={'/Rent/Rent'}
+              >
                 اجاره
               </NavLink>
-              <NavLink className={' text-10 text-gray-71'} to={''}>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-10 text-gray-71  mt-0.5 hover:text-primary   ${
+                    isActive ? 'text-primary ' : ' '
+                  }`
+                }
+                to={'/Shopping/shopping'}
+              >
                 خرید
               </NavLink>
-              <NavLink className={' text-10 text-gray-71'} to={''}>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-10 text-gray-71  mt-0.5 hover:text-primary   ${
+                    isActive ? 'text-primary ' : ' '
+                  }`
+                }
+                to={'/Realestates/Realestates'}
+              >
                 املاک و مستغلات
               </NavLink>
             </div>
@@ -360,13 +373,34 @@ const FooterMobail: React.FC = () => {
             </div>
             <div className=" flex flex-col gap-2.5 font-shabnam">
               <h5 className=" text-xs"> اطلاعات </h5>
-              <NavLink className={' text-10 text-gray-71 '} to={''}>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-10 text-gray-71  mt-0.5 hover:text-primary   ${
+                    isActive ? 'text-primary ' : ' '
+                  }`
+                }
+                to={'/ContactUs/ContactUs'}
+              >
                 تماس با ما
               </NavLink>
-              <NavLink className={'text-10 text-gray-71'} to={''}>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-10 text-gray-71  mt-0.5 hover:text-primary   ${
+                    isActive ? 'text-primary ' : ' '
+                  }`
+                }
+                to={'/AboutUs/AboutUs'}
+              >
                 داستان سقفینو
               </NavLink>
-              <NavLink className={'text-10 text-gray-71'} to={'/FAQ/FAQ'}>
+              <NavLink
+                className={({ isActive }) =>
+                  `text-10 text-gray-71  mt-0.5 hover:text-primary   ${
+                    isActive ? 'text-primary ' : ' '
+                  }`
+                }
+                to={'/FAQ/FAQ'}
+              >
                 پرسش های پرتکرار
               </NavLink>
             </div>

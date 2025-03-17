@@ -19,6 +19,7 @@ import AboutUs from './pages/AboutUs/AboutUs'
 import ContactUs from './pages/ContactUs/ContactUs'
 import NotFound from './pages/404/NotFound'
 import FAQ from './pages/FAQ/FAQ'
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
 
 const routes = [
   { path: '/', element: <Home /> },
@@ -27,6 +28,7 @@ const routes = [
   { path: '/AboutUs/AboutUs', element: <AboutUs /> },
   { path: '/ContactUs/ContactUs', element: <ContactUs /> },
   { path: '/FAQ/FAQ', element: <FAQ /> },
+  { path: '/PrivacyPolicy/PrivacyPolicy', element: <PrivacyPolicy /> },
   { path: '/auth/StepOne', element: <StepOne /> },
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },
