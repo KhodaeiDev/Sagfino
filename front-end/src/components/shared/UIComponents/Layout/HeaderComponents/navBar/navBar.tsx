@@ -74,7 +74,7 @@ const NavBar: React.FC = () => {
               </NavLink>
               <li>
                 <NavLink
-                  to={'/news'}
+                  to={'/ContactUs/ContactUs'}
                   className={({ isActive }) =>
                     `hover:text-primary  hover:custom-underline ${
                       isActive ? 'text-primary custom-underline' : ' '
@@ -219,7 +219,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
           </li>
           <li>
             <NavLink
-              to={'/rent'}
+              to={'/ContactUs/ContactUs'}
               className={({ isActive }) =>
                 `flex items-center justify-between w-full hover:text-primary  hover:custom-underline  ${
                   isActive

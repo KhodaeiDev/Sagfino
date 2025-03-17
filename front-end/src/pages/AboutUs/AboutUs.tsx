@@ -9,12 +9,12 @@ import {
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const AboutUs: React.FC = () => {
-
-  document.title ="سقفینو-درباره ما"
+  document.title = 'سقفینو-درباره ما'
   return (
     <>
       <NavBar></NavBar>
       <NavBarMobail></NavBarMobail>
+      {/* content */}
       <div className="container mt-16">
         <div className=" px-10  pb-10 pt-3  xl:px-31 xl:pb-21 xl:pt-8   border border-gray-D9  rounded-xl w-full h-auto ">
           <h4 className=" font-shabnamBold text-xs lg:text-2xl text-Gray-35 ">
@@ -60,6 +60,7 @@ const AboutUs: React.FC = () => {
           </div>
         </div>
       </div>
+      {/* footer */}
       <div className=" mt-15">
         <Footer />
         <FooterMobail />
