@@ -20,6 +20,8 @@ import ContactUs from './pages/ContactUs/ContactUs'
 import NotFound from './pages/404/NotFound'
 import FAQ from './pages/FAQ/FAQ'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
+import EditInformation from './pages/cms/EditInformation'
+import RegisterNewAd from './pages/cms/RegisterNewAd'
 
 const routes = [
   { path: '/', element: <Home /> },
@@ -29,6 +31,8 @@ const routes = [
   { path: '/ContactUs/ContactUs', element: <ContactUs /> },
   { path: '/FAQ/FAQ', element: <FAQ /> },
   { path: '/PrivacyPolicy/PrivacyPolicy', element: <PrivacyPolicy /> },
+  { path: '/cms/EditInformation', element: <EditInformation /> },
+  { path: '/cms/RegisterNewAd', element: <RegisterNewAd /> },
   { path: '/auth/StepOne', element: <StepOne /> },
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },

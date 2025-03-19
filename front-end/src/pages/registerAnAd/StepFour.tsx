@@ -5,7 +5,10 @@ import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import Btn from '../../components/AdRegistration/btn'
 import { Step } from '../../components/AdRegistration/ProgressBar'
-import { Footer, FooterMobail } from '../../components/shared/UIComponents/Layout/footer/footer'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },

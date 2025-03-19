@@ -25,7 +25,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = ({
             } font-shabnamBold   text-sm  md:text-32 text-Gray-35 `}
           >
             <div
-              className={` w-full flex items-center  ${
+              className={` w-full  h-auto flex items-center  ${
                 center ? ' justify-center' : ' justify-between '
               } `}
             >
