@@ -14,7 +14,7 @@ import { NavLink } from 'react-router'
 
 type CMSLayoutProps = {
   title: string
-  children: React.ReactElement
+  children: React.ReactNode
 }
 
 const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
@@ -26,9 +26,9 @@ const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
         {/* layot */}
         <div className=" w-full flex  gap-x-6 ">
           {/* right */}
-          <div className="w-1/4  pb-10 h-118  flex flex-col  gap-y-2 items-center justify-center">
+          <div className="w-1/4  hidden  pb-10 h-auto  lg:flex flex-col  gap-y-2 items-center justify-center">
             {/* profile */}
-            <div className=" w-full h-26.25 border border-gray-D9 py-6 pr-6  rounded-xl ">
+            <div className="w-full h-26.25 border border-gray-D9 py-6 pr-6  rounded-xl ">
               <div className=" flex  items-center gap-x-2 text-gray-71  ">
                 <CgProfile className=" w-10 h-10 " />
                 <div className=" flex flex-col items-center  ">
@@ -40,7 +40,7 @@ const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
               </div>
             </div>
             {/* navBar */}
-            <div className=" w-full h-full border border-gray-D9 rounded-xl  px-6 pt-4 ">
+            <div className="w-full h-full border border-gray-D9 rounded-xl  px-6 pt-4 ">
               <ul className="flex *:flex *:items-center *:gap-x-2 flex-col  gap-y-5 **:text-gray-71  font-shabnam text-sm    ">
                 <NavLink
                   className={({ isActive }) =>
@@ -102,9 +102,11 @@ const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
             </div>
           </div>
           {/* left */}
-          <div className="w-3/4 h-118  border border-gray-D9  rounded-xl py-8 pr-6 ">
+          <div className=" w-full lg:w-3/4 h-auto  border border-gray-D9  rounded-xl py-8 ">
             <div className=" flex flex-col ">
-              <h3 className=' text-2xl font-shabnamBold '>{title}</h3>
+              <div className=' pr-6 '>
+                <h3 className=" text-2xl font-shabnamBold ">{title}</h3>
+              </div>
               {children}
             </div>
           </div>
