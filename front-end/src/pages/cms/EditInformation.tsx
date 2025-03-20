@@ -11,6 +11,8 @@ import { FaTrash } from 'react-icons/fa'
 import Btn from '../../components/AdRegistration/btn'
 
 const EditInformation: React.FC = () => {
+  document.title = "سقفینو-ویرایش اطلاعات"
+  
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +33,7 @@ const EditInformation: React.FC = () => {
     <>
       <CMSLayout title="ویرایش اطلاعات">
         {/* Header */}
-        <div className=" px-2.5 md:px-18 lg:px-24 pt-3 ">
+        <div className=" px-4 md:px-18 lg:px-24 pt-3 ">
           {/* profile */}
           <div className=" w-full flex justify-center lg:justify-start   ">
             <div className="w-25.5 h-25.5 border border-gray-AD rounded-lg center relative">
