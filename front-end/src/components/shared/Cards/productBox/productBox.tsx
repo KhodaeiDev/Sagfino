@@ -1,12 +1,16 @@
 import { RiBookmarkLine } from 'react-icons/ri'
 import { NavLink } from 'react-router'
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import CustomSkeletonLoader, {
   Section,
   ImageSection,
 } from '../../UIComponents/Feedback/loadingSpinner/Spinner'
 
-export default function ProductBox() {
+type ProductBoxProps = {
+  isSaved: boolean
+}
+
+const ProductBox: React.FC<ProductBoxProps> = ({ isSaved }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -51,7 +55,10 @@ export default function ProductBox() {
             <img
               className="w-full rounded-t-xl"
               src="../../../public/img/pexels-john-tekeridis-1428348.png"
-              alt=""
+              alt="Your Alt Text"
+              onError={(event) => {
+                ;(event.target as HTMLImageElement).src = '/img/Photo Place.png'
+              }}
             />
             <div className="center w-16.25 h-5.5 lg:w-25 lg:h-9.5 rounded-xs lg:rounded-sm bg-black-blur/40 text-10 absolute top-3 left-3 font-shabnam lg:text-base">
               <span className="text-white">۲ ساعت پیش</span>
@@ -60,7 +67,11 @@ export default function ProductBox() {
           <div className="flex flex-col gap-2.5 p-2.5 lg:px-3.5 lg:pt2.5 lg:pb-6.25">
             <div className="flex items-center justify-between font-shabnam text-10 lg:text-base text-gray-90">
               <NavLink to={''}>رهن و اجاره آپارتمان تهران</NavLink>
-              <RiBookmarkLine className="cursor-pointer w-3 h-3 lg:w-6 lg:h-6" />
+              <RiBookmarkLine
+                className={`cursor-pointer w-3 h-3 lg:w-6 lg:h-6 ${
+                  isSaved ? ' text-primary' : 'text-gray-90'
+                } `}
+              />
             </div>
             <div>
               <span className="text-10 text-gray-1000 lg:text-base">
@@ -77,3 +88,5 @@ export default function ProductBox() {
     </div>
   )
 }
+
+export default ProductBox
