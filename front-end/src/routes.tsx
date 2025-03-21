@@ -22,8 +22,10 @@ import FAQ from './pages/FAQ/FAQ'
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
 import EditInformation from './pages/cms/EditInformation'
 import MyAds from './pages/cms/MyAds'
+import SavedAd from './pages/cms/SavedAd'
 
 const routes = [
+  // pages
   { path: '/', element: <Home /> },
   { path: '/Rent/Rent', element: <Rent /> },
   { path: '/Shopping/shopping', element: <Shopping /> },
@@ -31,11 +33,10 @@ const routes = [
   { path: '/ContactUs/ContactUs', element: <ContactUs /> },
   { path: '/FAQ/FAQ', element: <FAQ /> },
   { path: '/PrivacyPolicy/PrivacyPolicy', element: <PrivacyPolicy /> },
-  { path: '/cms/EditInformation', element: <EditInformation /> },
-  { path: '/pages/cms/MyAds', element: <MyAds /> },
   { path: '/auth/StepOne', element: <StepOne /> },
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },
+  // RegisterAnAd
   { path: '/registerAnAd/StepOneAdRE', element: <StepOneAdRE /> },
   { path: '/registerAnAd/StepTwoAdRE', element: <StepTwoAdRE /> },
   { path: '/registerAnAd/StepThreeAdRE', element: <StepThreeAdRE /> },
@@ -56,6 +57,10 @@ const routes = [
     path: '/Realestates/Realestates',
     element: <Realestates />,
   },
+  // cms
+  { path: '/cms/EditInformation', element: <EditInformation /> },
+  { path: '/cms/MyAds', element: <MyAds /> },
+  { path: '/cms/SavedAd', element: <SavedAd /> },
   { path: '*', element: <NotFound /> },
 ]
 

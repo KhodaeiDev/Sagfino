@@ -70,7 +70,7 @@ const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
                 </li>
                 <li>
                   <NavLink
-                    to={'/pages/cms/MyAds'}
+                    to={'/cms/MyAds'}
                     className={({ isActive }) =>
                       isActive
                         ? `border-primary rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
@@ -83,7 +83,7 @@ const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
                 </li>
                 <li>
                   <NavLink
-                    to={'/'}
+                    to={'/cms/SavedAd'}
                     className={({ isActive }) =>
                       isActive
                         ? `border-primary rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
@@ -95,18 +95,17 @@ const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
                   </NavLink>
                 </li>
                 <li>
-
-                <NavLink
-                  to={'/'}
-                  className={({ isActive }) =>
-                    isActive
-                      ? `border-primary rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
-                      : ''
-                  }
-                >
-                  <HiOutlineLogout className=" w-5 h-5 " />
-                  <span> خروج</span>
-                </NavLink>
+                  <NavLink
+                    to={'/'}
+                    className={({ isActive }) =>
+                      isActive
+                        ? `border-primary rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
+                        : ''
+                    }
+                  >
+                    <HiOutlineLogout className=" w-5 h-5 " />
+                    <span> خروج</span>
+                  </NavLink>
                 </li>
               </ul>
             </div>

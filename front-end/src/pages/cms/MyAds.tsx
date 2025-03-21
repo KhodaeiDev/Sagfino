@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import CMSLayout from '../../components/cms/CMSLayout'
 import { NavLink } from 'react-router'
-// import NotRegisteredAd from '../../components/cms/not-registered-ad'
+// import EmptyTemplate from '../../components/cms/EmptyTemplate'
 import {
   Footer,
   FooterMobail,
@@ -42,6 +42,16 @@ const MyAds: React.FC = () => {
     <>
       <CMSLayout title="آگهی من">
         {/* <NotRegisteredAd /> */}
+        {/* EmptyTemplate */}
+        {/* <EmptyTemplate
+          img={'/public/img/pana.png'}
+          title="هنوز آگهی‌ای ثبت نکردید!"
+          des={
+            'با ثبت رایگان آگهی هر جا که هستید به‌سرعت ملک‌تان را معامله کنید'
+          }
+          btnTitle={'ثبت آگهی'}
+          link={'/registerAnAd/StepOneAdRE'}
+        /> */}
         <div className="w-full mt-4 flex **:cursor-pointer items-center justify-start pr-6.5 gap-x-2 text-gray-1000 text-base ">
           <GoTrash className=" w-6 h-6" />
           پاک کردن همیه آگهی های
