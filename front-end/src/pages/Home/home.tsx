@@ -60,15 +60,15 @@ const Home: React.FC = () => {
             btnTitle={'مشاهده همه'}
             btnHref={''}
           />
-          <div className=" grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
+          <div className=" mt-20 grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
           </div>
         </div>
       </div>

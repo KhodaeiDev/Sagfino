@@ -1,11 +1,9 @@
 import { useState, useEffect } from 'react'
 
-
-
 import CustomSkeletonLoader, {
   Section,
   ImageSection,
-} from '../../UIComponents/Feedback/loadingSpinner/Spinner'
+} from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 
 const ConsultantBox = () => {
   const [isLoading, setIsLoading] = useState(true)

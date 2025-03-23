@@ -3,11 +3,11 @@ import { useState, useEffect } from 'react'
 import CustomSkeletonLoader, {
   Section,
   ImageSection,
-} from '../../UIComponents/Feedback/loadingSpinner/Spinner'
+} from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 import { NavLink } from 'react-router'
 
 interface RealEstateModalProps {
-  openModal?: () => void 
+  openModal?: () => void
 }
 
 const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {

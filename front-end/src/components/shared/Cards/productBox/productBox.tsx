@@ -1,10 +1,7 @@
 import { RiBookmarkLine } from 'react-icons/ri'
 import { NavLink } from 'react-router'
 import React, { useState, useEffect } from 'react'
-import CustomSkeletonLoader, {
-  Section,
-  ImageSection,
-} from '../../UIComponents/Feedback/loadingSpinner/Spinner'
+import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 
 type ProductBoxProps = {
   isSaved: boolean
@@ -18,32 +15,44 @@ const ProductBox: React.FC<ProductBoxProps> = ({ isSaved }) => {
     return () => clearTimeout(timer)
   }, [])
 
-  const width = 600
-  const height = 800
-
-  const imageSection: ImageSection = {
-    xOffset: 0,
-    yOffset: 10,
-    width: '100%',
-    height: 300,
-  }
-
-  const textSections: Section[] = [
-    { xOffset: 150, yOffset: 330, width: 430, height: 25 },
-    { xOffset: 80, yOffset: 380, width: 500, height: 25 },
-    { xOffset: 130, yOffset: 430, width: 450, height: 25 },
-    { xOffset: 175, yOffset: 480, width: 400, height: 25 },
-  ]
-
   return (
-    <div className="  border border-boxHelp rounded-xl">
+    <div className="  border w-full  h-auto lg:h-75  border-boxHelp rounded-xl">
       {isLoading ? (
-        <div className="flex justify-center items-center w-full">
+        <div className="flex   justify-center items-center ">
           <CustomSkeletonLoader
-            width={width}
-            height={height}
-            imageSection={imageSection}
-            textSections={textSections}
+            imageSection={{ yOffset: '0%', height: '50%' }}
+            textSections={[
+              {
+                xOffset: '85%',
+                yOffset: '55%',
+                width: '10%',
+                height: '7%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '68%',
+                width: '60%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '81%',
+                width: '60%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '94%',
+                width: '60%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '107%',
+                width: '60%',
+                height: '4%',
+              },
+            ]}
           />
         </div>
       ) : (
