@@ -10,12 +10,11 @@ import {
   HttpStatus,
 } from '@nestjs/common';
 import { AuthService } from './auth.service';
-// import { SendOtpDto } from './dto/sendOtp.dto';
 import { Response } from 'express';
 import { VerifySmsOtpDto } from 'src/sms-otp/dto/verify-sms-otp.dto';
 import { SendOtpDto } from 'src/sms-otp/dto/sendOtp.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
-import userRoleEnum from 'src/users/enum/userRoleEnum';
+import { RegisterUserDto } from './dto/registerUser.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -44,29 +43,17 @@ export class AuthController {
   @Post('register/:phoneToken')
   async createUser(
     @Res() res: Response,
-    @Body() createUserDto: CreateUserDto,
+    @Body() registerUserDto: RegisterUserDto,
     @Param('phoneToken') phoneToken: string,
   ) {
-    const data = await this.authService.registerUser(createUserDto, phoneToken);
+    const data = await this.authService.registerUser(
+      registerUserDto,
+      phoneToken,
+    );
 
     return res.status(HttpStatus.CREATED).json({
       statusCode: HttpStatus.CREATED,
       data,
     });
-  }
-
-  @Get()
-  findAll() {
-    return this.authService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.authService.findOne(+id);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.authService.remove(+id);
   }
 }
