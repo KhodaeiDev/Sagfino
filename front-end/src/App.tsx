@@ -2,14 +2,10 @@ import './App.css'
 import { useRoutes } from 'react-router'
 import routes from './routes'
 
-function App() {
+const App = () => {
   const router = useRoutes(routes)
 
-  return (
-    <>
-      {router}
-    </>
-  )
+  return <>{router}</>
 }
 
 export default App

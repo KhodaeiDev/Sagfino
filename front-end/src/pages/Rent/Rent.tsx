@@ -1,18 +1,23 @@
-import { NavBar } from '../../components/navBar/navBar'
-import Sorting from '../../components/sorting/sorting'
-import { NavBarMobail } from '../../components/navBar/navBar'
-import ProductBox from '../../components/productBox/productBox'
-import SelectBox from '../../components/selectBox/selectBox'
+import {
+  NavBar,
+  NavBarMobail,
+} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
+import Sorting from '../../components/shared/UIComponents/FormElements/sorting/sorting'
+import ProductBox from '../../components/shared/Cards/productBox/productBox'
+import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import { useState } from 'react'
-import BoxEstate from '../../components/boxEstate/boxEstate'
-import SectionHeader from '../../components/sectionHeader/sectionHeader'
-import RealEstateModal from '../../components/RealEstateInfoModal/RealEstateModal'
-import Pagination from '../../components/pagination/pagination'
-import { Footer, FooterMobail } from '../../components/footer/footer'
-import FilteringModal from '../../components/filteringModal/filteringModal'
+import BoxEstate from '../../components/shared/Cards/estateBox/estateBox'
+import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
+import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
+import FilteringModal from '../../components/shared/Modals/filteringModal/filteringModal'
 import { useMediaQuery } from 'react-responsive'
 
-import { FilteringModalMobail } from '../../components/filteringModal/filteringModal'
+import { FilteringModalMobail } from '../../components/shared/Modals/filteringModal/filteringModal'
 
 const Rent: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
@@ -39,6 +44,8 @@ const Rent: React.FC = () => {
     setOpenModalFiltering(false)
   }
 
+  document.title = 'سقفینو - اجاره'
+
   return (
     <>
       <div className=" hidden lg:flex">
@@ -55,15 +62,20 @@ const Rent: React.FC = () => {
           <div className=" hidden  md:flex  gap-2 my-6 items-center justify-between">
             <div className=" flex flex-col gap-y-3">
               <h3 className=" text-2xl font-shabnamBold">املاک اجاره‌ای</h3>
-              <span className="  font-shabnam text-primary">
+              <span className="  sm:h-9 font-shabnam text-primary">
                 ۴۷.۵۰۷ مورد یافت شد
               </span>
             </div>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-28  lg:w-48"
+              responsiveHeight="h-8  lg:h-12"
+            >
               <li>جدیدترین</li>
-              <li>قدیمی ترین</li>
-              <li>ارزان ترین</li>
-              <li>گران ترین</li>
+              <li>قدیمی‌ترین</li>
+              <li>ارزان‌ترین</li>
+              <li>گران‌ترین</li>
             </SelectBox>
           </div>
           {/* products */}
