@@ -87,13 +87,23 @@ const RealEstateDetails: React.FC = () => {
         <div className="container">
           <SectionHeader title="آگهی املاک توسی" center={false} />
           <div className="flex  justify-start  gap-x-5 ">
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-28  lg:w-48"
+              responsiveHeight="h-8  lg:h-12"
+            >
               <li>جدیدترین</li>
               <li>قدیمی ترین</li>
               <li>ارزان ترین</li>
               <li>گران ترین</li>
             </SelectBox>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-28  lg:w-48"
+              responsiveHeight="h-8  lg:h-12"
+            >
               <li>جدیدترین</li>
               <li>قدیمی ترین</li>
               <li>ارزان ترین</li>
