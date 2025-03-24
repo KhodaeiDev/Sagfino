@@ -60,16 +60,12 @@ export class AuthService {
   async registerUser(registerUserDto: RegisterUserDto, phoneToken: string) {
     const decodedPhone = await this.jwtService.verify(phoneToken);
 
-    // jwt.verify(phoneToken, process.env.JWT_SECRET) as jwt.JwtPayload;
-
     const phone: string = decodedPhone.phone;
 
     const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
     const usersCount = (await this.userService.findAll()).length;
 
-    console.log(usersCount);
-
-    const user = await this.userService.create({
+    const createUser = await this.userService.create({
       ...registerUserDto,
       phone,
       password: hashedPassword,
@@ -77,7 +73,11 @@ export class AuthService {
       avatar: null,
     });
 
-    const accessToken = this.generateAuthToken(user);
-    return accessToken;
+    const accessToken = this.generateAuthToken(createUser);
+    return {
+      accessToken,
+      user: createUser.user,
+      message: 'ثبت نام با موفقیت انجام شد',
+    };
   }
 }

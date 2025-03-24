@@ -14,6 +14,7 @@ import { Response } from 'express';
 import { VerifySmsOtpDto } from 'src/sms-otp/dto/verify-sms-otp.dto';
 import { SendOtpDto } from 'src/sms-otp/dto/sendOtp.dto';
 import { CreateUserDto } from 'src/users/dto/create-user.dto';
+import { RegisterUserDto } from './dto/registerUser.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -42,10 +43,13 @@ export class AuthController {
   @Post('register/:phoneToken')
   async createUser(
     @Res() res: Response,
-    @Body() createUserDto: CreateUserDto,
+    @Body() registerUserDto: RegisterUserDto,
     @Param('phoneToken') phoneToken: string,
   ) {
-    const data = await this.authService.registerUser(createUserDto, phoneToken);
+    const data = await this.authService.registerUser(
+      registerUserDto,
+      phoneToken,
+    );
 
     return res.status(HttpStatus.CREATED).json({
       statusCode: HttpStatus.CREATED,
