@@ -8,7 +8,6 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from './entities/user.entity';
 import { Repository } from 'typeorm';
-import * as bcrypt from 'bcryptjs';
 import userRoleEnum from './enum/userRoleEnum';
 
 @Injectable()
@@ -18,21 +17,15 @@ export class UsersService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async create(createUserDto: CreateUserDto, phone: string) {
+  async create(createUserDto: CreateUserDto) {
     try {
-      const hashedPassword = await bcrypt.hash(createUserDto.password, 10);
-      const usersCount = await this.userRepository.count();
-
-      const newUser = this.userRepository.create({
-        ...createUserDto,
-        phone,
-        password: hashedPassword,
-        role: usersCount === 0 ? userRoleEnum.Admin : createUserDto.role,
-      });
+      const newUser = this.userRepository.create(createUserDto);
 
       await this.userRepository.save(newUser);
 
-      return newUser;
+      delete newUser.password;
+
+      return { user: newUser };
     } catch (err) {
       console.log(err);
       throw new BadRequestException('خطا در ایجاد کاربر');

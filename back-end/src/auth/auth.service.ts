@@ -1,24 +1,25 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { SendOtpDto } from './dto/sendOtp.dto';
-import { UpdateAuthDto } from './dto/updateAuth.dto';
 import { SmsOtpService } from 'src/sms-otp/sms-otp.service';
 import * as jwt from 'jsonwebtoken';
 import { UsersService } from 'src/users/users.service';
 import { VerifySmsOtpDto } from 'src/sms-otp/dto/verify-sms-otp.dto';
-import { CreateUserDto } from './dto/createUser.dto';
+import { RegisterUserDto } from './dto/registerUser.dto';
+import * as bcrypt from 'bcryptjs';
+import userRoleEnum from 'src/users/enum/userRoleEnum';
+import { JwtService } from '@nestjs/jwt';
 
 @Injectable()
 export class AuthService {
   constructor(
     private readonly smsService: SmsOtpService,
     private readonly userService: UsersService,
+    private readonly jwtService: JwtService,
   ) {}
 
   generateAuthToken(user: any) {
-    const payload = { id: user.id };
-    const token = jwt.sign(payload, process.env.JWT_SECRET, {
-      expiresIn: process.env.JWT_EXPIRE,
-    });
+    const payload = { id: user.id, phone: user.phone, role: user.role };
+    const token = this.jwtService.sign(payload);
     return token;
   }
 
@@ -48,42 +49,27 @@ export class AuthService {
     return { message: 'تایید شد', phoneToken };
   }
 
-  async registerUser(createUserDto: CreateUserDto, phoneToken: string) {
-    const decodedPhone = jwt.verify(
-      phoneToken,
-      process.env.JWT_SECRET,
-    ) as jwt.JwtPayload;
+  async registerUser(registerUserDto: RegisterUserDto, phoneToken: string) {
+    const decodedPhone = await this.jwtService.verify(phoneToken);
+
+    // jwt.verify(phoneToken, process.env.JWT_SECRET) as jwt.JwtPayload;
 
     const phone: string = decodedPhone.phone;
-    const user = await this.userService.create(createUserDto, phone);
-    delete user.password;
+
+    const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
+    const usersCount = (await this.userService.findAll()).length;
+
+    console.log(usersCount);
+
+    const user = await this.userService.create({
+      ...registerUserDto,
+      phone,
+      password: hashedPassword,
+      role: usersCount === 0 ? userRoleEnum.Admin : registerUserDto.role,
+      avatar: null,
+    });
 
     const accessToken = this.generateAuthToken(user);
-
-    return {
-      message: 'ثبت نام با موفقیت انجام شد',
-      user,
-      accessToken,
-    };
-  }
-
-  create(createAuthDto: SendOtpDto) {
-    return 'This action adds a new auth';
-  }
-
-  findAll() {
-    return `This action returns all auth`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} auth`;
-  }
-
-  update(id: number, updateAuthDto: UpdateAuthDto) {
-    return `This action updates a #${id} auth`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} auth`;
+    return accessToken;
   }
 }
