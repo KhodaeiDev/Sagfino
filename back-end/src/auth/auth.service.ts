@@ -1,4 +1,8 @@
-import { Injectable, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { SendOtpDto } from './dto/sendOtp.dto';
 import { SmsOtpService } from 'src/sms-otp/sms-otp.service';
 import * as jwt from 'jsonwebtoken';
@@ -24,8 +28,12 @@ export class AuthService {
   }
 
   async sendOtp(sendOtpDto: SendOtpDto): Promise<void> {
-    const code: string = Math.floor(10000 + Math.random() * 90000).toString();
-    await this.smsService.sendOtp(sendOtpDto, code);
+    try {
+      const code: string = Math.floor(10000 + Math.random() * 90000).toString();
+      await this.smsService.sendOtp(sendOtpDto, code);
+    } catch {
+      throw new BadRequestException('خطا در ارسال کد');
+    }
   }
 
   async verifyOtp(verifySmsDto: VerifySmsOtpDto) {
