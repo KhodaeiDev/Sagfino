@@ -68,23 +68,28 @@ const Rent: React.FC = () => {
                 ۴۷.۵۰۷ مورد یافت شد
               </span>
             </div>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-28  lg:w-48"
+              responsiveHeight="h-8  lg:h-12"
+            >
               <li>جدیدترین</li>
-              <li>قدیمی ترین</li>
-              <li>ارزان ترین</li>
-              <li>گران ترین</li>
+              <li>قدیمی‌ترین</li>
+              <li>ارزان‌ترین</li>
+              <li>گران‌ترین</li>
             </SelectBox>
           </div>
           {/* products */}
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
-            <ProductBox></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
           </div>
           {/* <NoProducts></NoProducts> */}
         </div>
@@ -108,14 +113,14 @@ const Rent: React.FC = () => {
 
           <div className="container mt-8">
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-              <ProductBox></ProductBox>
-              <ProductBox></ProductBox>
-              <ProductBox></ProductBox>
-              <ProductBox></ProductBox>
-              <ProductBox></ProductBox>
-              <ProductBox></ProductBox>
-              <ProductBox></ProductBox>
-              <ProductBox></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
             </div>
           </div>
         </div>

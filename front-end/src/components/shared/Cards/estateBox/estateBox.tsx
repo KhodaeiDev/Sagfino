@@ -1,9 +1,6 @@
 import { IoIosCheckmark } from 'react-icons/io'
 import { useState, useEffect } from 'react'
-import CustomSkeletonLoader, {
-  Section,
-  ImageSection,
-} from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
+import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 import { NavLink } from 'react-router'
 
 interface RealEstateModalProps {
@@ -18,23 +15,8 @@ const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
     return () => clearTimeout(timer)
   }, [])
 
-  const width = 900
-  const height = 990
 
-  const imageSection: ImageSection = {
-    xOffset: 0,
-    yOffset: 0,
-    width: '100%',
-    height: 450,
-  }
-
-  const textSections: Section[] = [
-    { xOffset: 140, yOffset: 510, width: 620, height: 30 },
-    { xOffset: 90, yOffset: 580, width: 730, height: 30 },
-    { xOffset: 85, yOffset: 650, width: 730, height: 30 },
-    { xOffset: 85, yOffset: 720, width: 730, height: 30 },
-    { xOffset: 85, yOffset: 790, width: 730, height: 30 },
-  ]
+  
 
   return (
     <>
@@ -45,10 +27,51 @@ const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
       >
         {isLoading ? (
           <CustomSkeletonLoader
-            width={width}
-            height={height}
-            imageSection={imageSection}
-            textSections={textSections}
+            imageSection={{ yOffset: '0%', height: '40%' }}
+            textSections={[
+              {
+                xOffset: '5%',
+                yOffset: '50%',
+                width: '90%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '60%',
+                width: '90%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '70%',
+                width: '90%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '80%',
+                width: '90%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '90%',
+                width: '90%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '100%',
+                width: '90%',
+                height: '4%',
+              },
+              {
+                xOffset: '5%',
+                yOffset: '110%',
+                width: '90%',
+                height: '4%',
+              },
+            ]}
           />
         ) : (
           <>

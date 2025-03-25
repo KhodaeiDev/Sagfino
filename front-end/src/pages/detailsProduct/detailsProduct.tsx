@@ -1,4 +1,7 @@
-import { NavBar,NavBarMobail } from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
+import {
+  NavBar,
+  NavBarMobail,
+} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
 import { RiBookmarkLine } from 'react-icons/ri'
 import { PiPencilRulerLight } from 'react-icons/pi'
 import { BsLamp } from 'react-icons/bs'
@@ -268,9 +271,9 @@ const DetailsProduct: React.FC = () => {
             آگهی مشابه
           </h3>{' '}
           <div className=" grid  grid-cols-2 lg:grid-cols-3 gap-4 mt-6 ">
-            <ProductBox />
-            <ProductBox />
-            <ProductBox />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
           </div>
         </div>
       </div>

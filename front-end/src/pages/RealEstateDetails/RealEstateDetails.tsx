@@ -87,13 +87,23 @@ const RealEstateDetails: React.FC = () => {
         <div className="container">
           <SectionHeader title="آگهی املاک توسی" center={false} />
           <div className="flex  justify-start  gap-x-5 ">
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-28  lg:w-48"
+              responsiveHeight="h-8  lg:h-12"
+            >
               <li>جدیدترین</li>
               <li>قدیمی ترین</li>
               <li>ارزان ترین</li>
               <li>گران ترین</li>
             </SelectBox>
-            <SelectBox selectedOption={selectedOption} onSelect={handleSelect}>
+            <SelectBox
+              selectedOption={selectedOption}
+              onSelect={handleSelect}
+              responsiveWidth="w-28  lg:w-48"
+              responsiveHeight="h-8  lg:h-12"
+            >
               <li>جدیدترین</li>
               <li>قدیمی ترین</li>
               <li>ارزان ترین</li>
@@ -101,12 +111,12 @@ const RealEstateDetails: React.FC = () => {
             </SelectBox>
           </div>
           <div className=" grid grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-6 gap-y-2 lg:gap-y-4 mt-10 ">
-            <ProductBox />
-            <ProductBox />
-            <ProductBox />
-            <ProductBox />
-            <ProductBox />
-            <ProductBox />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
           </div>
           <div className=" flex items-center justify-center mt-10 ">
             <Pagination />

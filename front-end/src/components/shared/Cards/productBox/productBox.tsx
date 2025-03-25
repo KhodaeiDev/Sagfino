@@ -5,9 +5,10 @@ import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/Ske
 
 type ProductBoxProps = {
   isSaved: boolean
+  LoadingHeight: string
 }
 
-const ProductBox: React.FC<ProductBoxProps> = ({ isSaved }) => {
+const ProductBox: React.FC<ProductBoxProps> = ({ isSaved, LoadingHeight }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -16,7 +17,11 @@ const ProductBox: React.FC<ProductBoxProps> = ({ isSaved }) => {
   }, [])
 
   return (
-    <div className="  border w-full  h-auto lg:h-75  border-boxHelp rounded-xl">
+    <div
+      className={` border w-full ${
+        isLoading ? `${LoadingHeight}` : ' h-auto '
+      }   border-boxHelp rounded-xl`}
+    >
       {isLoading ? (
         <div className="flex   justify-center items-center ">
           <CustomSkeletonLoader
@@ -30,25 +35,25 @@ const ProductBox: React.FC<ProductBoxProps> = ({ isSaved }) => {
               },
               {
                 xOffset: '5%',
-                yOffset: '68%',
+                yOffset: '65%',
                 width: '60%',
                 height: '4%',
               },
               {
                 xOffset: '5%',
-                yOffset: '81%',
+                yOffset: '75%',
                 width: '60%',
                 height: '4%',
               },
               {
                 xOffset: '5%',
-                yOffset: '94%',
+                yOffset: '85%',
                 width: '60%',
                 height: '4%',
               },
               {
                 xOffset: '5%',
-                yOffset: '107%',
+                yOffset: '95%',
                 width: '60%',
                 height: '4%',
               },

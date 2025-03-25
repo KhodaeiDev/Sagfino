@@ -16,7 +16,6 @@ const SelectBox: React.FC<SelectBoxProps> = ({
   children,
   selectedOption,
   onSelect,
-
   responsiveWidth = '',
   responsiveHeight = '',
 }) => {
