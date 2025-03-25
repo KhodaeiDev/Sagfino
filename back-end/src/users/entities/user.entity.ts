@@ -27,6 +27,9 @@ export class User {
   @Column({ nullable: true })
   avatar: string;
 
+  @Column({ nullable: true })
+  email: string;
+
   @Column({ type: 'enum', enum: userRoleEnum, default: userRoleEnum.User })
   role: userRoleEnum;
 
