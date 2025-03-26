@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import Input from '../../components/shared/UIComponents/FormElements/input/input'
 
 const StepOne: React.FC = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -7,8 +8,7 @@ const StepOne: React.FC = () => {
     setIsChecked(!isChecked)
   }
 
-    document.title = 'سقفینو - احزار هویت مرحله 1'
-
+  document.title = 'سقفینو - احزار هویت مرحله 1'
 
   return (
     <>
@@ -19,10 +19,11 @@ const StepOne: React.FC = () => {
               ورود
             </h4>
             <span>به سقفینو خوش آمدید</span>
-            <span>لطفا برای ورود شماره تلفن خود را وارد کنید</span>
-            <input
+            <span>لطفا برای ورود شماره تلفن خود را وارد کنید</span> 
+            <Input
               type="text"
               placeholder="شماره تلفن"
+              element="text"
               className="border border-gray-300 mt-6.25 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
             />
             {/* Custom Checkbox */}

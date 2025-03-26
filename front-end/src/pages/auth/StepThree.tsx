@@ -5,6 +5,7 @@ import { IoEyeOffOutline } from 'react-icons/io5'
 import { PiKeyLight } from 'react-icons/pi'
 
 import { useState } from 'react'
+import Input from '../../components/shared/UIComponents/FormElements/input/input'
 
 const StepThree: React.FC = () => {
   const [showPassword, setShowPassword] = useState(false)
@@ -24,32 +25,35 @@ const StepThree: React.FC = () => {
 
             {/* Custom input */}
             <div className="flex items-center justify-between text-gray-1000 border border-gray-AD rounded-xl py-3 px-2  md:py-5 md:px-3 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-300">
-              <div className="flex items-center gap-x-2">
+              <div className="flex  w-full  items-center gap-x-2">
                 <AiOutlineUser className=" w-4 h-4 md:w-6 md:h-6" />
-                <input
-                  className="outline-0 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+                <Input
+                  className=" w-full  outline-0 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
                   type={'text'}
                   placeholder="نام خود را وارد کنید"
+                  element="text"
                 />
               </div>
             </div>
             <div className="flex items-center justify-between text-gray-1000 border border-gray-AD rounded-xl py-3 px-2  md:py-5 md:px-3 focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-300">
-              <div className="flex items-center gap-x-2">
+              <div className="flex w-full items-center gap-x-2">
                 <AiOutlineUser className=" w-4 h-4 md:w-6 md:h-6" />
-                <input
-                  className="outline-0 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+                <Input
+                  className=" w-full  outline-0 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
                   type={'text'}
                   placeholder="نام خانوادگی خود را وارد کنید"
+                  element="text"
                 />
               </div>
             </div>
             <div className="flex items-center justify-between text-gray-1000 border border-gray-AD rounded-xl py-3 px-2  md:py-5 md:px-3focus-within:border-blue-500 focus-within:ring-2 focus-within:ring-blue-300">
-              <div className="flex items-center gap-x-2">
+              <div className="flex w-full items-center gap-x-2">
                 <PiKeyLight className=" w-4 h-4  md:w-6 md:h-6" />
-                <input
-                  className="outline-0 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+                <Input
+                  className="  w-full outline-0 border-0 bg-transparent focus:ring-0 focus:border-0 placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
                   type={showPassword ? 'text' : 'password'}
                   placeholder="رمز دلخواه خود را وارد کنید"
+                  element="text"
                 />
               </div>
               {showPassword ? (
