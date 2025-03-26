@@ -58,26 +58,41 @@ export class AuthService {
   }
 
   async registerUser(registerUserDto: RegisterUserDto, phoneToken: string) {
-    const decodedPhone = await this.jwtService.verify(phoneToken);
+    try {
+      const decodedPhone = await this.jwtService.verify(phoneToken);
+      const phone: string = decodedPhone.phone;
 
-    const phone: string = decodedPhone.phone;
+      const existUser = await this.userService.findOne(phone);
+      if (existUser) {
+        const accessToken = this.generateAuthToken(existUser);
+        return {
+          message: 'شما قبلا ثبت نام کرده اید',
+          accessToken,
+          user: existUser,
+        };
+      }
 
-    const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
-    const usersCount = (await this.userService.findAll()).length;
+      const hashedPassword = await bcrypt.hash(registerUserDto.password, 10);
+      const usersCount = (await this.userService.findAll()).length;
 
-    const createUser = await this.userService.create({
-      ...registerUserDto,
-      phone,
-      password: hashedPassword,
-      role: usersCount === 0 ? userRoleEnum.Admin : registerUserDto.role,
-      avatar: null,
-    });
+      const createUser = await this.userService.create({
+        ...registerUserDto,
+        phone,
+        password: hashedPassword,
+        role: usersCount === 0 ? userRoleEnum.Admin : registerUserDto.role,
+        avatar: null,
+      });
 
-    const accessToken = this.generateAuthToken(createUser);
-    return {
-      accessToken,
-      user: createUser.user,
-      message: 'ثبت نام با موفقیت انجام شد',
-    };
+      const accessToken = this.generateAuthToken(createUser);
+      return {
+        accessToken,
+        user: createUser.user,
+        message: 'ثبت نام با موفقیت انجام شد',
+      };
+    } catch {
+      throw new BadRequestException(
+        'نشست شما منقضی شده است لطفا مجددا تلاش فرمایید',
+      );
+    }
   }
 }
