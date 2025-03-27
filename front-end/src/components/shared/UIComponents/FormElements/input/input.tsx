@@ -1,4 +1,5 @@
 import React, { useReducer } from 'react'
+import validator from '../../../../../validators/validator'
 import { InputProps, InputState, InputAction } from './types'
 
 const inputReducer = (state: InputState, action: InputAction) => {
@@ -7,7 +8,7 @@ const inputReducer = (state: InputState, action: InputAction) => {
       return {
         ...state,
         value: action.value,
-        isValid: action.isValid,
+        isValid: validator(action.value, action.validations),
       }
     }
     default: {
@@ -20,6 +21,7 @@ const Input: React.FC<InputProps> = (props) => {
   const [mainInput, dipatch] = useReducer(inputReducer, {
     value: '',
     isValid: false,
+    validations: props.validations || [],
   })
 
   // const { value, isValue } = mainInput
@@ -30,7 +32,8 @@ const Input: React.FC<InputProps> = (props) => {
     dipatch({
       type: 'CHANGE',
       value: event.target.value,
-      isValid: true,
+      validations: props.validations,
+      isValid: false,
     })
   }
 

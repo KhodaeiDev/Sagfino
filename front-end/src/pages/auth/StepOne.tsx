@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Input from '../../components/shared/UIComponents/FormElements/input/input'
+import { maxValidator, minValidator, requiredValidator } from '../../validators/rules'
 
 const StepOne: React.FC = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -19,12 +20,17 @@ const StepOne: React.FC = () => {
               ورود
             </h4>
             <span>به سقفینو خوش آمدید</span>
-            <span>لطفا برای ورود شماره تلفن خود را وارد کنید</span> 
+            <span>لطفا برای ورود شماره تلفن خود را وارد کنید</span>
             <Input
               type="text"
               placeholder="شماره تلفن"
               element="text"
               className="border border-gray-300 mt-6.25 rounded-lg p-2 focus:outline-none focus:ring-2 focus:ring-blue-300"
+              validations={[
+                requiredValidator(),
+                minValidator(11),
+                maxValidator(11),
+              ]}
             />
             {/* Custom Checkbox */}
             <div className="flex items-center gap-x-2">
