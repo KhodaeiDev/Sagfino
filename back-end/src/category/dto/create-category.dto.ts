@@ -1,5 +1,6 @@
 import { IsBoolean, IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import { CategoryType } from '../enums/categoryTypeEnum';
+import { Transform } from 'class-transformer';
 
 export class CreateCategoryDto {
   @IsString({ message: 'نام دسته بندی باید یک رشته باشد' })
