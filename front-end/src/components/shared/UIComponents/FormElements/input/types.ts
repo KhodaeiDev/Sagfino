@@ -5,11 +5,13 @@ export type ValidationItem = {
 }
 
 export type InputProps = {
+  id: string
   type: string
   placeholder: string
   className: string
   element: 'text' | 'textarea'
   validations: ValidationItem[]
+  onInputHandler: (id: string, value: string, isValid: boolean) => void
 }
 
 export type InputState = {

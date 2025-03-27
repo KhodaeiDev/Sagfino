@@ -1,6 +1,11 @@
 import React, { useState } from 'react'
 import Input from '../../components/shared/UIComponents/FormElements/input/input'
-import { maxValidator, minValidator, requiredValidator } from '../../validators/rules'
+import {
+  maxValidator,
+  minValidator,
+  requiredValidator,
+} from '../../validators/rules'
+import UseForm from '../../Hooks/useForm'
 
 const StepOne: React.FC = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
@@ -9,6 +14,11 @@ const StepOne: React.FC = () => {
     setIsChecked(!isChecked)
   }
 
+  const [formState, onInputHandler] = UseForm(
+    { phone: { value: '', isValid: false } },
+    false
+  )
+  console.log(formState)
   document.title = 'سقفینو - احزار هویت مرحله 1'
 
   return (
@@ -22,6 +32,7 @@ const StepOne: React.FC = () => {
             <span>به سقفینو خوش آمدید</span>
             <span>لطفا برای ورود شماره تلفن خود را وارد کنید</span>
             <Input
+              id="phone"
               type="text"
               placeholder="شماره تلفن"
               element="text"
@@ -31,6 +42,7 @@ const StepOne: React.FC = () => {
                 minValidator(11),
                 maxValidator(11),
               ]}
+              onInputHandler={onInputHandler}
             />
             {/* Custom Checkbox */}
             <div className="flex items-center gap-x-2">

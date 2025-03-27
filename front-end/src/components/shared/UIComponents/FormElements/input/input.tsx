@@ -1,4 +1,4 @@
-import React, { useReducer } from 'react'
+import React, { useEffect, useReducer } from 'react'
 import validator from '../../../../../validators/validator'
 import { InputProps, InputState, InputAction } from './types'
 
@@ -24,7 +24,13 @@ const Input: React.FC<InputProps> = (props) => {
     validations: props.validations || [],
   })
 
-  // const { value, isValue } = mainInput
+  const { value, isValid } = mainInput
+
+  const { id, onInputHandler } = props
+
+  useEffect(() => {
+    onInputHandler(id, value, isValid)
+  }, [value])
 
   const onchangeHandler = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
