@@ -5,6 +5,7 @@ import { UsersModule } from './users/users.module';
 import { SmsOtpModule } from './sms-otp/sms-otp.module';
 import { AuthModule } from './auth/auth.module';
 import { RedisModule } from './redis/redis.module';
+import { CategoryModule } from './category/category.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { RedisModule } from './redis/redis.module';
     SmsOtpModule,
     AuthModule,
     RedisModule,
+    CategoryModule,
   ],
   controllers: [],
   providers: [],
