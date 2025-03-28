@@ -66,9 +66,9 @@ const SavedAd: React.FC = () => {
                   </div>
                 ))
               : [
-                  <ProductBox key={1} isSaved={true} />,
-                  <ProductBox key={2} isSaved={true} />,
-                  <ProductBox key={3} isSaved={true} />,
+                  <ProductBox key={1} isSaved={true} LoadingHeight='lg:h-82' />,
+                  <ProductBox key={2} isSaved={true} LoadingHeight='lg:h-82' />,
+                  <ProductBox key={3} isSaved={true} LoadingHeight='lg:h-82' />,
                 ]}
           </div>
         </div>
