@@ -14,7 +14,7 @@ import 'swiper/css'
 import 'swiper/css/navigation'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router'
-import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
+// import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
 import BoxEstate from '../../components/shared/Cards/estateBox/estateBox'
 import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 
@@ -275,7 +275,7 @@ const Home: React.FC = () => {
             </Swiper> */}
 
             {/* Consultant */}
-            <SectionHeader
+            {/* <SectionHeader
               title={'مشاورین برتر تهران '}
               dec={''}
               center={false}
@@ -330,7 +330,7 @@ const Home: React.FC = () => {
               <SwiperSlide>
                 <ConsultantBox />
               </SwiperSlide>
-            </Swiper>
+            </Swiper> */}
           </div>
         </div>
       </div>
