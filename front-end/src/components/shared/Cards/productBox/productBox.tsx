@@ -68,7 +68,7 @@ const ProductBox: React.FC<ProductBoxProps> = ({ isSaved, LoadingHeight }) => {
           >
             <img
               className="w-full rounded-t-xl"
-              src="../../../public/img/pexels-john-tekeridis-1428348.png"
+              src="/img/pexels-john-tekeridis-1428348.png"
               alt="Your Alt Text"
               onError={(event) => {
                 ;(event.target as HTMLImageElement).src = '/img/Photo Place.png'

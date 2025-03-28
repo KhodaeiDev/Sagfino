@@ -254,7 +254,7 @@ const Footer: React.FC = () => {
           </span>
           <img
             className="w-auto h-auto absolute   -top-30"
-            src="../../../public/img/illustarion 2 1.png "
+            src="/img/illustarion 2 1.png "
             alt="img"
           />
         </div>
@@ -409,7 +409,7 @@ const FooterMobail: React.FC = () => {
             <span className=" text-xs font-shabnam  text-gray-500"></span>
             <img
               className="w-auto h-auto "
-              src="../../../public/img/illustarion 2 1.png "
+              src="/img/illustarion 2 1.png "
               alt="img"
             />
           </div>

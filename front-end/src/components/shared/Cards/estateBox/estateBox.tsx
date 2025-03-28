@@ -78,7 +78,7 @@ const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
             <div className="w-23.25 h-16.5 mb-2">
               <img
                 className="w-full h-full"
-                src="../../../public/img/Real Estate Logo 1.png"
+                src="/img/Real Estate Logo 1.png"
                 alt="Real Estate Logo"
               />
             </div>

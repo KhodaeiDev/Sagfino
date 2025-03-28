@@ -5,7 +5,7 @@ const BoxHelp: React.FC = () => {
         <div className=" flex flex-col gap-2.5">
           <img
             className=" mix-blend-darken"
-            src="../../../public/svg/illustration 2.svg"
+            src="/svg/illustration 2.svg"
             alt="svg"
           />
           <h1 className=" font-shabnamBold text-center  text-sm md:text-lg  lg:text-xl  text-Gray-35 ">

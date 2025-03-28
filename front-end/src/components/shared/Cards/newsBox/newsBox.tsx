@@ -4,7 +4,7 @@ const NewsBox: React.FC = () => {
       <div className=" bg-boxHelp  border  border-gray-D9  rounded-lg">
         <img
           className="rounded-t-lg w-full"
-          src="../../../public/img/Rectangle 52.png"
+          src="/img/Rectangle 52.png"
           alt=""
         />
         <div className="   py-4  px-4 lg:py-7 lg:px-4">
