@@ -2,7 +2,6 @@ import Logo from '../../../logo/logo'
 import { NavLink } from 'react-router'
 import { useState } from 'react'
 import { CgProfile } from 'react-icons/cg'
-import { IoIosAddCircleOutline } from 'react-icons/io'
 import { IoIosArrowBack } from 'react-icons/io'
 import { FaHouse } from 'react-icons/fa6'
 import { IoKeyOutline } from 'react-icons/io5'
@@ -10,7 +9,7 @@ import { LuHousePlus } from 'react-icons/lu'
 import { PiNewspaperClipping } from 'react-icons/pi'
 import { IoIosPeople } from 'react-icons/io'
 import { CiHome } from 'react-icons/ci'
-
+import { IoMdClose } from 'react-icons/io'
 
 interface MenueMobailProps {
   isOpen: boolean
@@ -136,13 +135,13 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
         <div className=" flex justify-end p-4">
           <div
             onClick={() => setIsOpen(false)}
-            className=" w-6 h-6 center  pb-1 rounded-2xl cursor-pointer border border-gray-1000  text-lg"
+            className=" w-6 h-6 center  rounded-2xl cursor-pointer border border-gray-1000  text-lg"
           >
-            x
+            <IoMdClose />
           </div>
         </div>
         <NavLink
-          to={'/auth/StepOne.tsx'}
+          to={'/auth/StepOne'}
           className="text-xs  text-gray-1000 font-shabnamMedium "
         >
           <div className="  font-shabnamMedium flex items-center h-20 p-4  bg-Gray-1  gap-1  mt-5">
@@ -163,20 +162,6 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
               <div className=" flex gap-2 mt-5">
                 <CiHome className="text-2xl" />
                 خانه
-              </div>
-              <IoIosArrowBack className="text-2xl" />
-            </NavLink>
-            <NavLink
-              to={'/Rent/Rent'}
-              className={({ isActive }) =>
-                `flex items-center justify-between w-full hover:text-primary  hover:custom-underline ${
-                  isActive ? 'text-primary custom-underline' : ''
-                }`
-              }
-            >
-              <div className=" flex gap-2 mt-5">
-                <IoIosAddCircleOutline className="text-2xl" />
-                ثبت آگهی
               </div>
               <IoIosArrowBack className="text-2xl" />
             </NavLink>

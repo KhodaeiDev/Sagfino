@@ -111,12 +111,12 @@ const RealEstateDetails: React.FC = () => {
             </SelectBox>
           </div>
           <div className=" grid grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-6 gap-y-2 lg:gap-y-4 mt-10 ">
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
           </div>
           <div className=" flex items-center justify-center mt-10 ">
             <Pagination />

@@ -82,14 +82,14 @@ const Rent: React.FC = () => {
           </div>
           {/* products */}
           <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
           </div>
           {/* <NoProducts></NoProducts> */}
         </div>
@@ -113,14 +113,14 @@ const Rent: React.FC = () => {
 
           <div className="container mt-8">
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
-              <ProductBox isSaved={false} LoadingHeight="lg:h-81"></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
+              <ProductBox isSaved={false}></ProductBox>
             </div>
           </div>
         </div>

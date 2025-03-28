@@ -61,14 +61,14 @@ const Home: React.FC = () => {
             btnHref={''}
           />
           <div className="  grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
-            <ProductBox isSaved={false} LoadingHeight='lg:h-82'></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
+            <ProductBox isSaved={false}></ProductBox>
           </div>
         </div>
       </div>

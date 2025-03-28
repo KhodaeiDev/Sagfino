@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 import Logo from '../../UIComponents/logo/logo'
 import SelectBox from '../../UIComponents/FormElements/selectBox/selectBox'
 import { IoIosArrowDown } from 'react-icons/io'
+import { IoMdClose } from 'react-icons/io'
+import { NavLink } from 'react-router'
 
 type FilteringModal = {
   closeModalFiltering: () => void
@@ -43,7 +45,7 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
             onClick={closeModalFiltering}
             className=" w-6 h-6 border-Gray-35 border center rounded-full cursor-pointer "
           >
-            <div>x</div>
+            <IoMdClose />
           </div>
           <div className=" text-center font-shabnamBold text-2xl text-Gray-35">
             <h5>فیلترها</h5>
@@ -266,20 +268,20 @@ export const FilteringModalMobail: React.FC<FilteringModal> = ({
 
   return ReactDOM.createPortal(
     <div className="modals-parent active    ">
-      <div className="w-full overflow-y-auto h-[100vh] bg-white rounded-2xl px-4 py-4">
+      <div className="w-full overflow-y-auto h-[100vh] bg-white lg:rounded-2xl px-4 py-4">
         {/* close */}
         <div className=" flex  justify-end ">
           <div
             onClick={closeModalFiltering}
             className=" w-6 h-6 border-Gray-35 border center rounded-full cursor-pointer "
           >
-            <div>x</div>
+            <IoMdClose />
           </div>
         </div>
         {/* logo */}
-        <div className=" flex items-center justify-center mt-3">
+        <NavLink to={'/'} className=" flex items-center justify-center mt-3">
           <Logo />
-        </div>
+        </NavLink>
         {/* select box */}
         <div className=" flex items-center justify-between mt mt-8 ">
           <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">

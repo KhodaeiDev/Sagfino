@@ -271,9 +271,9 @@ const DetailsProduct: React.FC = () => {
             آگهی مشابه
           </h3>{' '}
           <div className=" grid  grid-cols-2 lg:grid-cols-3 gap-4 mt-6 ">
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
           </div>
         </div>
       </div>
