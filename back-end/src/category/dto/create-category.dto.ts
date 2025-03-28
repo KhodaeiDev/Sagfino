@@ -1,4 +1,10 @@
-import { IsBoolean, IsEnum, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsBoolean,
+  IsEnum,
+  IsNotEmpty,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 import { CategoryType } from '../enums/categoryTypeEnum';
 import { Transform } from 'class-transformer';
 
@@ -11,4 +17,7 @@ export class CreateCategoryDto {
     message: 'نوع دسته بندی باید یکی از مقادیر main , sub باشد',
   })
   categoryType: CategoryType;
+
+  @IsOptional()
+  image: string;
 }

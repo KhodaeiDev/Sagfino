@@ -9,6 +9,9 @@ export class Category {
   @Column()
   title: string;
 
+  @Column({ nullable: true })
+  image: string;
+
   @Column({ type: 'enum', enum: CategoryType, default: CategoryType.MAIN })
   categoryType: CategoryType;
 }

@@ -6,6 +6,7 @@ import { SmsOtpModule } from './sms-otp/sms-otp.module';
 import { AuthModule } from './auth/auth.module';
 import { RedisModule } from './redis/redis.module';
 import { CategoryModule } from './category/category.module';
+import { UploaderModule } from './uploader/uploader.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { CategoryModule } from './category/category.module';
     AuthModule,
     RedisModule,
     CategoryModule,
+    UploaderModule,
   ],
   controllers: [],
   providers: [],
