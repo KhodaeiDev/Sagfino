@@ -1,60 +1,68 @@
-import React, { useReducer } from 'react'
+import React, { useReducer, useEffect } from 'react'
 import { InputProps, InputState, InputAction } from './types'
+import validator from '../../../../../validators/validator'
 
 const inputReducer = (state: InputState, action: InputAction) => {
   switch (action.type) {
-    case 'CHANGE': {
+    case 'CHANGE':
       return {
         ...state,
         value: action.value,
-        isValid: action.isValid,
+        isValid: validator(action.value, action.validations),
       }
-    }
-    default: {
+    default:
       return state
-    }
   }
 }
 
 const Input: React.FC<InputProps> = (props) => {
-  const [mainInput, dipatch] = useReducer(inputReducer, {
+  const [mainInput, dispatch] = useReducer(inputReducer, {
     value: '',
     isValid: false,
+    validations: props.validations || [],
   })
 
-  // const { value, isValue } = mainInput
+  const { value, isValid } = mainInput
+  const { id, onInputHandler, onFocus } = props
 
-  const onchangeHandler = (
+  useEffect(() => {
+    onInputHandler(id, value, isValid)
+  }, [id, value, isValid])
+
+  const handleChange = (
     event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    dipatch({
+    dispatch({
       type: 'CHANGE',
       value: event.target.value,
-      isValid: true,
+      validations: props.validations,
+      isValid: false,
     })
   }
 
   const element =
     props.element === 'text' ? (
       <input
-        placeholder={props.placeholder}
+        id={id}
         type={props.type}
-        className={`${props.className} focus:ring-2 ${
-          mainInput.isValid
-            ? '!border-green-500 focus:ring-green-500 '
-            : '  !border-primary   focus:ring-primary'
-        } `}
-        onChange={onchangeHandler}
-        value={mainInput.value}
+        placeholder={props.placeholder}
+        className={`${props.className}  focus:ring-2 ${
+          isValid ? ' focus:!ring-green-500' : '   focus:!ring-primary '
+        }`}
+        value={value}
+        onChange={handleChange}
+        onFocus={onFocus}
       />
     ) : (
       <textarea
+        id={id}
         placeholder={props.placeholder}
-        className={`${props.className}  ${
-          mainInput.isValid ? '!border-green-400' : ' !border-red-600 '
-        } `}
-        value={mainInput.value}
-        onChange={onchangeHandler}
+        className={`${props.className} ${
+          isValid ? '!border-green-500' : '!border-primary'
+        }`}
+        value={value}
+        onChange={handleChange}
+        onFocus={onFocus}
       ></textarea>
     )
 
