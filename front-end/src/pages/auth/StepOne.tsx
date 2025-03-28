@@ -7,11 +7,12 @@ import {
   requiredValidator,
 } from '../../validators/rules'
 import UseForm from '../../Hooks/useForm'
+import { NavLink } from 'react-router'
 
 const StepOne: React.FC = () => {
   document.title = 'سقفینو-احزار هویت مرحله 1'
   const [isChecked, setIsChecked] = useState<boolean>(false)
-  const [isFocused, setIsFocused] = useState<boolean>(false) // مدیریت فکوس
+  const [isFocused, setIsFocused] = useState<boolean>(false)
 
   const toggleCheckbox = () => {
     setIsChecked((prev) => !prev)
@@ -28,7 +29,6 @@ const StepOne: React.FC = () => {
     }
   }
 
-  console.log('isFocused:', isFocused, 'for,', formState.isFormValid)
 
   return (
     <div className="center h-dvh w-full bg-gray-ED">
@@ -71,12 +71,10 @@ const StepOne: React.FC = () => {
           </div>
 
           <div className="flex items-center gap-x-2">
-            <div
-              onClick={toggleCheckbox}
-              className="flex items-center gap-x-2.5 cursor-pointer"
-            >
+            <div className="flex items-center gap-x-2.5 ">
               <div
-                className={`w-4 h-4 lg:w-6 lg:h-6 flex items-center justify-center border-2 rounded-md ${
+                onClick={toggleCheckbox}
+                className={` cursor-pointer w-4 h-4 lg:w-6 lg:h-6 flex items-center justify-center border-2 rounded-md ${
                   isChecked
                     ? 'bg-green-500 border-green-500'
                     : 'bg-white border-gray-300'
@@ -104,9 +102,12 @@ const StepOne: React.FC = () => {
                 className="text-xs md:text-sm text-gray-700 ml-2"
               >
                 موافق{' '}
-                <span className="text-primary cursor-pointer">
+                <NavLink
+                  to={'/TermsAndConditions/TermsAndConditions'}
+                  className="text-primary cursor-pointer"
+                >
                   قوانین سقفینو
-                </span>{' '}
+                </NavLink>{' '}
                 هستم.
               </label>
             </div>

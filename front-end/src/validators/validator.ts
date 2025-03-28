@@ -39,10 +39,6 @@ const validator = (value: string, validations: Validation[]): boolean => {
           return false
         }
         break
-
-      default:
-        // Handle other cases if necessary
-        break
     }
   }
 

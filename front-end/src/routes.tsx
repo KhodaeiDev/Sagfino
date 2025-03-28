@@ -23,6 +23,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy'
 import EditInformation from './pages/cms/EditInformation'
 import MyAds from './pages/cms/MyAds'
 import SavedAd from './pages/cms/SavedAd'
+import TermsAndConditions from './pages/TermsAndConditions/TermsAndConditions'
 
 const routes = [
   // pages
@@ -36,6 +37,10 @@ const routes = [
   { path: '/auth/StepOne', element: <StepOne /> },
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },
+  {
+    path: '/TermsAndConditions/TermsAndConditions',
+    element: <TermsAndConditions />,
+  },
   // RegisterAnAd
   { path: '/registerAnAd/StepOneAdRE', element: <StepOneAdRE /> },
   { path: '/registerAnAd/StepTwoAdRE', element: <StepTwoAdRE /> },
