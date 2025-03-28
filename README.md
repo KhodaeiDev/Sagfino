@@ -6,4 +6,4 @@
 </ol>
 <p>این دستورات باعث می‌شود پروژه روی سرور محلی اجرا شود و بتوانید آن را در مرورگر مشاهده کنید.</p>
 <p align="center">
-<img src="./img/Saghfinoo-cover.png" alt="img-project" /></p>
+<img src="Saghfinoo-cover.png" alt="img-project" /></p>
