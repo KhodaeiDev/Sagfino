@@ -13,6 +13,7 @@ type MaxValidatorType = BaseValidatorType & {
 const requiredValue: string = 'REQUIRED_VALUE'
 const minValue: string = 'MIN_VALUE'
 const maxValue: string = 'MAX_VALUE'
+const phoneNumber: string = 'PHONE'
 
 export const requiredValidator = (): BaseValidatorType => ({
   value: requiredValue,
@@ -28,4 +29,8 @@ export const maxValidator = (max: number = 15): MaxValidatorType => ({
   max,
 })
 
-export default { requiredValue, minValue, maxValue }
+export const phoneValidator = () => ({
+  value: phoneNumber,
+})
+
+export default { requiredValue, minValue, maxValue, phoneNumber }

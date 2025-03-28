@@ -12,7 +12,11 @@ export type InputProps = {
   element: 'text' | 'textarea'
   validations: ValidationItem[]
   onInputHandler: (id: string, value: string, isValid: boolean) => void
+  onFocus: (
+    event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void
 }
+
 
 export type InputState = {
   value: string

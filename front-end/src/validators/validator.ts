@@ -1,4 +1,5 @@
 import rules from './rules'
+import Regex from './Regex'
 
 interface Validation {
   value: string
@@ -30,6 +31,11 @@ const validator = (value: string, validations: Validation[]): boolean => {
           validation.max !== undefined &&
           trimmedValue.length > validation.max
         ) {
+          return false
+        }
+        break
+      case rules.phoneNumber:
+        if (!Regex.TestPhoneNumber(value)) {
           return false
         }
         break
