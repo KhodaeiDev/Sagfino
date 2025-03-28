@@ -6,7 +6,7 @@ const PersonalInformation: React.FC = () => {
           {/* content right */}
           <div className="  col-span-3 ">
             <div className=" w-15 h-15 lg:w-22 lg:h-22  rounded-full ">
-              <img src="../../../public/img/Ellipse 6.png" alt="img personal" />
+              <img src="/img/Ellipse 6.png" alt="img personal" />
             </div>
           </div>
           {/* content left */}
@@ -14,7 +14,7 @@ const PersonalInformation: React.FC = () => {
             <div className=" flex items-center gap-1.5 mb-2">
               <img
                 className=" w-4 h-4 lg:w-9 lg:h-9 "
-                src="../../../public/img/Real Estate Logo 1.png"
+                src="/img/Real Estate Logo 1.png"
                 alt="logo"
               />
               <span className=" font-shabnamBold text-base text-gray-1000">

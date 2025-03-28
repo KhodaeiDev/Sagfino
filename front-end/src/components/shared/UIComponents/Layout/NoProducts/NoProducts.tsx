@@ -5,7 +5,7 @@ const NoProducts = () => {
         <div className=" mt-5 pb-12 pt-18 lg:pb-14 lg:pt-23 border border-gray-D9 rounded-2xl flex flex-col items-center justify-center">
           <img
             className=" lg:w-125  lg:h-85  w-75 h-51.5 "
-            src="../../../public/img/Figma to Lottie ✨.png"
+            src="/img/Figma to Lottie ✨.png"
             alt="img"
           />
           <div className=" flex flex-col gap-y-1 mt-5 mb-5 text-center ">
