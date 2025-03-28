@@ -145,7 +145,7 @@ body {
 
 .main-home {
     background:
-        url("/img/Home.png");
+        url("/public/img/Home.png");
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
