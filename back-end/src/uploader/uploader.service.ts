@@ -11,7 +11,10 @@ export class UploaderService {
       storage: diskStorage({
         destination: (req, file, cb) => {
           const uploadPath = join(
-            __dirname + `../../public/uploads/${destination}`,
+            process.cwd(),
+            'public',
+            'uploads',
+            destination,
           );
 
           if (!fs.existsSync(uploadPath)) {
