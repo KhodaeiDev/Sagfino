@@ -24,7 +24,7 @@ export class Agency {
   @Column()
   phoneNumber: string;
 
-  @Column({ default: 'pending' }) // حالت ثبت شده ولی نیازمند تأیید
+  @Column({ default: 'pending' })
   status: 'pending' | 'approved';
 
   @Column({ nullable: true })
