@@ -7,6 +7,7 @@ import { AuthModule } from './auth/auth.module';
 import { RedisModule } from './redis/redis.module';
 import { CategoryModule } from './category/category.module';
 import { UploaderModule } from './uploader/uploader.module';
+import { AgencyModule } from './agency/agency.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UploaderModule } from './uploader/uploader.module';
     RedisModule,
     CategoryModule,
     UploaderModule,
+    AgencyModule,
   ],
   controllers: [],
   providers: [],

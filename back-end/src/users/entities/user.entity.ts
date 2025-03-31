@@ -4,8 +4,10 @@ import {
   PrimaryGeneratedColumn,
   CreateDateColumn,
   UpdateDateColumn,
+  OneToOne,
 } from 'typeorm';
 import userRoleEnum from '../enum/userRoleEnum';
+import { Agency } from 'src/agency/entities/agency.entity';
 
 @Entity()
 export class User {
@@ -38,4 +40,7 @@ export class User {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToOne(() => Agency, (agency) => agency.owner)
+  agency?: Agency;
 }
