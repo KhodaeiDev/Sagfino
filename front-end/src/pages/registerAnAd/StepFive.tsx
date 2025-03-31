@@ -4,7 +4,10 @@ import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import Btn from '../../components/AdRegistration/btn'
 import { Step } from '../../components/AdRegistration/ProgressBar'
-import { Footer, FooterMobail } from '../../components/shared/UIComponents/Layout/footer/footer'
+import {
+  Footer,
+  FooterMobail,
+} from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -52,16 +55,16 @@ const StepFiveAdRE: React.FC = () => {
                   bgColor="bg-transparent"
                   textColor="text-primary"
                   borderColor="border-primary"
-                  link="/registerAnAd/StepFourAdRE"
+                  link="/registerAnAd/StepFour"
                 />
-                <Btn title="ادامه " link="/registerAnAd/StepSixAdRE" />
+                <Btn title="ادامه " link="/registerAnAd/StepSix" />
               </div>
             </div>
           </AdRegistrationContainer>
         </div>
-      {/* // Footer */}
-      <Footer />
-      <FooterMobail />
+        {/* // Footer */}
+        <Footer />
+        <FooterMobail />
       </div>
     </>
   )

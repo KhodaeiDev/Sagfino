@@ -21,55 +21,57 @@ const SavedAd: React.FC = () => {
           پاک کردن همه آگهی‌ها
         </div>
         <div className="container">
-          <div className="flex flex-wrap justify-center sm:justify-start gap-2 md:gap-4 mt-10">
-            {isLoading
-              ? [...Array(3)].map((_, index) => (
-                  <div
-                    key={index}
-                    className="w-35 md:w-70 h-81.5 border border-boxHelp rounded-xl overflow-hidden"
-                  >
-                    <CustomSkeletonLoader
-                      imageSection={{ yOffset: '0%', height: '50%' }}
-                      textSections={[
-                        {
-                          xOffset: '85%',
-                          yOffset: '55%',
-                          width: '10%',
-                          height: '7%',
-                        },
-                        {
-                          xOffset: '5%',
-                          yOffset: '68%',
-                          width: '60%',
-                          height: '4%',
-                        },
-                        {
-                          xOffset: '5%',
-                          yOffset: '81%',
-                          width: '60%',
-                          height: '4%',
-                        },
-                        {
-                          xOffset: '5%',
-                          yOffset: '94%',
-                          width: '60%',
-                          height: '4%',
-                        },
-                        {
-                          xOffset: '5%',
-                          yOffset: '107%',
-                          width: '60%',
-                          height: '4%',
-                        },
-                      ]}
-                    />
-                  </div>
-                ))
-              : [
-                  <ProductBox key={1} isSaved={true}  />,
-                  <ProductBox key={2} isSaved={true}  />,
-                  <ProductBox key={3} isSaved={true}  />,
-                ]}
+          <div className="flex  justify-center sm:justify-start gap-2 md:gap-4 mt-10">
+            {isLoading ? (
+              [...Array(3)].map((_, index) => (
+                <div
+                  key={index}
+                  className="w-35 md:w-70 h-81.5 border border-boxHelp rounded-xl overflow-hidden"
+                >
+                  <CustomSkeletonLoader
+                    imageSection={{ yOffset: '0%', height: '50%' }}
+                    textSections={[
+                      {
+                        xOffset: '85%',
+                        yOffset: '55%',
+                        width: '10%',
+                        height: '7%',
+                      },
+                      {
+                        xOffset: '5%',
+                        yOffset: '68%',
+                        width: '60%',
+                        height: '4%',
+                      },
+                      {
+                        xOffset: '5%',
+                        yOffset: '81%',
+                        width: '60%',
+                        height: '4%',
+                      },
+                      {
+                        xOffset: '5%',
+                        yOffset: '94%',
+                        width: '60%',
+                        height: '4%',
+                      },
+                      {
+                        xOffset: '5%',
+                        yOffset: '107%',
+                        width: '60%',
+                        height: '4%',
+                      },
+                    ]}
+                  />
+                </div>
+              ))
+            ) : (
+              <>
+                <ProductBox key={1} isSaved={true} />,
+                <ProductBox key={2} isSaved={true} />,
+                <ProductBox key={3} isSaved={true} />,
+              </>
+            )}
           </div>
         </div>
       </CMSLayout>

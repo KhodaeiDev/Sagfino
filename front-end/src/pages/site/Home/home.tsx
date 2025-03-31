@@ -1,13 +1,9 @@
-import Header from '../../components/shared/UIComponents/Layout/HeaderComponents/Header/Header'
-import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
+import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
 // import BoxHelp from '../../components/boxHelp/boxHelp'
 // import PublicBox from '../../components/publicBox/publicBox'
-import ProductBox from '../../components/shared/Cards/productBox/productBox'
+import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 // import NewsBox from '../../components/newsBox/newsBox'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
+
 import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
@@ -15,8 +11,8 @@ import 'swiper/css/navigation'
 import React, { useState } from 'react'
 import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
-import BoxEstate from '../../components/shared/Cards/estateBox/estateBox'
-import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
+import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 
 const Home: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
@@ -33,7 +29,6 @@ const Home: React.FC = () => {
   return (
     <>
       {/* Header */}
-      <Header />
       {/*HousingHelp => SearchUser  LatestHomeListings */}
       <div className=" mt-14 lg:mt-26">
         {/* HousingHelp */}
@@ -335,8 +330,7 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* Footer */}
-      <Footer />
-      <FooterMobail />
+   
       {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}

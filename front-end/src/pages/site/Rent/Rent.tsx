@@ -1,24 +1,15 @@
-import {
-  NavBar,
-  NavBarMobail,
-} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
-import Sorting from '../../components/shared/UIComponents/FormElements/sorting/sorting'
-import ProductBox from '../../components/shared/Cards/productBox/productBox'
-import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
+import Sorting from '../../../components/shared/UIComponents/FormElements/sorting/sorting'
+import ProductBox from '../../../components/shared/Cards/productBox/productBox'
+import SelectBox from '../../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import { useState } from 'react'
-import BoxEstate from '../../components/shared/Cards/estateBox/estateBox'
-import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
-import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
-import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
-import FilteringModal from '../../components/shared/Modals/filteringModal/filteringModal'
+import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
+import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
+import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
+import FilteringModal from '../../../components/shared/Modals/filteringModal/filteringModal'
 import { useMediaQuery } from 'react-responsive'
 
-import { FilteringModalMobail } from '../../components/shared/Modals/filteringModal/filteringModal'
-// import NoProducts from '../../components/NoProducts/NoProducts'
+import { FilteringModalMobail } from '../../../components/shared/Modals/filteringModal/filteringModal'
 
 const Rent: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
@@ -34,7 +25,6 @@ const Rent: React.FC = () => {
   const openModal = () => {
     setIsModalVisible(true)
   }
-
   const closeModal = () => {
     setIsModalVisible(false)
   }
@@ -42,29 +32,22 @@ const Rent: React.FC = () => {
   const openModalFiltering = () => {
     setOpenModalFiltering(true)
   }
-
   const closeModalFiltering = () => {
     setOpenModalFiltering(false)
   }
-  document.title = 'سقفینو - خرید'
+
+  document.title = 'سقفینو - اجاره'
 
   return (
     <>
-      <div className=" hidden lg:flex">
-        <NavBar />
-      </div>
-      <div className=" lg:hidden">
-        <NavBarMobail />
-      </div>
-
       <div>
         <Sorting openModalFiltering={openModalFiltering} />
         <div className="container">
           {/* sorting */}
           <div className=" hidden  md:flex  gap-2 my-6 items-center justify-between">
             <div className=" flex flex-col gap-y-3">
-              <h3 className=" text-2xl font-shabnamBold">املاک فروشی </h3>
-              <span className="  font-shabnam text-primary">
+              <h3 className=" text-2xl font-shabnamBold">املاک اجاره‌ای</h3>
+              <span className="  sm:h-9 font-shabnam text-primary">
                 ۴۷.۵۰۷ مورد یافت شد
               </span>
             </div>
@@ -91,7 +74,6 @@ const Rent: React.FC = () => {
             <ProductBox isSaved={false}></ProductBox>
             <ProductBox isSaved={false}></ProductBox>
           </div>
-          {/* <NoProducts></NoProducts> */}
         </div>
 
         <div className="mt-8">
@@ -136,8 +118,6 @@ const Rent: React.FC = () => {
           closeModal={closeModal}
         />
       )}
-      <Footer />
-      <FooterMobail />
       {isopenModalFiltering && (
         <>
           {isMobile ? (

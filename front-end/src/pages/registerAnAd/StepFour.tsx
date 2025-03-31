@@ -131,9 +131,9 @@ const StepFourAdRE: React.FC = () => {
                   bgColor="bg-transparent"
                   textColor="text-primary"
                   borderColor="border-primary"
-                  link="/registerAnAd/StepThreeAdRE"
+                  link="/registerAnAd/StepThree"
                 />
-                <Btn title="ادامه " link="/registerAnAd/StepFiveAdRE" />
+                <Btn title="ادامه " link="/registerAnAd/StepFive" />
               </div>
             </div>
           </AdRegistrationContainer>

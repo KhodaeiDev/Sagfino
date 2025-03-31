@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import Input from '../../components/shared/UIComponents/FormElements/input/input'
+import Input from '../../../components/shared/UIComponents/FormElements/input/input'
 import {
   maxValidator,
   minValidator,
   phoneValidator,
   requiredValidator,
-} from '../../validators/rules'
-import UseForm from '../../Hooks/useForm'
+} from '../../../validators/rules'
+import UseForm from '../../../Hooks/useForm'
 import { NavLink } from 'react-router'
 
 const StepOne: React.FC = () => {
@@ -28,7 +28,6 @@ const StepOne: React.FC = () => {
       setIsFocused(true)
     }
   }
-
 
   return (
     <div className="center h-dvh w-full bg-gray-ED">
