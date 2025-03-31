@@ -144,8 +144,7 @@ body {
 }
 
 .main-home {
-    background:
-        url("/img/Home.png");
+    background: url("/img/home.png");
     background-size: cover;
     background-repeat: no-repeat;
     width: 100%;
@@ -367,4 +366,3 @@ body {
 .swiper-button-next-detailsProducts {
     right: 35px !important;
 }
-

@@ -1,17 +1,10 @@
 import React from 'react'
-import {
-  NavBar,
-  NavBarMobail,
-} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
-import EstateBox from '../../components/shared/Cards/estateBox/estateBox'
-import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
+import EstateBox from '../../../components/shared/Cards/estateBox/estateBox'
+import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
 // import RealEstateModal from '../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import { RiSearch2Line } from 'react-icons/ri'
-import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
+import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
+
 
 const Realestates: React.FC = () => {
   // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
@@ -28,8 +21,6 @@ const Realestates: React.FC = () => {
 
   return (
     <>
-      <NavBar></NavBar>
-      <NavBarMobail></NavBarMobail>
       <div className="container">
         <div className=" mt-12 ">
           <SectionHeader title="املاک و مستغلات" center={false} />
@@ -69,8 +60,6 @@ const Realestates: React.FC = () => {
           <Pagination />
         </div>{' '}
       </div>
-      <Footer />
-      <FooterMobail />
       {/* {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}

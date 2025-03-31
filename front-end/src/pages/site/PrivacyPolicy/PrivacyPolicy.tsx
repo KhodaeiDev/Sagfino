@@ -1,19 +1,8 @@
 import React from 'react'
-import {
-  NavBar,
-  NavBarMobail,
-} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
-
 const PrivacyPolicy: React.FC = () => {
   document.title = 'سقفینو-حریم شخصی شما'
   return (
     <>
-      <NavBar />
-      <NavBarMobail />
       {/* محتوا */}
       <div className="container mt-16">
         <div className="px-10 pb-10 pt-3 xl:px-31 xl:pb-21 xl:pt-8 border border-gray-D9 rounded-xl w-full h-auto">
@@ -60,8 +49,6 @@ const PrivacyPolicy: React.FC = () => {
       </div>
       {/* فوتر */}
       <div className="mt-15">
-        <Footer />
-        <FooterMobail />
       </div>
     </>
   )

@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import {
   NavBar,
   NavBarMobail,
-} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
-import ProductBox from '../../components/shared/Cards/productBox/productBox'
+} from '../../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
+import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 import { TiTick } from 'react-icons/ti'
 import { CiLocationOn } from 'react-icons/ci'
 import { TbHomeEco } from 'react-icons/tb'
-import PersonalInformation from '../../components/shared/Cards/personalInformationBox/Personalinformation'
-import SectionHeader from '../../components/shared/UIComponents/sectionHeader/sectionHeader'
+import PersonalInformation from '../../../components/shared/Cards/personalInformationBox/Personalinformation'
+import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
 import {
   Footer,
   FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
-import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
-import SelectBox from '../../components/shared/UIComponents/FormElements/selectBox/selectBox'
+} from '../../../components/shared/UIComponents/Layout/footer/footer'
+import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
+import SelectBox from '../../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 
 const RealEstateDetails: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
@@ -111,12 +111,12 @@ const RealEstateDetails: React.FC = () => {
             </SelectBox>
           </div>
           <div className=" grid grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-6 gap-y-2 lg:gap-y-4 mt-10 ">
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
           </div>
           <div className=" flex items-center justify-center mt-10 ">
             <Pagination />

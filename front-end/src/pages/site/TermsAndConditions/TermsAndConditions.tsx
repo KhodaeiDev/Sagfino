@@ -1,18 +1,8 @@
 import React from 'react'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
-import {
-  NavBar,
-  NavBarMobail,
-} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
 
 const TermsAndConditions: React.FC = () => {
   return (
     <>
-      <NavBar />
-      <NavBarMobail />
       <div className="container my-10 ">
         <div className="bg-gray-100 min-h-screen flex items-center justify-center px-4">
           <div className="bg-white shadow-lg rounded-lg p-6 md:p-8 w-full max-w-3xl">
@@ -57,8 +47,6 @@ const TermsAndConditions: React.FC = () => {
           </div>
         </div>
       </div>
-      <Footer />
-      <FooterMobail />
     </>
   )
 }

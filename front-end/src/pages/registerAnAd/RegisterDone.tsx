@@ -3,10 +3,6 @@ import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrat
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import Btn from '../../components/AdRegistration/btn'
 import { TiTick } from 'react-icons/ti'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
 
 const RegisterDoneAdRE: React.FC = () => {
   document.title = 'سقفینو-ثبت نام انجام شد'
@@ -22,7 +18,6 @@ const RegisterDoneAdRE: React.FC = () => {
                 center={true}
               />
               {/* Notebook-style inputs */}
-
               <div className=" center flex-col  w-full mt-10 ">
                 <img
                   src="/img/Group 56.png"
@@ -40,12 +35,7 @@ const RegisterDoneAdRE: React.FC = () => {
             </div>
           </AdRegistrationContainer>
         </div>
-        {/* // Footer */}
-        <div className=' !mt-25 '>
-          <Footer />
-          <FooterMobail />
-        </div>
-      </div>{' '}
+      </div>
     </>
   )
 }

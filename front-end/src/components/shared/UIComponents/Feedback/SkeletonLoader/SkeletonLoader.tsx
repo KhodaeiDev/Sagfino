@@ -74,8 +74,8 @@ const CustomSkeletonLoader: React.FC<CustomSkeletonLoaderProps> = ({
       <ContentLoader
         speed={1.5}
         width={containerWidth}
-        height={containerWidth * 1.5}
-        viewBox={`0 0 ${containerWidth} ${containerWidth * 1.5}`}
+        height={containerWidth * 1.10}
+        viewBox={`0 0 ${containerWidth} ${containerWidth * 1.10}`}
         backgroundColor="#cccccc"
         foregroundColor="#999999"
       >

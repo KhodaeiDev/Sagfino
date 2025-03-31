@@ -1,7 +1,3 @@
-import {
-  NavBar,
-  NavBarMobail,
-} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
 import { RiBookmarkLine } from 'react-icons/ri'
 import { PiPencilRulerLight } from 'react-icons/pi'
 import { BsLamp } from 'react-icons/bs'
@@ -14,13 +10,10 @@ import { SlDislike } from 'react-icons/sl'
 import { SlLike } from 'react-icons/sl'
 
 import React, { useState } from 'react'
-import ModalSlaider from '../../components/shared/Modals/modalSlaider/modalSlaider'
-import PersonalInformation from '../../components/shared/Cards/personalInformationBox/Personalinformation'
-import ProductBox from '../../components/shared/Cards/productBox/productBox'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
+import ModalSlaider from '../../../components/shared/Modals/modalSlaider/modalSlaider'
+import PersonalInformation from '../../../components/shared/Cards/personalInformationBox/Personalinformation'
+import ProductBox from '../../../components/shared/Cards/productBox/productBox'
+
 
 const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -47,14 +40,7 @@ const DetailsProduct: React.FC = () => {
   }
 
   return (
-    <>
-      {/* NavBar */}
-      <div className="hidden lg:flex">
-        <NavBar />
-      </div>
-      <div className="flex lg:hidden">
-        <NavBarMobail />
-      </div>
+    <>  
       {/* Main Image */}
       <div className="container mt-10 lg:mt-22">
         <div
@@ -271,14 +257,12 @@ const DetailsProduct: React.FC = () => {
             آگهی مشابه
           </h3>{' '}
           <div className=" grid  grid-cols-2 lg:grid-cols-3 gap-4 mt-6 ">
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
-            <ProductBox isSaved={false} LoadingHeight="lg:h-120" />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
+            <ProductBox isSaved={false} />
           </div>
         </div>
       </div>
-      <Footer />
-      <FooterMobail />
       {/* Modal */}
       {isModalOpen && (
         <ModalSlaider

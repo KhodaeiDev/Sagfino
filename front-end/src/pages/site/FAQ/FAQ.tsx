@@ -1,20 +1,10 @@
 import React from 'react'
-import {
-  NavBar,
-  NavBarMobail,
-} from '../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
-import {
-  Footer,
-  FooterMobail,
-} from '../../components/shared/UIComponents/Layout/footer/footer'
 import { NavLink } from 'react-router'
 
 const FAQ: React.FC = () => {
   document.title = 'سقفینو-پرسش‌های پرتکرار'
   return (
     <>
-      <NavBar />
-      <NavBarMobail />
       <div className="container mt-16">
         <div className="px-10 pb-10 pt-3 xl:px-31 xl:pb-21 xl:pt-8 border border-gray-D9 rounded-xl w-full h-auto">
           <h4 className="font-shabnamBold text-xs lg:text-2xl text-Gray-35">
@@ -55,10 +45,7 @@ const FAQ: React.FC = () => {
           </div>
         </div>
       </div>
-      <div className="mt-15">
-        <Footer />
-        <FooterMobail />
-      </div>
+    
     </>
   )
 }
