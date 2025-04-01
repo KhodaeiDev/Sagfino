@@ -1,11 +1,13 @@
 import './App.css'
-import { useRoutes } from 'react-router'
-import routes from './routes/routes'
+
+import Router from './router'
 
 const App = () => {
-  const router = useRoutes(routes)
-
-  return <>{router}</>
+  return (
+    <>
+      <Router />
+    </>
+  )
 }
 
 export default App
