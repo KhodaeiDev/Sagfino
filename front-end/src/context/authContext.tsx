@@ -1,4 +1,4 @@
-import React, { createContext, useState, ReactNode } from 'react'
+import React, { createContext, useState, ReactNode, useEffect } from 'react'
 import {
   useSaveToLocalStorage,
   useRemoveFromLocalStorage,
@@ -8,7 +8,7 @@ import {
 type AuthContextTypes = {
   token: string | null
   isLoggedIn: boolean
-  userInfo: object
+  userInfo: object | null
   login: (userinfos: object, token: string) => void
   logout: () => void
 }
@@ -16,9 +16,9 @@ type AuthContextTypes = {
 const AuthContext = createContext<AuthContextTypes>({
   token: null,
   isLoggedIn: false,
-  userInfo: {},
+  userInfo: null,
   login: () => {},
-  logout: () => {},
+  logout: () => {}
 })
 
 type ProviderProps = {
@@ -26,37 +26,47 @@ type ProviderProps = {
 }
 
 const AuthContextProvider: React.FC<ProviderProps> = ({ children }) => {
-  const [token, setToken] = useState<string>('')
-  const [setSaveToLocalStorage] = useSaveToLocalStorage('User', token)
-  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(Boolean(token))
-  const [userInfo, setUserInfo] = useState<object>({})
-  const [getroundomLocal] = useGetFromLocalStorage('User')
-  console.log(getroundomLocal)
-  const removeFromLocalStorage = useRemoveFromLocalStorage('User')
+  const [setSaveToLocalStorage] = useSaveToLocalStorage('User', null) 
+  const [getLocalStorageData] = useGetFromLocalStorage('User') 
+  const removeFromLocalStorage = useRemoveFromLocalStorage('User') 
+
+  const [token, setToken] = useState<string | null>(null)
+  const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
+  const [userInfo, setUserInfo] = useState<object | null>(null)
+
+  useEffect(() => {
+    const storedToken = getLocalStorageData 
+    if (storedToken) {
+      setToken(storedToken)
+      setIsLoggedIn(true)
+    }
+  }, [getLocalStorageData])
 
   const login = (userinfos: object, newToken: string) => {
-    setSaveToLocalStorage(newToken)
-    setToken(newToken)
-    setIsLoggedIn(true)
-    setUserInfo(userinfos)
+    try {
+      setSaveToLocalStorage(newToken) 
+      setToken(newToken)
+      setIsLoggedIn(true)
+      setUserInfo(userinfos) 
+    } catch (error) {
+      console.error('Error during login:', error)
+    }
   }
 
   const logout = () => {
-    setSaveToLocalStorage(null)
-    setUserInfo({})
-    setIsLoggedIn(false)
-    removeFromLocalStorage()
+    try {
+      removeFromLocalStorage()
+      setToken(null) 
+      setIsLoggedIn(false) 
+      setUserInfo(null) 
+    } catch (error) {
+      console.error('Error during logout:', error)
+    }
   }
 
   return (
     <AuthContext.Provider
-      value={{
-        token,
-        isLoggedIn,
-        userInfo,
-        login,
-        logout,
-      }}
+      value={{ token, isLoggedIn, userInfo, login, logout }}
     >
       {children}
     </AuthContext.Provider>

@@ -8,7 +8,7 @@ const useSaveToLocalStorage = (
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(storedValue))
-  }, [key, storedValue])
+  }, [key])
 
   return [setStoredValue] as const
 }

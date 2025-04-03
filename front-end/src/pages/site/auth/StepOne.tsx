@@ -8,9 +8,13 @@ import {
 } from '../../../validators/rules'
 import UseForm from '../../../Hooks/useForm'
 import { NavLink } from 'react-router'
+import { useContext } from 'react'
+import { AuthContext } from '../../../context/authContext'
 
 const StepOne: React.FC = () => {
-  document.title = 'سقفینو-احزار هویت مرحله 1'
+  const authContext = useContext(AuthContext) 
+  document.title = 'سقفینو-احراز هویت مرحله 1'
+
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
@@ -26,6 +30,17 @@ const StepOne: React.FC = () => {
   const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)
+    }
+  }
+
+  const handleLogin = () => {
+    if (formState.isFormValid && isChecked) {
+      authContext.login({ name: 'arwin' }, formState.inputs.phone.value)
+      console.log(
+        authContext.userInfo,
+        authContext.token,
+        authContext.isLoggedIn
+      )
     }
   }
 
@@ -55,7 +70,7 @@ const StepOne: React.FC = () => {
             onFocus={handleFocus}
           />
 
-          <div className=" w-full flex  items-start justify-start font-shabnam">
+          <div className="w-full flex items-start justify-start font-shabnam">
             {isFocused ? (
               formState.isFormValid ? (
                 <span className="text-green-500">
@@ -73,7 +88,7 @@ const StepOne: React.FC = () => {
             <div className="flex items-center gap-x-2.5 ">
               <div
                 onClick={toggleCheckbox}
-                className={` cursor-pointer w-4 h-4 lg:w-6 lg:h-6 flex items-center justify-center border-2 rounded-md ${
+                className={`cursor-pointer w-4 h-4 lg:w-6 lg:h-6 flex items-center justify-center border-2 rounded-md ${
                   isChecked
                     ? 'bg-green-500 border-green-500'
                     : 'bg-white border-gray-300'
@@ -114,7 +129,8 @@ const StepOne: React.FC = () => {
 
           <button
             disabled={!isChecked || !formState.isFormValid}
-            className="  disabled:bg-primary disabled:cursor-not-allowed   w-full h-10 md:h-14 cursor-pointer bg-green-500 hover:bg-green-500/85 transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-10 mb-8"
+            onClick={handleLogin}
+            className="disabled:bg-primary disabled:cursor-not-allowed w-full h-10 md:h-14 cursor-pointer bg-green-500 hover:bg-green-500/85 transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-10 mb-8"
           >
             {isChecked && formState.isFormValid
               ? 'ورود'

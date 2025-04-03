@@ -1,11 +1,14 @@
 import './App.css'
 
 import Router from './router'
+import { AuthContextProvider } from './context/authContext'
 
 const App = () => {
   return (
     <>
-      <Router />
+      <AuthContextProvider>
+        <Router />
+      </AuthContextProvider>
     </>
   )
 }
