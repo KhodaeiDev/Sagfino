@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import SelectBox from '../selectBox/selectBox'
 import { RiSearch2Line } from 'react-icons/ri'
 import { TbFilterSearch } from 'react-icons/tb'
@@ -11,9 +11,12 @@ type SortingProps = {
 const Sorting: React.FC<SortingProps> = ({ openModalFiltering }) => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
 
-  const handleSelect = (option: string) => {
-    setSelectedOption(option)
-  }
+  const handleSelect = useCallback(
+    (option: string) => {
+      setSelectedOption(option)
+    },
+    [setSelectedOption]
+  )
 
   return (
     <>

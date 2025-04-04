@@ -1,8 +1,8 @@
-import React from 'react'
+import React, { memo } from 'react'
 import { TiTick } from 'react-icons/ti'
 
 export interface Step {
-  id :number
+  id: number
   status: 'completed' | 'active' | 'pending'
 }
 
@@ -10,7 +10,7 @@ interface ProgressBarProps {
   steps: Step[]
 }
 
-const ProgressBar: React.FC<ProgressBarProps> = ({ steps }) => {
+const ProgressBar: React.FC<ProgressBarProps> = memo(({ steps }) => {
   return (
     <div className="flex items-center justify-between">
       {steps.map((step) => (
@@ -47,6 +47,5 @@ const ProgressBar: React.FC<ProgressBarProps> = ({ steps }) => {
       ))}
     </div>
   )
-}
-
+})
 export default ProgressBar

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import Input from '../../../components/shared/UIComponents/FormElements/input/input'
 import {
   maxValidator,
@@ -12,37 +12,36 @@ import { useContext } from 'react'
 import { AuthContext } from '../../../context/authContext'
 
 const StepOne: React.FC = () => {
-  const authContext = useContext(AuthContext) 
+  const authContext = useContext(AuthContext)
   document.title = 'سقفینو-احراز هویت مرحله 1'
 
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
-
-  const toggleCheckbox = () => {
-    setIsChecked((prev) => !prev)
-  }
-
   const [formState, onInputHandler] = UseForm(
     { phone: { value: '', isValid: false } },
     false
   )
 
-  const handleFocus = () => {
+  const toggleCheckbox = useCallback(() => {
+    setIsChecked((prev) => !prev)
+  }, [])
+
+  const handleFocus = useCallback(() => {
     if (!isFocused) {
       setIsFocused(true)
     }
-  }
+  }, [isFocused, setIsFocused])
 
-  const handleLogin = () => {
-    if (formState.isFormValid && isChecked) {
-      authContext.login({ name: 'arwin' }, formState.inputs.phone.value)
-      console.log(
-        authContext.userInfo,
-        authContext.token,
-        authContext.isLoggedIn
-      )
-    }
-  }
+ const handleLogin = useCallback(() => {
+   if (formState.isFormValid && isChecked) {
+     authContext.login({ name: 'arwin' }, formState.inputs.phone.value)
+   }
+ }, [
+   authContext,
+   formState.isFormValid,
+   formState.inputs.phone.value,
+   isChecked,
+ ])
 
   return (
     <div className="center h-dvh w-full bg-gray-ED">

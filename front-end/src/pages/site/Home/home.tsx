@@ -8,7 +8,7 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
@@ -17,12 +17,13 @@ import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoMod
 const Home: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
-  const openModal = () => {
+  const openModal = useCallback(() => {
     setIsModalVisible(true)
-  }
-  const closeModal = () => {
+  }, [])
+
+  const closeModal = useCallback(() => {
     setIsModalVisible(false)
-  }
+  }, [])
 
   document.title = 'سقفینو - خانه'
 
@@ -330,7 +331,7 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/* Footer */}
-   
+
       {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}

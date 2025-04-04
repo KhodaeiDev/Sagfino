@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 
 const useSaveToLocalStorage = (
   key: string,
@@ -8,7 +8,7 @@ const useSaveToLocalStorage = (
 
   useEffect(() => {
     localStorage.setItem(key, JSON.stringify(storedValue))
-  }, [key])
+  }, [key, storedValue])
 
   return [setStoredValue] as const
 }
@@ -27,9 +27,9 @@ const useGetFromLocalStorage = (
 }
 
 const useRemoveFromLocalStorage = (key: string): (() => void) => {
-  const removeItem = () => {
-    window.localStorage.removeItem(key)
-  }
+  const removeItem = useCallback(() => {
+    localStorage.removeItem(key)
+  }, [key])
   return removeItem
 }
 

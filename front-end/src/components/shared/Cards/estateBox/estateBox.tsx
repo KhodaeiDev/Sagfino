@@ -1,5 +1,5 @@
 import { IoIosCheckmark } from 'react-icons/io'
-import { useState, useEffect } from 'react'
+import { useState, useEffect, memo } from 'react'
 import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 import { NavLink } from 'react-router'
 
@@ -7,16 +7,13 @@ interface RealEstateModalProps {
   openModal?: () => void
 }
 
-const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
+const EstateBox: React.FC<RealEstateModalProps> = memo(({ openModal }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsLoading(false), 2000)
     return () => clearTimeout(timer)
   }, [])
-
-
-  
 
   return (
     <>
@@ -105,6 +102,5 @@ const EstateBox: React.FC<RealEstateModalProps> = ({ openModal }) => {
       </NavLink>
     </>
   )
-}
-
+})
 export default EstateBox

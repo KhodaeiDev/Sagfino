@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import {
   NavBar,
   NavBarMobail,
@@ -19,9 +19,9 @@ import SelectBox from '../../../components/shared/UIComponents/FormElements/sele
 const RealEstateDetails: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
 
-  const handleSelect = (option: string) => {
+  const handleSelect = useCallback((option: string) => {
     setSelectedOption(option)
-  }
+  }, [])
 
   document.title = ' سقفینو-جزئیات املاک'
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { memo } from 'react'
 import {
   NavBar,
   NavBarMobail,
@@ -17,7 +17,7 @@ type CMSLayoutProps = {
   children: React.ReactNode
 }
 
-const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
+const CMSLayout: React.FC<CMSLayoutProps> = memo(({ title, children }) => {
   return (
     <>
       <NavBar />
@@ -123,6 +123,5 @@ const CMSLayout: React.FC<CMSLayoutProps> = ({ title, children }) => {
       </div>
     </>
   )
-}
-
+})
 export default CMSLayout

@@ -9,11 +9,10 @@ import { BsBadgeWc } from 'react-icons/bs'
 import { SlDislike } from 'react-icons/sl'
 import { SlLike } from 'react-icons/sl'
 
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import ModalSlaider from '../../../components/shared/Modals/modalSlaider/modalSlaider'
 import PersonalInformation from '../../../components/shared/Cards/personalInformationBox/Personalinformation'
 import ProductBox from '../../../components/shared/Cards/productBox/productBox'
-
 
 const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
@@ -29,18 +28,18 @@ const DetailsProduct: React.FC = () => {
     'https://swiperjs.com/demos/images/nature-5.jpg',
   ]
 
-  const openModal = (image: string) => {
+  const openModal = useCallback((image: string) => {
     setCurrentImage(image)
     setIsModalOpen(true)
-  }
+  }, [])
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalOpen(false)
     setCurrentImage('')
-  }
+  }, [])
 
   return (
-    <>  
+    <>
       {/* Main Image */}
       <div className="container mt-10 lg:mt-22">
         <div

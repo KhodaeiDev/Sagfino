@@ -1,7 +1,7 @@
 import Sorting from '../../../components/shared/UIComponents/FormElements/sorting/sorting'
 import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 import SelectBox from '../../../components/shared/UIComponents/FormElements/selectBox/selectBox'
-import { useState } from 'react'
+import { useCallback, useState } from 'react'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
 import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
 import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
@@ -16,28 +16,31 @@ const Rent: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
   const [isopenModalFiltering, setOpenModalFiltering] = useState<boolean>(false)
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
-
-  const handleSelect = (option: string) => {
-    setSelectedOption(option)
-  }
-
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
-  const openModal = () => {
+  const handleSelect = useCallback(
+    (option: string) => {
+      setSelectedOption(option)
+    },
+    [setSelectedOption]
+  )
+
+  const openModal = useCallback(() => {
     setIsModalVisible(true)
-  }
+  }, [setIsModalVisible])
 
-  const closeModal = () => {
+  const closeModal = useCallback(() => {
     setIsModalVisible(false)
-  }
+  }, [setIsModalVisible])
 
-  const openModalFiltering = () => {
+  const openModalFiltering = useCallback(() => {
     setOpenModalFiltering(true)
-  }
+  }, [setOpenModalFiltering])
 
-  const closeModalFiltering = () => {
+  const closeModalFiltering = useCallback(() => {
     setOpenModalFiltering(false)
-  }
+  }, [setOpenModalFiltering])
+
   document.title = 'سقفینو - خرید'
 
   return (

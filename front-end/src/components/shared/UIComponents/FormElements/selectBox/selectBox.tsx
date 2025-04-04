@@ -1,4 +1,4 @@
-import React, { ReactNode, ReactElement } from 'react'
+import React, { ReactNode, ReactElement, useCallback } from 'react'
 import { useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
 
@@ -9,7 +9,7 @@ interface SelectBoxProps {
   width?: string
   height?: string
   responsiveWidth?: string
-  responsiveHeight?: string 
+  responsiveHeight?: string
 }
 
 const SelectBox: React.FC<SelectBoxProps> = ({
@@ -21,14 +21,17 @@ const SelectBox: React.FC<SelectBoxProps> = ({
 }) => {
   const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const toggleDropdown = () => {
+  const toggleDropdown = useCallback(() => {
     setIsOpen(!isOpen)
-  }
+  }, [setIsOpen, isOpen])
 
-  const handleOptionClick = (option: string) => {
-    onSelect(option)
-    setIsOpen(false)
-  }
+  const handleOptionClick = useCallback(
+    (option: string) => {
+      onSelect(option)
+      setIsOpen(false)
+    },
+    [onSelect, setIsOpen]
+  )
 
   return (
     <>

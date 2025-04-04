@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -24,9 +24,9 @@ const StepFourAdRE: React.FC = () => {
     ' لطفا شهر مورد نظر خود را انتخاب کنید'
   )
 
-  const handleSelect = (option: string) => {
+  const handleSelect = useCallback((option: string) => {
     setSelectedOption(option)
-  }
+  }, [])
 
   document.title = 'مرحله ی چهارم-ثبت آگهی'
 

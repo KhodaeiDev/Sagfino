@@ -1,13 +1,13 @@
 import { RiBookmarkLine } from 'react-icons/ri'
 import { NavLink } from 'react-router'
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, memo } from 'react'
 import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 
 type ProductBoxProps = {
   isSaved: boolean
 }
 
-const ProductBox: React.FC<ProductBoxProps> = ({ isSaved }) => {
+const ProductBox: React.FC<ProductBoxProps> = memo(({ isSaved }) => {
   const [isLoading, setIsLoading] = useState(true)
 
   useEffect(() => {
@@ -99,6 +99,5 @@ const ProductBox: React.FC<ProductBoxProps> = ({ isSaved }) => {
       )}
     </div>
   )
-}
-
+})
 export default ProductBox

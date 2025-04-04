@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { FaRegImage } from 'react-icons/fa'
 import { GoTrash } from 'react-icons/go'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
@@ -28,42 +28,45 @@ const StepSixAdRE: React.FC = () => {
     document.title = 'مرحله ی شش-ثبت آگهی'
   }, [])
 
-  const handleImageUpload = (
-    event: React.ChangeEvent<HTMLInputElement>,
-    index: number
-  ) => {
-    const file = event.target.files?.[0]
-    if (!file) return
+  const handleImageUpload = useCallback(
+    (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+      const file = event.target.files?.[0]
+      if (!file) return
 
-    const allowedFormats = [
-      'image/webp',
-      'image/jpeg',
-      'image/png',
-      'image/jpg',
-    ]
-    if (!allowedFormats.includes(file.type)) {
-      alert('فقط فرمت‌های webp، jpg، jpeg یا png پشتیبانی می‌شوند.')
-      return
-    }
+      const allowedFormats = [
+        'image/webp',
+        'image/jpeg',
+        'image/png',
+        'image/jpg',
+      ]
+      if (!allowedFormats.includes(file.type)) {
+        alert('فقط فرمت‌های webp، jpg، jpeg یا png پشتیبانی می‌شوند.')
+        return
+      }
 
-    const reader = new FileReader()
-    reader.onload = () => {
+      const reader = new FileReader()
+      reader.onload = () => {
+        setUploadedImages((prev) => {
+          const updatedImages = [...prev]
+          updatedImages[index] = reader.result as string
+          return updatedImages
+        })
+      }
+      reader.readAsDataURL(file)
+    },
+    [setUploadedImages]
+  )
+
+  const handleImageRemove = useCallback(
+    (index: number) => {
       setUploadedImages((prev) => {
         const updatedImages = [...prev]
-        updatedImages[index] = reader.result as string
+        updatedImages[index] = null
         return updatedImages
       })
-    }
-    reader.readAsDataURL(file)
-  }
-
-  const handleImageRemove = (index: number) => {
-    setUploadedImages((prev) => {
-      const updatedImages = [...prev]
-      updatedImages[index] = null
-      return updatedImages
-    })
-  }
+    },
+    [setUploadedImages]
+  )
 
   return (
     <div className="bg-AdRegistration bg-gray-ED min-h-screen">

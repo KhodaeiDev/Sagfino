@@ -86,3 +86,4 @@ const CustomSkeletonLoader: React.FC<CustomSkeletonLoaderProps> = ({
 }
 
 export default CustomSkeletonLoader
+
