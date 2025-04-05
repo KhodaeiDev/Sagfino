@@ -10,6 +10,8 @@ import UseForm from '../../../Hooks/useForm'
 import { NavLink } from 'react-router'
 import { useContext } from 'react'
 import { AuthContext } from '../../../context/authContext'
+import { axoisUnProtectedInstance } from '../../../services/axois/configs/configs'
+// import { AxiosError } from 'axios'
 
 const StepOne: React.FC = () => {
   const authContext = useContext(AuthContext)
@@ -32,16 +34,23 @@ const StepOne: React.FC = () => {
     }
   }, [isFocused, setIsFocused])
 
- const handleLogin = useCallback(() => {
-   if (formState.isFormValid && isChecked) {
-     authContext.login({ name: 'arwin' }, formState.inputs.phone.value)
-   }
- }, [
-   authContext,
-   formState.isFormValid,
-   formState.inputs.phone.value,
-   isChecked,
- ])
+  const handleLogin = useCallback(async () => {
+    console.log(formState.inputs.phone.value)
+
+    try {
+      const response = await axoisUnProtectedInstance.post('/auth/send-otp', {
+        phone: formState.inputs.phone.value,
+      })
+
+      // const { userInfo, token } = response.data
+      console.log(response.data.phone)
+      // authContext.login(userInfo, token)
+
+      // console.log('Login successful:', userInfo)
+    } catch (error) {
+      console.error('Error during login:', error)
+    }
+  }, [formState.inputs.phone.value, authContext.login]) // فقط وابستگی‌های ضروری
 
   return (
     <div className="center h-dvh w-full bg-gray-ED">

@@ -27,7 +27,7 @@ const Input: React.FC<InputProps> = (props) => {
 
   useEffect(() => {
     onInputHandler(id, value, isValid)
-  }, [id, value, isValid, onInputHandler])
+  }, [id, value, isValid,])
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
