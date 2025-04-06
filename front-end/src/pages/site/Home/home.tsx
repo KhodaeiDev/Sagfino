@@ -8,23 +8,23 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import { Navigation } from 'swiper/modules'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import React, { useCallback, useState } from 'react'
+import React from 'react'
 import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
-import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+// import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import ShowSwal from '../../../services/sweetalert2/configs'
 
 const Home: React.FC = () => {
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
-  const openModal = useCallback(() => {
-    setIsModalVisible(true)
-  }, [])
+  // const openModal = useCallback(() => {
+  //   setIsModalVisible(true)
+  // }, [])
 
-  const closeModal = useCallback(() => {
-    setIsModalVisible(false)
-  }, [])
+  // const closeModal = useCallback(() => {
+  //   setIsModalVisible(false)
+  // }, [])
 
   document.title = 'سقفینو - خانه'
 
@@ -62,7 +62,7 @@ const Home: React.FC = () => {
             title="انجام شد"
             url=""
             confirmButtonText="تایید شد"
-            active={true}
+            active={false}
           />
           <div className="  grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
             <ProductBox isSaved={false}></ProductBox>
@@ -198,28 +198,28 @@ const Home: React.FC = () => {
             className="mySwiper mySwiper-top-state"
           >
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
             <SwiperSlide>
-              <BoxEstate openModal={openModal} />
+              <BoxEstate />
             </SwiperSlide>
           </Swiper>
         </div>
@@ -340,12 +340,12 @@ const Home: React.FC = () => {
       </div>
       {/* Footer */}
 
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}
           closeModal={closeModal}
         />
-      )}
+      )} */}
     </>
   )
 }

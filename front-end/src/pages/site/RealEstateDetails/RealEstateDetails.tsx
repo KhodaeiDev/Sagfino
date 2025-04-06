@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import {
   NavBar,
   NavBarMobail,
@@ -15,12 +15,26 @@ import {
 } from '../../../components/shared/UIComponents/Layout/footer/footer'
 import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
 import SelectBox from '../../../components/shared/UIComponents/FormElements/selectBox/selectBox'
+import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 
 const RealEstateDetails: React.FC = () => {
   const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+
+  const openModal = useCallback(() => {
+    setIsModalVisible(true)
+  }, [setIsModalVisible])
+
+  const closeModal = useCallback(() => {
+    setIsModalVisible(false)
+  }, [setIsModalVisible])
 
   const handleSelect = useCallback((option: string) => {
     setSelectedOption(option)
+  }, [])
+  const [isConsultantInfo, setIsConsultantInfo] = useState<boolean>(true)
+  useEffect(() => {
+    setIsConsultantInfo(false)
   }, [])
 
   document.title = ' سقفینو-جزئیات املاک'
@@ -71,7 +85,10 @@ const RealEstateDetails: React.FC = () => {
               بیش از ۴۰۰۰ آگهی‌های فعال
             </div>
             <div className=" flex items-center  justify-center lg:justify-between  ">
-              <div className=" border center w-46.5  justify-center lg:justify-between  h-12 border-primary  text-primary rounded-lg cursor-pointer ">
+              <div
+                onClick={openModal}
+                className=" border center w-46.5  justify-center lg:justify-between  h-12 border-primary  text-primary rounded-lg cursor-pointer "
+              >
                 تماس با ما
               </div>
             </div>
@@ -128,6 +145,13 @@ const RealEstateDetails: React.FC = () => {
         <Footer />
         <FooterMobail />
       </div>
+      {isModalVisible && (
+        <RealEstateModal
+          isModalVisible={isModalVisible}
+          closeModal={closeModal}
+          isConsultantInfo={isConsultantInfo}
+        />
+      )}
     </>
   )
 }

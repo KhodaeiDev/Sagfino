@@ -1,4 +1,21 @@
+import { useCallback, useState, useEffect } from 'react'
+import RealEstateModal from '../../Modals/RealEstateInfoModal/RealEstateModal'
+
 const PersonalInformation: React.FC = () => {
+  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+
+  const openModal = useCallback(() => {
+    setIsModalVisible(true)
+  }, [])
+
+  const closeModal = useCallback(() => {
+    setIsModalVisible(false)
+  }, [])
+  const [isConsultantInfo, setIsConsultantInfo] = useState<boolean>(false)
+
+  useEffect(() => {
+    setIsConsultantInfo(true)
+  }, [])
   return (
     <>
       <div className=" lg:w-sm  lg:h-55   w-75 h-40  border border-gray-D9 rounded-2xl p-3 lg:p-6  ">
@@ -29,12 +46,22 @@ const PersonalInformation: React.FC = () => {
               <span>امتیاز 4 از 5</span>
               <span>آگهی 500 فعال</span>
             </div>
-            <div className="  cursor-pointer  mt-2 w-40.5 h-7  lg:w-55.5 lg:h-10 center  text-white bg-primary  text-xs lg:text-sm font-shabnamMedium rounded-sm  lg:rounded-lg ">
+            <div
+              onClick={openModal}
+              className="  cursor-pointer  mt-2 w-40.5 h-7  lg:w-55.5 lg:h-10 center  text-white bg-primary  text-xs lg:text-sm font-shabnamMedium rounded-sm  lg:rounded-lg "
+            >
               اطلاعات تماس
             </div>
           </div>
         </div>
       </div>
+      {isModalVisible && (
+        <RealEstateModal
+          isModalVisible={isModalVisible}
+          closeModal={closeModal}
+          isConsultantInfo={isConsultantInfo}
+        />
+      )}
     </>
   )
 }
