@@ -13,6 +13,7 @@ import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
 import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+import ShowSwal from '../../../services/sweetalert2/configs'
 
 const Home: React.FC = () => {
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
@@ -55,6 +56,13 @@ const Home: React.FC = () => {
             center={false}
             btnTitle={'مشاهده همه'}
             btnHref={''}
+          />
+          <ShowSwal
+            icon="success"
+            title="انجام شد"
+            url=""
+            confirmButtonText="تایید شد"
+            active={true}
           />
           <div className="  grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
             <ProductBox isSaved={false}></ProductBox>
