@@ -52,7 +52,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
           </span>
         </div>
         <div
-          className={`absolute z-50 top-full mt-2 right-0 left-0 bg-white shadow-lg border border-blue-400 shadow-blue-400/50 flex-col px-0 py-0 gap-1.5 text-gray-1000 font-shabnam xs:text-xs text-base rounded-lg transition-max-height duration-500 ease-in-out overflow-hidden ${
+          className={`absolute  z-50 top-full mt-2 right-0 left-0 bg-white shadow-lg border border-blue-400 shadow-blue-400/50 flex-col px-0 py-0 gap-1.5  text-gray-1000  font-shabnam xs:text-xs text-base rounded-lg transition-max-height duration-500 ease-in-out overflow-hidden ${
             isOpen
               ? 'opacity-100 max-h-64'
               : 'opacity-0 max-h-0 pointer-events-none'
@@ -67,9 +67,9 @@ const SelectBox: React.FC<SelectBoxProps> = ({
                 }>,
                 {
                   onClick: () => handleOptionClick(child.props.children),
-                  className: `cursor-pointer text-xs lg:text-lg px-4 py-2 ${
+                  className: `list-none  hover:bg-primary     hover:text-white  cursor-pointer text-xs lg:text-sm px-4 py-2 ${
                     child.props.children === selectedOption
-                      ? 'bg-red-300 text-black opacity-75'
+                      ? 'bg-primary text-white '
                       : ''
                   }`,
                 }

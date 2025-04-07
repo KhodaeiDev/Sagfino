@@ -232,7 +232,6 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
 
 export const FilteringModalMobail: React.FC<FilteringModal> = memo(
   ({ closeModalFiltering }) => {
-    const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
     const [seeMore, setSeeMore] = useState<boolean>(false)
     const [activeBedroomColumn, setActiveBedroomColumn] = useState<
       number | null
@@ -253,6 +252,8 @@ export const FilteringModalMobail: React.FC<FilteringModal> = memo(
       null
     )
 
+    const [options, setOptions] = useState<string[]>([' منطقه ', 'نوع ملک'])
+
     const handleColumnClick = (
       setActiveColumn: React.Dispatch<React.SetStateAction<number | null>>,
       index: number
@@ -260,13 +261,28 @@ export const FilteringModalMobail: React.FC<FilteringModal> = memo(
       setActiveColumn(index)
     }
 
-    const handleSelect = (option: string) => {
-      setSelectedOption(option)
-    }
-
     const toggleSeeMore = () => {
       setSeeMore((seeMore) => !seeMore)
     }
+
+    const handleSelect = useCallback((index: number, value: string) => {
+      setOptions((prevOptions) => {
+        const newOptions = [...prevOptions]
+        newOptions[index] = value
+        return newOptions
+      })
+    }, [])
+
+    const selectBoxData = [
+      {
+        label: 'منطقه',
+        items: ['منطقه 1', 'منطقه 2', 'منطقه 22', 'منطقه 16', 'منطقه 6'],
+      },
+      {
+        label: 'نوع',
+        items: ['مسکونی', 'تجاری', 'بازرگانی'],
+      },
+    ]
 
     return ReactDOM.createPortal(
       <div className="modals-parent active    ">
@@ -286,24 +302,23 @@ export const FilteringModalMobail: React.FC<FilteringModal> = memo(
           </NavLink>
           {/* select box */}
           <div className=" flex items-center justify-between mt mt-8 ">
-            <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
-              <label htmlFor="">منطقه</label>
-              <SelectBox
-                selectedOption={selectedOption}
-                onSelect={handleSelect}
-              >
-                <div>arwin</div>
-              </SelectBox>
-            </div>
-            <div className=" flex flex-col gap-1.5 items-start font-shabnam text-sm ">
-              <label htmlFor="">نوع ملک</label>
-              <SelectBox
-                selectedOption={selectedOption}
-                onSelect={handleSelect}
-              >
-                <div>arwin</div>
-              </SelectBox>
-            </div>
+            {selectBoxData.map((data, index) => (
+              <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
+                <label htmlFor="">{data.label}</label>
+                <SelectBox
+                  key={index}
+                  selectedOption={options[index]}
+                  onSelect={(option) => handleSelect(index, option)}
+                  width="w-27"
+                  responsiveWidth="w-27"
+                  responsiveHeight="h-12"
+                >
+                  {data.items.map((item) => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </SelectBox>
+              </div>
+            ))}
           </div>
           {/* price  */}
           <div className=" flex items-end justify-between mt-8 ">
