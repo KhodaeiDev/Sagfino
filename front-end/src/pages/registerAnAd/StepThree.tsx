@@ -32,7 +32,7 @@ const StepThreeAdRE: React.FC = () => {
               <div className="flex flex-col">
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
-                <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-10 ">
+                <div className=" flex flex-col xl:flex-row items-center gap-x-4 gap-y-2 justify-between mt-5 ">
                   <div>
                     <label
                       className=" font-shabnamBold  mb-3 text-sm lg:text-lg "
@@ -100,7 +100,7 @@ const StepThreeAdRE: React.FC = () => {
                 </div>
               </div>
 
-              <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
+              <div className=" flex   items-center justify-center  gap-x-3 mt-15 xl:mt-25 ">
                 <Btn
                   title="قبلی "
                   bgColor="bg-transparent"

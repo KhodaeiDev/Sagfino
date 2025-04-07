@@ -20,12 +20,32 @@ const steps: Step[] = [
 ]
 
 const StepFourAdRE: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>(
-    ' لطفا شهر مورد نظر خود را انتخاب کنید'
-  )
+  const selectBoxData = [
+    {
+      label: '  پارکینگ ',
+      items: ['ندارد', 'دارد'],
+    },
+    {
+      label: ' نوع سرویس بهداشتی',
+      items: ['هردو', 'ایرانی', 'فرنگی'],
+    },
+    {
+      label: ' انباری',
+      items: ['ندارد', 'دارد'],
+    },
+    {
+      label: ' آسانسور',
+      items: ['ندارد', 'دارد'],
+    },
+  ]
+  const [options, setOptions] = useState<string[]>([' پارکینگ  ', 'نوع سرویس',"انباری","آسانسور"])
 
-  const handleSelect = useCallback((option: string) => {
-    setSelectedOption(option)
+  const handleSelect = useCallback((index: number, value: string) => {
+    setOptions((prevOptions) => {
+      const newOptions = [...prevOptions]
+      newOptions[index] = value
+      return newOptions
+    })
   }, [])
 
   document.title = 'مرحله ی چهارم-ثبت آگهی'
@@ -41,91 +61,34 @@ const StepFourAdRE: React.FC = () => {
               <div className="flex flex-col">
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
-                <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-10 ">
-                  <div>
-                    <label
-                      htmlFor=" "
-                      className="  text-sm lg:text-lg font-shabnamBold "
-                    >
-                      پارکینگ
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>دارد</li>
-                        <li> ندارد</li>
-                      </SelectBox>
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      className="  font-shabnamBold text-sm lg:text-lg "
-                      htmlFor=""
-                    >
-                      نوع سرویس بهداشتی
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>ایرانی</li>
-                        <li> فرنگی</li>
-                        <li> هردو</li>
-                      </SelectBox>
-                    </div>
-                  </div>
-                </div>
-                {/* input */}
-                <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-5 xl:mt-30 ">
-                  {/* custom input */}
-                  <div>
-                    <label
-                      className="  font-shabnamBold text-sm lg:text-lg "
-                      htmlFor=""
-                    >
-                      انباری
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>دارد</li>
-                        <li>ندارد</li>
-                      </SelectBox>
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      className="  font-shabnamBold text-sm lg:text-lg "
-                      htmlFor=""
-                    >
-                      آسانسور
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>دارد</li>
-                        <li> ندارد</li>
-                      </SelectBox>
-                    </div>
+                <div className=" flex flex-col  xl:flex-row items-center gap-4 justify-between mt-5 ">
+                  <div className=" w-full flex-wrap  flex-col xl:flex-row   flex items-center gap-x-4 gap-y-5 xl:gap-y-30 justify-between">
+                    {selectBoxData.map((data, index) => (
+                      <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
+                        <label
+                          htmlFor=" "
+                          className="  text-sm lg:text-lg font-shabnamBold "
+                        >
+                          {data.label}
+                        </label>{' '}
+                        <SelectBox
+                          key={index}
+                          selectedOption={options[index]}
+                          onSelect={(option) => handleSelect(index, option)}
+                          width="w-72.5 "
+                          responsiveWidth="w-65"
+                          responsiveHeight="h-12"
+                        >
+                          {data.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </SelectBox>
+                      </div>
+                    ))}
                   </div>
                 </div>
               </div>
-              <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
+              <div className=" flex   items-center justify-center  gap-x-3 mt-10 xl:mt-25 ">
                 <Btn
                   title="قبلی "
                   bgColor="bg-transparent"

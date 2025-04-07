@@ -20,15 +20,26 @@ const steps: Step[] = [
 ]
 
 const StepOneAdRE: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>(
-    ' لطفا شهر مورد نظر خود را انتخاب کنید'
-  )
-
-  const handleSelect = useCallback((option: string) => {
-    setSelectedOption(option)
-  }, [])
-
   document.title = 'مرحله ی اول-ثبت آگهی'
+  const selectBoxData = [
+    {
+      label: ' شهر ',
+      items: ['شیراز', 'اصفهان', 'تهران'],
+    },
+    {
+      label: 'منطقه',
+      items: ['منطقه 1', 'منطقه 2', 'منطقه 22', 'منطقه 16', 'منطقه 6'],
+    },
+  ]
+  const [options, setOptions] = useState<string[]>([' شهر ', 'منطقه '])
+
+  const handleSelect = useCallback((index: number, value: string) => {
+    setOptions((prevOptions) => {
+      const newOptions = [...prevOptions]
+      newOptions[index] = value
+      return newOptions
+    })
+  }, [])
 
   return (
     <>
@@ -41,48 +52,30 @@ const StepOneAdRE: React.FC = () => {
               <div className="flex flex-col">
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
-                <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-10 ">
-                  <div>
-                    <label
-                      htmlFor=" "
-                      className="  text-sm lg:text-lg font-shabnamBold "
-                    >
-                      شهر
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>جدیدترین</li>
-                        <li>قدیمی ترین</li>
-                        <li>ارزان ترین</li>
-                        <li>گران ترین</li>
-                      </SelectBox>
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      className="  font-shabnamBold text-sm lg:text-lg "
-                      htmlFor=""
-                    >
-                      منطقه
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>جدیدترین</li>
-                        <li>قدیمی ترین</li>
-                        <li>ارزان ترین</li>
-                        <li>گران ترین</li>
-                      </SelectBox>
-                    </div>
+                <div className=" flex flex-col xl:flex-row items-center gap-x-4  gap-y-2 justify-between mt-5 ">
+                  <div className=" w-full  flex-col xl:flex-row   flex items-center gap-4 justify-between">
+                    {selectBoxData.map((data, index) => (
+                      <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
+                        <label
+                          htmlFor=" "
+                          className="  text-sm lg:text-lg font-shabnamBold "
+                        >
+                          {data.label}
+                        </label>{' '}
+                        <SelectBox
+                          key={index}
+                          selectedOption={options[index]}
+                          onSelect={(option) => handleSelect(index, option)}
+                          width="w-72.5 "
+                          responsiveWidth="w-72"
+                          responsiveHeight="h-12"
+                        >
+                          {data.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </SelectBox>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 {/* input */}
@@ -121,7 +114,7 @@ const StepOneAdRE: React.FC = () => {
                 </div>
               </div>
 
-              <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
+              <div className=" flex   items-center justify-center  gap-x-3 mt-10 xl:mt-25 ">
                 <Btn title="ادامه " link="/registerAnAd/StepTwo" />
               </div>
             </div>

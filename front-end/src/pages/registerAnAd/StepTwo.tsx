@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useCallback } from 'react'
 import { useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
@@ -21,15 +21,27 @@ const steps: Step[] = [
 ]
 
 const StepTwoAdRE: React.FC = () => {
-  const [selectedOption, setSelectedOption] = useState<string>(
-    ' نوع معامله رو انتخاب کنید'
-  )
-
   document.title = 'مرحله ی دوم-ثبت آگهی'
+  const selectBoxData = [
+    {
+      label: ' نوع معامله ',
+      items: ['فروش', 'اجاره', 'رهن'],
+    },
+    {
+      label: 'نوع ملک',
+      items: ['مسکونی', 'تجاری', 'بازرگانی'],
+    },
+  ]
+  const [options, setOptions] = useState<string[]>([' نوع معامله ', 'نوع ملک '])
 
-  const handleSelect = (option: string) => {
-    setSelectedOption(option)
-  }
+  const handleSelect = useCallback((index: number, value: string) => {
+    setOptions((prevOptions) => {
+      const newOptions = [...prevOptions]
+      newOptions[index] = value
+      return newOptions
+    })
+  }, [])
+
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
@@ -41,48 +53,30 @@ const StepTwoAdRE: React.FC = () => {
               <div className="flex flex-col">
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
-                <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-10 ">
-                  <div>
-                    <label
-                      htmlFor=" "
-                      className="  text-sm lg:text-lg font-shabnamBold "
-                    >
-                      نوع معامله
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>جدیدترین</li>
-                        <li>قدیمی ترین</li>
-                        <li>ارزان ترین</li>
-                        <li>گران ترین</li>
-                      </SelectBox>
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      className="  font-shabnamBold text-sm lg:text-lg "
-                      htmlFor=""
-                    >
-                      نوع ملک
-                    </label>
-                    <div className=" mt-2 ">
-                      <SelectBox
-                        onSelect={handleSelect}
-                        selectedOption={selectedOption}
-                        responsiveWidth="w-70.5"
-                        responsiveHeight="h-12"
-                      >
-                        <li>جدیدترین</li>
-                        <li>قدیمی ترین</li>
-                        <li>ارزان ترین</li>
-                        <li>گران ترین</li>
-                      </SelectBox>
-                    </div>
+                <div className=" flex flex-col xl:flex-row items-center gap-x-4 gap-y-2 justify-between mt-5 ">
+                  <div className=" w-full  flex-col xl:flex-row   flex items-center gap-4 justify-between">
+                    {selectBoxData.map((data, index) => (
+                      <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
+                        <label
+                          htmlFor=" "
+                          className="  text-sm lg:text-lg font-shabnamBold "
+                        >
+                          {data.label}
+                        </label>{' '}
+                        <SelectBox
+                          key={index}
+                          selectedOption={options[index]}
+                          onSelect={(option) => handleSelect(index, option)}
+                          width="w-72.5 "
+                          responsiveWidth="w-72"
+                          responsiveHeight="h-12"
+                        >
+                          {data.items.map((item) => (
+                            <li key={item}>{item}</li>
+                          ))}
+                        </SelectBox>
+                      </div>
+                    ))}
                   </div>
                 </div>
                 {/* input */}
@@ -121,7 +115,7 @@ const StepTwoAdRE: React.FC = () => {
                 </div>
               </div>
 
-              <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
+              <div className=" flex   items-center justify-center  gap-x-3 mt-10 xl:mt-25 ">
                 <Btn
                   title="قبلی "
                   bgColor="bg-transparent"
