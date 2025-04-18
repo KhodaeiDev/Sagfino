@@ -33,8 +33,27 @@ const useRemoveFromLocalStorage = (key: string): (() => void) => {
   return removeItem
 }
 
+const useScrollFixed = (scrollThreshold = 168) => {
+  const [isFixed, setIsFixed] = useState<boolean>(false)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      setIsFixed(window.scrollY > scrollThreshold)
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => {
+      window.removeEventListener('scroll', handleScroll) 
+    }
+  }, [scrollThreshold])
+
+  return isFixed
+}
+
+
 export {
   useSaveToLocalStorage,
   useGetFromLocalStorage,
   useRemoveFromLocalStorage,
+  useScrollFixed,
 }

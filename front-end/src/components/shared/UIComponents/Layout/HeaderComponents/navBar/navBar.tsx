@@ -10,6 +10,7 @@ import { PiNewspaperClipping } from 'react-icons/pi'
 import { IoIosPeople } from 'react-icons/io'
 import { CiHome } from 'react-icons/ci'
 import { IoMdClose } from 'react-icons/io'
+import { useScrollFixed } from '../../../../../../Hooks/shared/shared'
 
 interface MenueMobailProps {
   isOpen: boolean
@@ -17,21 +18,29 @@ interface MenueMobailProps {
 }
 
 const NavBar: React.FC = () => {
+  const isFixed = useScrollFixed(168)
+
   return (
     <>
-      <div className="  container  pt-10">
-        <div className="w-auto  hidden lg:flex h-25 md:h-28.75  bg-gray-f9 px-8 py-6.5 items-center justify-between text-base xl:text-xl rounded-2xl">
+      <div className="container pt-10 relative">
+        <div
+          className={`hidden lg:flex h-25 md:h-28.75 bg-gray-f9 px-8 py-6.5 items-center justify-between text-base xl:text-xl rounded-2xl transition-shadow duration-1000 ${
+            isFixed
+              ? 'fixed top-0 left-0 w-full bg-white shadow-primary-tint-6  shadow-lg   z-50 rounded-none'
+              : ''
+          }`}
+        >
           <div className="flex items-center gap-2 lg:gap-11">
             <NavLink to={'/'}>
               <Logo />
             </NavLink>
-            <ul className=" flex items-center justify-between gap-3 xl:gap-6 text-gray-1000">
+            <ul className="flex items-center justify-between gap-3 xl:gap-6 text-gray-1000">
               <li>
                 <NavLink
                   to={'/'}
                   className={({ isActive }) =>
-                    `hover:text-primary  hover:custom-underline-hover  ${
-                      isActive ? 'text-primary custom-underline' : ' '
+                    `hover:text-primary hover:custom-underline-hover ${
+                      isActive ? 'text-primary custom-underline' : ''
                     }`
                   }
                 >
@@ -42,8 +51,8 @@ const NavBar: React.FC = () => {
                 <NavLink
                   to={'/Rent/Rent'}
                   className={({ isActive }) =>
-                    `hover:text-primary  hover:custom-underline-hover  ${
-                      isActive ? 'text-primary custom-underline' : ' '
+                    `hover:text-primary hover:custom-underline-hover ${
+                      isActive ? 'text-primary custom-underline' : ''
                     }`
                   }
                 >
@@ -54,8 +63,8 @@ const NavBar: React.FC = () => {
                 <NavLink
                   to={'/shopping/shopping'}
                   className={({ isActive }) =>
-                    `hover:text-primary  hover:custom-underline-hover ${
-                      isActive ? 'text-primary custom-underline' : ' '
+                    `hover:text-primary hover:custom-underline-hover ${
+                      isActive ? 'text-primary custom-underline' : ''
                     }`
                   }
                 >
@@ -66,20 +75,19 @@ const NavBar: React.FC = () => {
                 <NavLink
                   to={'/Realestates/Realestates'}
                   className={({ isActive }) =>
-                    `hover:text-primary  hover:custom-underline-hover ${
-                      isActive ? 'text-primary custom-underline' : ' '
+                    `hover:text-primary hover:custom-underline-hover ${
+                      isActive ? 'text-primary custom-underline' : ''
                     }`
                   }
                 >
                   املاک و مستغلات
                 </NavLink>
               </li>
-
               <NavLink
                 to={'/AboutUs/AboutUs'}
                 className={({ isActive }) =>
-                  `hover:text-primary  hover:custom-underline-hover ${
-                    isActive ? 'text-primary custom-underline' : ' '
+                  `hover:text-primary hover:custom-underline-hover ${
+                    isActive ? 'text-primary custom-underline' : ''
                   }`
                 }
               >
@@ -89,8 +97,8 @@ const NavBar: React.FC = () => {
                 <NavLink
                   to={'/ContactUs/ContactUs'}
                   className={({ isActive }) =>
-                    `hover:text-primary  hover:custom-underline ${
-                      isActive ? 'text-primary custom-underline' : ' '
+                    `hover:text-primary hover:custom-underline ${
+                      isActive ? 'text-primary custom-underline' : ''
                     }`
                   }
                 >
@@ -100,12 +108,12 @@ const NavBar: React.FC = () => {
             </ul>
           </div>
           <div className="flex items-center justify-between gap-9">
-            <div className=" text-gray-1000">
+            <div className="text-gray-1000">
               <NavLink
                 to={'/auth/StepOne'}
                 className={({ isActive }) =>
-                  `hover:text-primary  hover:custom-underline ${
-                    isActive ? 'text-primary custom-underline' : ' '
+                  `hover:text-primary hover:custom-underline ${
+                    isActive ? 'text-primary custom-underline' : ''
                   }`
                 }
               >
@@ -126,10 +134,8 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
   return (
     <>
       <div
-        className={`${
-          isOpen
-            ? 'fixed top-0 left-0 w-full h-full z-50 bg-white transform transition duration-1000 ease-in-out translate-x-0'
-            : 'fixed top-0 left-0 w-full h-full z-50 bg-white transform transition duration-1000 ease-in-out -translate-x-full'
+        className={` fixed top-0 left-0 w-full h-full z-10000  overflow-y-scroll bg-white transform transition duration-1000 ease-in-out ${
+          isOpen ? ' translate-x-0' : '-translate-x-full'
         } lg:hidden shadow-md`}
       >
         <div className=" flex justify-end p-4">
@@ -256,10 +262,19 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
 
 const NavBarMobail: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
+  const isFixed = useScrollFixed(168)
+
   return (
     <>
-      <div className="container">
-        <div className=" flex lg:hidden w-auto h-25 md:h-28.75  px-0  md:px-8 py-6.5  items-center justify-between text-base xl:text-xl ">
+      <div className=" container ">
+        <div
+          className={` flex lg:hidden h-25 md:h-28.75 bg-white px-8 py-6.5 items-center justify-between text-base xl:text-xl rounded-2xl  transition-shadow
+             duration-1000   ${
+               isFixed
+                 ? 'fixed top-0 left-0 w-full bg-white shadow-primary-tint-6  shadow-lg   z-50 rounded-none'
+                 : ''
+             }`}
+        >
           <button
             className={` hamburger ${isOpen ? 'open' : ''} lg:!hidden `}
             onClick={() => setIsOpen(!isOpen)}
