@@ -26,11 +26,11 @@ const MyAds: React.FC = () => {
           پاک کردن همه آگهی‌ها
         </div>
         <div className="container">
-          <div className="flex flex-wrap justify-center sm:justify-start gap-2 md:gap-4 mt-10">
+          <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-4 mt-10">
             {[...Array(2)].map((_, index) => (
               <div
                 key={index}
-                className="  w-35 md:w-70  h-auto lg:h-87 border border-boxHelp rounded-2xl"
+                className="  w-full  h-auto lg:h-87 border border-boxHelp rounded-2xl"
               >
                 {isLoading ? (
                   <CustomSkeletonLoader
@@ -60,19 +60,14 @@ const MyAds: React.FC = () => {
                         width: '90%',
                         height: '4%',
                       },
-                      {
-                        xOffset: '5%',
-                        yOffset: '107%',
-                        width: '90%',
-                        height: '4%',
-                      },
+                    
                     ]}
                   />
                 ) : (
                   <>
-                    <div className="relative">
+                    <a href='#' className="relative  ">
                       <img
-                        className="w-full rounded-t-2xl"
+                        className="w-full h-auto rounded-t-2xl "
                         src="/img/pexels-naim-benjelloun-2029731 1.png"
                         alt="Product"
                       />
@@ -82,7 +77,7 @@ const MyAds: React.FC = () => {
                       <div className="absolute top-3 left-3">
                         <GoTrash className="cursor-pointer text-white w-4 h-4 lg:w-6 lg:h-6" />
                       </div>
-                    </div>
+                    </a>
                     <div className="flex flex-col gap-2.5 p-2.5 lg:px-3.5 lg:pt2.5 lg:pb-2.5">
                       <div className="w-full flex justify-end">
                         <FaRegEdit className="cursor-pointer text-gray-71 w-3 h-3 lg:w-6 lg:h-6" />

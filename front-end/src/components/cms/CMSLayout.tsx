@@ -24,9 +24,9 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(({ title, children }) => {
       <NavBarMobail />
       <div className="container mt-20">
         {/* layot */}
-        <div className=" w-full flex  gap-x-6 ">
+        <div className=" w-full flex flex-col lg:flex-row  gap-x-6 ">
           {/* right */}
-          <div className="w-1/4  hidden  pb-10 h-full  lg:flex flex-col  gap-y-2 items-center justify-center">
+          <div className=" w-full lg:w-1/4    pb-10 h-full  flex flex-col  gap-y-2 items-center justify-center">
             {/* profile */}
             <div className="w-full h-26.25 border border-gray-D9 py-6 pr-6  rounded-xl ">
               <div className=" flex  items-center gap-x-2 text-gray-71  ">

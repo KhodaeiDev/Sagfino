@@ -21,9 +21,9 @@ const SavedAd: React.FC = () => {
           پاک کردن همه آگهی‌ها
         </div>
         <div className="container">
-          <div className="flex  justify-center sm:justify-start gap-2 md:gap-4 mt-10">
+          <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3  gap-2 md:gap-4 mt-10">
             {isLoading ? (
-              [...Array(3)].map((_, index) => (
+              [...Array(12)].map((_, index) => (
                 <div
                   key={index}
                   className="w-35 md:w-70 h-81.5 border border-boxHelp rounded-xl overflow-hidden"
@@ -55,21 +55,18 @@ const SavedAd: React.FC = () => {
                         width: '60%',
                         height: '4%',
                       },
-                      {
-                        xOffset: '5%',
-                        yOffset: '107%',
-                        width: '60%',
-                        height: '4%',
-                      },
                     ]}
                   />
                 </div>
               ))
             ) : (
               <>
-                <ProductBox key={1} isSaved={true} />,
-                <ProductBox key={2} isSaved={true} />,
-                <ProductBox key={3} isSaved={true} />,
+                <ProductBox key={1} isSaved={true} />
+                <ProductBox key={2} isSaved={true} />
+                <ProductBox key={3} isSaved={true} />
+                <ProductBox key={1} isSaved={true} />
+                <ProductBox key={2} isSaved={true} />
+                <ProductBox key={3} isSaved={true} />
               </>
             )}
           </div>
