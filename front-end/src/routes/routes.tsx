@@ -6,10 +6,17 @@ import CmsApp from '../pages/cms/cmsApp'
 import siteRoutes from './siteRoutes'
 import RegisterAnAdRoutes from './registerAnAdRoutes'
 import CmsRoutes from './cmsRoutes'
+import AdminPanelApp from '../pages/AdminPanel/AdminPanel'
+import AdminPanelRoutes from './AdminPanel'
 
 const baseRoutes = [
   { path: '/', element: <SiteApp />, children: [...siteRoutes] },
   { path: '/cms', element: <CmsApp />, children: [...CmsRoutes] },
+  {
+    path: '/AdminPanel',
+    element: <AdminPanelApp />,
+    children: [...AdminPanelRoutes],
+  },
   {
     path: '/registerAnAd',
     element: <RegisterAnAdApp />,
