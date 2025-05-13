@@ -20,7 +20,7 @@ const MyAds: React.FC = () => {
 
   return (
     <>
-      <CMSLayout title="آگهی من">
+      <CMSLayout title="آگهی من" panel={false}>
         <div className="w-full mt-4 flex items-center justify-start pr-6.5 gap-x-2 text-gray-1000 text-base ">
           <GoTrash className=" w-6 h-6" />
           پاک کردن همه آگهی‌ها
@@ -60,12 +60,11 @@ const MyAds: React.FC = () => {
                         width: '90%',
                         height: '4%',
                       },
-                    
                     ]}
                   />
                 ) : (
                   <>
-                    <a href='#' className="relative  ">
+                    <a href="#" className="relative  ">
                       <img
                         className="w-full h-auto rounded-t-2xl "
                         src="/img/pexels-naim-benjelloun-2029731 1.png"

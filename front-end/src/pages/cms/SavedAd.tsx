@@ -15,7 +15,7 @@ const SavedAd: React.FC = () => {
 
   return (
     <>
-      <CMSLayout title="آگهی ذخیره شده ">
+      <CMSLayout title="آگهی ذخیره شده " panel={false}>
         <div className="w-full mt-4 flex items-center justify-start pr-6.5 gap-x-2 text-gray-1000 text-base">
           <GoTrash className="w-6 h-6" />
           پاک کردن همه آگهی‌ها

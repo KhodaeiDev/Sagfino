@@ -81,7 +81,7 @@ const Users: React.FC = () => {
 
   return (
     <>
-      <CMSLayout title=" کاربران">
+      <CMSLayout title=" کاربران" panel={true}>
         <div className="p-2 lg:p-6 overflow-x-auto">
           <div className="w-full">
             <table className="table-auto border-collapse min-w-full border border-green-500 bg-white text-center shadow-lg rounded-lg">

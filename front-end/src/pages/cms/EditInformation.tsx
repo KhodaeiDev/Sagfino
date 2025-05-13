@@ -31,7 +31,7 @@ const EditInformation: React.FC = () => {
 
   return (
     <>
-      <CMSLayout title="ویرایش اطلاعات">
+      <CMSLayout title="ویرایش اطلاعات" panel={false}>
         {/* Header */}
         <div className=" px-4 md:px-18 lg:px-24 pt-3 ">
           {/* profile */}
