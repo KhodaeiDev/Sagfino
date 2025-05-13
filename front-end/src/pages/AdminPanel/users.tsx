@@ -78,30 +78,35 @@ const Users: React.FC = () => {
     (currentPage - 1) * itemsPerPage,
     currentPage * itemsPerPage
   )
+  
 
   return (
     <>
       <CMSLayout title=" کاربران" panel={true}>
         <div className="p-2 lg:p-6 overflow-x-auto">
           <div className="w-full">
-            <table className="table-auto border-collapse min-w-full border border-green-500 bg-white text-center shadow-lg rounded-lg">
+            <table className="table-auto border-collapse min-w-full border border-primary-tint-6 bg-white text-center shadow-lg rounded-lg">
               <thead>
-                <tr className="bg-green-500 text-white text-xs sm:text-sm md:text-base">
-                  <th className="border border-green-500 px-4 py-2">
+                <tr className="bg-primary-tint-6 text-white text-xs sm:text-sm md:text-base">
+                  <th className="border border-primary-tint-6 px-4 py-2">
                     شناسه کاربر
                   </th>
-                  <th className="border border-green-500 px-4 py-2">نام</th>
-                  <th className="border border-green-500 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-4 py-2">
+                    نام
+                  </th>
+                  <th className="border border-primary-tint-6 px-4 py-2">
                     نام خانوادگی
                   </th>
-                  <th className="border border-green-500 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-4 py-2">
                     نوع فعالیت
                   </th>
-                  <th className="border border-green-500 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-4 py-2">
                     شماره تلفن
                   </th>
-                  <th className="border border-green-500 px-4 py-2">تصویر</th>
-                  <th className="border border-green-500 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-4 py-2">
+                    تصویر
+                  </th>
+                  <th className="border border-primary-tint-6 px-4 py-2">
                     تاریخ عضویت
                   </th>
                 </tr>
@@ -112,22 +117,22 @@ const Users: React.FC = () => {
                     key={item.id}
                     className="hover:bg-gray-200 text-xs sm:text-sm md:text-base"
                   >
-                    <td className="border border-green-500 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-4 py-2">
                       {item.id}
                     </td>
-                    <td className="border border-green-500 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-4 py-2">
                       {item.name}
                     </td>
-                    <td className="border border-green-500 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-4 py-2">
                       {item.lastName}
                     </td>
-                    <td className="border border-green-500 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-4 py-2">
                       {item.activity}
                     </td>
-                    <td className="border border-green-500 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-4 py-2">
                       {item.phone}
                     </td>
-                    <td className="border border-green-500 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-4 py-2">
                       <div className="w-12 h-12 flex items-center justify-center">
                         <img
                           className="w-full h-full object-cover aspect-square rounded-full"
@@ -136,7 +141,7 @@ const Users: React.FC = () => {
                         />
                       </div>
                     </td>
-                    <td className="border border-green-500 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-4 py-2">
                       {item.joinDate}
                     </td>
                   </tr>
@@ -144,14 +149,11 @@ const Users: React.FC = () => {
               </tbody>
             </table>
           </div>
-
           <div className="flex justify-center mt-4 space-x-2">
             <button
               className={`px-4 py-2 ${
-                currentPage === totalPages
-                  ? ' cursor-pointer   '
-                  : ' cursor-not-allowed '
-              }  bg-green-500 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400`}
+                currentPage === 1 ? '  cursor-not-allowed   ' : '  cursor-pointer'
+              }  bg-primary-tint-6 text-white rounded-md hover:bg-primary disabled:bg-gray-400`}
               disabled={currentPage === 1}
               onClick={() => setCurrentPage(currentPage - 1)}
             >
@@ -163,7 +165,7 @@ const Users: React.FC = () => {
                 currentPage === totalPages
                   ? '  cursor-not-allowed '
                   : ' cursor-pointer'
-              }  bg-green-500 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400`}
+              }  bg-primary-tint-6 text-white rounded-md hover:bg-primary disabled:bg-gray-400`}
               disabled={currentPage === totalPages}
               onClick={() => setCurrentPage(currentPage + 1)}
             >

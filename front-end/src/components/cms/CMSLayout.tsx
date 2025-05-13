@@ -86,7 +86,7 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                         to={'/AdminPanel/products'}
                       >
                         <AiOutlineCheckCircle className="w-5 h-5" />
-                        <span> آکهی هایی ثبت شده </span>
+                        <span> آگهی هایی ثبت شده </span>
                       </NavLink>
                     </li>
                   )}
