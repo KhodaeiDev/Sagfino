@@ -1,8 +1,6 @@
 import { RouteObject } from 'react-router'
-import EditInformation from '../pages/AdminPanel/users'
+import Usres from '../pages/AdminPanel/users'
 
-const AdminPanelRoutes: RouteObject[] = [
-  { path: 'users', element: <EditInformation /> },
-]
+const AdminPanelRoutes: RouteObject[] = [{ path: 'users', element: <Usres /> }]
 
 export default AdminPanelRoutes

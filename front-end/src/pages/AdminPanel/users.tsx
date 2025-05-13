@@ -1,130 +1,174 @@
 import React, { useState } from 'react'
 import CMSLayout from '../../components/cms/CMSLayout'
-import { CgProfile } from 'react-icons/cg'
-import { LuImagePlus } from 'react-icons/lu'
-import { FiUser } from 'react-icons/fi'
-import { FiPhone } from 'react-icons/fi'
-import { PiEnvelopeThin } from 'react-icons/pi'
-import { GoKey } from 'react-icons/go'
 
-import { FaTrash } from 'react-icons/fa'
-import Btn from '../../components/AdRegistration/btn'
+const data = [
+  {
+    id: 1,
+    name: 'آروین',
+    lastName: 'قادری',
+    activity: 'املاکی',
+    phone: '09308064108',
+    image: '/public/img/Rectangle 52.jpg',
+    joinDate: '1404/2/3',
+  },
+  {
+    id: 2,
+    name: 'علی',
+    lastName: 'حسینی',
+    activity: 'برنامه‌نویس',
+    phone: '09123456789',
+    image: '/public/img/Rectangle 52.jpg',
+    joinDate: '1404/3/15',
+  },
+  {
+    id: 3,
+    name: 'سارا',
+    lastName: 'کاظمی',
+    activity: 'طراح گرافیک',
+    phone: '09234567890',
+    image: '/public/img/Rectangle 52.jpg',
+    joinDate: '1404/5/20',
+  },
+  {
+    id: 4,
+    name: 'سارا',
+    lastName: 'کاظمی',
+    activity: 'طراح گرافیک',
+    phone: '09234567890',
+    image: '/public/img/Rectangle 52.jpg',
+    joinDate: '1404/5/20',
+  },
+  {
+    id: 5,
+    name: 'سارا',
+    lastName: 'کاظمی',
+    activity: 'طراح گرافیک',
+    phone: '09234567890',
+    image: '/public/img/Rectangle 52.jpg',
+    joinDate: '1404/5/20',
+  },
+  {
+    id: 6,
+    name: 'سارا',
+    lastName: 'کاظمی',
+    activity: 'طراح گرافیک',
+    phone: '09234567890',
+    image: '/public/img/Rectangle 52.jpg',
+    joinDate: '1404/5/20',
+  },
+  {
+    id: 7,
+    name: 'سارا',
+    lastName: 'کاظمی',
+    activity: 'طراح گرافیک',
+    phone: '09234567890',
+    image: '/public/img/Rectangle 52.jpg',
+    joinDate: '1404/5/20',
+  },
+]
 
-const EditInformation: React.FC = () => {
-  document.title = 'سقفینو-ویرایش اطلاعات'
+const itemsPerPage = 3
 
-  const [selectedImage, setSelectedImage] = useState<string | null>(null)
+const Users: React.FC = () => {
+  document.title = 'سقفینو- پنل مدیریت-کاربران'
+  const [currentPage, setCurrentPage] = useState(1)
 
-  const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    if (event.target.files && event.target.files[0]) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        setSelectedImage(reader.result as string)
-      }
-      reader.readAsDataURL(event.target.files[0])
-    }
-  }
-
-  const handleRemoveImage = () => {
-    setSelectedImage(null)
-  }
+  const totalPages = Math.ceil(data.length / itemsPerPage)
+  const currentData = data.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  )
 
   return (
     <>
-      <CMSLayout title="ویرایش اطلاعات">
-        {/* Header */}
-        <div className=" px-4 md:px-18 lg:px-24 pt-3 ">
-          {/* profile */}
-          <div className=" w-full flex justify-center lg:justify-start   ">
-            <div className="w-25.5 h-25.5 border border-gray-AD rounded-lg center relative">
-              {selectedImage ? (
-                <>
-                  <img
-                    src={selectedImage}
-                    alt="تصویر آپلود‌شده"
-                    className="w-full h-full object-cover rounded-lg"
-                  />
-                  <button
-                    onClick={handleRemoveImage}
-                    className="absolute top-2  left-2 cursor-pointer bg-primary text-white rounded-full p-1"
+      <CMSLayout title=" کاربران">
+        <div className="p-2 lg:p-6 overflow-x-auto">
+          <div className="w-full">
+            <table className="table-auto border-collapse min-w-full border border-green-500 bg-white text-center shadow-lg rounded-lg">
+              <thead>
+                <tr className="bg-green-500 text-white text-xs sm:text-sm md:text-base">
+                  <th className="border border-green-500 px-4 py-2">
+                    شناسه کاربر
+                  </th>
+                  <th className="border border-green-500 px-4 py-2">نام</th>
+                  <th className="border border-green-500 px-4 py-2">
+                    نام خانوادگی
+                  </th>
+                  <th className="border border-green-500 px-4 py-2">
+                    نوع فعالیت
+                  </th>
+                  <th className="border border-green-500 px-4 py-2">
+                    شماره تلفن
+                  </th>
+                  <th className="border border-green-500 px-4 py-2">تصویر</th>
+                  <th className="border border-green-500 px-4 py-2">
+                    تاریخ عضویت
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                {currentData.map((item) => (
+                  <tr
+                    key={item.id}
+                    className="hover:bg-gray-200 text-xs sm:text-sm md:text-base"
                   >
-                    <FaTrash className="w-2 h-2" />
-                  </button>
-                </>
-              ) : (
-                <>
-                  <CgProfile className="w-17 h-7/12 text-gray-71" />
-                  <div className="absolute  right-5 bottom-3 w-7.5 h-7.5 rounded-full center bg-gray-ED">
-                    <label htmlFor="file-upload" className="cursor-pointer">
-                      <LuImagePlus className="text-gray-AD w-5 h-5" />
-                    </label>
-                    <input
-                      id="file-upload"
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleImageChange}
-                    />
-                  </div>
-                </>
-              )}
-            </div>
+                    <td className="border border-green-500 px-4 py-2">
+                      {item.id}
+                    </td>
+                    <td className="border border-green-500 px-4 py-2">
+                      {item.name}
+                    </td>
+                    <td className="border border-green-500 px-4 py-2">
+                      {item.lastName}
+                    </td>
+                    <td className="border border-green-500 px-4 py-2">
+                      {item.activity}
+                    </td>
+                    <td className="border border-green-500 px-4 py-2">
+                      {item.phone}
+                    </td>
+                    <td className="border border-green-500 px-4 py-2">
+                      <div className="w-12 h-12 flex items-center justify-center">
+                        <img
+                          className="w-full h-full object-cover aspect-square rounded-full"
+                          src={item.image}
+                          alt="تصویر"
+                        />
+                      </div>
+                    </td>
+                    <td className="border border-green-500 px-4 py-2">
+                      {item.joinDate}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
           </div>
 
-          {/* form */}
-          <div className="flex flex-col  w-full ">
-            {/* input */}
-            <div className=" flex flex-col xl:flex-row items-center gap-5   mt-4  ">
-              {/* custom input */}
-
-              <div className=" py-5 pr-3 text-base  gap-x-3  border-gray-AD flex items-center  w-full h-16  border  rounded-lg mt-2 ">
-                <FiUser className=" w-5 h-5  text-gray-1000 " />
-                <input
-                  placeholder="نام و نام خانوادگی خودرا وارد کنید "
-                  className=" w-full placeholder:text-sm placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                  type="text"
-                />
-              </div>
-
-              <div className=" py-5 pr-3 text-base  gap-x-3  border-gray-AD   flex items-center w-full h-16  border  rounded-lg mt-2 ">
-                <FiPhone className=" w-5 h-5  text-gray-1000 " />
-
-                <input
-                  placeholder="تلفن همراه خود را وارد کنید "
-                  className=" w-full placeholder:text-sm placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                  type="text"
-                />
-              </div>
-            </div>
-            <div className=" flex flex-col xl:flex-row items-center gap-5     mt-3  ">
-              {/* custom input */}
-
-              <div className=" py-5 pr-3 text-base  gap-x-3  border-gray-AD   flex items-center  w-full h-16  border  rounded-lg mt-2 ">
-                <PiEnvelopeThin className=" w-5 h-5  text-gray-1000 " />
-                <input
-                  placeholder="ایمیل خود را وارد کنید "
-                  className=" w-full placeholder:text-sm placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                  type="text"
-                />
-              </div>
-
-              <div className=" py-5 pr-3 text-base  gap-x-3  border-gray-AD   flex items-center  w-full h-16  border  rounded-lg mt-2 ">
-                <GoKey className=" w-5 h-5  text-gray-1000 " />
-                <input
-                  placeholder="پسورد خود را وارد کنید "
-                  className=" w-full placeholder:text-sm placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                  type="text"
-                />
-              </div>
-            </div>
-          </div>
-          <div className="w-full flex items-center justify-center lg:justify-end  mt-11.5 gap-x-4 ">
-            <Btn
-              title=" انصراف"
-              bgColor="bg-transparent"
-              textColor="text-primary"
-            ></Btn>
-            <Btn title="ذخیره اطلاعات"></Btn>
+          <div className="flex justify-center mt-4 space-x-2">
+            <button
+              className={`px-4 py-2 ${
+                currentPage === totalPages
+                  ? ' cursor-pointer   '
+                  : ' cursor-not-allowed '
+              }  bg-green-500 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400`}
+              disabled={currentPage === 1}
+              onClick={() => setCurrentPage(currentPage - 1)}
+            >
+              قبلی
+            </button>
+            <span className="px-4 py-2">{`صفحه ${currentPage} از ${totalPages}`}</span>
+            <button
+              className={`px-4 py-2 ${
+                currentPage === totalPages
+                  ? '  cursor-not-allowed '
+                  : ' cursor-pointer'
+              }  bg-green-500 text-white rounded-md hover:bg-green-700 disabled:bg-gray-400`}
+              disabled={currentPage === totalPages}
+              onClick={() => setCurrentPage(currentPage + 1)}
+            >
+              بعدی
+            </button>
           </div>
         </div>
       </CMSLayout>
@@ -132,4 +176,4 @@ const EditInformation: React.FC = () => {
   )
 }
 
-export default EditInformation
+export default Users
