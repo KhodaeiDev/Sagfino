@@ -83,7 +83,7 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                             ? `border-primary  rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
                             : ''
                         }
-                        to={'/AdminPanel/products'}
+                        to={'/AdminPanel/advertisements'}
                       >
                         <AiOutlineCheckCircle className="w-5 h-5" />
                         <span> آگهی هایی ثبت شده </span>
