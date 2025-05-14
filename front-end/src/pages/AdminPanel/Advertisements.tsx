@@ -90,38 +90,38 @@ const Advertisements: React.FC = () => {
           <div className="w-full">
             <table className="table-auto border-collapse min-w-full border border-primary-tint-6 bg-white text-center shadow-lg rounded-lg">
               <thead>
-                <tr className="bg-primary-tint-6 text-white text-xs sm:text-sm ">
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                <tr className="bg-primary-tint-6 text-white text-xs sm:text-xs ">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     شناسه آگهی
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     نام کاربر
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     عنوان
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     توضیحات
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     متراژ
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     قیمت اجاره
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     قیمت رهن
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     قیمت فروش
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     وضعیت
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     <div>ویرایش</div>
                   </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
+                  <th className="border border-primary-tint-6 px-1 py-2">
                     <div>حذف</div>
                   </th>
                 </tr>
@@ -132,43 +132,43 @@ const Advertisements: React.FC = () => {
                     key={item.id}
                     className="hover:bg-gray-200 text-xs "
                   >
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       {item.id}
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       {item.userName}
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       {item.title}
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      {item.description}
+                    <td className="border border-primary-tint-6 px-1 py-2">
+                      {item.description.slice(0,12)}
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       {item.area}
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       {item.rentPrice}
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       {item.depositPrice}
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       {item.salePrice}
                     </td>
                     <td
-                      className={`border border-primary-tint-6 px-2 py-1  rounded `}
+                      className={`border border-primary-tint-6 px-1  py-1  rounded `}
                     >
                       <div className={`${getStatusClass(item.status)}`}>
                         {item.status}
                       </div>
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       <button className=" cursor-pointer  bg-blue-500 text-white px-2 py-1 rounded">
                         ویرایش
                       </button>
                     </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
+                    <td className="border border-primary-tint-6 px-1 py-2">
                       <button className=" cursor-pointer  bg-red-500 text-white px-2 py-1 rounded">
                         حذف
                       </button>
