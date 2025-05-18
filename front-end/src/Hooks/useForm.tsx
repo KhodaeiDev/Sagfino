@@ -1,21 +1,20 @@
 import { useReducer } from 'react'
 
-type FormInputState = {
-  inputs: {
-    phone: {
-      value: string
-      isValid: boolean
-    }
-  }
-  isFormValid: boolean
-}
-
-type Action = {
-  type: string
+type InputState = {
   value: string
   isValid: boolean
-  inputID: string
 }
+
+type FormInputState = {
+  inputs: Record<string, InputState>
+  isFormValid: boolean
+  errorMessage?: string | null
+}
+
+type Action =
+  | { type: 'INPUT_CHANGE'; value: string; isValid: boolean; inputID: string }
+  | { type: 'SET_ERROR'; value: string }
+  | { type: 'CLEAR_ERRORS' }
 
 const formInputReducer = (
   state: FormInputState,
@@ -25,43 +24,53 @@ const formInputReducer = (
     case 'INPUT_CHANGE': {
       const updatedInputs = {
         ...state.inputs,
-        [action.inputID!]: {
+        [action.inputID]: {
           value: action.value || '',
+          isValid: action.isValid,
         },
       }
 
-      const updatedIsFormValid = action.isValid ?? state.isFormValid
+      const isFormValid = Object.values(updatedInputs).every(
+        (input) => input.isValid
+      )
 
       return {
         ...state,
         inputs: updatedInputs,
-        isFormValid: updatedIsFormValid,
+        isFormValid,
+        errorMessage: null,
       }
     }
+
+    case 'SET_ERROR': {
+      return { ...state, errorMessage: action.value }
+    }
+
+    case 'CLEAR_ERRORS': {
+      return { ...state, errorMessage: null }
+    }
+
     default:
       return state
   }
 }
 
 const UseForm = (
-  initInputs: { phone: { value: string; isValid: boolean } },
+  initInputs: Record<string, InputState>,
   initFormIsValid: boolean
 ) => {
   const [formState, dispatch] = useReducer(formInputReducer, {
     inputs: initInputs,
     isFormValid: initFormIsValid,
+    errorMessage: null,
   })
 
   const onInputHandler = (inputID: string, value: string, isValid: boolean) => {
-    dispatch({
-      type: 'INPUT_CHANGE',
-      value,
-      isValid,
-      inputID,
-    })
+    dispatch({ type: 'INPUT_CHANGE', value, isValid, inputID })
+    dispatch({ type: 'CLEAR_ERRORS' })
   }
 
-  return [formState, onInputHandler] as const
+  return [formState, onInputHandler, dispatch] as const
 }
 
 export default UseForm

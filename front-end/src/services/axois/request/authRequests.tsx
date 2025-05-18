@@ -1,22 +1,12 @@
-import { axoisUnProtectedInstance } from '../configs/configs'
-import { AxiosError } from 'axios'
+import { AxiosResponse } from 'axios'
+import { axiosUnProtectedInstance } from '../configs/configs'
 
-const sendMobileNumber = async (mobileNumber: string): Promise<void> => {
-  try {
-    const response = await axoisUnProtectedInstance.post('/auth/send-otp', {
-      mobile: mobileNumber,
-    })
+const sendMobileNumber = async (
+  mobileNumber: string
+): Promise<AxiosResponse> => {
+  const dataNumber = { phone_number: mobileNumber }
 
-    console.log('Mobile Sent Successfully:', response.status)
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      console.error('Axios Error:', error.response?.data || error.message)
-      // خطاهای مربوط به پاسخ سرور را هندل کنید
-    } else {
-      console.error('Unexpected Error:', error)
-      // خطاهای دیگر را مدیریت کنید
-    }
-  }
+  return axiosUnProtectedInstance.post('/send-otp', dataNumber)
 }
 
 export { sendMobileNumber }

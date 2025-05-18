@@ -2,39 +2,39 @@ import axios from 'axios'
 import requestMiddleware from './requestMiddleware'
 import responseMiddleware from './responseMiddleware'
 
-const axoisProtectedInstance = axios.create({
-  baseURL: 'https://sagfino.onrender.com',
+const axiosProtectedInstance = axios.create({
+  baseURL: 'https://saghfino.abolfazlhp.ir/api',
   headers: {
     'Content-Type': 'application/json',
     Authorization: 'Bearer Token',
   },
 })
 
-const axoisUnProtectedInstance = axios.create({
-  baseURL: 'https://sagfino.onrender.com',
+const axiosUnProtectedInstance = axios.create({
+  baseURL: 'https://saghfino.abolfazlhp.ir/api',
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
-axoisProtectedInstance.interceptors.request.use(
+axiosProtectedInstance.interceptors.request.use(
   requestMiddleware.onSuccess,
   requestMiddleware.onError
 )
 
-axoisProtectedInstance.interceptors.response.use(
+axiosProtectedInstance.interceptors.response.use(
   responseMiddleware.onSuccess,
   responseMiddleware.onError
 )
 
-axoisUnProtectedInstance.interceptors.request.use(
+axiosUnProtectedInstance.interceptors.request.use(
   requestMiddleware.onSuccess,
   requestMiddleware.onError
 )
 
-axoisUnProtectedInstance.interceptors.response.use(
+axiosUnProtectedInstance.interceptors.response.use(
   responseMiddleware.onSuccess,
   responseMiddleware.onError
 )
 
-export { axoisUnProtectedInstance, axoisProtectedInstance }
+export { axiosUnProtectedInstance, axiosProtectedInstance }

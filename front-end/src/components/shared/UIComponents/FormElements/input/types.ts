@@ -15,6 +15,7 @@ export type InputProps = {
   onFocus: (
     event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void
+  errorMessage?: string | null
 }
 
 

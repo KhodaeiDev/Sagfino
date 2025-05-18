@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import swal from 'sweetalert2'
 
-type SwalProps = {
+export type SwalProps = {
   title: string
   icon: 'success' | 'error' | 'warning' | 'info' | 'question'
   confirmButtonText: string

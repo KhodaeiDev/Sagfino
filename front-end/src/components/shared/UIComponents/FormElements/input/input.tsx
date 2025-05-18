@@ -23,11 +23,11 @@ const Input: React.FC<InputProps> = (props) => {
   })
 
   const { value, isValid } = mainInput
-  const { id, onInputHandler, onFocus } = props
+  const { id, onInputHandler, onFocus, errorMessage } = props
 
   useEffect(() => {
     onInputHandler(id, value, isValid)
-  }, [id, value, isValid,])
+  }, [id, value, isValid])
 
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -47,8 +47,12 @@ const Input: React.FC<InputProps> = (props) => {
         id={id}
         type={props.type}
         placeholder={props.placeholder}
-        className={`${props.className}  focus:ring-2 ${
-          isValid ? ' focus:!ring-green-500' : '   focus:!ring-primary '
+        className={`${props.className} focus:ring-2 ${
+          errorMessage
+            ? 'border-primary focus:ring-primary'
+            : isValid
+            ? 'border-green-500 focus:ring-green-500'
+            : 'border-gray-300 focus:ring-primary'
         }`}
         value={value}
         onChange={handleChange}
