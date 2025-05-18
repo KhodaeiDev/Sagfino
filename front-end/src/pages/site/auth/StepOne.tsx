@@ -159,7 +159,7 @@ const StepOne: React.FC = () => {
 
             <button
               disabled={
-                !isChecked || !formState.isFormValid || !!formState.errorMessage
+                !isChecked || !formState.isFormValid || !!formState.errorMessage || !!loading
               }
               onClick={handleLogin}
               className={`   disabled:bg-primary disabled:cursor-not-allowed w-full h-10 md:h-14 cursor-pointer transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-10 mb-8 ${
