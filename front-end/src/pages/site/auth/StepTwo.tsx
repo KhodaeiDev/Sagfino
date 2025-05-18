@@ -2,9 +2,6 @@ import React, { useState, useRef } from 'react'
 import { GoClock } from 'react-icons/go'
 import { NavLink } from 'react-router'
 import { v4 as uuidv4 } from 'uuid'
-import inputOtp from '../../../components/shared/UIComponents/FormElements/otp/inputOtp'
-import InputOtp from '../../../components/shared/UIComponents/FormElements/otp/inputOtp'
-import Input from '../../../components/shared/UIComponents/FormElements/input/input'
 
 const StepTwo: React.FC = () => {
   const [otp, setOtp] = useState<{ id: string; value: string }[]>(
@@ -59,23 +56,22 @@ const StepTwo: React.FC = () => {
             {/* otp */}
             <div className="flex   flex-row-reverse gap-x-2 justify-center">
               {otp.map((item, index) => (
-                <InputOtp className=" appearance-none w-10 md:w-23 h-10  md:h-12 border  border-gray-400 rounded-lg text-center text-lg  md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-300"></InputOtp>
-                // <input
-                //   key={item.id} 
-                //   type="text"
-                //   maxLength={1}
-                //   value={item.value}
-                //   onChange={(event) =>
-                //     handleChange(event.target.value, item.id)
-                //   }
-                //   onKeyDown={(event) => handleKeyDown(event, item.id)}
-                //   ref={(element) => {
-                //     if (element) {
-                //       inputsRef.current[index] = element
-                //     }
-                //   }}
-                //   className=" w-10 md:w-23 h-10  md:h-12 border  border-gray-400 rounded-lg text-center text-lg  md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-300"
-                // />
+                <input
+                  key={item.id}
+                  type="text"
+                  maxLength={1}
+                  value={item.value}
+                  onChange={(event) =>
+                    handleChange(event.target.value, item.id)
+                  }
+                  onKeyDown={(event) => handleKeyDown(event, item.id)}
+                  ref={(element) => {
+                    if (element) {
+                      inputsRef.current[index] = element
+                    }
+                  }}
+                  className=" w-10 md:w-23 h-10  md:h-12 border  border-gray-400 rounded-lg text-center text-lg  md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-300"
+                />
               ))}
             </div>
             {/* code time */}
