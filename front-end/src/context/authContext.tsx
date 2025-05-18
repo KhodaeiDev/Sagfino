@@ -16,6 +16,8 @@ type AuthContextTypes = {
   token: string | null
   isLoggedIn: boolean
   userInfo: object | null
+  phone: string
+  updatephone: (newPhone: string) => void
   login: (userinfos: object, token: string) => void
   logout: () => void
 }
@@ -24,6 +26,8 @@ const AuthContext = createContext<AuthContextTypes>({
   token: null,
   isLoggedIn: false,
   userInfo: null,
+  updatephone: () => {},
+  phone: '',
   login: () => {},
   logout: () => {},
 })
@@ -38,6 +42,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   const removeFromLocalStorage = useRemoveFromLocalStorage('User')
 
   const [token, setToken] = useState<string | null>(null)
+  const [phone, setphone] = useState<string>('')
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
   const [userInfo, setUserInfo] = useState<object | null>(null)
 
@@ -54,6 +59,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
       try {
         setSaveToLocalStorage(newToken)
         setToken(newToken)
+        setphone('')
         setIsLoggedIn(true)
         setUserInfo(userinfos)
       } catch (error) {
@@ -74,9 +80,11 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
     }
   }, [removeFromLocalStorage])
 
+  const updatephone = (newPhone: string) => setphone(newPhone)
+
   return (
     <AuthContext.Provider
-      value={{ token, isLoggedIn, userInfo, login, logout }}
+      value={{ token, isLoggedIn, userInfo, login, logout, updatephone, phone }}
     >
       {children}
     </AuthContext.Provider>

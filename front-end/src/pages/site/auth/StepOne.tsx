@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useContext, useState } from 'react'
 import Input from '../../../components/shared/UIComponents/FormElements/input/input'
 import {
   maxValidator,
@@ -8,13 +8,16 @@ import {
 } from '../../../validators/rules'
 import UseForm from '../../../Hooks/useForm'
 import { NavLink } from 'react-router'
-import { sendMobileNumber } from '../../../services/axois/request/authRequests'
+import { sendMobileNumber } from '../../../services/axois/request/auth/authRequests'
 import { useNavigate } from 'react-router'
 import { AxiosError } from 'axios'
+import { AuthContext } from '../../../context/authContext'
 
 const StepOne: React.FC = () => {
   const navigate = useNavigate()
   document.title = 'سقفینو-احراز هویت مرحله 1'
+
+  const auth = useContext(AuthContext)
 
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
@@ -46,6 +49,8 @@ const StepOne: React.FC = () => {
       dispatch({ type: 'SET_ERROR', value: '' })
 
       const response = await sendMobileNumber(formState.inputs.phone.value)
+      console.log(response)
+      auth.updatephone(formState.inputs.phone.value)
 
       if (response?.status && response.status >= 200 && response.status < 300) {
         navigate('/auth/StepTwo')
@@ -60,7 +65,13 @@ const StepOne: React.FC = () => {
     } finally {
       setLoading(false)
     }
-  }, [formState.inputs.phone.value, formState.isFormValid, dispatch, navigate])
+  }, [
+    formState.inputs.phone.value,
+    formState.isFormValid,
+    dispatch,
+    navigate,
+    auth,
+  ])
 
   const handleInputChange = useCallback(
     (inputID: string, value: string, isValid: boolean) => {
@@ -159,7 +170,10 @@ const StepOne: React.FC = () => {
 
             <button
               disabled={
-                !isChecked || !formState.isFormValid || !!formState.errorMessage || !!loading
+                !isChecked ||
+                !formState.isFormValid ||
+                !!formState.errorMessage ||
+                !!loading
               }
               onClick={handleLogin}
               className={`   disabled:bg-primary disabled:cursor-not-allowed w-full h-10 md:h-14 cursor-pointer transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-10 mb-8 ${

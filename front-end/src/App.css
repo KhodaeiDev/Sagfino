@@ -366,3 +366,13 @@ body {
 .swiper-button-next-detailsProducts {
     right: 35px !important;
 }
+
+input[type="number"] {
+    appearance: textfield;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+   ;
+}
