@@ -12,13 +12,14 @@ import { sendMobileNumber } from '../../../services/axois/request/auth/authReque
 import { useNavigate } from 'react-router'
 import { AxiosError } from 'axios'
 import { AuthContext } from '../../../context/authContext'
+import { useSaveToLocalStorage } from '../../../Hooks/shared/shared'
 
 const StepOne: React.FC = () => {
   const navigate = useNavigate()
   document.title = 'سقفینو-احراز هویت مرحله 1'
 
   const auth = useContext(AuthContext)
-
+  const [setSaveToLoaclStorage] = useSaveToLocalStorage('userPhone', null)
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
@@ -49,6 +50,7 @@ const StepOne: React.FC = () => {
       dispatch({ type: 'SET_ERROR', value: '' })
 
       const response = await sendMobileNumber(formState.inputs.phone.value)
+      setSaveToLoaclStorage(formState.inputs.phone.value)
       console.log(response)
       auth.updatephone(formState.inputs.phone.value)
 
@@ -71,6 +73,7 @@ const StepOne: React.FC = () => {
     dispatch,
     navigate,
     auth,
+    setSaveToLoaclStorage,
   ])
 
   const handleInputChange = useCallback(
