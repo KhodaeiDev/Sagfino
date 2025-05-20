@@ -16,19 +16,31 @@ import { RouteObject } from 'react-router'
 
 const siteRoutes: RouteObject[] = [
   { path: '/', element: <Home /> },
-  { path: '/Rent', element: <Rent /> },
-  { path: '/Shopping', element: <Shopping /> },
-  { path: '/AboutUs', element: <AboutUs /> },
-  { path: '/ContactUs', element: <ContactUs /> },
-  { path: '/FAQ', element: <FAQ /> },
-  { path: '/PrivacyPolicy', element: <PrivacyPolicy /> },
+  { path: '/Rent/Rent', element: <Rent /> },
+  { path: '/Shopping/shopping', element: <Shopping /> },
+  { path: '/AboutUs/AboutUs', element: <AboutUs /> },
+  { path: '/ContactUs/ContactUs', element: <ContactUs /> },
+  { path: '/FAQ/FAQ', element: <FAQ /> },
+  { path: '/PrivacyPolicy/PrivacyPolicy', element: <PrivacyPolicy /> },
   { path: '/auth/StepOne', element: <StepOne /> },
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },
-  { path: '/RealEstateDetails/:Estate', element: <RealEstateDetails /> },
-  { path: '/detailsProduct/:page', element: <DetailsProduct /> },
-  { path: '/Realestates', element: <Realestates /> },
-  { path: '/TermsAndConditions', element: <TermsAndConditions /> },
+  {
+    path: '/RealEstateDetails/RealEstateDetails/:Estate',
+    element: <RealEstateDetails />,
+  },
+  {
+    path: '/detailsProduct/detailsProduct/:page',
+    element: <DetailsProduct />,
+  },
+  {
+    path: '/Realestates/Realestates',
+    element: <Realestates />,
+  },
+  {
+    path: '/TermsAndConditions/TermsAndConditions',
+    element: <TermsAndConditions />,
+  },
 ]
 
 export default siteRoutes
