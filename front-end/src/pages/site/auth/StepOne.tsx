@@ -13,6 +13,8 @@ import { useNavigate } from 'react-router'
 import { AxiosError } from 'axios'
 import { AuthContext } from '../../../context/authContext'
 import { useSaveToLocalStorage } from '../../../Hooks/shared/shared'
+import { FiPhone } from 'react-icons/fi'
+
 
 const StepOne: React.FC = () => {
   const navigate = useNavigate()
@@ -28,6 +30,7 @@ const StepOne: React.FC = () => {
     { phone: { value: '', isValid: false } },
     false
   )
+  console.log(formState.errorMessage);
 
   const toggleCheckbox = useCallback(() => {
     setIsChecked((prev) => !prev)
@@ -39,9 +42,13 @@ const StepOne: React.FC = () => {
     }
   }, [isFocused])
 
+
   const handleLogin = useCallback(async () => {
     if (!formState.isFormValid) {
-      dispatch({ type: 'SET_ERROR', value: 'شماره همراه وارد شده معتبر نیست.' })
+      dispatch({
+        type: 'SET_VALIDATION_MESSAGE_ERROR',
+        value: 'شماره همراه وارد شده معتبر نیست.',
+      })
       return
     }
 
@@ -51,10 +58,13 @@ const StepOne: React.FC = () => {
 
       const response = await sendMobileNumber(formState.inputs.phone.value)
       setSaveToLoaclStorage(formState.inputs.phone.value)
-      console.log(response)
       auth.updatephone(formState.inputs.phone.value)
 
       if (response?.status && response.status >= 200 && response.status < 300) {
+        dispatch({
+          type: 'SET_VALIDATION_MESSAGE_SUCCESS',
+          value: 'شماره همراه معتبر است، ادامه دهید.',
+        })
         navigate('/auth/StepTwo')
       }
     } catch (err) {
@@ -75,6 +85,7 @@ const StepOne: React.FC = () => {
     auth,
     setSaveToLoaclStorage,
   ])
+
 
   const handleInputChange = useCallback(
     (inputID: string, value: string, isValid: boolean) => {
@@ -100,7 +111,7 @@ const StepOne: React.FC = () => {
               type="text"
               placeholder="شماره تلفن"
               element="text"
-              className="border border-gray-300 mt-6.25 rounded-lg p-2 focus:outline-none "
+              className="border border-gray-300 rounded-lg p-2 focus:outline-none "
               validations={[
                 requiredValidator(),
                 minValidator(11),
@@ -110,23 +121,16 @@ const StepOne: React.FC = () => {
               onInputHandler={handleInputChange}
               onFocus={handleFocus}
               errorMessage={formState.errorMessage}
+              isFocused={isFocused}
+              validationMessageSuccess={`شماره همراه وارد شده معتبر است`}
+              validationMessageError={`                    شماره همراه وارد شده معتبر نیست
+`}
+              icon={
+                <FiPhone className="absolute w-3.5 h-3.5 md:w-5 md:h-5  right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+              }
             />
 
-            <div className="w-full flex items-start justify-start font-shabnam">
-              {formState.errorMessage ? (
-                <span className="text-primary">{formState.errorMessage}</span>
-              ) : isFocused ? (
-                formState.isFormValid ? (
-                  <span className="text-green-500">
-                    شماره همراه وارد شده معتبر است
-                  </span>
-                ) : (
-                  <span className="text-primary">
-                    شماره همراه وارد شده معتبر نیست
-                  </span>
-                )
-              ) : null}
-            </div>
+       
 
             <div className="flex items-center gap-x-2">
               <div className="flex items-center gap-x-2.5">
@@ -134,7 +138,7 @@ const StepOne: React.FC = () => {
                   onClick={toggleCheckbox}
                   className={`cursor-pointer w-4 h-4 lg:w-6 lg:h-6 flex items-center justify-center border-2 rounded-md ${
                     isChecked
-                      ? 'bg-green-500 border-green-500'
+                      ? 'bg-blue-500 border-blue-500'
                       : 'bg-white border-gray-300'
                   }`}
                 >

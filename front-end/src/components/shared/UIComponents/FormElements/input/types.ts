@@ -1,3 +1,5 @@
+import React, { ReactNode } from 'react'
+
 export type ValidationItem = {
   value: string
   min?: number
@@ -16,8 +18,11 @@ export type InputProps = {
     event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void
   errorMessage?: string | null
+  icon: ReactNode
+  validationMessageError?: string | null
+  validationMessageSuccess?: string | null
+  isFocused?: boolean
 }
-
 
 export type InputState = {
   value: string

@@ -216,12 +216,12 @@ const StepTwo: React.FC = () => {
           {/* Verify Button */}
           <button
             onClick={handleVerifyOtp}
-            disabled={!isOtpEmpty || loading} // ✅ غیرفعال کردن دکمه هنگام لودینگ
+            disabled={!isOtpEmpty || loading} 
             className={`w-full h-10 md:h-14 transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-7 ${
               validOtp
                 ? 'bg-green-500 hover:bg-green-600 cursor-pointer'
                 : 'bg-red-500 cursor-not-allowed'
-            } ${!isOtpEmpty || loading ? 'cursor-not-allowed opacity-50' : ''}`}
+            } ${!isOtpEmpty || loading ? ' !cursor-not-allowed opacity-50' : ''}`}
           >
             {loading
               ? 'در حال بررسی...'
