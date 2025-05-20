@@ -1,6 +1,6 @@
 import React, { useState, useRef, useContext, useEffect, useMemo } from 'react'
 import { GoClock } from 'react-icons/go'
-import { useNavigate } from 'react-router'
+import { useLocation, useNavigate } from 'react-router'
 import { v4 as uuidv4 } from 'uuid'
 import InputOtp from '../../../components/shared/UIComponents/FormElements/otp/inputOtp'
 import { AuthContext } from '../../../context/authContext'
@@ -27,43 +27,34 @@ const StepTwo: React.FC = () => {
   const [validOtp, setValidOtp] = useState<boolean>(true)
   const isOtpEmpty = otp.reduce((acc, item) => acc && item.value !== '', true)
 
-  useEffect(() => {
-    window.history.pushState(null, '', window.location.href)
-    window.addEventListener('popstate', (event) => {
-      window.history.pushState(null, '', window.location.href)
-      event.preventDefault()
-    })
+  const location = useLocation() 
 
+  useEffect(() => {
     return () => {
-      window.removeEventListener('popstate', () => {})
+      localStorage.removeItem('auth_timestamp') 
     }
-  }, [])
-  
+  }, [location.pathname])
 
   useEffect(() => {
     if (isOtpEmpty) {
+      localStorage.setItem('registeredPhone', String(userPhone))
       setValidOtp(true)
     }
   }, [otp, isOtpEmpty])
 
   useEffect(() => {
     const savedTimestamp = localStorage.getItem('auth_timestamp')
-    const expirationTime = 120
 
     if (savedTimestamp) {
       const startTime = parseInt(savedTimestamp, 10)
       const elapsedTime = Math.floor((Date.now() - startTime) / 1000)
-      const remainingTime = Math.max(expirationTime - elapsedTime, 0)
+      const remainingTime = Math.max(120 - elapsedTime, 0)
 
       setTimeLeft(remainingTime)
     } else {
-      if (sessionStorage.getItem('cameFromStepOne')) {
-        setTimeLeft(0) 
-      } else {
-        localStorage.setItem('auth_timestamp', Date.now().toString())
-        setTimeLeft(expirationTime) 
-        sessionStorage.setItem('cameFromStepOne', 'true') 
-      }
+      localStorage.removeItem('auth_timestamp')
+      localStorage.setItem('auth_timestamp', Date.now().toString())
+      setTimeLeft(120)
     }
   }, [])
 
@@ -82,6 +73,7 @@ const StepTwo: React.FC = () => {
       const response = await sendMobileNumber(String(userPhone))
 
       if (response.status === 200) {
+        localStorage.removeItem('auth_timestamp')
         localStorage.setItem('auth_timestamp', Date.now().toString())
         setTimeLeft(120)
         console.log(response)
@@ -107,12 +99,13 @@ const StepTwo: React.FC = () => {
     const finalOtp = otp.map((item) => item.value).join('')
 
     try {
+      setLoading(true)
       const response = await verifyOtpCode(auth.phone, finalOtp)
       console.log(response)
 
       if (response.status === 200) {
         setValidOtp(true)
-        navigate("/")
+        navigate('/')
       } else {
         setValidOtp(false)
       }
@@ -124,6 +117,8 @@ const StepTwo: React.FC = () => {
           .fill('')
           .map(() => ({ id: uuidv4(), value: '' }))
       )
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -160,7 +155,7 @@ const StepTwo: React.FC = () => {
   const handleEditNumber = () => {
     navigate('/auth/StepOne')
     localStorage.removeItem('auth_timestamp')
-    sessionStorage.removeItem('cameFromStepOne') 
+    // sessionStorage.removeItem('cameFromStepOne')
   }
 
   return (
@@ -171,7 +166,10 @@ const StepTwo: React.FC = () => {
             کد تائید
           </h4>
           <span>کد ارسال‌شده به {auth.phone} را وارد کنید</span>
-          <button onClick={handleEditNumber} className="text-gray-71  cursor-pointer ">
+          <button
+            onClick={handleEditNumber}
+            className="text-gray-71  cursor-pointer "
+          >
             ویرایش شماره موبایل
           </button>
 
@@ -218,14 +216,18 @@ const StepTwo: React.FC = () => {
           {/* Verify Button */}
           <button
             onClick={handleVerifyOtp}
-            disabled={!isOtpEmpty}
+            disabled={!isOtpEmpty || loading} // ✅ غیرفعال کردن دکمه هنگام لودینگ
             className={`w-full h-10 md:h-14 transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-7 ${
               validOtp
                 ? 'bg-green-500 hover:bg-green-600 cursor-pointer'
                 : 'bg-red-500 cursor-not-allowed'
-            } ${!isOtpEmpty ? '!cursor-not-allowed opacity-50' : ''}`}
+            } ${!isOtpEmpty || loading ? 'cursor-not-allowed opacity-50' : ''}`}
           >
-            {validOtp ? 'تائید' : 'کد معتبر نیست دوباره تلاش کنید! '}
+            {loading
+              ? 'در حال بررسی...'
+              : validOtp
+              ? 'تائید'
+              : 'کد معتبر نیست، دوباره تلاش کنید!'}
           </button>
         </div>
       </div>
