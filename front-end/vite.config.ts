@@ -4,11 +4,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: '/front-end/',
+  base: '/',
   plugins: [react(), tailwindcss()],
   build: {
-    chunkSizeWarningLimit: 1500, // مقدار به کیلوبایت (KB)
+    chunkSizeWarningLimit: 1500,
   },
 })
-
-

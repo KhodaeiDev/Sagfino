@@ -24,6 +24,6 @@ const baseRoutes = [
   },
 ]
 
-const routes = [...baseRoutes, { path: '/*', element: <NotFound /> }]
+const routes = [...baseRoutes, { path: '*', element: <NotFound /> }]
 
 export default routes
