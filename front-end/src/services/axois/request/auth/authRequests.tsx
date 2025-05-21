@@ -17,4 +17,21 @@ const verifyOtpCode = async (
   console.log(authdata)
   return axiosUnProtectedInstance.post('/verify-otp', authdata)
 }
-export { sendMobileNumber, verifyOtpCode }
+
+const registerUser = (
+  name: string,
+  lastName: string,
+  phone: string,
+  role: string
+) => {
+  const userData = {
+    first_name: name,
+    last_name: lastName,
+    phone_number: phone,
+    role,
+  }
+
+  return axiosUnProtectedInstance.post('/register', userData)
+}
+
+export { sendMobileNumber, verifyOtpCode, registerUser }

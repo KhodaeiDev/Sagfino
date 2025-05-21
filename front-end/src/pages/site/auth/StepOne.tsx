@@ -14,7 +14,7 @@ import { AxiosError } from 'axios'
 import { AuthContext } from '../../../context/authContext'
 import { useSaveToLocalStorage } from '../../../Hooks/shared/shared'
 import { FiPhone } from 'react-icons/fi'
-
+import { FormType } from '../../../Hooks/useformType'
 
 const StepOne: React.FC = () => {
   const navigate = useNavigate()
@@ -25,12 +25,9 @@ const StepOne: React.FC = () => {
   const [isChecked, setIsChecked] = useState<boolean>(false)
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
+  const [formType, setFormType] = useState<FormType>('login')
 
-  const [formState, onInputHandler, dispatch] = UseForm(
-    { phone: { value: '', isValid: false } },
-    false
-  )
-  console.log(formState.errorMessage);
+  const [formState, onInputHandler, dispatch] = UseForm(formType)
 
   const toggleCheckbox = useCallback(() => {
     setIsChecked((prev) => !prev)
@@ -41,7 +38,6 @@ const StepOne: React.FC = () => {
       setIsFocused(true)
     }
   }, [isFocused])
-
 
   const handleLogin = useCallback(async () => {
     if (!formState.isFormValid) {
@@ -67,6 +63,7 @@ const StepOne: React.FC = () => {
         })
         navigate('/auth/StepTwo')
       }
+      console.log(response)
     } catch (err) {
       let errorText = '⚠️ مشکلی پیش آمده!'
 
@@ -86,7 +83,6 @@ const StepOne: React.FC = () => {
     setSaveToLoaclStorage,
   ])
 
-
   const handleInputChange = useCallback(
     (inputID: string, value: string, isValid: boolean) => {
       dispatch({ type: 'CLEAR_ERRORS' })
@@ -104,6 +100,16 @@ const StepOne: React.FC = () => {
               ورود
             </h4>
             <span>به سقفینو خوش آمدید</span>
+            <div className=" text-sm flex items-center justify-center font-shabnamMedium ">
+              <NavLink
+                to={'/auth/StepThree'}
+                onClick={() => setFormType('register')}
+                className={ " text-xs md:text-base " }
+              >
+                هنوز حسابی ندارید؟  
+                <span className="text-primary"> ثبت نام کنید!</span>
+              </NavLink>
+            </div>
             <span>لطفا برای ورود شماره تلفن خود را وارد کنید</span>
 
             <Input
@@ -129,8 +135,6 @@ const StepOne: React.FC = () => {
                 <FiPhone className="absolute w-3.5 h-3.5 md:w-5 md:h-5  right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
               }
             />
-
-       
 
             <div className="flex items-center gap-x-2">
               <div className="flex items-center gap-x-2.5">

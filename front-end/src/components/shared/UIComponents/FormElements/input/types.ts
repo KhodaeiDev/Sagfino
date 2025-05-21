@@ -23,16 +23,18 @@ export type InputProps = {
   validationMessageSuccess?: string | null
   isFocused?: boolean
 }
-
 export type InputState = {
   value: string
   isValid: boolean
   validations: ValidationItem[]
+  errorMessage: string | null
 }
 
+
 export type InputAction = {
-  type: 'CHANGE'
+  type: 'CHANGE' | 'SET_ERROR'
   value: string
   isValid: boolean
   validations: ValidationItem[]
+  errorMessage: string | null
 }

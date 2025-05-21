@@ -2,25 +2,34 @@ import React, { useReducer, useEffect, useCallback } from 'react'
 import { InputProps, InputState, InputAction } from './types'
 import validator from '../../../../../validators/validator'
 
-const inputReducer = (state: InputState, action: InputAction) => {
+const inputReducer = (state: InputState, action: InputAction): InputState => {
   switch (action.type) {
     case 'CHANGE':
       return {
         ...state,
         value: action.value,
         isValid: validator(action.value, action.validations),
+        errorMessage: action.errorMessage || null, 
+      }
+    case 'SET_ERROR':
+      return {
+        ...state,
+        errorMessage: action.errorMessage, 
       }
     default:
       return state
   }
 }
 
+
 const Input: React.FC<InputProps> = (props) => {
   const [mainInput, dispatch] = useReducer(inputReducer, {
     value: '',
     isValid: false,
     validations: props.validations || [],
+    errorMessage: null, 
   })
+  
 
   const { value, isValid } = mainInput
   const { id, onInputHandler, onFocus, errorMessage } = props
@@ -37,6 +46,7 @@ const Input: React.FC<InputProps> = (props) => {
         value: event.target.value,
         validations: props.validations,
         isValid: false,
+        errorMessage: null,
       })
     },
     [props.validations]
@@ -63,21 +73,21 @@ const Input: React.FC<InputProps> = (props) => {
           />
           {props.icon}
         </div>
-          <div className="w-full flex items-start justify-start font-shabnam mt-2  ">
-            {errorMessage ? (
-              <span className="text-primary">{errorMessage}</span>
-            ) : props.isFocused ? (
-              isValid ? (
-                <span className="text-green-500">
-                  {props.validationMessageSuccess}
-                </span>
-              ) : (
-                <span className="text-primary">
-                  {props.validationMessageError}
-                </span>
-              )
-            ) : null}
-          </div>
+        <div className="w-full flex items-start justify-start font-shabnam mt-2  ">
+          {errorMessage ? (
+            <span className="text-primary">{errorMessage}</span>
+          ) : props.isFocused ? (
+            isValid ? (
+              <span className="text-green-500">
+                {props.validationMessageSuccess}
+              </span>
+            ) : (
+              <span className="text-primary">
+                {props.validationMessageError}
+              </span>
+            )
+          ) : null}
+        </div>
       </>
     ) : (
       <textarea

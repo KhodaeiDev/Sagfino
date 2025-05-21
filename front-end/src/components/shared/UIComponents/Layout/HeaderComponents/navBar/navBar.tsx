@@ -110,7 +110,7 @@ const NavBar: React.FC = () => {
           <div className="flex items-center justify-between gap-9">
             <div className="text-gray-1000">
               <NavLink
-                to={'/auth/StepOne'}
+                to={'/auth/StepThree'}
                 className={({ isActive }) =>
                   `hover:text-primary hover:custom-underline ${
                     isActive ? 'text-primary custom-underline' : ''
@@ -147,7 +147,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
           </div>
         </div>
         <NavLink
-          to={'/auth/StepOne'}
+          to={'/auth/StepThree'}
           className="text-xs  text-gray-1000 font-shabnamMedium "
         >
           <div className="  font-shabnamMedium flex items-center h-20 p-4  bg-Gray-1  gap-1  mt-5">
