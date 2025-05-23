@@ -12,6 +12,7 @@ import { CiHome } from 'react-icons/ci'
 import { IoMdClose } from 'react-icons/io'
 import { useScrollFixed } from '../../../../../../Hooks/shared/shared'
 import { AuthContext } from '../../../../../../context/authContext'
+import { IoIosArrowDown } from 'react-icons/io'
 
 interface MenueMobailProps {
   isOpen: boolean
@@ -21,6 +22,7 @@ interface MenueMobailProps {
 const NavBar: React.FC = () => {
   const isFixed = useScrollFixed(300)
   const auth = useContext(AuthContext)
+  // const [isMenuOpen, setIsMenuOpen] = useState(false)
 
   return (
     <>
@@ -110,19 +112,42 @@ const NavBar: React.FC = () => {
             </ul>
           </div>
           <div className="flex items-center justify-between gap-9">
-            <div className="text-gray-1000">
-              <NavLink
-                to={'/auth/StepThree'}
-                className={({ isActive }) =>
-                  `hover:text-primary hover:custom-underline ${
-                    isActive ? 'text-primary custom-underline' : ''
-                  }`
-                }
-              >
-                {auth.userInfo
-                  ? `${auth?.userInfo.firstName} ${auth.userInfo.lastName}`
-                  : `  ورود | ثبت نام`}
-              </NavLink>
+            <div className="relative   group  transition-all duration-500 text-gray-1000  h-7 ">
+              <div className="hover:text-primary hover:custom-underline">
+                {auth.userInfo ? (
+                  <div className=" cursor-pointer  flex items-center gap-x-1.5 ">
+                    <IoIosArrowDown
+                      className={` text-xl transition-all duration-300   rotate-0   group-hover:rotate-180  `}
+                    />
+                    <span>
+                      {auth?.userInfo.firstName} {auth.userInfo.lastName}
+                    </span>
+                  </div>
+                ) : (
+                  <NavLink to={'/auth/StepThree'}>ورود | ثبت نام</NavLink>
+                )}
+              </div>
+
+              {auth.userInfo && (
+                <div
+                  className={`absolute top-8 p-3 -left-2 transition-all duration-500    opacity-0  group-hover:opacity-100 group-hover:visible   
+                        invisible
+                 flex   flex-col gap-y-2 items-center w-50 bg-white shadow-lg rounded-lg py-2`}
+                >
+                  <NavLink
+                    to="/cms/EditInformation"
+                    className="block w-full px-4 py-2 transition-all duration-500 hover:bg-primary hover:text-white rounded-lg"
+                  >
+                    پنل کاربری
+                  </NavLink>
+                  <span
+                    onClick={auth.logout}
+                    className="block w-full  cursor-pointer transition-all duration-500   px-4 py-2 text-red-500 hover:bg-primary hover:text-white rounded-lg"
+                  >
+                    خروج
+                  </span>
+                </div>
+              )}
             </div>
 
             <NavLink
@@ -185,6 +210,7 @@ const NavBarMobail: React.FC = () => {
 
 const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
   const auth = useContext(AuthContext)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   return (
     <>
@@ -201,17 +227,57 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
             <IoMdClose />
           </div>
         </div>
-        <NavLink
-          to={'/auth/StepThree'}
-          className="text-xs  text-gray-1000 font-shabnamMedium "
-        >
-          <div className="  font-shabnamMedium flex items-center h-20 p-4  bg-Gray-1  gap-1  mt-5">
-            <CgProfile className="text-2xl" />
-            {auth.userInfo
-              ? `${auth?.userInfo.firstName} ${auth.userInfo.lastName}`
-              : `  ورود | ثبت نام`}
+        <div className="relative w-full">
+          {/* دکمه نمایش منو */}
+          <div
+            className={`font-shabnamMedium flex flex-col  items-start transition-all duration-500 ${
+              isMobileMenuOpen ? ' h-25 ' : ' !h-15'
+            }   h-20 p-4 bg-gray-100 gap-1 mt-5 cursor-pointer`}
+          >
+            <div className=" flex items-center gap-x-2 pb-0.5 ">
+              <CgProfile className="text-2xl" />
+              {auth.userInfo ? (
+                <span
+                  onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                  className=" flex items-center gap-1.5"
+                >
+                  {auth.userInfo.firstName} {auth.userInfo.lastName}
+                  <IoIosArrowDown
+                    className={` ${
+                      isMobileMenuOpen ? ' rotate-180' : ' rotate-0'
+                    } transition-all duration-500 `}
+                  />
+                </span>
+              ) : (
+                <NavLink to={'/auth/StepThree.tsx'}>'ورود | ثبت نام'</NavLink>
+              )}
+            </div>
+
+            {/* منوی شناور */}
+            {auth.userInfo && (
+              <div
+                className={` flex flex-col gap-y-2 transition-transform duration-500 text-xs ${
+                  isMobileMenuOpen
+                    ? ' visible opacity-100'
+                    : '  invisible  opacity-0'
+                }`}
+              >
+                <NavLink
+                  to="/cms/EditInformation"
+                  className="block pr-8  hover:bg-gray-200 rounded-lg text-gray-900"
+                >
+                  پنل کاربری
+                </NavLink>
+                <span
+                  onClick={auth.logout}
+                  className=" text-right  pr-8  text-red-500 hover:bg-gray-200 rounded-lg"
+                >
+                  خروج
+                </span>
+              </div>
+            )}
           </div>
-        </NavLink>
+        </div>
         <ul className="font-shabnam  flex flex-col items-start gap-3 text-gray-1000 *:w-full    p-4 ">
           <li>
             <NavLink
