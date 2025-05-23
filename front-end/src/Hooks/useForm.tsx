@@ -4,7 +4,7 @@ import { FormType } from './useformType'
 type InputState = {
   value: string
   isValid: boolean
-  errorMessage?: string | null // ✅ اضافه شدن `errorMessage`
+  errorMessage?: string | null 
 }
 
 type FormInputState = {

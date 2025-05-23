@@ -63,7 +63,6 @@ const StepOne: React.FC = () => {
         })
         navigate('/auth/StepTwo')
       }
-      console.log(response)
     } catch (err) {
       let errorText = '⚠️ مشکلی پیش آمده!'
 

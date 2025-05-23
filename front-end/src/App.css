@@ -375,3 +375,12 @@ input[type="number"]::-webkit-inner-spin-button,
 input[type="number"]::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
+
+.success-toast {
+    border-right: 10px solid #4CAF50 !important;
+}
+
+.error-toast {
+    border-right: 10px solid #FF4C4C !important;
+}
+

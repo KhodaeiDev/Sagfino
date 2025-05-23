@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react'
+
 import { AiOutlineUser } from 'react-icons/ai'
 import { FormType } from '../../../Hooks/useformType'
-
 import { registerUser } from '../../../services/axois/request/auth/authRequests'
 
 import { FiPhone } from 'react-icons/fi'
@@ -16,7 +16,8 @@ import UseForm from '../../../Hooks/useForm'
 import Input from '../../../components/shared/UIComponents/FormElements/input/input'
 import { NavLink, useNavigate } from 'react-router'
 import { AxiosError } from 'axios'
-// import Input from '../../components/shared/UIComponents/FormElements/input/input'
+import { ToastContainer, Bounce } from 'react-toastify'
+import ToastNotification from '../../../services/toastify/toastify'
 
 const StepThree: React.FC = () => {
   const navigate = useNavigate()
@@ -25,9 +26,7 @@ const StepThree: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [formType, setFormType] = useState<FormType>('register')
-
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  console.log(formState)
 
   const handleFocus = useCallback(() => {
     if (!isFocused) {
@@ -70,9 +69,19 @@ const StepThree: React.FC = () => {
       if (response?.status && response.status >= 200 && response.status < 300) {
         dispatch({
           type: 'SET_VALIDATION_MESSAGE_SUCCESS',
-          value: ' ثبت‌نام موفقیت‌آمیز بود!',
+          value:
+            'ثبت‌نام موفقیت‌آمیز بود! لطفاً با شماره تلفن خود وارد شوید. شما به صفحه ورود هدایت خواهید شد.',
         })
-        navigate('/auth/StepOne')
+
+        ToastNotification(
+          'success',
+          `ثبت‌نام موفقیت‌آمیز بود! لطفاً چند لحظه صبر کنید  
+در حال هدایت به صفحه ورود، با شماره تلفن وارد شوید.`
+        )
+
+        setTimeout(() => {
+          navigate('/auth/StepOne')
+        }, 6000)
       }
     } catch (err) {
       if (err instanceof AxiosError) {
@@ -89,9 +98,7 @@ const StepThree: React.FC = () => {
                 ? 'lastName'
                 : null
 
-            console.log('fieldID', fieldID)
             if (fieldID && Array.isArray(value) && value.length > 0) {
-              console.log('value[0]', value[0])
               dispatch({
                 type: 'SET_INPUT_ERROR',
                 inputID: fieldID,
@@ -286,6 +293,19 @@ const StepThree: React.FC = () => {
           </div>
         </div>
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </>
   )
 }

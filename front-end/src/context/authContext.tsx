@@ -11,14 +11,23 @@ import {
   useRemoveFromLocalStorage,
   useGetFromLocalStorage,
 } from '../Hooks/shared/shared'
+import UserInfoProvider from './UserInfoProvider'
+
+export type UserInfoType = {
+  firstName: string | null
+  lastName: string | null
+  phoneNumber: string | null
+  image: string | null
+  role: 'user' | 'admin'
+}
 
 type AuthContextTypes = {
   token: string | null
   isLoggedIn: boolean
-  userInfo: object | null
+  userInfo: UserInfoType | null
   phone: string
   updatephone: (newPhone: string) => void
-  login: (userinfos: object, token: string) => void
+  login: (userinfos: UserInfoType, token: string) => void
   logout: () => void
 }
 
@@ -37,37 +46,43 @@ type ProviderProps = {
 }
 
 const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
-  const [setSaveToLocalStorage] = useSaveToLocalStorage('User', null)
-  const [getLocalStorageData] = useGetFromLocalStorage('User')
-  const removeFromLocalStorage = useRemoveFromLocalStorage('User')
+  const [setUserTokenLocal] = useSaveToLocalStorage('userToken', null)
+  const [setUserInfoLoacal] = useSaveToLocalStorage('userInfo', null)
+  const [getLocalUserToken] = useGetFromLocalStorage('userToken')
+  const [getLocalUserInfo] = useGetFromLocalStorage('userInfo')
+  const removeFromLocalStorage = useRemoveFromLocalStorage('userToken')
 
   const [token, setToken] = useState<string | null>(null)
   const [phone, setphone] = useState<string>('')
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false)
-  const [userInfo, setUserInfo] = useState<object | null>(null)
+  const [userInfo, setUserInfo] = useState<UserInfoType | null>(null)
 
   useEffect(() => {
-    const storedToken = getLocalStorageData
-    if (storedToken) {
+    const storedToken = getLocalUserToken
+    const storedUserInfo = getLocalUserInfo
+    console.log('storedUserInfo', storedUserInfo, storedToken)
+
+    if (storedToken && storedUserInfo) {
+      console.log('seting local')
       setToken(storedToken)
+      setUserInfo(JSON.parse(storedUserInfo) as UserInfoType)
       setIsLoggedIn(true)
     }
-  }, [getLocalStorageData])
+  }, [getLocalUserToken, getLocalUserInfo])
 
   const login = useCallback(
-    (userinfos: object, newToken: string) => {
-      try {
-        setSaveToLocalStorage(newToken)
-        setToken(newToken)
-        setphone('')
-        setIsLoggedIn(true)
-        setUserInfo(userinfos)
-      } catch (error) {
-        console.error('Error during login:', error)
-      }
+    (userinfos: UserInfoType, newToken: string) => {
+      setUserTokenLocal(newToken)
+      setUserInfoLoacal(JSON.stringify(userinfos))
+
+      setToken(newToken)
+      setUserInfo(userinfos)
+      setIsLoggedIn(true)
     },
-    [setSaveToLocalStorage]
+    [setUserTokenLocal, setUserInfoLoacal]
   )
+
+  console.log(userInfo)
 
   const logout = useCallback(() => {
     try {
@@ -86,6 +101,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
     <AuthContext.Provider
       value={{ token, isLoggedIn, userInfo, login, logout, updatephone, phone }}
     >
+      <UserInfoProvider />
       {children}
     </AuthContext.Provider>
   )

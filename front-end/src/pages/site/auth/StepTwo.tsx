@@ -9,6 +9,10 @@ import {
   verifyOtpCode,
 } from '../../../services/axois/request/auth/authRequests'
 import { useGetFromLocalStorage } from '../../../Hooks/shared/shared'
+import ToastNotification from '../../../services/toastify/toastify'
+import { ToastContainer, Bounce } from 'react-toastify'
+
+import { UserInfoType } from '../../../context/authContext'
 
 const StepTwo: React.FC = () => {
   const navigate = useNavigate()
@@ -27,11 +31,11 @@ const StepTwo: React.FC = () => {
   const [validOtp, setValidOtp] = useState<boolean>(true)
   const isOtpEmpty = otp.reduce((acc, item) => acc && item.value !== '', true)
 
-  const location = useLocation() 
+  const location = useLocation()
 
   useEffect(() => {
     return () => {
-      localStorage.removeItem('auth_timestamp') 
+      localStorage.removeItem('auth_timestamp')
     }
   }, [location.pathname])
 
@@ -76,7 +80,6 @@ const StepTwo: React.FC = () => {
         localStorage.removeItem('auth_timestamp')
         localStorage.setItem('auth_timestamp', Date.now().toString())
         setTimeLeft(120)
-        console.log(response)
       }
     } catch (error) {
       console.error('خطا در دریافت کد:', error)
@@ -101,16 +104,40 @@ const StepTwo: React.FC = () => {
     try {
       setLoading(true)
       const response = await verifyOtpCode(auth.phone, finalOtp)
-      console.log(response)
-
+      console.log('response', response)
       if (response.status === 200) {
         setValidOtp(true)
-        navigate('/')
+        ToastNotification(
+          'success',
+          `ورود موفق! خوش آمدید! 
+           ${response.data.firstName}
+            شما با موفقیت وارد حساب کاربری خود شدید. در حال هدایت به صفحه اصلی   لطفاً چند لحظه صبر کنید.`
+        )
+
+        const data = response.data
+        const userData: UserInfoType = {
+          firstName: data.firstName,
+          lastName: data.lastName,
+          phoneNumber: data.phoneNumber,
+          image: data.image || null,
+          role: data.role as 'user' | 'admin',
+        }
+
+        auth.login(userData, response.data.token)
+
+        setTimeout(() => {
+          navigate('/')
+          localStorage.removeItem('auth_timestamp')
+        }, 6000)
       } else {
         setValidOtp(false)
       }
     } catch (error) {
       console.log(error)
+      ToastNotification(
+        'error',
+        'کد وارد شده صحیح نیست. لطفاً دوباره امتحان کنید یا در صورت نیاز درخواست ارسال مجدد کد را بدهید'
+      )
       setValidOtp(false)
       setOtp(
         Array(6)
@@ -155,83 +182,101 @@ const StepTwo: React.FC = () => {
   const handleEditNumber = () => {
     navigate('/auth/StepOne')
     localStorage.removeItem('auth_timestamp')
-    // sessionStorage.removeItem('cameFromStepOne')
   }
 
   return (
-    <div className="center h-screen w-full bg-gray-ED">
-      <div className="container center">
-        <div className="flex flex-col gap-y-2 md:gap-y-4 text-center w-fit h-fit bg-white px-8 pb-10 pt-7.5 rounded-xl font-shabnam text-xs md:text-base text-Gray-35">
-          <h4 className="font-shabnamBold text-sm md:text-2xl text-gray-21">
-            کد تائید
-          </h4>
-          <span>کد ارسال‌شده به {auth.phone} را وارد کنید</span>
-          <button
-            onClick={handleEditNumber}
-            className="text-gray-71  cursor-pointer "
-          >
-            ویرایش شماره موبایل
-          </button>
-
-          {/* OTP */}
-          <div className="flex flex-row-reverse gap-x-2 justify-center">
-            {otp.map((item, index) => (
-              <InputOtp
-                key={item.id}
-                id={item.id}
-                value={item.value}
-                placeholder="-"
-                className={`w-10 md:w-23 h-10 md:h-12 border ${
-                  validOtp ? 'border-gray-400' : 'border-red-500'
-                } rounded-lg text-center text-lg md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-300`}
-                onChange={handleChange}
-                onKeyDown={(event) => handleKeyDown(event, item.id)}
-                inputRef={(el) => {
-                  if (el) inputsRef.current[index] = el
-                }}
-              />
-            ))}
-          </div>
-
-          {/* Code Time */}
-          <div className="flex w-full items-center justify-center mt-7.5 gap-x-1">
-            {timeLeft > 0 && (
-              <div className="flex items-center gap-x-2 text-gray-500 font-shabnam text-xs lg:text-sm">
-                <GoClock className="w-4 h-4" />
-                <span className="text-primary">{formattedTime}</span>
-                <span>تا</span>
-              </div>
-            )}
+    <>
+      <div className="center h-screen w-full bg-gray-ED">
+        <div className="container center">
+          <div className="flex flex-col gap-y-2 md:gap-y-4 text-center w-fit h-fit bg-white px-8 pb-10 pt-7.5 rounded-xl font-shabnam text-xs md:text-base text-Gray-35">
+            <h4 className="font-shabnamBold text-sm md:text-2xl text-gray-21">
+              کد تائید
+            </h4>
+            <span>کد ارسال‌شده به {auth.phone} را وارد کنید</span>
             <button
-              onClick={getNewCode}
-              className={`cursor-pointer text-gray-500 font-shabnam text-xs lg:text-sm ${
-                loading || timeLeft > 0 ? ' !cursor-not-allowed opacity-50' : ''
-              }`}
-              disabled={loading || timeLeft > 0}
+              onClick={handleEditNumber}
+              className="text-gray-71  cursor-pointer "
             >
-              دریافت کد مجدد
+              ویرایش شماره موبایل
+            </button>
+
+            {/* OTP */}
+            <div className="flex flex-row-reverse gap-x-2 justify-center">
+              {otp.map((item, index) => (
+                <InputOtp
+                  key={item.id}
+                  id={item.id}
+                  value={item.value}
+                  placeholder="-"
+                  className={`w-10 md:w-23 h-10 md:h-12 border ${
+                    validOtp ? 'border-gray-400' : 'border-red-500'
+                  } rounded-lg text-center text-lg md:text-2xl focus:outline-none focus:ring-2 focus:ring-blue-300`}
+                  onChange={handleChange}
+                  onKeyDown={(event) => handleKeyDown(event, item.id)}
+                  inputRef={(el) => {
+                    if (el) inputsRef.current[index] = el
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Code Time */}
+            <div className="flex w-full items-center justify-center mt-7.5 gap-x-1">
+              {timeLeft > 0 && (
+                <div className="flex items-center gap-x-2 text-gray-500 font-shabnam text-xs lg:text-sm">
+                  <GoClock className="w-4 h-4" />
+                  <span className="text-primary">{formattedTime}</span>
+                  <span>تا</span>
+                </div>
+              )}
+              <button
+                onClick={getNewCode}
+                className={`cursor-pointer text-gray-500 font-shabnam text-xs lg:text-sm ${
+                  loading || timeLeft > 0
+                    ? ' !cursor-not-allowed opacity-50'
+                    : ''
+                }`}
+                disabled={loading || timeLeft > 0}
+              >
+                دریافت کد مجدد
+              </button>
+            </div>
+
+            {/* Verify Button */}
+            <button
+              onClick={handleVerifyOtp}
+              disabled={!isOtpEmpty || loading}
+              className={`w-full h-10 md:h-14 transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-7 ${
+                validOtp
+                  ? 'bg-green-500 hover:bg-green-600 cursor-pointer'
+                  : 'bg-red-500 cursor-not-allowed'
+              } ${
+                !isOtpEmpty || loading ? ' !cursor-not-allowed opacity-50' : ''
+              }`}
+            >
+              {loading
+                ? 'در حال بررسی...'
+                : validOtp
+                ? 'تائید'
+                : 'کد معتبر نیست، دوباره تلاش کنید!'}
             </button>
           </div>
-
-          {/* Verify Button */}
-          <button
-            onClick={handleVerifyOtp}
-            disabled={!isOtpEmpty || loading} 
-            className={`w-full h-10 md:h-14 transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-7 ${
-              validOtp
-                ? 'bg-green-500 hover:bg-green-600 cursor-pointer'
-                : 'bg-red-500 cursor-not-allowed'
-            } ${!isOtpEmpty || loading ? ' !cursor-not-allowed opacity-50' : ''}`}
-          >
-            {loading
-              ? 'در حال بررسی...'
-              : validOtp
-              ? 'تائید'
-              : 'کد معتبر نیست، دوباره تلاش کنید!'}
-          </button>
         </div>
       </div>
-    </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
+    </>
   )
 }
 

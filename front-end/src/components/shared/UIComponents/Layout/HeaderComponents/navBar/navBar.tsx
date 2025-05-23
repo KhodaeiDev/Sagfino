@@ -1,6 +1,6 @@
 import Logo from '../../../logo/logo'
 import { NavLink } from 'react-router'
-import { useState } from 'react'
+import { useContext, useState } from 'react'
 import { CgProfile } from 'react-icons/cg'
 import { IoIosArrowBack } from 'react-icons/io'
 import { FaHouse } from 'react-icons/fa6'
@@ -11,6 +11,7 @@ import { IoIosPeople } from 'react-icons/io'
 import { CiHome } from 'react-icons/ci'
 import { IoMdClose } from 'react-icons/io'
 import { useScrollFixed } from '../../../../../../Hooks/shared/shared'
+import { AuthContext } from '../../../../../../context/authContext'
 
 interface MenueMobailProps {
   isOpen: boolean
@@ -18,7 +19,8 @@ interface MenueMobailProps {
 }
 
 const NavBar: React.FC = () => {
-  const isFixed = useScrollFixed(168)
+  const isFixed = useScrollFixed(300)
+  const auth = useContext(AuthContext)
 
   return (
     <>
@@ -117,7 +119,9 @@ const NavBar: React.FC = () => {
                   }`
                 }
               >
-                ورود | ثبت نام
+                {auth.userInfo
+                  ? `${auth?.userInfo.firstName} ${auth.userInfo.lastName}`
+                  : `  ورود | ثبت نام`}
               </NavLink>
             </div>
             <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
@@ -130,7 +134,46 @@ const NavBar: React.FC = () => {
   )
 }
 
+const NavBarMobail: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false)
+  const isFixed = useScrollFixed(168)
+
+
+  return (
+    <>
+      <div className=" container ">
+        <div
+          className={` flex lg:hidden h-25 md:h-28.75 bg-white px-8 py-6.5 items-center justify-between text-base xl:text-xl rounded-2xl  transition-shadow
+             duration-1000   ${
+               isFixed
+                 ? 'fixed top-0 left-0 w-full bg-white shadow-primary-tint-6  shadow-lg   z-50 rounded-none'
+                 : ''
+             }`}
+        >
+          <button
+            className={` hamburger ${isOpen ? 'open' : ''} lg:!hidden `}
+            onClick={() => setIsOpen(!isOpen)}
+          >
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+            <span className="hamburger-line"></span>
+          </button>
+          <NavLink to={'/'}>
+            <Logo />
+          </NavLink>
+          <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
+            <NavLink to={'/registerAnAd/StepOneAdRE'}> ثبت آگهی</NavLink>
+          </div>
+        </div>
+      </div>
+      <MenueMobail isOpen={isOpen} setIsOpen={setIsOpen} />
+    </>
+  )
+}
+
 const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
+  const auth = useContext(AuthContext)
+
   return (
     <>
       <div
@@ -152,7 +195,9 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
         >
           <div className="  font-shabnamMedium flex items-center h-20 p-4  bg-Gray-1  gap-1  mt-5">
             <CgProfile className="text-2xl" />
-            ورود یا ثبت نام
+            {auth.userInfo
+              ? `${auth?.userInfo.firstName} ${auth.userInfo.lastName}`
+              : `  ورود | ثبت نام`}
           </div>
         </NavLink>
         <ul className="font-shabnam  flex flex-col items-start gap-3 text-gray-1000 *:w-full    p-4 ">
@@ -256,42 +301,6 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
           </li>
         </ul>
       </div>
-    </>
-  )
-}
-
-const NavBarMobail: React.FC = () => {
-  const [isOpen, setIsOpen] = useState(false)
-  const isFixed = useScrollFixed(168)
-
-  return (
-    <>
-      <div className=" container ">
-        <div
-          className={` flex lg:hidden h-25 md:h-28.75 bg-white px-8 py-6.5 items-center justify-between text-base xl:text-xl rounded-2xl  transition-shadow
-             duration-1000   ${
-               isFixed
-                 ? 'fixed top-0 left-0 w-full bg-white shadow-primary-tint-6  shadow-lg   z-50 rounded-none'
-                 : ''
-             }`}
-        >
-          <button
-            className={` hamburger ${isOpen ? 'open' : ''} lg:!hidden `}
-            onClick={() => setIsOpen(!isOpen)}
-          >
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
-            <span className="hamburger-line"></span>
-          </button>
-          <NavLink to={'/'}>
-            <Logo />
-          </NavLink>
-          <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
-            <NavLink to={'/registerAnAd/StepOneAdRE'}> ثبت آگهی</NavLink>
-          </div>
-        </div>
-      </div>
-      <MenueMobail isOpen={isOpen} setIsOpen={setIsOpen} />
     </>
   )
 }
