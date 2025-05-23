@@ -124,9 +124,16 @@ const NavBar: React.FC = () => {
                   : `  ورود | ثبت نام`}
               </NavLink>
             </div>
-            <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
-              <NavLink to={'/registerAnAd/StepOneAdRE'}> ثبت آگهی</NavLink>
-            </div>
+
+            <NavLink
+              to={'/registerAnAd/StepOneAdRE'}
+              className={`group text-sm w-20 h-10 xl:w-25.5 transition duration-500 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center 
+  hover:bg-primary hover:text-white hover:shadow-lg `}
+            >
+              <span className="group-hover:text-white transition duration-500">
+                ثبت آگهی
+              </span>
+            </NavLink>
           </div>
         </div>
       </div>
@@ -137,7 +144,6 @@ const NavBar: React.FC = () => {
 const NavBarMobail: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false)
   const isFixed = useScrollFixed(168)
-
 
   return (
     <>
@@ -161,9 +167,15 @@ const NavBarMobail: React.FC = () => {
           <NavLink to={'/'}>
             <Logo />
           </NavLink>
-          <div className="text-sm w-20 h-10 xl:w-25.5 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center">
-            <NavLink to={'/registerAnAd/StepOneAdRE'}> ثبت آگهی</NavLink>
-          </div>
+          <NavLink
+            to={'/registerAnAd/StepOneAdRE'}
+            className={`group text-sm w-20 h-10 xl:w-25.5 transition duration-500 xl:h-12 border-solid border-1 border-primary rounded-lg text-primary flex items-center justify-center 
+  hover:bg-primary hover:text-white hover:shadow-lg hover:scale-105 hover:-translate-y-1`}
+          >
+            <span className="group-hover:text-white transition duration-500">
+              ثبت آگهی
+            </span>
+          </NavLink>
         </div>
       </div>
       <MenueMobail isOpen={isOpen} setIsOpen={setIsOpen} />

@@ -8,8 +8,8 @@ import React, {
 } from 'react'
 import {
   useSaveToLocalStorage,
-  useRemoveFromLocalStorage,
   useGetFromLocalStorage,
+  useRemoveFromLocalStorage,
 } from '../Hooks/shared/shared'
 import UserInfoProvider from './UserInfoProvider'
 
@@ -50,7 +50,8 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   const [setUserInfoLoacal] = useSaveToLocalStorage('userInfo', null)
   const [getLocalUserToken] = useGetFromLocalStorage('userToken')
   const [getLocalUserInfo] = useGetFromLocalStorage('userInfo')
-  const removeFromLocalStorage = useRemoveFromLocalStorage('userToken')
+  const removeFromLocalUserToken = useRemoveFromLocalStorage('userToken')
+  const removeFromLocalUserInfos = useRemoveFromLocalStorage('userInfo')
 
   const [token, setToken] = useState<string | null>(null)
   const [phone, setphone] = useState<string>('')
@@ -60,10 +61,8 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   useEffect(() => {
     const storedToken = getLocalUserToken
     const storedUserInfo = getLocalUserInfo
-    console.log('storedUserInfo', storedUserInfo, storedToken)
 
     if (storedToken && storedUserInfo) {
-      console.log('seting local')
       setToken(storedToken)
       setUserInfo(JSON.parse(storedUserInfo) as UserInfoType)
       setIsLoggedIn(true)
@@ -82,18 +81,17 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
     [setUserTokenLocal, setUserInfoLoacal]
   )
 
-  console.log(userInfo)
-
   const logout = useCallback(() => {
     try {
-      removeFromLocalStorage()
+      removeFromLocalUserToken()
+      removeFromLocalUserInfos()
       setToken(null)
       setIsLoggedIn(false)
       setUserInfo(null)
     } catch (error) {
       console.error('Error during logout:', error)
     }
-  }, [removeFromLocalStorage])
+  }, [])
 
   const updatephone = (newPhone: string) => setphone(newPhone)
 

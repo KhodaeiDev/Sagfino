@@ -9,6 +9,7 @@ import {
   FooterMobail,
 } from '../../../components/shared/UIComponents/Layout/footer/footer'
 import Header from '../../../components/shared/UIComponents/Layout/HeaderComponents/Header/Header'
+import { Bounce, ToastContainer } from 'react-toastify'
 
 const SiteApp = memo(() => {
   const location = useLocation()
@@ -21,7 +22,7 @@ const SiteApp = memo(() => {
   return (
     <>
       <div className={`${isAuthPage ? 'bg-gray-ED' : 'bg-white'}`}>
-        {!isRealEstateDetailsPage && 
+        {!isRealEstateDetailsPage &&
           (isHomePage ? (
             <Header />
           ) : (
@@ -38,6 +39,19 @@ const SiteApp = memo(() => {
         <Footer />
         <FooterMobail />
       </div>
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={true}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
     </>
   )
 })

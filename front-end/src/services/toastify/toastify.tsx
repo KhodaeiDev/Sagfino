@@ -1,7 +1,11 @@
 import { toast } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
-const ToastNotification = (type: 'success' | 'error', message: string) => {
+const ToastNotification = (
+  type: 'success' | 'error',
+  message: string,
+  timer: number
+) => {
   const colorClass = type === 'success' ? 'text-green-500' : 'text-red-500'
   const title = type === 'success' ? ' موفق' : ' خطا'
 
@@ -13,6 +17,7 @@ const ToastNotification = (type: 'success' | 'error', message: string) => {
       </div>
     </>,
     {
+      autoClose: timer,
       className: type === 'success' ? 'success-toast' : 'error-toast',
     }
   )

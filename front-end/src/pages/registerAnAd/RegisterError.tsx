@@ -9,6 +9,7 @@ import {
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
+
 const RegisterErrorAdRE: React.FC = () => {
   document.title = 'سقفینو-خطای ثبت نام '
 

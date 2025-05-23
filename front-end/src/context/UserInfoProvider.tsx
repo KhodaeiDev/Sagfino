@@ -22,8 +22,10 @@ const UserInfoProvider: React.FC = () => {
         role: data.role as 'user' | 'admin',
       }
       auth.login(userData, storedToken)
+    } else {
+      auth.logout()
     }
-  }, [getLocalUserToken, getLocalUserInfo, auth])
+  }, [getLocalUserToken, getLocalUserInfo])
 
   return null
 }

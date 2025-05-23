@@ -10,8 +10,6 @@ import {
 } from '../../../services/axois/request/auth/authRequests'
 import { useGetFromLocalStorage } from '../../../Hooks/shared/shared'
 import ToastNotification from '../../../services/toastify/toastify'
-import { ToastContainer, Bounce } from 'react-toastify'
-
 import { UserInfoType } from '../../../context/authContext'
 
 const StepTwo: React.FC = () => {
@@ -29,6 +27,7 @@ const StepTwo: React.FC = () => {
   const [timeLeft, setTimeLeft] = useState(120)
   const [loading, setLoading] = useState(false)
   const [validOtp, setValidOtp] = useState<boolean>(true)
+  const [isLoadingNextPage, setIsLoadingNextPage] = useState<boolean>(false)
   const isOtpEmpty = otp.reduce((acc, item) => acc && item.value !== '', true)
 
   const location = useLocation()
@@ -111,7 +110,8 @@ const StepTwo: React.FC = () => {
           'success',
           `ورود موفق! خوش آمدید! 
            ${response.data.firstName}
-            شما با موفقیت وارد حساب کاربری خود شدید. در حال هدایت به صفحه اصلی   لطفاً چند لحظه صبر کنید.`
+            شما با موفقیت وارد حساب کاربری خود شدید. در حال هدایت به صفحه اصلی   لطفاً چند لحظه صبر کنید.`,
+          5000
         )
 
         const data = response.data
@@ -124,8 +124,10 @@ const StepTwo: React.FC = () => {
         }
 
         auth.login(userData, response.data.token)
+        setIsLoadingNextPage(true)
 
         setTimeout(() => {
+          setIsLoadingNextPage(false)
           navigate('/')
           localStorage.removeItem('auth_timestamp')
         }, 6000)
@@ -136,7 +138,8 @@ const StepTwo: React.FC = () => {
       console.log(error)
       ToastNotification(
         'error',
-        'کد وارد شده صحیح نیست. لطفاً دوباره امتحان کنید یا در صورت نیاز درخواست ارسال مجدد کد را بدهید'
+        'کد وارد شده صحیح نیست. لطفاً دوباره امتحان کنید یا در صورت نیاز درخواست ارسال مجدد کد را بدهید',
+        5000
       )
       setValidOtp(false)
       setOtp(
@@ -245,37 +248,33 @@ const StepTwo: React.FC = () => {
             {/* Verify Button */}
             <button
               onClick={handleVerifyOtp}
-              disabled={!isOtpEmpty || loading}
+              disabled={!isOtpEmpty || loading || isLoadingNextPage}
               className={`w-full h-10 md:h-14 transition-all duration-500 center py-3 rounded-lg font-shabnam text-white mt-7 ${
-                validOtp
+                isLoadingNextPage
+                  ? 'bg-blue-500 cursor-not-allowed opacity-70'
+                  : loading
+                  ? 'bg-gray-400 cursor-not-allowed'
+                  : validOtp
                   ? 'bg-green-500 hover:bg-green-600 cursor-pointer'
                   : 'bg-red-500 cursor-not-allowed'
               } ${
-                !isOtpEmpty || loading ? ' !cursor-not-allowed opacity-50' : ''
+                !isOtpEmpty || loading || isLoadingNextPage
+                  ? '!cursor-not-allowed opacity-50'
+                  : ''
               }`}
             >
-              {loading
-                ? 'در حال بررسی...'
+              {isLoadingNextPage
+                ? 'در حال انتقال به صفحه بعد، لطفاً چند لحظه صبر کنید...'
+                : loading
+                ? '⏳ در حال بررسی...'
                 : validOtp
-                ? 'تائید'
-                : 'کد معتبر نیست، دوباره تلاش کنید!'}
+                ? ' تائید'
+                : ' کد معتبر نیست، دوباره تلاش کنید!'}
             </button>
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
+    
     </>
   )
 }

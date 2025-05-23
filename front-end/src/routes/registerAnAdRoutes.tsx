@@ -8,13 +8,57 @@ import StepFiveAdRE from '../pages/registerAnAd/StepFive'
 import StepSixAdRE from '../pages/registerAnAd/StepSix'
 import { RouteObject } from 'react-router'
 
+import ProtectedRoute from './ProtectedRoute'
+
 const RegisterAnAdRoutes: RouteObject[] = [
-  { path: 'StepOneAdRE', element: <StepOneAdRE /> },
-  { path: 'StepTwo', element: <StepTwoAdRE /> },
-  { path: 'StepThree', element: <StepThreeAdRE /> },
-  { path: 'StepFour', element: <StepFourAdRE /> },
-  { path: 'StepFive', element: <StepFiveAdRE /> },
-  { path: 'StepSix', element: <StepSixAdRE /> },
+  {
+    path: 'StepOneAdRE',
+    element: (
+      <ProtectedRoute>
+        <StepOneAdRE />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: 'StepTwo',
+    element: (
+      <ProtectedRoute>
+        <StepTwoAdRE />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: 'StepThree',
+    element: (
+      <ProtectedRoute>
+        <StepThreeAdRE />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: 'StepFour',
+    element: (
+      <ProtectedRoute>
+        <StepFourAdRE />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: 'StepFive',
+    element: (
+      <ProtectedRoute>
+        <StepFiveAdRE />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: 'StepSix',
+    element: (
+      <ProtectedRoute>
+        <StepSixAdRE />
+      </ProtectedRoute>
+    ),
+  },
   { path: 'RegisterError', element: <RegisterErrorAdRE /> },
   { path: 'RegisterDone', element: <RegisterDoneAdRE /> },
 ]

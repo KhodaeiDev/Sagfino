@@ -4,6 +4,8 @@ import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import Btn from '../../components/AdRegistration/btn'
 import { TiTick } from 'react-icons/ti'
 
+
+
 const RegisterDoneAdRE: React.FC = () => {
   document.title = 'سقفینو-ثبت نام انجام شد'
 

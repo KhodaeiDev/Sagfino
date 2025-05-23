@@ -9,6 +9,7 @@ import {
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
+
 const steps: Step[] = [
   { id: 1, status: 'completed' },
   { id: 2, status: 'completed' },

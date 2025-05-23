@@ -16,7 +16,6 @@ import UseForm from '../../../Hooks/useForm'
 import Input from '../../../components/shared/UIComponents/FormElements/input/input'
 import { NavLink, useNavigate } from 'react-router'
 import { AxiosError } from 'axios'
-import { ToastContainer, Bounce } from 'react-toastify'
 import ToastNotification from '../../../services/toastify/toastify'
 
 const StepThree: React.FC = () => {
@@ -26,6 +25,7 @@ const StepThree: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [formType, setFormType] = useState<FormType>('register')
+  const [isLoadingNextPage, setIsLoadingNextPage] = useState<boolean>(false)
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
   const handleFocus = useCallback(() => {
@@ -76,10 +76,13 @@ const StepThree: React.FC = () => {
         ToastNotification(
           'success',
           `ثبت‌نام موفقیت‌آمیز بود! لطفاً چند لحظه صبر کنید  
-در حال هدایت به صفحه ورود، با شماره تلفن وارد شوید.`
+در حال هدایت به صفحه ورود، با شماره تلفن وارد شوید.`,
+          5000
         )
 
+        setIsLoadingNextPage(true)
         setTimeout(() => {
+          setIsLoadingNextPage(false)
           navigate('/auth/StepOne')
         }, 6000)
       }
@@ -276,10 +279,12 @@ const StepThree: React.FC = () => {
               </div>
             </div>
             <button
-              disabled={!formState.isFormValid || loading}
+              disabled={!formState.isFormValid || loading || isLoadingNextPage}
               onClick={handleRegister}
               className={`w-full h-10 md:h-14 center py-3 rounded-lg font-shabnam text-white mt-10 mb-8 transition-all duration-500 ${
-                loading
+                isLoadingNextPage
+                  ? 'bg-blue-500 cursor-not-allowed opacity-70'
+                  : loading
                   ? 'bg-gray-400 cursor-not-allowed'
                   : hasError
                   ? 'bg-red-500 hover:bg-red-600 cursor-not-allowed'
@@ -288,24 +293,16 @@ const StepThree: React.FC = () => {
                   : 'bg-primary hover:bg-primary/85 cursor-not-allowed'
               }`}
             >
-              {loading ? '⏳ در حال پردازش...' : customErrorMessage}
+              {isLoadingNextPage
+                ? 'در حال انتقال به صفحه بعد، لطفاً چند لحظه صبر کنید...'
+                : loading
+                ? '⏳ در حال پردازش...'
+                : customErrorMessage}
             </button>
           </div>
         </div>
       </div>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick={false}
-        rtl={true}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="light"
-        transition={Bounce}
-      />
+  
     </>
   )
 }
