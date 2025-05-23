@@ -126,15 +126,7 @@ const StepThree: React.FC = () => {
     } finally {
       setLoading(false)
     }
-  }, [
-    formState.inputs.name.value,
-    formState.inputs.lastName.value,
-    formState.inputs.phone.value,
-    dispatch,
-    navigate,
-    isChecked,
-    formState.isFormValid,
-  ])
+  }, [dispatch, navigate, isChecked, formState.isFormValid])
 
   const hasError =
     formState.inputs.name?.errorMessage ||
@@ -302,7 +294,6 @@ const StepThree: React.FC = () => {
           </div>
         </div>
       </div>
-  
     </>
   )
 }

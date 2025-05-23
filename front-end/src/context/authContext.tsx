@@ -91,7 +91,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
     } catch (error) {
       console.error('Error during logout:', error)
     }
-  }, [])
+  }, [removeFromLocalUserToken, removeFromLocalUserInfos])
 
   const updatephone = (newPhone: string) => setphone(newPhone)
 

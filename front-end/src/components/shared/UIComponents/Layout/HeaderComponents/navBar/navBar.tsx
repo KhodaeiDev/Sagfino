@@ -249,14 +249,14 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
                   />
                 </span>
               ) : (
-                <NavLink to={'/auth/StepThree.tsx'}>'ورود | ثبت نام'</NavLink>
+                <NavLink to={'/auth/StepThree'}>ورود | ثبت نام</NavLink>
               )}
             </div>
 
             {/* منوی شناور */}
             {auth.userInfo && (
               <div
-                className={` flex flex-col gap-y-2 transition-transform duration-500 text-xs ${
+                className={` flex flex-col gap-y-2 transition-all duration-500 text-xs ${
                   isMobileMenuOpen
                     ? ' visible opacity-100'
                     : '  invisible  opacity-0'

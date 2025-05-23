@@ -25,7 +25,7 @@ const UserInfoProvider: React.FC = () => {
     } else {
       auth.logout()
     }
-  }, [getLocalUserToken, getLocalUserInfo])
+  }, [])
 
   return null
 }

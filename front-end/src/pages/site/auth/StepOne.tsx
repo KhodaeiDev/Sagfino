@@ -15,6 +15,7 @@ import { AuthContext } from '../../../context/authContext'
 import { useSaveToLocalStorage } from '../../../Hooks/shared/shared'
 import { FiPhone } from 'react-icons/fi'
 import { FormType } from '../../../Hooks/useformType'
+import ToastNotification from '../../../services/toastify/toastify'
 
 const StepOne: React.FC = () => {
   const navigate = useNavigate()
@@ -65,6 +66,15 @@ const StepOne: React.FC = () => {
       }
     } catch (err) {
       let errorText = '⚠️ مشکلی پیش آمده!'
+      ToastNotification(
+        'error',
+        '⚠️ مشکلی پیش آمده! چند لحظه صبر کنید بعد از بارگذاری خودکار دوباره  امتحان کنید',
+        5000
+      )
+      console.log(err)
+      setTimeout(() => {
+        window.location.reload()
+      }, 6000)
 
       if (err instanceof AxiosError) {
         errorText = err.response?.data?.error ?? errorText
@@ -103,9 +113,9 @@ const StepOne: React.FC = () => {
               <NavLink
                 to={'/auth/StepThree'}
                 onClick={() => setFormType('register')}
-                className={ " text-xs md:text-base " }
+                className={' text-xs md:text-base '}
               >
-                هنوز حسابی ندارید؟  
+                هنوز حسابی ندارید؟
                 <span className="text-primary"> ثبت نام کنید!</span>
               </NavLink>
             </div>
