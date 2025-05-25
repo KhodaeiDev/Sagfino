@@ -383,4 +383,11 @@ input[type="number"]::-webkit-outer-spin-button {
 .error-toast {
     border-right: 10px solid #FF4C4C !important;
 }
-
+.clamped-text {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-height: 100px;
+}
