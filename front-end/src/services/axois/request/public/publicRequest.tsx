@@ -1,8 +1,12 @@
 import { axiosUnProtectedInstance } from '../../configs/configs'
 import { AxiosResponse } from 'axios'
 
-const getingCities = (): Promise<AxiosResponse> => {
-  return axiosUnProtectedInstance.get('/cities')
+export const getingCities = async (): Promise<AxiosResponse> => {
+  return await axiosUnProtectedInstance.get('/cities')
 }
 
-export { getingCities }
+export const searchAds = async (
+  filters: Record<string, string | null>
+): Promise<AxiosResponse> => {
+  return await axiosUnProtectedInstance.get('/ads/filter', { params: filters })
+}

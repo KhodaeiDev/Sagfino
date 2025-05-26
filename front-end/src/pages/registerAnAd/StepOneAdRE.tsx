@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'

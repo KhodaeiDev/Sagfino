@@ -1,16 +1,72 @@
 import { RiSearch2Line } from 'react-icons/ri'
 import Typewriter from 'typewriter-effect'
-import { useState } from 'react'
+import React, { useEffect, useState } from 'react'
+import { searchAds } from '../../../../../../services/axois/request/public/publicRequest'
+import { useQuery } from '@tanstack/react-query'
 
-type ButtonType = 'rent' | 'buy'
+type ButtonType = 'rent' | 'sell'
 
 const HeaderContent: React.FC = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>('rent')
+  const [city, setCity] = useState<string>('')
+  const [searchTriggered, setSearchTriggered] = useState<boolean>(false) 
 
   const buttons: { label: string; value: ButtonType }[] = [
     { label: 'اجاره', value: 'rent' },
-    { label: 'خرید', value: 'buy' },
+    { label: 'خرید', value: 'sell' },
   ]
+
+  const searchInputChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setCity(event.target.value.trim())
+  }
+
+  const validateCityName = (city: string): boolean => {
+    const trimmedCity = city.trim()
+    return (
+      trimmedCity.length >= 2 &&
+      /^[\u0600-\u06FF\s]+$/.test(trimmedCity) &&
+      !/\d/.test(trimmedCity) &&
+      !/[!@#$%^&*()_+={};:'",.<>?|]/.test(trimmedCity)
+    )
+  }
+
+  const handleSearchClick = () => {
+    if (validateCityName(city)) {
+      setSearchTriggered(true)
+    }
+  }
+
+  const filterParams = {
+    tr_type: activeButton,
+    city,
+  }
+
+  const { data, error, isError, isLoading, isFetched } = useQuery({
+    queryKey: ['Advertisements', city],
+    queryFn: () => searchAds(filterParams),
+    enabled: searchTriggered,
+  })
+
+  useEffect(() => {
+    if (isFetched) {
+      setSearchTriggered(false)
+      setCity('')
+    }
+  }, [isFetched])
+  console.log(isLoading)
+
+  console.log(data)
+  console.log(error)
+  console.log(isFetched)
+
+  useEffect(() => {
+    if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
+      window.scrollBy({ top: 300, behavior: 'smooth' })
+    }
+  }, [data])
+  
 
   return (
     <div className="mt-10 md:mt-25 lg:mt-0 flex flex-col items-center text-white font-shabnamBold gap-0.5 xl:gap-5">
@@ -45,8 +101,8 @@ const HeaderContent: React.FC = () => {
           {buttons.map(({ label, value }) => (
             <span
               key={value}
-              className={`cursor-pointer ${
-                activeButton === value ? 'text-red-500' : 'text-gray-500'
+              className={`cursor-pointer transition-all duration-500 ${
+                activeButton === value ? ' text-primary' : 'text-gray-500'
               }`}
               onClick={() => setActiveButton(value)}
             >
@@ -55,16 +111,16 @@ const HeaderContent: React.FC = () => {
           ))}
         </div>
 
-        <div className="border-b border-Gray-35 w-full mt-2">
+        <div className={` w-full mt-2  tran `}>
           <div className="flex">
             <div
-              className={`h-0.5 w-1/2 ${
-                activeButton === 'rent' ? 'bg-red-500' : 'bg-Gray-35'
+              className={` transition-all duration-500 h-[2.5px] w-1/2 ${
+                activeButton === 'rent' ? '  bg-primary' : ' bg-Gray-35'
               }`}
             ></div>
             <div
-              className={`h-0.5 w-1/2 ${
-                activeButton === 'buy' ? 'bg-red-500' : 'bg-Gray-35'
+              className={` transition-all duration-500 h-[2.5px] w-1/2 ${
+                activeButton === 'sell' ? ' bg-primary' : 'bg-Gray-35'
               }`}
             ></div>
           </div>
@@ -74,10 +130,24 @@ const HeaderContent: React.FC = () => {
           <div className="flex items-center gap-1.5">
             <RiSearch2Line className="text-2xl md:text-3xl text-Gray-35" />
             <input
-              className="border-none outline-0 w-full font-shabnam text-Gray-35 placeholder-Gray-35"
+              className="border-none placeholder:text-xs sm:placeholder:text-base outline-0 w-full font-shabnam text-Gray-35 placeholder-Gray-35"
               type="text"
               placeholder="شهر مورد نظر را جست‌وجو کنید"
+              onChange={(event) => searchInputChangeHandler(event)}
+              value={city}
             />
+            <button
+              disabled={isLoading || !validateCityName(city)}
+              onClick={handleSearchClick}
+              className={`cursor-pointer border !font-shabnam border-gray-90 p-1.5 rounded-sm text-xs transition-all duration-500
+    ${
+      isLoading || !validateCityName(city)
+        ? 'bg-gray-300 text-gray-500  !cursor-not-allowed'
+        : 'hover:bg-primary hover:border-primary hover:text-white'
+    }`}
+            >
+              {isLoading ? 'بارگیری' : 'جستجو'}
+            </button>
           </div>
         </div>
       </div>
