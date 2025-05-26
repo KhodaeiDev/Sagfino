@@ -1,6 +1,8 @@
 import React, { useReducer, useEffect, useCallback } from 'react'
 import { InputProps, InputState, InputAction } from './types'
 import validator from '../../../../../validators/validator'
+import { memo } from 'react'
+
 
 const inputReducer = (state: InputState, action: InputAction): InputState => {
   switch (action.type) {
@@ -22,14 +24,14 @@ const inputReducer = (state: InputState, action: InputAction): InputState => {
 }
 
 
-const Input: React.FC<InputProps> = (props) => {
+
+const Input: React.FC<InputProps> = memo((props) => {
   const [mainInput, dispatch] = useReducer(inputReducer, {
     value: '',
     isValid: false,
     validations: props.validations || [],
-    errorMessage: null, 
+    errorMessage: null,
   })
-  
 
   const { value, isValid } = mainInput
   const { id, onInputHandler, onFocus, errorMessage } = props
@@ -60,7 +62,7 @@ const Input: React.FC<InputProps> = (props) => {
             id={id}
             type={props.type}
             placeholder={props.placeholder}
-            className={`${props.className} w-full   focus:ring-2 ${
+            className={`${props.className} w-full focus:ring-2 ${
               errorMessage
                 ? 'border-primary focus:ring-primary'
                 : isValid
@@ -73,7 +75,7 @@ const Input: React.FC<InputProps> = (props) => {
           />
           {props.icon}
         </div>
-        <div className="w-full flex items-start justify-start font-shabnam mt-2  ">
+        <div className="w-full flex items-start justify-start font-shabnam mt-2">
           {errorMessage ? (
             <span className="text-primary">{errorMessage}</span>
           ) : props.isFocused ? (
@@ -103,6 +105,7 @@ const Input: React.FC<InputProps> = (props) => {
     )
 
   return element
-}
+})
+
 
 export default Input

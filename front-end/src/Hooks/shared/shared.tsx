@@ -13,10 +13,10 @@ const useSaveToLocalStorage = (
   return [setStoredValue] as const
 }
 
-const useGetFromLocalStorage = (
-  key: string
-): readonly [value: string | null] => {
-  const [retrievedValue, setRetrievedValue] = useState<string | null>(null)
+const useGetFromLocalStorage = (key: string): [string | null] => {
+  const [retrievedValue, setRetrievedValue] = useState<string | null>(
+    localStorage.getItem(key) ? JSON.parse(localStorage.getItem(key)!) : null
+  )
 
   useEffect(() => {
     const item = localStorage.getItem(key)
@@ -43,13 +43,12 @@ const useScrollFixed = (scrollThreshold = 168) => {
 
     window.addEventListener('scroll', handleScroll)
     return () => {
-      window.removeEventListener('scroll', handleScroll) 
+      window.removeEventListener('scroll', handleScroll)
     }
   }, [scrollThreshold])
 
   return isFixed
 }
-
 
 export {
   useSaveToLocalStorage,

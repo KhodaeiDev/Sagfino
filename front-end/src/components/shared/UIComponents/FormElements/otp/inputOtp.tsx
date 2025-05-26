@@ -6,9 +6,11 @@ interface InputOtpProps {
   errorMessage?: string
   onChange: (id: string, value: string) => void
   onKeyDown: (event: React.KeyboardEvent<HTMLInputElement>, id: string) => void
-  inputRef?: (element: HTMLInputElement | null) => void // ✅ مقدار `ref` اضافه شد
+  inputRef?: (element: HTMLInputElement | null) => void 
 }
-const InputOtp: React.FC<InputOtpProps> = (props) => {
+import { memo } from 'react'
+
+const InputOtp: React.FC<InputOtpProps> = memo((props) => {
   return (
     <input
       type="text"
@@ -23,15 +25,11 @@ const InputOtp: React.FC<InputOtpProps> = (props) => {
       onKeyDown={(event) => props.onKeyDown(event, props.id)}
       ref={(element) => {
         if (props.inputRef) {
-          // ✅ بررسی اینکه مقدار `inputRef` وجود دارد
           props.inputRef(element)
         }
       }}
     />
   )
-}
-
-
-
+})
 
 export default InputOtp

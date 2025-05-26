@@ -28,15 +28,15 @@ const StepThree: React.FC = () => {
   const [isLoadingNextPage, setIsLoadingNextPage] = useState<boolean>(false)
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
-  const handleFocus = useCallback(() => {
+  const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)
     }
-  }, [isFocused])
+  }
 
-  const toggleCheckbox = useCallback(() => {
+  const toggleCheckbox = () => {
     setIsChecked((prev) => !prev)
-  }, [])
+  }
 
   const handleInputChange = useCallback(
     (inputID: string, value: string, isValid: boolean) => {
@@ -46,7 +46,7 @@ const StepThree: React.FC = () => {
     [onInputHandler, dispatch]
   )
 
-  const handleRegister = useCallback(async () => {
+  const handleRegister = async () => {
     if (!formState.isFormValid) {
       dispatch({
         type: 'SET_VALIDATION_MESSAGE_ERROR',
@@ -76,7 +76,7 @@ const StepThree: React.FC = () => {
         ToastNotification(
           'success',
           `ثبت‌نام موفقیت‌آمیز بود! لطفاً چند لحظه صبر کنید  
-در حال هدایت به صفحه ورود، با شماره تلفن وارد شوید.`,
+          در حال هدایت به صفحه ورود، با شماره تلفن وارد شوید.`,
           5000
         )
 
@@ -126,7 +126,8 @@ const StepThree: React.FC = () => {
     } finally {
       setLoading(false)
     }
-  }, [dispatch, navigate, isChecked, formState.isFormValid])
+  }
+  
 
   const hasError =
     formState.inputs.name?.errorMessage ||

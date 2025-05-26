@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -9,6 +9,17 @@ import {
   Footer,
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
+import { getingCities } from '../../services/axois/request/public/publicRequest'
+import Input from '../../components/shared/UIComponents/FormElements/input/input'
+import {
+  maxValidator,
+  minValidator,
+  requiredValidator,
+} from '../../validators/rules'
+import UseForm from '../../Hooks/useForm'
+import { FormType } from '../../Hooks/useformType'
+import { IoLocationSharp } from 'react-icons/io5'
+import { useQuery } from '@tanstack/react-query'
 
 const steps: Step[] = [
   { id: 1, status: 'active' },
@@ -21,10 +32,20 @@ const steps: Step[] = [
 
 const StepOneAdRE: React.FC = () => {
   document.title = 'مرحله ی اول-ثبت آگهی'
+
+  const { data, error, isError, isLoading } = useQuery({
+    queryKey: ['Cities'],
+    queryFn: getingCities,
+    staleTime: 5000,
+    refetchOnMount: false,
+  })
+
+  const cities =
+    data?.data?.map((city: { id: number; name: string }) => city.name) || []
   const selectBoxData = [
     {
       label: ' شهر ',
-      items: ['شیراز', 'اصفهان', 'تهران'],
+      items: cities,
     },
     {
       label: 'منطقه',
@@ -32,7 +53,24 @@ const StepOneAdRE: React.FC = () => {
     },
   ]
   const [options, setOptions] = useState<string[]>([' شهر ', 'منطقه '])
+  const [isFocused, setIsFocused] = useState<boolean>(false)
+  const [formType, setFormType] = useState<FormType>('adPosting')
 
+  const [formState, onInputHandler, dispatch] = UseForm(formType)
+
+  const handleFocus = () => {
+    if (!isFocused) {
+      setIsFocused(true)
+    }
+  }
+
+  const handleInputChange = useCallback(
+    (inputID: string, value: string, isValid: boolean) => {
+      dispatch({ type: 'CLEAR_ERRORS' })
+      onInputHandler(inputID, value, isValid)
+    },
+    [onInputHandler, dispatch]
+  )
   const handleSelect = useCallback((index: number, value: string) => {
     setOptions((prevOptions) => {
       const newOptions = [...prevOptions]
@@ -40,6 +78,10 @@ const StepOneAdRE: React.FC = () => {
       return newOptions
     })
   }, [])
+
+  if (isLoading) {
+    return <h1>Loading...</h1>
+  }
 
   return (
     <>
@@ -52,62 +94,70 @@ const StepOneAdRE: React.FC = () => {
               <div className="flex flex-col">
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
-                <div className=" flex flex-col xl:flex-row items-center gap-x-4  gap-y-2 justify-between mt-5 ">
-                  <div className=" w-full  flex-col xl:flex-row   flex items-center gap-4 justify-between">
-                    {selectBoxData.map((data, index) => (
-                      <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
+                <div className="  grid grid-cols-2 gap-x-4 gap-y-9 mt-5 ">
+                  {selectBoxData && selectBoxData.length > 0 ? (
+                    selectBoxData.map((data, index) => (
+                      <div
+                        key={index}
+                        className="flex flex-col items-start gap-1.5 font-shabnam text-sm"
+                      >
                         <label
                           htmlFor=" "
-                          className="  text-sm lg:text-lg font-shabnamBold "
+                          className="text-sm lg:text-lg font-shabnamBold"
                         >
                           {data.label}
-                        </label>{' '}
+                        </label>
                         <SelectBox
                           key={index}
                           selectedOption={options[index]}
                           onSelect={(option) => handleSelect(index, option)}
-                          width="w-72.5 "
-                          responsiveWidth="w-72"
+                          width="w-full"
+                          responsiveWidth="w-full"
                           responsiveHeight="h-12"
                         >
-                          {data.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
+                          {Array.isArray(data.items) &&
+                          data.items.length > 0 ? (
+                            data.items.map((item) => <li key={item}>{item}</li>)
+                          ) : (
+                            <li>در حال دریافت اطلاعات...</li>
+                          )}
                         </SelectBox>
                       </div>
-                    ))}
-                  </div>
-                </div>
-                {/* input */}
-                <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-5 xl:mt-30 ">
+                    ))
+                  ) : (
+                    <p>اطلاعات موجود نیست</p>
+                  )}
+
+                  {/* input */}
                   {/* custom input */}
                   <div>
                     <label
                       className=" font-shabnamBold  mb-3 text-sm lg:text-lg"
                       htmlFor=""
                     >
-                      خیابان اصلی
+                      آدرس
                     </label>
-                    <div className=" p-2 text-base  border-blue-400 shadow-blue-400/50 shadow-lg   flex items-center  w-72.5 h-12  border  rounded-lg mt-2 ">
-                      <input
-                        placeholder="آدرس خود را وارد کنید"
-                        className=" placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
+                    <div className=" ">
+                      <Input
+                        id="Address"
                         type="text"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <label
-                      className=" font-shabnamBold  mb-3 text-sm lg:text-lg "
-                      htmlFor=""
-                    >
-                      خیابان اصلی/کوچه
-                    </label>
-                    <div className=" p-2  text-base  flex items-center w-72.5 h-12  border shadow-lg   border-blue-400 shadow-blue-400/50  rounded-lg mt-2 ">
-                      <input
-                        placeholder="آدرس خود را وارد کنید"
-                        className=" placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                        type="text"
+                        placeholder=" آدرس  خود را وارد کنید "
+                        element="text"
+                        className=" w-full h-full   !outline-0    py-3  text-xs lg:text-base  bg-white border !border-blue-400 ! !shadow-blue-400/50 shadow flex items-center    rounded-lg mt-2 "
+                        validations={[
+                          requiredValidator(),
+                          minValidator(15),
+                          maxValidator(250),
+                        ]}
+                        onInputHandler={handleInputChange}
+                        onFocus={handleFocus}
+                        errorMessage={formState.inputs.name?.errorMessage}
+                        isFocused={isFocused}
+                        validationMessageSuccess={` آدرس  وارد شده معتبر است`}
+                        validationMessageError={`   آدرس   وارد شده معتبر نیست`}
+                        icon={
+                          <IoLocationSharp className="absolute w-3.5 h-3.5 md:w-6 md:h-6  right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                        }
                       />
                     </div>
                   </div>

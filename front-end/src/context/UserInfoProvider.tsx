@@ -13,7 +13,8 @@ const UserInfoProvider: React.FC = () => {
     const storedUserInfo = getLocalUserInfo
     const data = storedUserInfo ? JSON.parse(storedUserInfo) : null
 
-    if (storedToken && storedUserInfo) {
+  
+    if (storedToken) {
       const userData = {
         firstName: data.firstName,
         lastName: data.lastName,
@@ -25,7 +26,7 @@ const UserInfoProvider: React.FC = () => {
     } else {
       auth.logout()
     }
-  }, [])
+  }, [getLocalUserToken, getLocalUserInfo])
 
   return null
 }

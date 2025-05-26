@@ -18,7 +18,7 @@ export type InputProps = {
     event: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void
   errorMessage?: string | null
-  icon: ReactNode
+  icon?: ReactNode
   validationMessageError?: string | null
   validationMessageSuccess?: string | null
   isFocused?: boolean

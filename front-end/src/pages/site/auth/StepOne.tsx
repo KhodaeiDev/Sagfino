@@ -30,17 +30,17 @@ const StepOne: React.FC = () => {
 
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
-  const toggleCheckbox = useCallback(() => {
+  const toggleCheckbox = () => {
     setIsChecked((prev) => !prev)
-  }, [])
+  }
 
-  const handleFocus = useCallback(() => {
+  const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)
     }
-  }, [isFocused])
+  }
 
-  const handleLogin = useCallback(async () => {
+  const handleLogin = async () => {
     if (!formState.isFormValid) {
       dispatch({
         type: 'SET_VALIDATION_MESSAGE_ERROR',
@@ -68,10 +68,9 @@ const StepOne: React.FC = () => {
       let errorText = '⚠️ مشکلی پیش آمده!'
       ToastNotification(
         'error',
-        '⚠️ مشکلی پیش آمده! چند لحظه صبر کنید بعد از بارگذاری خودکار دوباره  امتحان کنید',
+        ' مشکلی پیش آمده! چند لحظه صبر کنید بعد از بارگذاری خودکار دوباره امتحان کنید.',
         5000
       )
-      console.log(err)
       setTimeout(() => {
         window.location.reload()
       }, 6000)
@@ -83,14 +82,8 @@ const StepOne: React.FC = () => {
     } finally {
       setLoading(false)
     }
-  }, [
-    formState.inputs.phone.value,
-    formState.isFormValid,
-    dispatch,
-    navigate,
-    auth,
-    setSaveToLoaclStorage,
-  ])
+  }
+  
 
   const handleInputChange = useCallback(
     (inputID: string, value: string, isValid: boolean) => {

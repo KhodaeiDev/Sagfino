@@ -3,13 +3,17 @@ import { AuthContext } from '../context/authContext'
 import { Navigate } from 'react-router'
 import 'react-toastify/dist/ReactToastify.css'
 import ToastNotification from '../services/toastify/toastify'
+import { useGetFromLocalStorage } from '../Hooks/shared/shared'
 
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const auth = useContext(AuthContext)
+  const [getLocalUserToken] = useGetFromLocalStorage('userToken')
+
   const [shouldRedirect, setShouldRedirect] = useState(false)
 
   useEffect(() => {
-    if (!auth.token) {
+    console.log(getLocalUserToken)
+    if (!getLocalUserToken) {
       ToastNotification(
         'error',
         'برای دسترسی باید احراز هویت کنید. در حال انتقال...',
@@ -18,6 +22,7 @@ const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
 
       setTimeout(() => {
         setShouldRedirect(true)
+        auth.logout()
       }, 5000)
     }
   }, [auth.token])

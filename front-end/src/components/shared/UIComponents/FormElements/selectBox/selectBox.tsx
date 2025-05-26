@@ -1,6 +1,7 @@
 import React, { ReactNode, ReactElement, useCallback } from 'react'
 import { useState } from 'react'
 import { IoIosArrowDown } from 'react-icons/io'
+import { memo } from 'react'
 
 interface SelectBoxProps {
   children: ReactNode
@@ -12,31 +13,31 @@ interface SelectBoxProps {
   responsiveHeight?: string
 }
 
-const SelectBox: React.FC<SelectBoxProps> = ({
-  children,
-  selectedOption,
-  onSelect,
-  responsiveWidth = '',
-  responsiveHeight = '',
-}) => {
-  const [isOpen, setIsOpen] = useState<boolean>(false)
+const SelectBox: React.FC<SelectBoxProps> = memo(
+  ({
+    children,
+    selectedOption,
+    onSelect,
+    responsiveWidth = '',
+    responsiveHeight = '',
+  }) => {
+    const [isOpen, setIsOpen] = useState<boolean>(false)
 
-  const toggleDropdown = useCallback(() => {
-    setIsOpen(!isOpen)
-  }, [setIsOpen, isOpen])
+    const toggleDropdown = useCallback(() => {
+      setIsOpen(!isOpen)
+    }, [setIsOpen, isOpen])
 
-  const handleOptionClick = useCallback(
-    (option: string) => {
-      onSelect(option)
-      setIsOpen(false)
-    },
-    [onSelect, setIsOpen]
-  )
+    const handleOptionClick = useCallback(
+      (option: string) => {
+        onSelect(option)
+        setIsOpen(false)
+      },
+      [onSelect, setIsOpen]
+    )
 
-  return (
-    <>
+    return (
       <div
-        className={`relative inline-flex justify-between bg-transparent rounded-lg shadow-lg border px-4 border-blue-400 shadow-blue-400/50   ${responsiveWidth} ${responsiveHeight}`}
+        className={`relative inline-flex justify-between bg-transparent rounded-lg shadow-lg border px-4 border-blue-400 shadow-blue-400/50 ${responsiveWidth} ${responsiveHeight}`}
       >
         <div
           className="flex gap-1.5 items-center justify-between w-full cursor-pointer"
@@ -52,7 +53,7 @@ const SelectBox: React.FC<SelectBoxProps> = ({
           </span>
         </div>
         <div
-          className={`absolute  z-50 top-full mt-2 right-0 left-0 bg-white shadow-lg border border-blue-400 shadow-blue-400/50 flex-col px-0 py-0 gap-1.5  text-gray-1000  font-shabnam xs:text-xs text-base rounded-lg transition-max-height duration-500 ease-in-out overflow-hidden ${
+          className={`absolute z-50 top-full mt-2 right-0 p-3 transition-all overflow-y-auto left-0 bg-white shadow-lg border border-blue-400 shadow-blue-400/50 gap-1.5 text-gray-1000 flex flex-col gap-y-2 font-shabnam xs:text-xs text-base rounded-lg transition-max-height duration-500 overflow-hidden ${
             isOpen
               ? 'opacity-100 max-h-64'
               : 'opacity-0 max-h-0 pointer-events-none'
@@ -67,9 +68,9 @@ const SelectBox: React.FC<SelectBoxProps> = ({
                 }>,
                 {
                   onClick: () => handleOptionClick(child.props.children),
-                  className: `list-none  hover:bg-primary     hover:text-white  cursor-pointer text-xs lg:text-sm px-4 py-2 ${
+                  className: `list-none hover:bg-primary rounded-sm transition-all duration-500 hover:text-white cursor-pointer text-xs lg:text-sm px-4 py-2 ${
                     child.props.children === selectedOption
-                      ? 'bg-primary text-white '
+                      ? 'bg-primary text-white rounded-lg'
                       : ''
                   }`,
                 }
@@ -79,8 +80,8 @@ const SelectBox: React.FC<SelectBoxProps> = ({
           })}
         </div>
       </div>
-    </>
-  )
-}
+    )
+  }
+)
 
 export default SelectBox
