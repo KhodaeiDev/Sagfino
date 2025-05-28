@@ -9,15 +9,17 @@ import { Navigation } from 'swiper/modules'
 import { v4 as uuidv4 } from 'uuid'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect, useRef } from 'react'
 import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
 // import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import ShowSwal from '../../../services/sweetalert2/configs'
 import { AuthContext } from '../../../context/auth/authContext'
+import { useSearch } from '../../../context/HomePageSearch/useSearch'
 
 const Home: React.FC = () => {
+  const productsRef = useRef(null) 
   // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
   // const openModal = useCallback(() => {
@@ -30,6 +32,11 @@ const Home: React.FC = () => {
 
   document.title = 'سقفینو - خانه'
   const auth = useContext(AuthContext)
+  const { searchState } = useSearch()
+
+  useEffect(() => {
+    console.log('searchState', searchState)
+  }, [searchState])
 
   const saghfinooHelpData = [
     {
@@ -87,7 +94,7 @@ const Home: React.FC = () => {
 
         {/* LatestHomeListings */}
         {auth.token && (
-          <div className="container">
+          <div id='products' className="container">
             <SectionHeader
               title={'جدیدترین خانه‌های اجاره‌ای تهران '}
               dec={''}

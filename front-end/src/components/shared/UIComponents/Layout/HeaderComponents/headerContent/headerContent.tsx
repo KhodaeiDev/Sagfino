@@ -4,8 +4,9 @@ import React, { useEffect, useState } from 'react'
 import { searchAds } from '../../../../../../services/axois/request/public/publicRequest'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ToastNotification from '../../../../../../services/toastify/toastify'
+import { useSearch } from '../../../../../../context/HomePageSearch/useSearch'
 
-type ButtonType = 'rent' | 'sell'
+export type ButtonType = 'rent' | 'sell'
 interface Advertisement {
   id: number
   user_id: number
@@ -29,7 +30,7 @@ interface Advertisement {
   updated_at: string
 }
 
-interface AdvertisementResponse {
+export interface AdvertisementResponse {
   data: Advertisement[]
 }
 
@@ -41,6 +42,7 @@ const HeaderContent: React.FC = () => {
     null
   )
 
+  const { searchState, setSearchState } = useSearch()
   const buttons: { label: string; value: ButtonType }[] = [
     { label: 'اجاره', value: 'rent' },
     { label: 'خرید', value: 'sell' },
@@ -82,27 +84,28 @@ const HeaderContent: React.FC = () => {
   } = useMutation({
     mutationFn: async () => searchAds(filterParams),
     onSuccess: (newData) => {
-      const existingData = queryClient.getQueryData([
-        'Advertisements',
-        `${city}-${activeButton}`,
-      ])
+      queryClient.setQueryData(
+        ['Advertisements', `${city}-${activeButton}`],
+        (oldData) => {
+          return oldData
+            ? { ...oldData, data: [...oldData.data, ...newData.data] }
+            : newData
+        }
+      )
 
-      if (!existingData) {
-        queryClient.setQueryData(
-          ['Advertisements', `${city}-${activeButton}`],
-          newData
-        )
-      }
+      setSearchState((prev) => ({ ...prev, result: newData }))
 
       setTimeout(() => {
         queryClient.removeQueries({
           queryKey: ['Advertisements', `${city}-${activeButton}`],
         })
-      }, 60000)
+      }, 300000)
     },
   })
 
   const handleSearchClick = () => {
+    setSearchState((prev) => ({ ...prev, isLoading: true }))
+
     const cachedData =
       queryClient.getQueryData<AdvertisementResponse | null>([
         'Advertisements',
@@ -119,22 +122,31 @@ const HeaderContent: React.FC = () => {
 
   useEffect(() => {
     if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-      window.scrollBy({ top: 300, behavior: 'smooth' })
+      window.scrollBy({ top: 700, behavior: 'smooth' })
       setCity('')
+      setSearchState((prev) => ({
+        ...prev,
+        result: { data: data.data },
+        isLoading: false,
+      }))
     } else if (data?.data.length === 0) {
       ToastNotification(
         'error',
         'هیچ آگهی‌ای برای این شهر ثبت نشده است. می‌توانید شهر دیگری را جستجو کنید یا نوع معامله (اجاره/خرید) را تغییر دهید.',
         5000
       )
+      setSearchState((prev) => ({ ...prev, result: null, isLoading: false }))
       setShowError(false)
       setCity('')
     }
   }, [data])
 
   useEffect(() => {
-    if (!cachedData || !cachedData.data) return
-    if ((cachedData?.data?.length ?? 0) === 0) {
+    console.log('cachedData', cachedData)
+    if (!cachedData || !cachedData.data || !Array.isArray(cachedData.data))
+      return
+
+    if (cachedData.data.length === 0) {
       ToastNotification(
         'error',
         'هیچ آگهی‌ای برای این شهر ثبت نشده است. لطفاً شهر دیگری را جستجو کنید یا نوع معامله را تغییر دهید.',
@@ -142,9 +154,14 @@ const HeaderContent: React.FC = () => {
       )
       setShowError(false)
       setCity('')
+      setSearchState((prev) => ({ ...prev, result: null, isLoading: false }))
     } else {
-      window.scrollBy({ top: 300, behavior: 'smooth' })
-      setCity('')
+      window.scrollBy({ top: 700, behavior: 'smooth' })
+      setSearchState((prev) => ({
+        ...prev,
+        result: { data: cachedData.data },
+        isLoading: false,
+      }))
     }
   }, [cachedData])
 
