@@ -2,25 +2,49 @@ import { RiSearch2Line } from 'react-icons/ri'
 import Typewriter from 'typewriter-effect'
 import React, { useEffect, useState } from 'react'
 import { searchAds } from '../../../../../../services/axois/request/public/publicRequest'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
+import ToastNotification from '../../../../../../services/toastify/toastify'
 
 type ButtonType = 'rent' | 'sell'
+interface Advertisement {
+  id: number
+  user_id: number
+  title: string
+  description: string
+  address: string
+  area: number
+  floor: number
+  number_of_floors: number
+  rooms: number
+  city: string
+  type_of_wc: string
+  elevator: boolean
+  parking: boolean
+  property_type: string
+  mortgage_price: number | null
+  rent_price: number | null
+  sell_price: number | null
+  transaction_type: string
+  created_at: string
+  updated_at: string
+}
+
+interface AdvertisementResponse {
+  data: Advertisement[]
+}
 
 const HeaderContent: React.FC = () => {
   const [activeButton, setActiveButton] = useState<ButtonType>('rent')
   const [city, setCity] = useState<string>('')
-  const [searchTriggered, setSearchTriggered] = useState<boolean>(false) 
+  const [showError, setShowError] = useState<boolean>(false)
+  const [cachedData, setCachedData] = useState<AdvertisementResponse | null>(
+    null
+  )
 
   const buttons: { label: string; value: ButtonType }[] = [
     { label: 'اجاره', value: 'rent' },
     { label: 'خرید', value: 'sell' },
   ]
-
-  const searchInputChangeHandler = (
-    event: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    setCity(event.target.value.trim())
-  }
 
   const validateCityName = (city: string): boolean => {
     const trimmedCity = city.trim()
@@ -31,11 +55,17 @@ const HeaderContent: React.FC = () => {
       !/[!@#$%^&*()_+={};:'",.<>?|]/.test(trimmedCity)
     )
   }
+  const isInvalid = validateCityName(city)
 
-  const handleSearchClick = () => {
-    if (validateCityName(city)) {
-      setSearchTriggered(true)
-    }
+  const searchInputChangeHandler = (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    setCity(event.target.value.trim())
+    setShowError(true)
+  }
+
+  const blurHandler = () => {
+    setShowError(false)
   }
 
   const filterParams = {
@@ -43,30 +73,84 @@ const HeaderContent: React.FC = () => {
     city,
   }
 
-  const { data, error, isError, isLoading, isFetched } = useQuery({
-    queryKey: ['Advertisements', city],
-    queryFn: () => searchAds(filterParams),
-    enabled: searchTriggered,
+  const queryClient = useQueryClient()
+
+  const {
+    mutate: triggerSearchAds,
+    data,
+    isPending,
+  } = useMutation({
+    mutationFn: async () => searchAds(filterParams),
+    onSuccess: (newData) => {
+      const existingData = queryClient.getQueryData([
+        'Advertisements',
+        `${city}-${activeButton}`,
+      ])
+
+      if (!existingData) {
+        queryClient.setQueryData(
+          ['Advertisements', `${city}-${activeButton}`],
+          newData
+        )
+      }
+
+      setTimeout(() => {
+        queryClient.invalidateQueries({
+          queryKey: ['Advertisements', `${city}-${activeButton}`],
+        })
+
+   
+      }, 5000)
+    },
   })
 
-  useEffect(() => {
-    if (isFetched) {
-      setSearchTriggered(false)
+  const handleSearchClick = () => {
+    const cachedData =
+      queryClient.getQueryData<AdvertisementResponse | null>([
+        'Advertisements',
+        `${city}-${activeButton}`,
+      ]) || null
+    
+    if (cachedData) {
       setCity('')
+      setCachedData(cachedData)
+    } else {
+      triggerSearchAds()
     }
-  }, [isFetched])
-  console.log(isLoading)
-
-  console.log(data)
-  console.log(error)
-  console.log(isFetched)
+  }
 
   useEffect(() => {
     if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
       window.scrollBy({ top: 300, behavior: 'smooth' })
+      setCity('')
+    } else if (data?.data.length === 0) {
+      ToastNotification(
+        'error',
+        'هیچ آگهی‌ای برای این شهر ثبت نشده است. می‌توانید شهر دیگری را جستجو کنید یا نوع معامله (اجاره/خرید) را تغییر دهید.',
+        5000
+      )
+      setShowError(false)
+      setCity('')
     }
   }, [data])
+
+  useEffect(() => {
+    if (!cachedData || !cachedData.data) return
+    if ((cachedData?.data?.length ?? 0) === 0) {
+      ToastNotification(
+        'error',
+        'هیچ آگهی‌ای برای این شهر ثبت نشده است. لطفاً شهر دیگری را جستجو کنید یا نوع معامله را تغییر دهید.',
+        5000
+      )
+      setShowError(false)
+      setCity('')
+    } else {
+      window.scrollBy({ top: 300, behavior: 'smooth' }) 
+      setCity('')
+    }
+  }, [cachedData])
   
+
 
   return (
     <div className="mt-10 md:mt-25 lg:mt-0 flex flex-col items-center text-white font-shabnamBold gap-0.5 xl:gap-5">
@@ -95,7 +179,7 @@ const HeaderContent: React.FC = () => {
         </h3>
       </div>
 
-      <div className="bg-white mt-2 lg:mt-5 w-75 xl:w-3xl lg:w-2xl md:w-xl text-black rounded-2xl flex flex-col gap-1.5 py-1.5 md:py-3.5 px-5 md:px-7">
+      <div className="bg-white mt-2 lg:mt-5 w-75 xl:w-3xl lg:w-2xl md:w-xl text-black rounded-2xl flex flex-col gap-1.5 py-1.5 md:py-3.5 px-3 md:px-5">
         {/* دکمه‌ها */}
         <div className="flex justify-center items-center gap-20 md:gap-50 lg:gap-70 font-shabnamMedium text-lg md:text-2xl md:mb-1">
           {buttons.map(({ label, value }) => (
@@ -127,28 +211,38 @@ const HeaderContent: React.FC = () => {
         </div>
 
         <div className="w-full mb-0 md:m-1">
-          <div className="flex items-center gap-1.5">
+          <div className="flex items-center  gap-1.5">
             <RiSearch2Line className="text-2xl md:text-3xl text-Gray-35" />
-            <input
-              className="border-none placeholder:text-xs sm:placeholder:text-base outline-0 w-full font-shabnam text-Gray-35 placeholder-Gray-35"
-              type="text"
-              placeholder="شهر مورد نظر را جست‌وجو کنید"
-              onChange={(event) => searchInputChangeHandler(event)}
-              value={city}
-            />
+            <div className=" w-full flex flex-col ">
+              <input
+                className="border-none  placeholder:text-xs md:placeholder:text-base outline-0 w-full font-shabnam text-Gray-35 placeholder-Gray-35"
+                type="text"
+                placeholder="شهر مورد نظر را جست‌وجو کنید"
+                onChange={(event) => searchInputChangeHandler(event)}
+                value={city}
+                onBlur={blurHandler}
+              />
+            </div>
             <button
-              disabled={isLoading || !validateCityName(city)}
+              disabled={isPending || !isInvalid}
               onClick={handleSearchClick}
-              className={`cursor-pointer border !font-shabnam border-gray-90 p-1.5 rounded-sm text-xs transition-all duration-500
+              className={`cursor-pointer border p-1 !font-shabnam border-gray-90   min-w-fit  rounded-sm text-[8px] md:text-[10px] transition-all duration-500
     ${
-      isLoading || !validateCityName(city)
+      isPending || !isInvalid
         ? 'bg-gray-300 text-gray-500  !cursor-not-allowed'
         : 'hover:bg-primary hover:border-primary hover:text-white'
     }`}
             >
-              {isLoading ? 'بارگیری' : 'جستجو'}
+              {!isInvalid
+                ? 'نام شهر را وارد کنید'
+                : isPending
+                ? 'درحال بارگذاری'
+                : 'جستجو'}
             </button>
           </div>
+          {!isInvalid && showError && (
+            <p className="text-red-500 text-xs">نام شهر وارد شده معتبر نیست.</p>
+          )}
         </div>
       </div>
     </div>
