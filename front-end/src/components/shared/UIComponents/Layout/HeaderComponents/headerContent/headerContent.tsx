@@ -7,7 +7,7 @@ import ToastNotification from '../../../../../../services/toastify/toastify'
 import { useSearch } from '../../../../../../context/HomePageSearch/useSearch'
 
 export type ButtonType = 'rent' | 'sell'
-interface Advertisement {
+export interface Advertisement {
   id: number
   user_id: number
   title: string
@@ -28,6 +28,7 @@ interface Advertisement {
   transaction_type: string
   created_at: string
   updated_at: string
+  images: []
 }
 
 export interface AdvertisementResponse {
@@ -93,7 +94,13 @@ const HeaderContent: React.FC = () => {
         }
       )
 
-      setSearchState((prev) => ({ ...prev, result: newData }))
+      setSearchState((prev) => ({
+        ...prev,
+        result: newData,
+        city,
+        isLoading: false,
+        transactionType: activeButton,
+      }))
 
       setTimeout(() => {
         queryClient.removeQueries({
@@ -128,14 +135,22 @@ const HeaderContent: React.FC = () => {
         ...prev,
         result: { data: data.data },
         isLoading: false,
+        transactionType: activeButton,
       }))
+      console.log(data.data);
     } else if (data?.data.length === 0) {
       ToastNotification(
         'error',
         'هیچ آگهی‌ای برای این شهر ثبت نشده است. می‌توانید شهر دیگری را جستجو کنید یا نوع معامله (اجاره/خرید) را تغییر دهید.',
         5000
       )
-      setSearchState((prev) => ({ ...prev, result: null, isLoading: false }))
+      setSearchState((prev) => ({
+        ...prev,
+        result: null,
+        isLoading: false,
+        city,
+        transactionType: activeButton,
+      }))
       setShowError(false)
       setCity('')
     }
@@ -154,13 +169,21 @@ const HeaderContent: React.FC = () => {
       )
       setShowError(false)
       setCity('')
-      setSearchState((prev) => ({ ...prev, result: null, isLoading: false }))
+      setSearchState((prev) => ({
+        ...prev,
+        result: null,
+        isLoading: false,
+        city,
+        transactionType: activeButton,
+      }))
     } else {
       window.scrollBy({ top: 700, behavior: 'smooth' })
       setSearchState((prev) => ({
         ...prev,
         result: { data: cachedData.data },
         isLoading: false,
+        city,
+        transactionType: activeButton,
       }))
     }
   }, [cachedData])

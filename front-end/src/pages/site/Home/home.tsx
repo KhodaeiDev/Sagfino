@@ -9,7 +9,7 @@ import { Navigation } from 'swiper/modules'
 import { v4 as uuidv4 } from 'uuid'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import React, { useContext, useEffect, useRef } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
@@ -19,7 +19,6 @@ import { AuthContext } from '../../../context/auth/authContext'
 import { useSearch } from '../../../context/HomePageSearch/useSearch'
 
 const Home: React.FC = () => {
-  const productsRef = useRef(null) 
   // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
 
   // const openModal = useCallback(() => {
@@ -68,35 +67,24 @@ const Home: React.FC = () => {
     },
   ]
 
+  console.log(searchState.isLoading)
+  if (searchState.isLoading) {
+    return <h1>در حال بارگذاری...</h1>
+  }
+
+  console.log(searchState.transactionType === 'rent')
   return (
     <>
       {/* Header */}
       {/*HousingHelp => SearchUser  LatestHomeListings */}
       <div className=" mt-14 lg:mt-26">
-        {/* HousingHelp */}
-
-        {!auth.token && (
-          <div className="container">
-            <SectionHeader
-              title={'سقفینو چطور به خانه‌دار شدن شما کمک می‌کند '}
-              dec={''}
-              center={false}
-              btnTitle={''}
-              btnHref={''}
-            />
-            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-6">
-              {saghfinooHelpData.map((data) => (
-                <BoxHelp key={data.id} {...data} />
-              ))}
-            </div>
-          </div>
-        )}
-
         {/* LatestHomeListings */}
-        {auth.token && (
-          <div id='products' className="container">
+        {searchState.result?.data.length && (
+          <div id="products" className="container">
             <SectionHeader
-              title={'جدیدترین خانه‌های اجاره‌ای تهران '}
+              title={`جدیدترین خانه‌های ${
+                searchState.transactionType === 'rent' ? 'اجاره ای' : 'فروشی'
+              } ${searchState.city} `}
               dec={''}
               center={false}
               btnTitle={'مشاهده همه'}
@@ -110,14 +98,30 @@ const Home: React.FC = () => {
               active={false}
             />
             <div className="  grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
-              <ProductBox isSaved={false}></ProductBox>
-              <ProductBox isSaved={false}></ProductBox>
-              <ProductBox isSaved={false}></ProductBox>
-              <ProductBox isSaved={false}></ProductBox>
-              <ProductBox isSaved={false}></ProductBox>
-              <ProductBox isSaved={false}></ProductBox>
-              <ProductBox isSaved={false}></ProductBox>
-              <ProductBox isSaved={false}></ProductBox>
+              {searchState.result?.data.map((productInfo) => (
+                <ProductBox
+                  isSaved={false}
+                  productInfo={productInfo}
+                ></ProductBox>
+              ))}
+            </div>
+          </div>
+        )}
+        {/* HousingHelp */}
+
+        {searchState.result?.data.length && (
+          <div className="container">
+            <SectionHeader
+              title={'سقفینو چطور به خانه‌دار شدن شما کمک می‌کند '}
+              dec={''}
+              center={false}
+              btnTitle={''}
+              btnHref={''}
+            />
+            <div className=" grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3  gap-6">
+              {saghfinooHelpData.map((data) => (
+                <BoxHelp key={data.id} {...data} />
+              ))}
             </div>
           </div>
         )}
