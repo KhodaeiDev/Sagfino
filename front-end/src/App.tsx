@@ -1,13 +1,9 @@
 import './App.css'
 
 import Router from './router'
-import { AuthContextProvider } from './context/authContext'
-import {
-  QueryClient,
-  QueryClientProvider,
-} from '@tanstack/react-query'
+import { AuthContextProvider } from './context/auth/authContext'
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-
 
 const App = () => {
   const queryClient = new QueryClient()
@@ -18,7 +14,7 @@ const App = () => {
         <AuthContextProvider>
           <Router />
         </AuthContextProvider>
-        <ReactQueryDevtools/>
+        <ReactQueryDevtools />
       </QueryClientProvider>
     </>
   )

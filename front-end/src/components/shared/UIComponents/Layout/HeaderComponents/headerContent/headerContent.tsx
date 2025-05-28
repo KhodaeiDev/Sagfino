@@ -95,12 +95,10 @@ const HeaderContent: React.FC = () => {
       }
 
       setTimeout(() => {
-        queryClient.invalidateQueries({
+        queryClient.removeQueries({
           queryKey: ['Advertisements', `${city}-${activeButton}`],
         })
-
-   
-      }, 5000)
+      }, 60000)
     },
   })
 
@@ -110,7 +108,7 @@ const HeaderContent: React.FC = () => {
         'Advertisements',
         `${city}-${activeButton}`,
       ]) || null
-    
+
     if (cachedData) {
       setCity('')
       setCachedData(cachedData)
@@ -145,12 +143,10 @@ const HeaderContent: React.FC = () => {
       setShowError(false)
       setCity('')
     } else {
-      window.scrollBy({ top: 300, behavior: 'smooth' }) 
+      window.scrollBy({ top: 300, behavior: 'smooth' })
       setCity('')
     }
   }, [cachedData])
-  
-
 
   return (
     <div className="mt-10 md:mt-25 lg:mt-0 flex flex-col items-center text-white font-shabnamBold gap-0.5 xl:gap-5">

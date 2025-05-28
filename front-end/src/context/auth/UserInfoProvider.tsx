@@ -1,6 +1,6 @@
 import { useEffect, useContext } from 'react'
 import { AuthContext } from './authContext'
-import { useGetFromLocalStorage } from '../Hooks/shared/shared'
+import { useGetFromLocalStorage } from '../../Hooks/shared/shared'
 
 const UserInfoProvider: React.FC = () => {
   const [getLocalUserToken] = useGetFromLocalStorage('userToken')

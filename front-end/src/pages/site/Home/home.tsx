@@ -15,7 +15,7 @@ import { NavLink } from 'react-router'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
 // import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import ShowSwal from '../../../services/sweetalert2/configs'
-import { AuthContext } from '../../../context/authContext'
+import { AuthContext } from '../../../context/auth/authContext'
 
 const Home: React.FC = () => {
   // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)

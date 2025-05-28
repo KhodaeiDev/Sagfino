@@ -3,14 +3,14 @@ import { GoClock } from 'react-icons/go'
 import { useLocation, useNavigate } from 'react-router'
 import { v4 as uuidv4 } from 'uuid'
 import InputOtp from '../../../components/shared/UIComponents/FormElements/otp/inputOtp'
-import { AuthContext } from '../../../context/authContext'
+import { AuthContext } from '../../../context/auth/authContext'
 import {
   sendMobileNumber,
   verifyOtpCode,
 } from '../../../services/axois/request/auth/authRequests'
 import { useGetFromLocalStorage } from '../../../Hooks/shared/shared'
 import ToastNotification from '../../../services/toastify/toastify'
-import { UserInfoType } from '../../../context/authContext'
+import { UserInfoType } from '../../../context/auth/authContext'
 
 const StepTwo: React.FC = () => {
   const navigate = useNavigate()
@@ -274,7 +274,6 @@ const StepTwo: React.FC = () => {
           </div>
         </div>
       </div>
-    
     </>
   )
 }

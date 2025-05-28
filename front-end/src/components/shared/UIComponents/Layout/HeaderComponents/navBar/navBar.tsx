@@ -11,7 +11,7 @@ import { IoIosPeople } from 'react-icons/io'
 import { CiHome } from 'react-icons/ci'
 import { IoMdClose } from 'react-icons/io'
 import { useScrollFixed } from '../../../../../../Hooks/shared/shared'
-import { AuthContext } from '../../../../../../context/authContext'
+import { AuthContext } from '../../../../../../context/auth/authContext'
 import { IoIosArrowDown } from 'react-icons/io'
 
 interface MenueMobailProps {

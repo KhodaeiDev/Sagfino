@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from 'react'
-import { AuthContext } from '../context/authContext'
+import { AuthContext } from '../context/auth/authContext'
 import { Navigate } from 'react-router'
 import 'react-toastify/dist/ReactToastify.css'
 import ToastNotification from '../services/toastify/toastify'

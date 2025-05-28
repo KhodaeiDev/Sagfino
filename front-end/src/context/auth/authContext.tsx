@@ -10,7 +10,7 @@ import {
   useSaveToLocalStorage,
   useGetFromLocalStorage,
   useRemoveFromLocalStorage,
-} from '../Hooks/shared/shared'
+} from '../../Hooks/shared/shared'
 import UserInfoProvider from './UserInfoProvider'
 
 export type UserInfoType = {
