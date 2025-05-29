@@ -128,6 +128,7 @@ const HeaderContent: React.FC = () => {
   }
 
   useEffect(() => {
+    console.log(data);
     if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
       window.scrollBy({ top: 700, behavior: 'smooth' })
       setCity('')

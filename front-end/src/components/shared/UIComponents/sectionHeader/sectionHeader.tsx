@@ -29,7 +29,7 @@ const SectionHeader: React.FC<SectionHeaderProps> = memo(
                 {btnTitle ? (
                   <NavLink
                     className={
-                      'text-gray-71 font-shabnamMedium  text-xs md:text-lg'
+                      'text-gray-71  transition-all duration-300 hover:text-primary font-shabnamMedium  text-xs md:text-lg'
                     }
                     to={`${btnHref}`}
                   >

@@ -1,6 +1,7 @@
 import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
 import BoxHelp from '../../../components/shared/Cards/helpBox/helpBox'
 // import PublicBox from '../../components/publicBox/publicBox'
+import PublicBox from '../../../components/shared/Cards/publicBox/publicBox'
 import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 // import NewsBox from '../../components/newsBox/newsBox'
 
@@ -15,7 +16,6 @@ import { NavLink } from 'react-router'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
 // import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import ShowSwal from '../../../services/sweetalert2/configs'
-import { AuthContext } from '../../../context/auth/authContext'
 import { useSearch } from '../../../context/HomePageSearch/useSearch'
 
 const Home: React.FC = () => {
@@ -30,7 +30,6 @@ const Home: React.FC = () => {
   // }, [])
 
   document.title = 'سقفینو - خانه'
-  const auth = useContext(AuthContext)
   const { searchState } = useSearch()
 
   useEffect(() => {
@@ -77,10 +76,10 @@ const Home: React.FC = () => {
     <>
       {/* Header */}
       {/*HousingHelp => SearchUser  LatestHomeListings */}
-      <div className=" mt-14 lg:mt-26">
+      <div className=" my-14  lg:my-25">
         {/* LatestHomeListings */}
         {searchState.result?.data.length && (
-          <div id="products" className="container">
+          <div id="products" className="container  mb-15 lg:mb-25">
             <SectionHeader
               title={`جدیدترین خانه‌های ${
                 searchState.transactionType === 'rent' ? 'اجاره ای' : 'فروشی'
@@ -100,6 +99,7 @@ const Home: React.FC = () => {
             <div className="  grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
               {searchState.result?.data.map((productInfo) => (
                 <ProductBox
+                  key={productInfo.id}
                   isSaved={false}
                   productInfo={productInfo}
                 ></ProductBox>
@@ -109,7 +109,7 @@ const Home: React.FC = () => {
         )}
         {/* HousingHelp */}
 
-        {searchState.result?.data.length && (
+        {
           <div className="container">
             <SectionHeader
               title={'سقفینو چطور به خانه‌دار شدن شما کمک می‌کند '}
@@ -124,12 +124,12 @@ const Home: React.FC = () => {
               ))}
             </div>
           </div>
-        )}
+        }
       </div>
       {/* PropertyTypesSection */}
-      <div className="PropertyTypesSection mt-12 lg:mt-22">
+      <div className="PropertyTypesSection  ">
         {/* /* PropertyTypesSection  */}
-        {/* <div className="container">
+        <div className="container mb-15 lg:mb-25">
           <SectionHeader
             title={'در سقفینو دنبال چه نوع ملکی هستید'}
             dec={''}
@@ -143,9 +143,9 @@ const Home: React.FC = () => {
             <PublicBox />
             <PublicBox />
           </div>
-        </div> */}
+        </div>
         {/* services */}
-        <div className="container">
+        <div className="container mb-15 lg:mb-25">
           <SectionHeader
             title={'سقفینو فرصتی برای همه'}
             dec={'اگر مالک یا در جست‌‌وجوی سقفی نو هستید، کلیک کنید'}
@@ -185,7 +185,7 @@ const Home: React.FC = () => {
         </div>
       </div>
       {/*Customer-service || Top real estate */}
-      <div className="Customer-service mt-8 lg:mt-22">
+      <div className="Customer-service mb-15 lg:mb-25">
         {/* <div className="container">
           <SectionHeader
             title={'همه به شما مشاوره می‌دهند!'}
@@ -215,7 +215,7 @@ const Home: React.FC = () => {
             </div>
           </div>
         </div> */}
-        {auth.token && (
+        {/* {auth.token && (
           <div className="container">
             <SectionHeader
               title={'املاک برتر تهران '}
@@ -274,7 +274,7 @@ const Home: React.FC = () => {
               </SwiperSlide>
             </Swiper>
           </div>
-        )}
+        )} */}
 
         <div className="News Saghfinoo  mt-12 lg:mt-22 mb-32">
           <div className="container">
