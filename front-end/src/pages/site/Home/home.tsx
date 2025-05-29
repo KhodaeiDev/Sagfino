@@ -10,7 +10,7 @@ import { Navigation } from 'swiper/modules'
 import { v4 as uuidv4 } from 'uuid'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
 import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
@@ -31,10 +31,18 @@ const Home: React.FC = () => {
 
   document.title = 'سقفینو - خانه'
   const { searchState } = useSearch()
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
-    console.log('searchState', searchState)
-  }, [searchState])
+    if (searchState.isLoading) {
+      setLoading(true) 
+    } else {
+      setTimeout(() => {
+        setLoading(false) 
+      }, 1000)
+    }
+  }, [searchState.isLoading])
+
 
   const saghfinooHelpData = [
     {
@@ -66,24 +74,18 @@ const Home: React.FC = () => {
     },
   ]
 
-  console.log(searchState.isLoading)
-  if (searchState.isLoading) {
-    return <h1>در حال بارگذاری...</h1>
-  }
-
-  console.log(searchState.transactionType === 'rent')
   return (
     <>
       {/* Header */}
       {/*HousingHelp => SearchUser  LatestHomeListings */}
       <div className=" my-14  lg:my-25">
         {/* LatestHomeListings */}
-        {searchState.result?.data.length && (
+        {searchState?.result?.data?.length && (
           <div id="products" className="container  mb-15 lg:mb-25">
             <SectionHeader
               title={`جدیدترین خانه‌های ${
-                searchState.transactionType === 'rent' ? 'اجاره ای' : 'فروشی'
-              } ${searchState.city} `}
+                searchState?.transactionType === 'rent' ? 'اجاره ای' : 'فروشی'
+              } ${searchState?.city} `}
               dec={''}
               center={false}
               btnTitle={'مشاهده همه'}
@@ -97,10 +99,10 @@ const Home: React.FC = () => {
               active={false}
             />
             <div className="  grid grid-cols-2  md:grid-cols-3 xl:grid-cols-4 gap-x-4 gap-y-2.5 lg:gap-x-6 lg:gap-y-4">
-              {searchState.result?.data.map((productInfo) => (
+              {searchState?.result?.data.map((productInfo) => (
                 <ProductBox
-                  key={productInfo.id}
-                  isSaved={false}
+                  key={productInfo?.id}
+                  isLoading={loading}
                   productInfo={productInfo}
                 ></ProductBox>
               ))}
@@ -110,7 +112,7 @@ const Home: React.FC = () => {
         {/* HousingHelp */}
 
         {
-          <div className="container">
+          <div className="container  mb-15 lg:mb-25">
             <SectionHeader
               title={'سقفینو چطور به خانه‌دار شدن شما کمک می‌کند '}
               dec={''}

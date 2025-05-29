@@ -1,31 +1,14 @@
-import { RiBookmarkLine } from 'react-icons/ri'
 import { NavLink } from 'react-router'
-import React, { useState, useEffect, memo } from 'react'
+import React, { memo } from 'react'
 import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 import { Advertisement } from '../../UIComponents/Layout/HeaderComponents/headerContent/headerContent'
 type ProductBoxProps = {
-  isSaved: boolean
+  isLoading: boolean
   productInfo: Advertisement
 }
 
 const ProductBox: React.FC<ProductBoxProps> = memo(
-  ({ isSaved, productInfo }) => {
-    const [isLoading, setIsLoading] = useState(true)
-    const [isSaveAd, setIsSaveAd] = useState<boolean>(false)
-
-    useEffect(() => {
-      const timer = setTimeout(() => setIsLoading(false), 2000)
-      return () => clearTimeout(timer)
-    }, [])
-
-    const SaveAdHandler = () => {
-      setIsSaveAd((prev) => !prev)
-    }
-
-    useEffect(() => {
-      setIsSaveAd(isSaved)
-    }, [isSaved])
-
+  ({ isLoading, productInfo }) => {
     return (
       <div
         className={` border w-full  h-auto 
@@ -76,9 +59,9 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
               to={'/detailsProduct/detailsProduct/1'}
             >
               <img
-                className="w-full rounded-t-xl"
-                src={``}
-                alt="Your Alt Text"
+                className="w-full rounded-t-xl  object-cover h-[110px]  sm:h-[170px]"
+                src={`https://saghfino.abolfazlhp.ir/storage/${productInfo?.images[0]?.path}`}
+                alt="Advertisement Image"
                 onError={(event) => {
                   ;(event.target as HTMLImageElement).src =
                     '/img/Photo Place.png'
@@ -89,17 +72,17 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
               </div>
             </NavLink>
             <div className="flex flex-col gap-2.5 p-2.5 lg:px-3.5 lg:pt2.5 lg:pb-6.25">
-              <div className="flex items-center  gap-x-[2px] justify-between font-shabnam text-10 lg:text-base text-gray-90">
+              <div className="flex items-center clamped-text-product-Box  gap-x-[2px] justify-between font-shabnam text-10 lg:text-base text-gray-90">
                 <NavLink to={''}> {productInfo?.title.slice(0, 25)}</NavLink>
-                <RiBookmarkLine
-                  onClick={SaveAdHandler}
+                {/* <RiBookmarkLine
+                  onClick={() => SaveAdHandler(productInfo.id)}
                   className={`cursor-pointer w-3 h-3 lg:w-6 lg:h-6  transition-all duration-500 ${
                     isSaveAd ? ' text-primary' : 'text-gray-90'
                   } `}
-                />
+                /> */}
               </div>
               <div>
-                <span className="text-10 text-gray-1000 lg:text-base">
+                <span className="text-10 clamped-text-product-Box text-gray-1000 lg:text-base">
                   {productInfo?.address.slice(0, 25)}
                 </span>
               </div>

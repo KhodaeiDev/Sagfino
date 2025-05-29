@@ -4,6 +4,12 @@ import errorHandler from '../ErrorHandlers/ErrorHandlers'
 const onSuccess = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
+  const token = localStorage.getItem('userToken')
+  console.log("token save",token)
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`
+  }
+
   return config
 }
 

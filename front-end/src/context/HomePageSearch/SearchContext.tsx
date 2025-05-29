@@ -18,10 +18,10 @@ const defaultState: SearchState = {
   transactionType: 'rent',
   city: '',
   result: null,
-  isLoading: false,
+  isLoading: true,
 }
 
 export const SearchContext = createContext<SearchContextProps>({
   searchState: defaultState,
-  setSearchState: () => {}, 
+  setSearchState: () => {},
 })

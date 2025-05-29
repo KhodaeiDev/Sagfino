@@ -2,11 +2,11 @@ import axios from 'axios'
 import requestMiddleware from './requestMiddleware'
 import responseMiddleware from './responseMiddleware'
 
+
 const axiosProtectedInstance = axios.create({
   baseURL: 'https://saghfino.abolfazlhp.ir/api',
   headers: {
     'Content-Type': 'application/json',
-    Authorization: 'Bearer Token',
   },
 })
 

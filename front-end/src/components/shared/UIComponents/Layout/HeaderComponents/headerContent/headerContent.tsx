@@ -1,12 +1,19 @@
 import { RiSearch2Line } from 'react-icons/ri'
 import Typewriter from 'typewriter-effect'
 import React, { useEffect, useState } from 'react'
-import { searchAds } from '../../../../../../services/axois/request/public/publicRequest'
+import { searchAds } from '../../../../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ToastNotification from '../../../../../../services/toastify/toastify'
 import { useSearch } from '../../../../../../context/HomePageSearch/useSearch'
 
 export type ButtonType = 'rent' | 'sell'
+export interface Image {
+  id: number
+  ad_id: number
+  path: string
+  created_at: string
+  updated_at: string
+}
 export interface Advertisement {
   id: number
   user_id: number
@@ -28,7 +35,7 @@ export interface Advertisement {
   transaction_type: string
   created_at: string
   updated_at: string
-  images: []
+  images: Image[]
 }
 
 export interface AdvertisementResponse {
@@ -128,7 +135,6 @@ const HeaderContent: React.FC = () => {
   }
 
   useEffect(() => {
-    console.log(data);
     if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
       window.scrollBy({ top: 700, behavior: 'smooth' })
       setCity('')
@@ -138,7 +144,6 @@ const HeaderContent: React.FC = () => {
         isLoading: false,
         transactionType: activeButton,
       }))
-      console.log(data.data);
     } else if (data?.data.length === 0) {
       ToastNotification(
         'error',
@@ -158,7 +163,6 @@ const HeaderContent: React.FC = () => {
   }, [data])
 
   useEffect(() => {
-    console.log('cachedData', cachedData)
     if (!cachedData || !cachedData.data || !Array.isArray(cachedData.data))
       return
 

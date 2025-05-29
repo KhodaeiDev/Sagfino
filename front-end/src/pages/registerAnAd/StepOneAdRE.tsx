@@ -9,7 +9,7 @@ import {
   Footer,
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
-import { getingCities } from '../../services/axois/request/public/publicRequest'
+import { getingCities } from '../../services/axois/request/Advertisements/AdvertisementsRequest'
 import Input from '../../components/shared/UIComponents/FormElements/input/input'
 import {
   maxValidator,
