@@ -5,6 +5,7 @@ import { searchAds } from '../../../../../../services/axois/request/Advertisemen
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ToastNotification from '../../../../../../services/toastify/toastify'
 import { useSearch } from '../../../../../../context/HomePageSearch/useSearch'
+import { useParams, useSearchParams } from 'react-router'
 
 export type ButtonType = 'rent' | 'sell'
 export interface Image {
@@ -49,6 +50,7 @@ const HeaderContent: React.FC = () => {
   const [cachedData, setCachedData] = useState<AdvertisementResponse | null>(
     null
   )
+  const [searchParams, setSearchParams] = useSearchParams()
 
   const { searchState, setSearchState } = useSearch()
   const buttons: { label: string; value: ButtonType }[] = [
@@ -117,8 +119,26 @@ const HeaderContent: React.FC = () => {
     },
   })
 
+  const checkURLAndFetchData = (): boolean => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const cityFromUrl = searchParams.get('city')
+    const transactionTypeFromUrl = searchParams.get('tr_type')
+
+    if (cityFromUrl && transactionTypeFromUrl) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   const handleSearchClick = () => {
     setSearchState((prev) => ({ ...prev, isLoading: true }))
+
+    const newParams = new URLSearchParams()
+    newParams.set('city', city)
+    newParams.set('tr_type', activeButton)
+
+    setSearchParams(newParams)
 
     const cachedData =
       queryClient.getQueryData<AdvertisementResponse | null>([
@@ -129,7 +149,7 @@ const HeaderContent: React.FC = () => {
     if (cachedData) {
       setCity('')
       setCachedData(cachedData)
-    } else {
+    } else if (checkURLAndFetchData()) {
       triggerSearchAds()
     }
   }
