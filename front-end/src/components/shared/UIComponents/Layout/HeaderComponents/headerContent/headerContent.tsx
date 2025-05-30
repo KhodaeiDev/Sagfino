@@ -156,7 +156,13 @@ const HeaderContent: React.FC = () => {
 
   useEffect(() => {
     if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-      window.scrollBy({ top: 700, behavior: 'smooth' })
+      if (window.innerWidth > 640) {
+        if (window.innerWidth > 768) {
+          window.scrollBy({ top: 600, behavior: 'smooth' })
+        } else {
+          window.scrollBy({ top: 100, behavior: 'smooth' })
+        }
+      }
       setCity('')
       setSearchState((prev) => ({
         ...prev,
@@ -202,7 +208,13 @@ const HeaderContent: React.FC = () => {
         transactionType: activeButton,
       }))
     } else {
-      window.scrollBy({ top: 700, behavior: 'smooth' })
+      if (window.innerWidth > 640) {
+        if (window.innerWidth > 768) {
+          window.scrollBy({ top: 600, behavior: 'smooth' })
+        } else {
+          window.scrollBy({ top: 100, behavior: 'smooth' })
+        }
+      }
       setSearchState((prev) => ({
         ...prev,
         result: { data: cachedData.data },
