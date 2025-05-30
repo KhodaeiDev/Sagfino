@@ -51,8 +51,8 @@ const HeaderContent: React.FC = () => {
     null
   )
   const [searchParams, setSearchParams] = useSearchParams()
-
   const { searchState, setSearchState } = useSearch()
+
   const buttons: { label: string; value: ButtonType }[] = [
     { label: 'اجاره', value: 'rent' },
     { label: 'خرید', value: 'sell' },
@@ -163,6 +163,15 @@ const HeaderContent: React.FC = () => {
           window.scrollBy({ top: 100, behavior: 'smooth' })
         }
       }
+
+      const storedData = {
+        result: data.data,
+        timestamp: Date.now(),
+        city,
+        transactionType: activeButton,
+      }
+
+      localStorage.setItem('searchData', JSON.stringify(storedData))
       setCity('')
       setSearchState((prev) => ({
         ...prev,
@@ -224,6 +233,27 @@ const HeaderContent: React.FC = () => {
       }))
     }
   }, [cachedData])
+
+  useEffect(() => {
+    const storedData = localStorage.getItem('searchData')
+
+    if (storedData) {
+      const parsedData = JSON.parse(storedData)
+      const currentTime = Date.now()
+
+      if (currentTime - parsedData.timestamp < 300000) {
+        setSearchState((prev) => ({
+          ...prev,
+          result: { data: parsedData.result },
+          isLoading: false,
+          city: parsedData.city,
+          transactionType: parsedData.transactionType,
+        }))
+      } else {
+        localStorage.removeItem('searchData')
+      }
+    }
+  }, [])
 
   return (
     <div className="mt-10 md:mt-25 lg:mt-0 flex flex-col items-center text-white font-shabnamBold gap-0.5 xl:gap-5">
