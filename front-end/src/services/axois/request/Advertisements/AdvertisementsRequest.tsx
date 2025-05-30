@@ -4,10 +4,9 @@ import {
 } from '../../configs/configs'
 import { AxiosResponse } from 'axios'
 
-export const getingCities = async (): Promise<AxiosResponse> => {
-  return await axiosUnProtectedInstance.get('/cities')
+export const getingProvinces = async (): Promise<AxiosResponse> => {
+  return await axiosUnProtectedInstance.get('/provinces')
 }
-
 export const searchAds = async (
   filters: Record<string, string | null>
 ): Promise<AxiosResponse> => {
@@ -19,3 +18,10 @@ export const saveAdReq = async (
 ): Promise<AxiosResponse> => {
   return await axiosProtectedInstance.post(`/ads/${AdvertisementsId}/save`)
 }
+
+export const getingCities = async (
+  provinceId: number
+): Promise<AxiosResponse> => {
+  return await axiosProtectedInstance.get(`/provinces/${provinceId}`) // ✅ حذف `/api/api/` و تصحیح مسیر
+}
+

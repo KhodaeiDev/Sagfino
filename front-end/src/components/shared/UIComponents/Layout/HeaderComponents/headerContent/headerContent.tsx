@@ -50,8 +50,8 @@ const HeaderContent: React.FC = () => {
   const [cachedData, setCachedData] = useState<AdvertisementResponse | null>(
     null
   )
-  const [searchParams, setSearchParams] = useSearchParams()
-  const { searchState, setSearchState } = useSearch()
+  const [, setSearchParams] = useSearchParams()
+  const { setSearchState } = useSearch()
 
   const buttons: { label: string; value: ButtonType }[] = [
     { label: 'اجاره', value: 'rent' },
@@ -165,7 +165,7 @@ const HeaderContent: React.FC = () => {
       }
 
       const storedData = {
-        result: data.data,
+        result: data.data.slice(0, 8),
         timestamp: Date.now(),
         city,
         transactionType: activeButton,
@@ -175,7 +175,7 @@ const HeaderContent: React.FC = () => {
       setCity('')
       setSearchState((prev) => ({
         ...prev,
-        result: { data: data.data },
+        result: { data: data.data.slice(0, 8) },
         isLoading: false,
         transactionType: activeButton,
       }))
@@ -226,7 +226,7 @@ const HeaderContent: React.FC = () => {
       }
       setSearchState((prev) => ({
         ...prev,
-        result: { data: cachedData.data },
+        result: { data: cachedData.data.slice(0, 8) },
         isLoading: false,
         city,
         transactionType: activeButton,
@@ -244,7 +244,7 @@ const HeaderContent: React.FC = () => {
       if (currentTime - parsedData.timestamp < 300000) {
         setSearchState((prev) => ({
           ...prev,
-          result: { data: parsedData.result },
+          result: { data: parsedData.result.slice(0, 8) },
           isLoading: false,
           city: parsedData.city,
           transactionType: parsedData.transactionType,
