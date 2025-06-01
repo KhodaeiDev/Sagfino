@@ -85,7 +85,7 @@ const StepOneAdRE: React.FC = () => {
 
   const handleProvinceSelect = (name: string, id: number) => {
     const province = provinces.find((p) => p.id === id)
-    setSelectedProvince(province || null)
+    setSelectedProvince(province ? { ...province, name } : null)
     setSelectedCity('شهر خود را انتخاب کنید')
   }
 
@@ -111,7 +111,6 @@ const StepOneAdRE: React.FC = () => {
     !selectedProvince ||
     selectedCity === 'شهر خود را انتخاب کنید' ||
     !formState.inputs.Address?.isValid
-  console.log(' one Disabled', Boolean(selectedProvince))
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
@@ -131,10 +130,11 @@ const StepOneAdRE: React.FC = () => {
                       استان
                     </label>
                     <SelectBox
-                      options={provinces.map((p) => ({
-                        id: p.id,
-                        name: p.name,
-                      }))}
+                      options={
+                        isLoading
+                          ? [{ id: 0, name: 'در حال بارگذاری...' }]
+                          : provinces.map((p) => ({ id: p.id, name: p.name }))
+                      }
                       selectedOption={
                         selectedProvince
                           ? selectedProvince.name

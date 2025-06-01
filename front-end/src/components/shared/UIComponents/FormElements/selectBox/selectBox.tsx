@@ -86,4 +86,3 @@ const SelectBox: React.FC<SelectBoxProps> = memo(
 
 export default SelectBox
 
-export default SelectBox

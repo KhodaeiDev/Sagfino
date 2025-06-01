@@ -115,7 +115,6 @@ const UseForm = (formType: FormType) => {
         }
       case 'adPosting':
         return {
-          houseType: { value: '', isValid: false, errorMessage: null },
           location: { value: '', isValid: false, errorMessage: null },
         }
       default:
