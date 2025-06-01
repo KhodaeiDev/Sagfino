@@ -107,6 +107,11 @@ const StepOneAdRE: React.FC = () => {
     [onInputHandler, dispatch]
   )
 
+  const btnDisabled =
+    !selectedProvince ||
+    selectedCity === 'شهر خود را انتخاب کنید' ||
+    !formState.inputs.Address?.isValid
+  console.log(' one Disabled', Boolean(selectedProvince))
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
@@ -197,7 +202,11 @@ const StepOneAdRE: React.FC = () => {
 
               {/* دکمه ادامه */}
               <div className="flex items-center justify-center gap-x-3 mt-10 xl:mt-25">
-                <Btn title="ادامه " link="/registerAnAd/StepTwo" />
+                <Btn
+                  disabled={btnDisabled}
+                  title={btnDisabled ? 'اطلاعات مورد نیاز را وارد' : 'ادامه '}
+                  link="/registerAnAd/StepTwo"
+                />
               </div>
             </div>
           </AdRegistrationContainer>

@@ -3,7 +3,6 @@ import { InputProps, InputState, InputAction } from './types'
 import validator from '../../../../../validators/validator'
 import { memo } from 'react'
 
-
 const inputReducer = (state: InputState, action: InputAction): InputState => {
   switch (action.type) {
     case 'CHANGE':
@@ -11,19 +10,17 @@ const inputReducer = (state: InputState, action: InputAction): InputState => {
         ...state,
         value: action.value,
         isValid: validator(action.value, action.validations),
-        errorMessage: action.errorMessage || null, 
+        errorMessage: action.errorMessage || null,
       }
     case 'SET_ERROR':
       return {
         ...state,
-        errorMessage: action.errorMessage, 
+        errorMessage: action.errorMessage,
       }
     default:
       return state
   }
 }
-
-
 
 const Input: React.FC<InputProps> = memo((props) => {
   const [mainInput, dispatch] = useReducer(inputReducer, {
@@ -35,8 +32,7 @@ const Input: React.FC<InputProps> = memo((props) => {
 
   const { value, isValid } = mainInput
   const { id, onInputHandler, onFocus, errorMessage } = props
-  console.log(errorMessage)
-
+  console.log(isValid)
   useEffect(() => {
     onInputHandler(id, value, isValid)
   }, [id, value, isValid])
@@ -106,6 +102,5 @@ const Input: React.FC<InputProps> = memo((props) => {
 
   return element
 })
-
 
 export default Input
