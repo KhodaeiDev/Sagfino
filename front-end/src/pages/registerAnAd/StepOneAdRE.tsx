@@ -120,7 +120,7 @@ const StepOneAdRE: React.FC = () => {
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
 
                 {/* انتخاب استان */}
-                <div className="grid grid-cols-2 gap-x-4 gap-y-9 mt-5">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-9 mt-5">
                   <div className="flex flex-col items-start gap-1.5 font-shabnam text-sm">
                     <label className="text-sm lg:text-lg font-shabnamBold">
                       استان
@@ -129,12 +129,12 @@ const StepOneAdRE: React.FC = () => {
                       options={provinces.map((p) => ({
                         id: p.id,
                         name: p.name,
-                      }))} // ✅ ارسال لیست استان‌ها
+                      }))}
                       selectedOption={
                         selectedProvince
                           ? selectedProvince.name
                           : 'لطفاً استان خود را انتخاب کنید'
-                      } // ✅ نمایش مقدار پیش‌فرض
+                      }
                       onSelect={handleProvinceSelect}
                       width="w-full"
                       responsiveWidth="w-full"
@@ -142,7 +142,7 @@ const StepOneAdRE: React.FC = () => {
                     />
                   </div>
 
-                  <div className="flex flex-col items-start gap-1.5 font-shabnam text-sm">
+                  <div className="flex flex-col items-start gap-1.5 font-shabnam   tsxt-[10px] md:text-sm">
                     <label className="text-sm lg:text-lg font-shabnamBold">
                       شهر
                     </label>
@@ -161,8 +161,6 @@ const StepOneAdRE: React.FC = () => {
                       responsiveHeight="h-12"
                     />
                   </div>
-
-                  {/* فیلد آدرس */}
                   <div>
                     <label
                       className="font-shabnamBold mb-3 text-sm lg:text-lg"
@@ -176,7 +174,7 @@ const StepOneAdRE: React.FC = () => {
                         type="text"
                         placeholder=" آدرس  خود را وارد کنید "
                         element="text"
-                        className=" w-full h-full   !outline-0    py-3  text-xs lg:text-base  bg-white border !border-blue-400 ! !shadow-blue-400/50 shadow flex items-center    rounded-lg mt-2 "
+                        className=" w-full h-full   !outline-0 pr-10 lg:pr-8   py-3  text-sm  lg:text-base  bg-white border !border-blue-400 ! !shadow-blue-400/50 shadow flex items-center    rounded-lg mt-2 "
                         validations={[
                           requiredValidator(),
                           minValidator(15),
@@ -189,7 +187,7 @@ const StepOneAdRE: React.FC = () => {
                         validationMessageSuccess={` آدرس  وارد شده معتبر است`}
                         validationMessageError={`   آدرس   وارد شده معتبر نیست`}
                         icon={
-                          <IoLocationSharp className="absolute w-3.5 h-3.5 md:w-6 md:h-6 right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                          <IoLocationSharp className="absolute w-6 h-6 md:w-5 md:h-5 right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
                         }
                       />
                     </div>
