@@ -119,6 +119,10 @@ const UseForm = (formType: FormType) => {
           Mortgage: { value: '', isValid: false, errorMessage: null },
           Rent: { value: '', isValid: false, errorMessage: null },
           Sale: { value: '', isValid: false, errorMessage: null },
+          Floor: { value: '', isValid: false, errorMessage: null },
+          Room: { value: '', isValid: false, errorMessage: null },
+          Area: { value: '', isValid: false, errorMessage: null },
+          NumberFloors: { value: '', isValid: false, errorMessage: null },
         }
       default:
         return {}
