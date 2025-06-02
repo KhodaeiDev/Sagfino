@@ -4,7 +4,7 @@ import { FormType } from './useformType'
 type InputState = {
   value: string
   isValid: boolean
-  errorMessage?: string | null 
+  errorMessage?: string | null
 }
 
 type FormInputState = {
@@ -39,7 +39,7 @@ const formInputReducer = (
         [action.inputID]: {
           value: action.value || '',
           isValid: action.isValid,
-          errorMessage: null, 
+          errorMessage: null,
         },
       }
 
@@ -64,7 +64,7 @@ const formInputReducer = (
           ...state.inputs,
           [action.inputID]: {
             ...state.inputs[action.inputID],
-            errorMessage: action.value, 
+            errorMessage: action.value,
           },
         },
       }
@@ -115,7 +115,10 @@ const UseForm = (formType: FormType) => {
         }
       case 'adPosting':
         return {
-          location: { value: '', isValid: false, errorMessage: null },
+          Address: { value: '', isValid: false, errorMessage: null },
+          Mortgage: { value: '', isValid: false, errorMessage: null },
+          Rent: { value: '', isValid: false, errorMessage: null },
+          Sale: { value: '', isValid: false, errorMessage: null },
         }
       default:
         return {}

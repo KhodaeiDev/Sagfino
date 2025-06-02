@@ -22,6 +22,7 @@ export type InputProps = {
   validationMessageError?: string | null
   validationMessageSuccess?: string | null
   isFocused?: boolean
+  shouldFormat?: boolean
 }
 export type InputState = {
   value: string
@@ -29,7 +30,6 @@ export type InputState = {
   validations: ValidationItem[]
   errorMessage: string | null
 }
-
 
 export type InputAction = {
   type: 'CHANGE' | 'SET_ERROR'

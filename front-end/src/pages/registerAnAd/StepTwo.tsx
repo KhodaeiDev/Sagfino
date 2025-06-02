@@ -1,5 +1,4 @@
-import React, { useCallback } from 'react'
-import { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -10,6 +9,15 @@ import {
   Footer,
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
+import Input from '../../components/shared/UIComponents/FormElements/input/input'
+import {
+  maxValidator,
+  minValidator,
+  requiredValidator,
+} from '../../validators/rules'
+import { MdAttachMoney } from 'react-icons/md'
+import UseForm from '../../Hooks/useForm'
+import { FormType } from '../../Hooks/useformType'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -22,113 +30,208 @@ const steps: Step[] = [
 
 const StepTwoAdRE: React.FC = () => {
   document.title = 'مرحله ی دوم-ثبت آگهی'
+  const [dealType, setDealType] = useState('نوع معامله')
+  const [propertyType, setPropertyType] = useState('نوع ملک')
+  const [isFocused, setIsFocused] = useState<boolean>(false)
+  const [formType] = useState<FormType>('adPosting')
+  const [formState, onInputHandler, dispatch] = UseForm(formType)
+  const handleFocus = () => {
+    if (!isFocused) {
+      setIsFocused(true)
+    }
+  }
+
+  const handleInputChange = useCallback(
+    (inputID: string, value: string, isValid: boolean) => {
+      dispatch({ type: 'CLEAR_ERRORS' })
+      onInputHandler(inputID, value, isValid)
+    },
+    [onInputHandler, dispatch]
+  )
+
   const selectBoxData = [
     {
       label: ' نوع معامله ',
-      items: ['فروش', 'اجاره', 'رهن'],
+      items: [
+        { id: 1, name: 'فروش' },
+        { id: 2, name: 'اجاره' },
+      ],
     },
     {
       label: 'نوع ملک',
-      items: ['مسکونی', 'تجاری', 'بازرگانی'],
+      items: [
+        { id: 1, name: 'تجاری' },
+        { id: 2, name: 'مسکونی' },
+      ],
     },
   ]
-  const [options, setOptions] = useState<string[]>([' نوع معامله ', 'نوع ملک '])
 
-  const handleSelect = useCallback((index: number, value: string) => {
-    setOptions((prevOptions) => {
-      const newOptions = [...prevOptions]
-      newOptions[index] = value
-      return newOptions
-    })
+  const handleDealTypeSelect = useCallback((value: string) => {
+    setDealType(value)
+  }, [])
+
+  const handlePropertyTypeSelect = useCallback((value: string) => {
+    setPropertyType(value)
   }, [])
 
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
-        <div className="container ">
+        <div className="container">
           <AdRegistrationContainer>
             <div className="flex flex-col w-full">
               <ProgressBar steps={steps} />
-              {/* form */}
               <div className="flex flex-col">
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
-                {/* select box */}
-                <div className=" flex flex-col xl:flex-row items-center gap-x-4 gap-y-2 justify-between mt-5 ">
-                  <div className=" w-full  flex-col xl:flex-row   flex items-center gap-4 justify-between">
-                    {selectBoxData.map((data, index) => (
-                      <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
-                        <label
-                          htmlFor=" "
-                          className="  text-sm lg:text-lg font-shabnamBold "
-                        >
-                          {data.label}
-                        </label>{' '}
-                        <SelectBox
-                          key={index}
-                          selectedOption={options[index]}
-                          onSelect={(option) => handleSelect(index, option)}
-                          width="w-72.5 "
-                          responsiveWidth="w-72"
-                          responsiveHeight="h-12"
-                        >
-                          {data.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </SelectBox>
-                      </div>
-                    ))}
+
+                {/* انتخاب نوع معامله و نوع ملک */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-9 mt-5">
+                  <div className="flex flex-col items-start gap-1.5 font-shabnam text-sm">
+                    <label className="text-sm lg:text-lg font-shabnamBold">
+                      نوع معامله
+                    </label>
+                    <SelectBox
+                      options={
+                        selectBoxData.find(
+                          (data) => data.label === ' نوع معامله '
+                        )?.items || []
+                      }
+                      selectedOption={dealType}
+                      onSelect={handleDealTypeSelect}
+                      width="w-full"
+                      responsiveWidth="w-full"
+                      responsiveHeight="h-12"
+                    />
                   </div>
-                </div>
-                {/* input */}
-                <div className=" flex flex-col xl:flex-row items-center gap-4 justify-between mt-5 xl:mt-30 ">
+
+                  <div className="flex flex-col items-start gap-1.5 font-shabnam text-sm">
+                    <label className="text-sm lg:text-lg font-shabnamBold">
+                      نوع ملک
+                    </label>
+                    <SelectBox
+                      options={
+                        selectBoxData.find((data) => data.label === 'نوع ملک')
+                          ?.items || []
+                      }
+                      selectedOption={propertyType}
+                      onSelect={handlePropertyTypeSelect}
+                      width="w-full"
+                      responsiveWidth="w-full"
+                      responsiveHeight="h-12"
+                    />
+                  </div>
+
                   {/* custom input */}
-                  <div>
-                    <label
-                      className=" font-shabnamBold  mb-3 text-sm lg:text-lg"
-                      htmlFor=""
-                    >
-                      رهن
-                    </label>
-                    <div className=" p-2 text-base  border-blue-400 shadow-blue-400/50 shadow-lg   flex items-center  w-72.5 h-12  border  rounded-lg mt-2 ">
-                      <input
-                        placeholder=" مثلا 50 ملیون تومان "
-                        className=" placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
+                  {dealType === 'فروش' && (
+                    <div>
+                      <label className="font-shabnamBold mb-3 text-sm lg:text-lg">
+                        قیمت فروش
+                      </label>
+                      <Input
+                        id="Sale"
                         type="text"
+                        shouldFormat={true}
+                        placeholder="مثلاً ۲۰ میلیون تومان (در صورت وارد کردن ۰، توافقی در نظر گرفته می‌شود)"
+                        element="text"
+                        className=" w-full h-full   !outline-0 pr-10 lg:pr-8 placeholder:text-[9px]   py-3  text-sm  lg:text-base  bg-white border !border-blue-400 ! !shadow-blue-400/50 shadow flex items-center    rounded-lg mt-2 "
+                        validations={[
+                          requiredValidator(),
+                          minValidator(1),
+                          maxValidator(15),
+                        ]}
+                        onInputHandler={handleInputChange}
+                        onFocus={handleFocus}
+                        errorMessage={formState.inputs.SalePrice?.errorMessage}
+                        isFocused={isFocused}
+                        validationMessageSuccess={` قیمت وارد شده معتبر است`}
+                        validationMessageError={` قیمت وارد شده معتبر نیست`}
+                        icon={
+                          <MdAttachMoney className="absolute w-6 h-6 right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                        }
                       />
                     </div>
-                  </div>
-                  <div>
-                    <label
-                      className=" font-shabnamBold  mb-3 text-sm lg:text-lg "
-                      htmlFor=""
-                    >
-                      اجاره
-                    </label>
-                    <div className=" p-2  text-base  flex items-center w-72.5 h-12  border shadow-lg   border-blue-400 shadow-blue-400/50  rounded-lg mt-2 ">
-                      <input
-                        placeholder="مثلا 20 ملیون تومان "
-                        className=" placeholder:text-gray-1000 border-0 outline-0 bg-transparent "
-                        type="text"
-                      />
-                    </div>
-                  </div>
+                  )}
+
+                  {dealType === 'اجاره' && (
+                    <>
+                      <div>
+                        <label className="font-shabnamBold mb-3 text-sm lg:text-lg">
+                          رهن
+                        </label>
+                        <Input
+                          id="Mortgage"
+                          type="text"
+                          shouldFormat={true}
+                          placeholder="مثلاً ۲۰ میلیون تومان (در صورت وارد کردن ۰، توافقی در نظر گرفته می‌شود)"
+                          element="text"
+                          className=" w-full h-full   !outline-0 pr-10 lg:pr-8 placeholder:text-[9px]   py-3  text-sm  lg:text-base  bg-white border !border-blue-400 ! !shadow-blue-400/50 shadow flex items-center    rounded-lg mt-2 "
+                          validations={[
+                            requiredValidator(),
+                            minValidator(1),
+                            maxValidator(10),
+                          ]}
+                          onInputHandler={handleInputChange}
+                          onFocus={handleFocus}
+                          errorMessage={formState.inputs.Mortgage?.errorMessage}
+                          isFocused={isFocused}
+                          validationMessageSuccess={` قیمت وارد شده معتبر است`}
+                          validationMessageError={` قیمت وارد شده معتبر نیست`}
+                          icon={
+                            <MdAttachMoney className="absolute w-6 h-6 right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                          }
+                        />
+                      </div>
+                      <div>
+                        <label className="font-shabnamBold mb-3 text-sm lg:text-lg">
+                          اجاره
+                        </label>
+                        <Input
+                          id="Rent"
+                          type="text"
+                          shouldFormat={true}
+                          placeholder="مثلاً ۲۰ میلیون تومان (در صورت وارد کردن ۰، توافقی در نظر گرفته می‌شود)"
+                          element="text"
+                          className=" w-full h-full   !outline-0 pr-10 lg:pr-8 placeholder:text-[9px]   py-3  text-sm  lg:text-base  bg-white border !border-blue-400 ! !shadow-blue-400/50 shadow flex items-center    rounded-lg mt-2 "
+                          validations={[
+                            requiredValidator(),
+                            minValidator(1),
+                            maxValidator(15),
+                          ]}
+                          onInputHandler={handleInputChange}
+                          onFocus={handleFocus}
+                          errorMessage={formState.inputs.Rent?.errorMessage}
+                          isFocused={isFocused}
+                          validationMessageSuccess={` قیمت وارد شده معتبر است`}
+                          validationMessageError={` قیمت وارد شده معتبر نیست`}
+                          icon={
+                            <MdAttachMoney className="absolute w-6 h-6 right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
+                          }
+                        />
+                      </div>
+                    </>
+                  )}
                 </div>
               </div>
 
-              <div className=" flex   items-center justify-center  gap-x-3 mt-10 xl:mt-25 ">
+              {/* دکمه‌ها */}
+              <div className="flex items-center justify-center gap-x-3 mt-10 xl:mt-25">
                 <Btn
-                  title="قبلی "
+                  title="قبلی"
                   bgColor="bg-transparent"
                   textColor="text-primary"
                   borderColor="border-primary"
                   link="/registerAnAd/StepOneAdRE"
+                  disabled={false}
                 />
-                <Btn title="ادامه " link="/registerAnAd/StepThree" />
+                <Btn
+                  disabled={false}
+                  title="ادامه"
+                  link="/registerAnAd/StepThree"
+                />
               </div>
             </div>
           </AdRegistrationContainer>
         </div>
-        {/* // Footer */}
         <Footer />
         <FooterMobail />
       </div>

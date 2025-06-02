@@ -34,23 +34,27 @@ const steps: Step[] = [
   { id: 6, status: 'pending' },
 ]
 
+interface Province {
+  id: number
+  name: string
+}
+
+interface City {
+  id: number
+  name: string
+}
+
 const StepOneAdRE: React.FC = () => {
+
+
+
   document.title = 'مرحله ی اول-ثبت آگهی'
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
-  interface Province {
-    id: number
-    name: string
-  }
-
-  interface City {
-    id: number
-    name: string
-  }
-
+ 
   const { data: provincesData, isLoading } = useQuery({
     queryKey: ['Provinces'],
     queryFn: getingProvinces,

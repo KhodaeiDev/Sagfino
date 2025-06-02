@@ -9,6 +9,7 @@ interface SelectBoxProps {
   width?: string
   responsiveWidth?: string
   responsiveHeight?: string
+  children?: React.ReactNode
 }
 
 const SelectBox: React.FC<SelectBoxProps> = memo(

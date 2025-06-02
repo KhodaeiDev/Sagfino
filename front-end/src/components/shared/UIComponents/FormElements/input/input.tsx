@@ -32,16 +32,22 @@ const Input: React.FC<InputProps> = memo((props) => {
 
   const { value, isValid } = mainInput
   const { id, onInputHandler, onFocus, errorMessage } = props
-  console.log(isValid)
+
   useEffect(() => {
     onInputHandler(id, value, isValid)
   }, [id, value, isValid])
 
+  const formattedValue =
+    props.shouldFormat && value
+      ? value.replace(/\B(?=(\d{3})+(?!\d))/g, ',')
+      : value
+
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+      const rawValue = event.target.value.replace(/,/g, '')
       dispatch({
         type: 'CHANGE',
-        value: event.target.value,
+        value: rawValue,
         validations: props.validations,
         isValid: false,
         errorMessage: null,
@@ -64,8 +70,8 @@ const Input: React.FC<InputProps> = memo((props) => {
                 : isValid
                 ? 'border-green-500 focus:ring-green-500'
                 : 'border-gray-300 focus:ring-primary'
-            } `}
-            value={value}
+            } px-10`}
+            value={formattedValue}
             onChange={handleChange}
             onFocus={onFocus}
           />
@@ -94,7 +100,7 @@ const Input: React.FC<InputProps> = memo((props) => {
         className={`${props.className} ${
           isValid ? '!border-green-500' : '!border-primary'
         }`}
-        value={value}
+        value={formattedValue}
         onChange={handleChange}
         onFocus={onFocus}
       ></textarea>
