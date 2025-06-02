@@ -45,16 +45,12 @@ interface City {
 }
 
 const StepOneAdRE: React.FC = () => {
-
-
-
   document.title = 'مرحله ی اول-ثبت آگهی'
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
- 
   const { data: provincesData, isLoading } = useQuery({
     queryKey: ['Provinces'],
     queryFn: getingProvinces,
@@ -208,7 +204,9 @@ const StepOneAdRE: React.FC = () => {
               <div className="flex items-center justify-center gap-x-3 mt-10 xl:mt-25">
                 <Btn
                   disabled={btnDisabled}
-                  title={btnDisabled ? 'اطلاعات مورد نیاز را وارد' : 'ادامه '}
+                  title={
+                    btnDisabled ? ' اطلاعات مورد نیاز را وارد کنید' : 'ادامه '
+                  }
                   link="/registerAnAd/StepTwo"
                 />
               </div>

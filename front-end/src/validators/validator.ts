@@ -34,6 +34,12 @@ const validator = (value: string, validations: Validation[]): boolean => {
           return false
         }
         break
+      case rules.onlyNumber:
+        if (!Regex.isNumber(value)) {
+          return false
+        }
+        break
+
       case rules.phoneNumber:
         if (!Regex.TestPhoneNumber(value)) {
           return false

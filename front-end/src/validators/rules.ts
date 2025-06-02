@@ -14,6 +14,7 @@ const requiredValue: string = 'REQUIRED_VALUE'
 const minValue: string = 'MIN_VALUE'
 const maxValue: string = 'MAX_VALUE'
 const phoneNumber: string = 'PHONE'
+const onlyNumber: string = 'ONLY-NUMBER'
 
 export const requiredValidator = (): BaseValidatorType => ({
   value: requiredValue,
@@ -33,4 +34,14 @@ export const phoneValidator = () => ({
   value: phoneNumber,
 })
 
-export default { requiredValue, minValue, maxValue, phoneNumber }
+export const onlyNumberValidator = () => ({
+  value: onlyNumber,
+})
+
+export default {
+  requiredValue,
+  minValue,
+  maxValue,
+  phoneNumber,
+  onlyNumber, 
+}

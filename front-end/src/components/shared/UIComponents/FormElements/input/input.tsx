@@ -70,7 +70,7 @@ const Input: React.FC<InputProps> = memo((props) => {
                 : isValid
                 ? 'border-green-500 focus:ring-green-500'
                 : 'border-gray-300 focus:ring-primary'
-            } px-10`}
+            } px-4`}
             value={formattedValue}
             onChange={handleChange}
             onFocus={onFocus}

@@ -3,9 +3,12 @@ const TestPhoneNumber = (value: string) => {
   return emailPattern.test(value)
 }
 
-const testEmail = (value:string) => {
+const testEmail = (value: string) => {
   const emailPattent = /^[a-z0-9]+@[a-z]+\.[a-z]{2,3}$/g
   return emailPattent.test(value)
 }
+const onlyNumberRegex = /^\d+$/
 
-export default { TestPhoneNumber, testEmail }
+const isNumber = (value: string): boolean => onlyNumberRegex.test(value)
+
+export default { TestPhoneNumber, testEmail, isNumber }

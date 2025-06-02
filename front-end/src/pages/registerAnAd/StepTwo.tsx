@@ -14,6 +14,7 @@ import {
   maxValidator,
   minValidator,
   requiredValidator,
+  onlyNumberValidator,
 } from '../../validators/rules'
 import { MdAttachMoney } from 'react-icons/md'
 import UseForm from '../../Hooks/useForm'
@@ -74,6 +75,13 @@ const StepTwoAdRE: React.FC = () => {
     setPropertyType(value)
   }, [])
 
+  const btnDisabled =
+    dealType === 'نوع معامله' ||
+    propertyType === 'نوع ملک' ||
+    (dealType === 'فروش' && !formState.inputs.Sale?.isValid) ||
+    (dealType === 'اجاره' &&
+      (!formState.inputs.Rent?.isValid || !formState.inputs.Mortgage?.isValid))
+
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
@@ -85,7 +93,7 @@ const StepTwoAdRE: React.FC = () => {
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
 
                 {/* انتخاب نوع معامله و نوع ملک */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-9 mt-5">
+                <div className="grid grid-cols-1 xl:grid-cols-2 gap-x-4 gap-y-9 mt-5">
                   <div className="flex flex-col items-start gap-1.5 font-shabnam text-sm">
                     <label className="text-sm lg:text-lg font-shabnamBold">
                       نوع معامله
@@ -138,6 +146,7 @@ const StepTwoAdRE: React.FC = () => {
                           requiredValidator(),
                           minValidator(1),
                           maxValidator(15),
+                          onlyNumberValidator(),
                         ]}
                         onInputHandler={handleInputChange}
                         onFocus={handleFocus}
@@ -169,6 +178,7 @@ const StepTwoAdRE: React.FC = () => {
                             requiredValidator(),
                             minValidator(1),
                             maxValidator(10),
+                            onlyNumberValidator(),
                           ]}
                           onInputHandler={handleInputChange}
                           onFocus={handleFocus}
@@ -196,6 +206,7 @@ const StepTwoAdRE: React.FC = () => {
                             requiredValidator(),
                             minValidator(1),
                             maxValidator(15),
+                            onlyNumberValidator(),
                           ]}
                           onInputHandler={handleInputChange}
                           onFocus={handleFocus}
@@ -224,8 +235,10 @@ const StepTwoAdRE: React.FC = () => {
                   disabled={false}
                 />
                 <Btn
-                  disabled={false}
-                  title="ادامه"
+                  disabled={btnDisabled}
+                  title={
+                    btnDisabled ? ' اطلاعات مورد نیاز را وارد کنید' : 'ادامه '
+                  }
                   link="/registerAnAd/StepThree"
                 />
               </div>
