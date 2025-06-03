@@ -103,7 +103,6 @@ const StepTwo: React.FC = () => {
     try {
       setLoading(true)
       const response = await verifyOtpCode(auth.phone, finalOtp)
-      console.log('response', response)
       if (response.status === 200) {
         setValidOtp(true)
         ToastNotification(

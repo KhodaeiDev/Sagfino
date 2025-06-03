@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -19,6 +19,7 @@ import {
 import { MdAttachMoney } from 'react-icons/md'
 import UseForm from '../../Hooks/useForm'
 import { FormType } from '../../Hooks/useformType'
+import { useAdvertisement } from '../../context/AdRegistration/useAdvertisement'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -36,6 +37,8 @@ const StepTwoAdRE: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
+  const { setAdvertisementData } = useAdvertisement()
+
   const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)
@@ -67,13 +70,42 @@ const StepTwoAdRE: React.FC = () => {
     },
   ]
 
-  const handleDealTypeSelect = useCallback((value: string) => {
-    setDealType(value)
-  }, [])
+  const handleDealTypeSelect = useCallback(
+    (value: string) => {
+      setDealType(value)
+      setAdvertisementData((prevData) => ({
+        ...prevData,
+        transaction_type: value === 'فروش' ? 'sell' : 'rent',
+      }))
+    },
+    [setDealType]
+  )
 
-  const handlePropertyTypeSelect = useCallback((value: string) => {
-    setPropertyType(value)
-  }, [])
+  const handlePropertyTypeSelect = useCallback(
+    (value: string) => {
+      setPropertyType(value)
+      setAdvertisementData((prevData) => ({
+        ...prevData,
+        property_type: value === 'تجاری' ? 'Commercial' : 'Residential',
+      }))
+    },
+    [setPropertyType]
+  )
+  useEffect(() => {
+    setAdvertisementData((prevData) => ({
+      ...prevData,
+      sell_price:
+        (dealType === 'فروش' && Number(formState.inputs.Sale.value)) || 0,
+      rent_price:
+        (dealType === 'اجاره' && Number(formState.inputs.Rent.value)) || 0,
+      mortgage_price:
+        (dealType === 'اجاره' && Number(formState.inputs.Mortgage.value)) || 0,
+    }))
+  }, [
+    formState.inputs.Sale.value,
+    formState.inputs.Rent.value,
+    formState.inputs.Mortgage.value,
+  ])
 
   const btnDisabled =
     dealType === 'نوع معامله' ||

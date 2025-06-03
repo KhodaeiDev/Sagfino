@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -24,6 +24,7 @@ import { FormType } from '../../Hooks/useformType'
 import { IoLocationSharp } from 'react-icons/io5'
 import { useQuery } from '@tanstack/react-query'
 import { AxiosResponse } from 'axios'
+import { useAdvertisement } from '../../context/AdRegistration/useAdvertisement'
 
 const steps: Step[] = [
   { id: 1, status: 'active' },
@@ -50,6 +51,7 @@ const StepOneAdRE: React.FC = () => {
 
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
+  const { setAdvertisementData } = useAdvertisement()
 
   const { data: provincesData, isLoading } = useQuery({
     queryKey: ['Provinces'],
@@ -91,6 +93,10 @@ const StepOneAdRE: React.FC = () => {
 
   const handleCitySelect = (name: string) => {
     setSelectedCity(name)
+    setAdvertisementData((prevData) => ({
+      ...prevData,
+      city: name,
+    }))
   }
 
   const handleFocus = () => {
@@ -106,6 +112,17 @@ const StepOneAdRE: React.FC = () => {
     },
     [onInputHandler, dispatch]
   )
+
+  useEffect(() => {
+    if (selectedCity !== 'شهر خود را انتخاب کنید') {
+      setAdvertisementData((prevData) => ({
+        ...prevData,
+        address: String(formState?.inputs?.Address.value),
+      }))
+    }
+  }, [formState?.inputs?.Address.value])
+
+
 
   const btnDisabled =
     !selectedProvince ||

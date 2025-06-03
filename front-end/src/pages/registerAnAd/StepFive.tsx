@@ -9,7 +9,6 @@ import {
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
-
 const steps: Step[] = [
   { id: 1, status: 'completed' },
   { id: 2, status: 'completed' },
@@ -57,8 +56,13 @@ const StepFiveAdRE: React.FC = () => {
                   textColor="text-primary"
                   borderColor="border-primary"
                   link="/registerAnAd/StepFour"
+                  disabled={false}
                 />
-                <Btn title="ادامه " link="/registerAnAd/StepSix" />
+                <Btn
+                  disabled={false}
+                  title="ادامه"
+                  link="/registerAnAd/StepSix"
+                />
               </div>
             </div>
           </AdRegistrationContainer>

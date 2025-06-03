@@ -119,7 +119,7 @@ const StepOne: React.FC = () => {
               type="text"
               placeholder="شماره تلفن"
               element="text"
-              className="border border-gray-300 rounded-lg p-2 focus:outline-none "
+              className="border border-gray-300 rounded-lg p-2 pr-10 focus:outline-none "
               validations={[
                 requiredValidator(),
                 minValidator(11),

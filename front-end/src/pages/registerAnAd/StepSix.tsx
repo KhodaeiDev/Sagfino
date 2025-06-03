@@ -20,12 +20,12 @@ const steps: Step[] = [
 ]
 
 const StepSixAdRE: React.FC = () => {
-  const [uploadedImages, setUploadedImages] = useState<(string | null)[]>(
+  const [uploadedImages, setUploadedImages] = useState<(File | null)[]>(
     Array(6).fill(null)
   )
 
   useEffect(() => {
-    document.title = 'مرحله ی شش-ثبت آگهی'
+    document.title = 'مرحله‌ی شش - ثبت آگهی'
   }, [])
 
   const handleImageUpload = useCallback(
@@ -44,40 +44,51 @@ const StepSixAdRE: React.FC = () => {
         return
       }
 
-      const reader = new FileReader()
-      reader.onload = () => {
-        setUploadedImages((prev) => {
-          const updatedImages = [...prev]
-          updatedImages[index] = reader.result as string
-          return updatedImages
-        })
-      }
-      reader.readAsDataURL(file)
-    },
-    [setUploadedImages]
-  )
-
-  const handleImageRemove = useCallback(
-    (index: number) => {
       setUploadedImages((prev) => {
         const updatedImages = [...prev]
-        updatedImages[index] = null
+        updatedImages[index] = file 
         return updatedImages
       })
     },
-    [setUploadedImages]
+    []
   )
+
+  const handleImageRemove = useCallback((index: number) => {
+    setUploadedImages((prev) => {
+      const updatedImages = [...prev]
+      updatedImages[index] = null
+      return updatedImages
+    })
+  }, [])
+
+  const handleSubmit = () => {
+    const formData = new FormData()
+
+    uploadedImages.forEach((file, index) => {
+      if (file) {
+        formData.append(`file_${index}`, file)
+      }
+    })
+
+    fetch('https://example.com/upload', {
+      method: 'POST',
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => console.log('Upload Success:', data))
+      .catch((error) => console.error('Upload Error:', error))
+  }
 
   return (
     <div className="bg-AdRegistration bg-gray-ED min-h-screen">
-      <div className="container ">
+      <div className="container">
         <AdRegistrationContainer>
           <ProgressBar steps={steps} />
           <div className="flex flex-col">
             <SectionHeaderAdRe
               title="تصاویر خود را آپلود کنید"
-              des="اضافه کردم عکس و ویدئو باعث افزایش بازدید آگهی شما می‌شود."
-              subdes="فرمت عکس‌ها باید webp، jpg، jpeg یا png باشد. "
+              des="اضافه کردن عکس و ویدئو باعث افزایش بازدید آگهی شما می‌شود."
+              subdes="فرمت عکس‌ها باید webp، jpg، jpeg یا png باشد."
             />
             <div className="container mx-auto p-4">
               <div className="grid grid-cols-1 xs:grid-cols-3 gap-4">
@@ -93,7 +104,7 @@ const StepSixAdRE: React.FC = () => {
                     {image ? (
                       <>
                         <img
-                          src={image}
+                          src={URL.createObjectURL(image)}
                           alt="Uploaded"
                           className="w-full h-full object-cover rounded-lg"
                         />
@@ -131,13 +142,25 @@ const StepSixAdRE: React.FC = () => {
                 textColor="text-primary"
                 borderColor="border-primary"
                 link="/registerAnAd/StepFive"
+                disabled={false}
               />
-              <Btn title="ادامه" link="/registerAnAd/RegisterDone" />
+              <Btn
+                title="ادامه"
+                link="/registerAnAd/RegisterDone"
+                disabled={false}
+              />
+            </div>
+            <div className="flex items-center justify-center mt-5">
+              <button
+                onClick={handleSubmit}
+                className="px-6 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary-dark"
+              >
+                ارسال تصاویر
+              </button>
             </div>
           </div>
         </AdRegistrationContainer>
       </div>
-      {/* // Footer */}
       <Footer />
       <FooterMobail />
     </div>

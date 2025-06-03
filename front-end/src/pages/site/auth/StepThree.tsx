@@ -34,6 +34,7 @@ const StepThree: React.FC = () => {
     }
   }
 
+
   const toggleCheckbox = () => {
     setIsChecked((prev) => !prev)
   }
@@ -166,7 +167,7 @@ const StepThree: React.FC = () => {
                 type="text"
                 placeholder=" نام خود را وارد کنید "
                 element="text"
-                className=" w-full h-full py-3  !outline-0   md:py-5  rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+                className=" w-full h-full py-3  !outline-0   md:py-5  pr-10 rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
                 validations={[
                   requiredValidator(),
                   minValidator(3),
@@ -190,7 +191,7 @@ const StepThree: React.FC = () => {
                 type="text"
                 placeholder="نام خانوادگی  خود را وارد کنید "
                 element="text"
-                className=" w-full h-full py-3  !outline-0   md:py-5  rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+                className=" w-full h-full py-3  !outline-0   md:py-5 pr-10  rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
                 validations={[
                   requiredValidator(),
                   minValidator(3),
@@ -215,7 +216,7 @@ const StepThree: React.FC = () => {
                 type="text"
                 placeholder="شماره تلفن"
                 element="text"
-                className=" w-full h-full py-3  !outline-0   md:py-5  rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+                className=" w-full h-full py-3  !outline-0   md:py-5 pr-10  rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
                 validations={[
                   requiredValidator(),
                   minValidator(11),

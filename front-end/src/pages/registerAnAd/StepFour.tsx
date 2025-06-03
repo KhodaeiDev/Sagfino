@@ -22,7 +22,7 @@ const steps: Step[] = [
 const StepFourAdRE: React.FC = () => {
   document.title = 'مرحله ی چهارم-ثبت آگهی'
 
-  const selectBoxData = [
+  const selectBoxDatas = [
     {
       label: 'پارکینگ',
       id: 'parking',
@@ -87,21 +87,23 @@ const StepFourAdRE: React.FC = () => {
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-9 mt-5">
-                  {selectBoxData.map((box) => (
+                  {selectBoxDatas.map((boxData) => (
                     <div
-                      key={box.id}
+                      key={boxData.id}
                       className="flex flex-col items-start gap-1.5 font-shabnam text-sm"
                     >
                       <label className="text-sm lg:text-lg font-shabnamBold">
-                        {box.label}
+                        {boxData.label}
                       </label>
                       <SelectBox
-                        options={box.items}
+                        options={boxData.items}
                         selectedOption={
-                          selectedOptions[box.id] ||
+                          selectedOptions[boxData.id] ||
                           'لطفاً یک گزینه انتخاب کنید'
                         }
-                        onSelect={(item) => handleSelect(box.id, item)}
+                        onSelect={(name) => {
+                          handleSelect(boxData.id, name)
+                        }}
                         width="w-full"
                         responsiveWidth="w-full"
                         responsiveHeight="h-12"

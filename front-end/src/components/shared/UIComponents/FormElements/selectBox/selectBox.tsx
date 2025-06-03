@@ -23,7 +23,7 @@ const SelectBox: React.FC<SelectBoxProps> = memo(
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const toggleDropdown = useCallback(() => {
-      setIsOpen((prev) => !prev) // ✅ استفاده از `prev` برای بهینه‌سازی
+      setIsOpen((prev) => !prev) 
     }, [])
 
     const handleOptionClick = useCallback(

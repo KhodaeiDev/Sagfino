@@ -19,6 +19,7 @@ import { FormType } from '../../Hooks/useformType'
 import UseForm from '../../Hooks/useForm'
 import { MdSquareFoot, MdMeetingRoom } from 'react-icons/md'
 import { MdLayers } from 'react-icons/md'
+import { useAdvertisement } from '../../context/AdRegistration/useAdvertisement'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -35,6 +36,9 @@ const StepThreeAdRE: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
+  const { advertisementData } = useAdvertisement()
+  console.log(advertisementData)
+
   const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)
@@ -199,7 +203,9 @@ const StepThreeAdRE: React.FC = () => {
                   disabled={false}
                 />
                 <Btn
-                  title="ادامه "
+                  title={
+                    btnDisabled ? ' اطلاعات مورد نیاز را وارد کنید' : 'ادامه '
+                  }
                   link="/registerAnAd/StepFour"
                   disabled={btnDisabled}
                 />
