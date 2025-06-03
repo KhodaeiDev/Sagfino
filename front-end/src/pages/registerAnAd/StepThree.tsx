@@ -151,8 +151,8 @@ const StepThreeAdRE: React.FC = () => {
                       onFocus={handleFocus}
                       errorMessage={formState.inputs.SalePrice?.errorMessage}
                       isFocused={isFocused}
-                      validationMessageSuccess={`                     طبقه واحد وارد شده معتبر است`}
-                      validationMessageError={`                     طبقه واحدوارد شده معتبر نیست`}
+                      validationMessageSuccess={` طبقه واحد وارد شده معتبر است`}
+                      validationMessageError={` طبقه واحدوارد شده معتبر نیست`}
                       icon={
                         <MdLayers className="absolute w-6 h-6 right-3 top-1/2 transform -translate-y-1/2 text-gray-500" />
                       }

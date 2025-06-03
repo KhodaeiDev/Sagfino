@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -10,7 +10,6 @@ import {
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 
-
 const steps: Step[] = [
   { id: 1, status: 'completed' },
   { id: 2, status: 'completed' },
@@ -21,35 +20,60 @@ const steps: Step[] = [
 ]
 
 const StepFourAdRE: React.FC = () => {
+  document.title = 'مرحله ی چهارم-ثبت آگهی'
+
   const selectBoxData = [
     {
-      label: '  پارکینگ ',
-      items: ['ندارد', 'دارد'],
+      label: 'پارکینگ',
+      id: 'parking',
+      items: [
+        { id: 1, name: 'دارد' },
+        { id: 2, name: 'ندارد' },
+      ],
     },
     {
-      label: ' نوع سرویس بهداشتی',
-      items: ['هردو', 'ایرانی', 'فرنگی'],
+      label: 'نوع سرویس بهداشتی',
+      id: 'toilet',
+      items: [
+        { id: 1, name: 'فرنگی' },
+        { id: 2, name: 'ایرانی' },
+        { id: 3, name: 'هردو' },
+      ],
     },
     {
-      label: ' انباری',
-      items: ['ندارد', 'دارد'],
+      label: 'آسانسور',
+      id: 'elevator',
+      items: [
+        { id: 1, name: 'دارد' },
+        { id: 2, name: 'ندارد' },
+      ],
     },
     {
-      label: ' آسانسور',
-      items: ['ندارد', 'دارد'],
+      label: 'انباری',
+      id: 'storage',
+      items: [
+        { id: 1, name: 'دارد' },
+        { id: 2, name: 'ندارد' },
+      ],
     },
   ]
-  const [options, setOptions] = useState<string[]>([' پارکینگ  ', 'نوع سرویس',"انباری","آسانسور"])
+  const [selectedOptions, setSelectedOptions] = useState<{
+    [key: string]: string
+  }>({})
 
-  const handleSelect = useCallback((index: number, value: string) => {
-    setOptions((prevOptions) => {
-      const newOptions = [...prevOptions]
-      newOptions[index] = value
-      return newOptions
-    })
-  }, [])
+  const handleSelect = (id: string, item: string) => {
+    setSelectedOptions((prevState) => ({
+      ...prevState,
+      [id]: item,
+    }))
+  }
 
-  document.title = 'مرحله ی چهارم-ثبت آگهی'
+  const btnDisabled = !(
+    selectedOptions.parking &&
+    selectedOptions.toilet &&
+    selectedOptions.elevator &&
+    selectedOptions.storage
+  )
 
   return (
     <>
@@ -62,31 +86,28 @@ const StepFourAdRE: React.FC = () => {
               <div className="flex flex-col">
                 <SectionHeaderAdRe title="لطفا موارد زیر را تکمیل کنید" />
                 {/* select box */}
-                <div className=" flex flex-col  xl:flex-row items-center gap-4 justify-between mt-5 ">
-                  <div className=" w-full flex-wrap  flex-col xl:flex-row   flex items-center gap-x-4 gap-y-5 xl:gap-y-30 justify-between">
-                    {selectBoxData.map((data, index) => (
-                      <div className=" flex flex-col items-start gap-1.5   font-shabnam text-sm ">
-                        <label
-                          htmlFor=" "
-                          className="  text-sm lg:text-lg font-shabnamBold "
-                        >
-                          {data.label}
-                        </label>{' '}
-                        <SelectBox
-                          key={index}
-                          selectedOption={options[index]}
-                          onSelect={(option) => handleSelect(index, option)}
-                          width="w-72.5 "
-                          responsiveWidth="w-65"
-                          responsiveHeight="h-12"
-                        >
-                          {data.items.map((item) => (
-                            <li key={item}>{item}</li>
-                          ))}
-                        </SelectBox>
-                      </div>
-                    ))}
-                  </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-4 gap-y-9 mt-5">
+                  {selectBoxData.map((box) => (
+                    <div
+                      key={box.id}
+                      className="flex flex-col items-start gap-1.5 font-shabnam text-sm"
+                    >
+                      <label className="text-sm lg:text-lg font-shabnamBold">
+                        {box.label}
+                      </label>
+                      <SelectBox
+                        options={box.items}
+                        selectedOption={
+                          selectedOptions[box.id] ||
+                          'لطفاً یک گزینه انتخاب کنید'
+                        }
+                        onSelect={(item) => handleSelect(box.id, item)}
+                        width="w-full"
+                        responsiveWidth="w-full"
+                        responsiveHeight="h-12"
+                      />
+                    </div>
+                  ))}
                 </div>
               </div>
               <div className=" flex   items-center justify-center  gap-x-3 mt-10 xl:mt-25 ">
@@ -96,8 +117,15 @@ const StepFourAdRE: React.FC = () => {
                   textColor="text-primary"
                   borderColor="border-primary"
                   link="/registerAnAd/StepThree"
+                  disabled={false}
                 />
-                <Btn title="ادامه " link="/registerAnAd/StepFive" />
+                <Btn
+                  title={
+                    btnDisabled ? ' اطلاعات مورد نیاز را وارد کنید' : 'ادامه '
+                  }
+                  link="/registerAnAd/StepFive"
+                  disabled={btnDisabled}
+                />
               </div>
             </div>
           </AdRegistrationContainer>
