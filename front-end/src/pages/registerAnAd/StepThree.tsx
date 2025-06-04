@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -36,8 +36,7 @@ const StepThreeAdRE: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  const { advertisementData } = useAdvertisement()
-  console.log(advertisementData)
+  const { setAdvertisementData } = useAdvertisement()
 
   const handleFocus = () => {
     if (!isFocused) {
@@ -51,6 +50,21 @@ const StepThreeAdRE: React.FC = () => {
     },
     [onInputHandler, dispatch]
   )
+
+  useEffect(() => {
+    setAdvertisementData((prevData) => ({
+      ...prevData,
+      area: Number(formState.inputs.Area.value),
+      rooms: Number(formState.inputs.Room.value),
+      floor: Number(formState.inputs.Floor.value),
+      number_of_floors: Number(formState.inputs.NumberFloors.value),
+    }))
+  }, [
+    formState.inputs.Area.value,
+    formState.inputs.Room.value,
+    formState.inputs.Floor.value,
+    formState.inputs.NumberFloors.value,
+  ])
 
   const btnDisabled = !(
     formState.inputs.Floor?.isValid &&

@@ -37,8 +37,8 @@ const StepTwoAdRE: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  const { setAdvertisementData } = useAdvertisement()
-
+  const { advertisementData, setAdvertisementData } = useAdvertisement()
+  console.log(advertisementData)
   const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)
@@ -77,6 +77,10 @@ const StepTwoAdRE: React.FC = () => {
         ...prevData,
         transaction_type: value === 'فروش' ? 'sell' : 'rent',
       }))
+      localStorage.setItem(
+        'transaction_type',
+        value === 'فروش' ? 'sell' : 'rent'
+      )
     },
     [setDealType]
   )
@@ -88,6 +92,10 @@ const StepTwoAdRE: React.FC = () => {
         ...prevData,
         property_type: value === 'تجاری' ? 'Commercial' : 'Residential',
       }))
+      localStorage.setItem(
+        'property_type',
+        value === 'تجاری' ? 'Commercial' : 'Residential'
+      )
     },
     [setPropertyType]
   )
@@ -106,6 +114,27 @@ const StepTwoAdRE: React.FC = () => {
     formState.inputs.Rent.value,
     formState.inputs.Mortgage.value,
   ])
+
+  useEffect(() => {
+    const property_typeLoacalStorage = localStorage.getItem('property_type')
+    const transaction_typeLoacalStorage =
+      localStorage.getItem('transaction_type')
+
+    if (property_typeLoacalStorage && transaction_typeLoacalStorage) {
+      setAdvertisementData((prevData) => ({
+        ...prevData,
+        property_type: property_typeLoacalStorage,
+      }))
+      setPropertyType(
+        property_typeLoacalStorage === 'Commercial' ? 'تجاری' : 'مسکونی'
+      )
+      setAdvertisementData((prevData) => ({
+        ...prevData,
+        transaction_type: transaction_typeLoacalStorage,
+      }))
+      setDealType(transaction_typeLoacalStorage === 'sell' ? 'فروش' : 'اجاره')
+    }
+  }, [])
 
   const btnDisabled =
     dealType === 'نوع معامله' ||

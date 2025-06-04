@@ -45,6 +45,12 @@ const validator = (value: string, validations: Validation[]): boolean => {
           return false
         }
         break
+
+      case rules.persianText:
+        if (!Regex.isPersian(value)) {
+          return false
+        }
+        break
     }
   }
 

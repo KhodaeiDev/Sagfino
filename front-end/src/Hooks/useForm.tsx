@@ -115,7 +115,11 @@ const UseForm = (formType: FormType) => {
         }
       case 'adPosting':
         return {
-          Address: { value: '', isValid: false, errorMessage: null },
+          Address: {
+            value: '',
+            isValid: false,
+            errorMessage: null,
+          },
           Mortgage: { value: '', isValid: false, errorMessage: null },
           Rent: { value: '', isValid: false, errorMessage: null },
           Sale: { value: '', isValid: false, errorMessage: null },
@@ -123,6 +127,8 @@ const UseForm = (formType: FormType) => {
           Room: { value: '', isValid: false, errorMessage: null },
           Area: { value: '', isValid: false, errorMessage: null },
           NumberFloors: { value: '', isValid: false, errorMessage: null },
+          title: { value: '', isValid: false, errorMessage: null },
+          description: { value: '', isValid: false, errorMessage: null },
         }
       default:
         return {}

@@ -45,16 +45,35 @@ const Input: React.FC<InputProps> = memo((props) => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const rawValue = event.target.value.replace(/,/g, '')
+      localStorage.setItem(props.id, rawValue)
       dispatch({
         type: 'CHANGE',
         value: rawValue,
         validations: props.validations,
-        isValid: false,
+        isValid: validator(rawValue, props.validations),
         errorMessage: null,
       })
+
+      onInputHandler(props.id, rawValue, true)
     },
-    [props.validations]
+    [props.validations, props.id, onInputHandler]
   )
+
+  useEffect(() => {
+    const storedValue = localStorage.getItem(props.id)
+
+    if (storedValue) {
+      dispatch({
+        type: 'CHANGE',
+        value: storedValue,
+        validations: props.validations || [],
+        isValid: validator(storedValue, props.validations),
+        errorMessage: null,
+      })
+
+      onInputHandler(props.id, storedValue, true)
+    }
+  }, [props.id])
 
   const element =
     props.element === 'text' ? (

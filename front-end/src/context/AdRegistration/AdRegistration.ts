@@ -14,11 +14,12 @@ export interface AdvertisementData {
   parking: number
   transaction_type: string
   property_type: string
-  sell_price?: number
-  rent_price?: number
-  mortgage_price?: number
-  images: File[]
+  sell_price: number | null
+  rent_price: number | null
+  mortgage_price: number | null
+  images: string[]
 }
+
 
 export interface AdvertisementContextType {
   advertisementData: AdvertisementData

@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -9,6 +9,7 @@ import {
   Footer,
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
+import { useAdvertisement } from '../../context/AdRegistration/useAdvertisement'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -33,7 +34,7 @@ const StepFourAdRE: React.FC = () => {
     },
     {
       label: 'نوع سرویس بهداشتی',
-      id: 'toilet',
+      id: 'type_of_wc',
       items: [
         { id: 1, name: 'فرنگی' },
         { id: 2, name: 'ایرانی' },
@@ -48,31 +49,53 @@ const StepFourAdRE: React.FC = () => {
         { id: 2, name: 'ندارد' },
       ],
     },
-    {
-      label: 'انباری',
-      id: 'storage',
-      items: [
-        { id: 1, name: 'دارد' },
-        { id: 2, name: 'ندارد' },
-      ],
-    },
   ]
   const [selectedOptions, setSelectedOptions] = useState<{
     [key: string]: string
   }>({})
 
+  const { advertisementData, setAdvertisementData } = useAdvertisement()
+  console.log(advertisementData)
+
   const handleSelect = (id: string, item: string) => {
+    localStorage.setItem(id, item)
+    console.log(id === 'type_of_wc' ? item : item === 'دارد' ? 1 : 0)
+    setAdvertisementData((prev) => ({
+      ...prev,
+      [id]: id === 'type_of_wc' ? item : item === 'دارد' ? 1 : 0,
+    }))
+
     setSelectedOptions((prevState) => ({
       ...prevState,
       [id]: item,
     }))
   }
 
+  useEffect(() => {
+    const parking = localStorage.getItem('parking')
+    const toilet = localStorage.getItem('type_of_wc')
+    const elevator = localStorage.getItem('elevator')
+    const storage = localStorage.getItem('storage')
+
+    if (parking && toilet && elevator && storage) {
+      setSelectedOptions({
+        parking: parking || '',
+        type_of_wc: toilet || '',
+        elevator: elevator || '',
+      })
+      setAdvertisementData((prev) => ({
+        ...prev,
+        parking: parking === 'دارد' ? 1 : 0,
+        type_of_wc: toilet,
+        elevator: elevator === 'دارد' ? 1 : 0,
+      }))
+    }
+  }, [])
+
   const btnDisabled = !(
     selectedOptions.parking &&
-    selectedOptions.toilet &&
-    selectedOptions.elevator &&
-    selectedOptions.storage
+    selectedOptions.type_of_wc &&
+    selectedOptions.elevator
   )
 
   return (

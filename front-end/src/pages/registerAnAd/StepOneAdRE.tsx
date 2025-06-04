@@ -48,11 +48,10 @@ interface City {
 const StepOneAdRE: React.FC = () => {
   document.title = 'مرحله ی اول-ثبت آگهی'
   const [isFocused, setIsFocused] = useState<boolean>(false)
-
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  const { setAdvertisementData } = useAdvertisement()
-
+  const { advertisementData, setAdvertisementData } = useAdvertisement()
+  console.log(advertisementData)
   const { data: provincesData, isLoading } = useQuery({
     queryKey: ['Provinces'],
     queryFn: getingProvinces,
@@ -88,6 +87,7 @@ const StepOneAdRE: React.FC = () => {
   const handleProvinceSelect = (name: string, id: number) => {
     const province = provinces.find((p) => p.id === id)
     setSelectedProvince(province ? { ...province, name } : null)
+    localStorage.setItem('province', name)
     setSelectedCity('شهر خود را انتخاب کنید')
   }
 
@@ -97,6 +97,7 @@ const StepOneAdRE: React.FC = () => {
       ...prevData,
       city: name,
     }))
+    localStorage.setItem('city', name)
   }
 
   const handleFocus = () => {
@@ -119,10 +120,32 @@ const StepOneAdRE: React.FC = () => {
         ...prevData,
         address: String(formState?.inputs?.Address.value),
       }))
+      localStorage.setItem('address', formState?.inputs?.Address.value)
     }
   }, [formState?.inputs?.Address.value])
 
+  useEffect(() => {
+    const cityLoacalStorage = localStorage.getItem('city')
+    const provinceLoacalStorage = localStorage.getItem('province')
+    const addressLoacalStorage = localStorage.getItem('address')
 
+    if (cityLoacalStorage && provinceLoacalStorage && addressLoacalStorage) {
+      setAdvertisementData((prevData) => ({
+        ...prevData,
+        address: String(addressLoacalStorage),
+      }))
+      setSelectedProvince((prevData) =>
+        provinceLoacalStorage
+          ? { id: prevData?.id || 0, name: provinceLoacalStorage }
+          : null
+      )
+      setAdvertisementData((prevData) => ({
+        ...prevData,
+        city: cityLoacalStorage,
+      }))
+      setSelectedCity(cityLoacalStorage)
+    }
+  }, [])
 
   const btnDisabled =
     !selectedProvince ||

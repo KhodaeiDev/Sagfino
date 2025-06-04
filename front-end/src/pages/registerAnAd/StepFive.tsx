@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
 import ProgressBar from '../../components/AdRegistration/ProgressBar'
 import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
@@ -8,6 +8,17 @@ import {
   Footer,
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
+import Input from '../../components/shared/UIComponents/FormElements/input/input'
+import {
+  maxValidator,
+  minValidator,
+  requiredValidator,
+  persianValidator,
+} from '../../validators/rules'
+
+import { FormType } from '../../Hooks/useformType'
+import UseForm from '../../Hooks/useForm'
+import { useAdvertisement } from '../../context/AdRegistration/useAdvertisement'
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -23,35 +34,98 @@ const StepFiveAdRE: React.FC = () => {
     document.title = 'مرحله ی پنج-ثبت آگهی'
   }, [])
 
+  const { setAdvertisementData } = useAdvertisement()
+
+  const [isFocused, setIsFocused] = useState<boolean>(false)
+  const [formType] = useState<FormType>('adPosting')
+  const [formState, onInputHandler, dispatch] = UseForm(formType)
+
+  const handleFocus = () => {
+    if (!isFocused) {
+      setIsFocused(true)
+    }
+  }
+  const handleInputChange = useCallback(
+    (inputID: string, value: string, isValid: boolean) => {
+      dispatch({ type: 'CLEAR_ERRORS' })
+      onInputHandler(inputID, value, isValid)
+    },
+    [onInputHandler, dispatch]
+  )
+
+  useEffect(() => {
+    setAdvertisementData((prevData) => ({
+      ...prevData,
+      description: formState.inputs.description.value,
+      title: formState.inputs.title.value,
+    }))
+  }, [formState.inputs.title.value, formState.inputs.description.value])
+
+  const btnDisabled = !(
+    formState.inputs.title?.isValid && formState.inputs.description.isValid
+  )
+
   return (
     <>
       <div className="bg-AdRegistration bg-gray-ED min-h-screen">
-        <div className="container ">
+        <div className="container">
           <AdRegistrationContainer>
             <ProgressBar steps={steps} />
             <div className="flex flex-col">
               <SectionHeaderAdRe title="توضیحات اضافه خود را در این قسمت بنویسید" />
-              {/* Notebook-style inputs */}
-              <div className="border border-gray-300 p-4  rounded-lg mt-16 bg-white w-full">
-                {Array.from({ length: 5 }, (_, i) => (
-                  <div
-                    key={i}
-                    className="flex items-center mb-6  font-shabnam "
-                  >
-                    <span className="w-8 text-gray-500 text-right mr-2">
-                      {i + 1}
-                    </span>
-                    <input
-                      type="text"
-                      className="flex-grow border-b border-dashed border-gray-400 outline-none focus:border-blue-500"
-                      placeholder="اینجا بنویسید..."
-                    />
-                  </div>
-                ))}
+              {/* عنوان */}
+              <div className="border border-gray-300 p-4 rounded-lg mt-6 bg-white w-full">
+                <label className="text-lg font-shabnamBold">عنوان</label>
+                <Input
+                  id="title"
+                  type="text"
+                  shouldFormat={false}
+                  placeholder="عنوان ملک خود را بنوسید"
+                  element="text"
+                  className=" w-full border border-dashed border-gray-400 outline-none focus:border-blue-500 p-2 mt-2  "
+                  validations={[
+                    requiredValidator(),
+                    minValidator(20),
+                    maxValidator(50),
+                    persianValidator(),
+                  ]}
+                  onInputHandler={handleInputChange}
+                  onFocus={handleFocus}
+                  errorMessage={formState.inputs.SalePrice?.errorMessage}
+                  isFocused={isFocused}
+                  validationMessageSuccess={` عنوان وارد شده معتبر است`}
+                  validationMessageError={` عنوان وارد شده معتبر نیست`}
+                />
               </div>
-              <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
+
+              {/* توضیحات */}
+              <div className="border border-gray-300 p-4 rounded-lg mt-6 bg-white w-full">
+                <label className="text-lg font-shabnamBold">توضیحات</label>
+                <Input
+                  id="description"
+                  type="text"
+                  shouldFormat={false}
+                  placeholder="توضیحات ملک خود را بنوسید"
+                  element="text"
+                  className=" w-full border border-dashed border-gray-400 outline-none focus:border-blue-500 p-2 mt-2  "
+                  validations={[
+                    requiredValidator(),
+                    minValidator(12),
+                    maxValidator(255),
+                    persianValidator(),
+                  ]}
+                  onInputHandler={handleInputChange}
+                  onFocus={handleFocus}
+                  errorMessage={formState.inputs.SalePrice?.errorMessage}
+                  isFocused={isFocused}
+                  validationMessageSuccess={` توضیحات وارد شده معتبر است`}
+                  validationMessageError={` توضیحات وارد شده معتبر نیست`}
+                />
+              </div>
+
+              <div className="flex items-center justify-center gap-x-3 mt-10 lg:mt-25">
                 <Btn
-                  title="قبلی "
+                  title="قبلی"
                   bgColor="bg-transparent"
                   textColor="text-primary"
                   borderColor="border-primary"
@@ -59,15 +133,16 @@ const StepFiveAdRE: React.FC = () => {
                   disabled={false}
                 />
                 <Btn
-                  disabled={false}
-                  title="ادامه"
+                  disabled={btnDisabled}
+                  title={
+                    btnDisabled ? ' اطلاعات مورد نیاز را وارد کنید' : 'ادامه '
+                  }
                   link="/registerAnAd/StepSix"
                 />
               </div>
             </div>
           </AdRegistrationContainer>
         </div>
-        {/* // Footer */}
         <Footer />
         <FooterMobail />
       </div>
