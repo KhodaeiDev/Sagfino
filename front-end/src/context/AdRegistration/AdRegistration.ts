@@ -17,8 +17,9 @@ export interface AdvertisementData {
   sell_price: number | null
   rent_price: number | null
   mortgage_price: number | null
-  images: string[]
+  images: File[] 
 }
+
 
 
 export interface AdvertisementContextType {

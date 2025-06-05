@@ -3,6 +3,7 @@ import {
   axiosUnProtectedInstance,
 } from '../../configs/configs'
 import { AxiosResponse } from 'axios'
+import { AdvertisementData } from '../../../../context/AdRegistration/AdRegistration'
 
 export const getingProvinces = async (): Promise<AxiosResponse> => {
   return await axiosUnProtectedInstance.get('/provinces')
@@ -22,6 +23,36 @@ export const saveAdReq = async (
 export const getingCities = async (
   provinceId: number
 ): Promise<AxiosResponse> => {
-  return await axiosProtectedInstance.get(`/provinces/${provinceId}`) // ✅ حذف `/api/api/` و تصحیح مسیر
+  return await axiosProtectedInstance.get(`/provinces/${provinceId}`)
 }
 
+export const createAdvertisementReq = async (
+  advertisementData: AdvertisementData
+): Promise<AxiosResponse> => {
+  const formData = new FormData()
+
+  Object.entries(advertisementData).forEach(([key, value]) => {
+    if (key !== 'images' && value !== null) {
+      formData.append(key, value.toString())
+    }
+  })
+
+  if (advertisementData.images && advertisementData.images.length > 0) {
+    advertisementData.images.forEach((file: File) => {
+      if (!(file instanceof File)) {
+        console.error('Invalid file format:', file)
+        return
+      }
+      formData.append('images[]', file, file.name)
+    })
+  }
+
+  console.log('مقدار FormData قبل از ارسال:', [...formData.entries()])
+
+  return await axiosProtectedInstance.post('/new-advertisement', formData, {
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'multipart/form-data',
+    },
+  })
+}

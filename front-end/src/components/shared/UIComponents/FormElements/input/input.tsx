@@ -45,7 +45,7 @@ const Input: React.FC<InputProps> = memo((props) => {
   const handleChange = useCallback(
     (event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       const rawValue = event.target.value.replace(/,/g, '')
-      localStorage.setItem(props.id, rawValue)
+      localStorage.setItem(`${props.id}-value`, rawValue)
       dispatch({
         type: 'CHANGE',
         value: rawValue,
@@ -60,7 +60,7 @@ const Input: React.FC<InputProps> = memo((props) => {
   )
 
   useEffect(() => {
-    const storedValue = localStorage.getItem(props.id)
+    const storedValue = localStorage.getItem(`${props.id}-value`)
 
     if (storedValue) {
       dispatch({

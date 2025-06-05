@@ -4,20 +4,20 @@ import { AdvertisementContext } from './AdRegistrationContext'
 
 const getInitialData = (): AdvertisementData => {
   return {
-    title: localStorage.getItem('title') || '',
-    description: localStorage.getItem('description') || '',
-    address: localStorage.getItem('address') || '',
-    area: localStorage.getItem('area')
-      ? Number(localStorage.getItem('area'))
+    title: localStorage.getItem('title-value') || '',
+    description: localStorage.getItem('description-value') || '',
+    address: localStorage.getItem('Address-value') || '',
+    area: localStorage.getItem('Area-value')
+      ? Number(localStorage.getItem('Area-value'))
       : 0,
-    floor: localStorage.getItem('floor')
-      ? Number(localStorage.getItem('floor'))
+    floor: localStorage.getItem('Floor-value')
+      ? Number(localStorage.getItem('Floor-value'))
       : 0,
-    number_of_floors: localStorage.getItem('number_of_floors')
-      ? Number(localStorage.getItem('number_of_floors'))
+    number_of_floors: localStorage.getItem('NumberFloors-value')
+      ? Number(localStorage.getItem('NumberFloors-value'))
       : 0,
-    rooms: localStorage.getItem('rooms')
-      ? Number(localStorage.getItem('rooms'))
+    rooms: localStorage.getItem('Room-value')
+      ? Number(localStorage.getItem('Room-value'))
       : 0,
     city: localStorage.getItem('city') || '',
     type_of_wc: localStorage.getItem('type_of_wc') || 'farangi',
@@ -32,14 +32,14 @@ const getInitialData = (): AdvertisementData => {
     sell_price: localStorage.getItem('sell_price')
       ? Number(localStorage.getItem('sell_price'))
       : null,
-    rent_price: localStorage.getItem('rent_price')
-      ? Number(localStorage.getItem('rent_price'))
+    rent_price: localStorage.getItem('Rent-value')
+      ? Number(localStorage.getItem('Rent-value'))
       : null,
-    mortgage_price: localStorage.getItem('mortgage_price')
-      ? Number(localStorage.getItem('mortgage_price'))
+    mortgage_price: localStorage.getItem('Mortgage-value')
+      ? Number(localStorage.getItem('Mortgage-value'))
       : null,
-    images: localStorage.getItem('images')
-      ? JSON.parse(localStorage.getItem('images')!)
+    images: localStorage.getItem('uploadedImages')
+      ? JSON.parse(localStorage.getItem('uploadedImages')!)
       : [],
   }
 }

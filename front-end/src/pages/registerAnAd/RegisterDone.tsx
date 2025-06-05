@@ -4,8 +4,6 @@ import SectionHeaderAdRe from '../../components/AdRegistration/sectionHeader'
 import Btn from '../../components/AdRegistration/btn'
 import { TiTick } from 'react-icons/ti'
 
-
-
 const RegisterDoneAdRE: React.FC = () => {
   document.title = 'سقفینو-ثبت نام انجام شد'
 
@@ -32,7 +30,7 @@ const RegisterDoneAdRE: React.FC = () => {
               </div>
 
               <div className=" flex   items-center justify-center  gap-x-3 mt-10 lg:mt-25 ">
-                <Btn title="انتقال به صحفه اصلی " link="/" />
+                <Btn disabled={false} title="انتقال به صحفه اصلی " link="/" />
               </div>
             </div>
           </AdRegistrationContainer>

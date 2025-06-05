@@ -58,11 +58,35 @@ const StepFourAdRE: React.FC = () => {
   console.log(advertisementData)
 
   const handleSelect = (id: string, item: string) => {
-    localStorage.setItem(id, item)
-    console.log(id === 'type_of_wc' ? item : item === 'دارد' ? 1 : 0)
+    localStorage.setItem(
+      id,
+      id === 'type_of_wc'
+        ? item === 'هردو'
+          ? 'both'
+          : item === 'ایرانی'
+          ? 'wc'
+          : 'farangi'
+        : item === 'دارد'
+        ? '1'
+        : item === 'ندارد'
+        ? '0'
+        : String(item)
+    )
+
     setAdvertisementData((prev) => ({
       ...prev,
-      [id]: id === 'type_of_wc' ? item : item === 'دارد' ? 1 : 0,
+      [id]:
+        id === 'type_of_wc'
+          ? item === 'هردو'
+            ? 'both'
+            : item === 'ایرانی'
+            ? 'wc'
+            : 'farangi'
+          : item === 'دارد'
+          ? '1'
+          : item === 'ندارد'
+          ? '0'
+          : String(item),
     }))
 
     setSelectedOptions((prevState) => ({
@@ -75,19 +99,27 @@ const StepFourAdRE: React.FC = () => {
     const parking = localStorage.getItem('parking')
     const toilet = localStorage.getItem('type_of_wc')
     const elevator = localStorage.getItem('elevator')
-    const storage = localStorage.getItem('storage')
 
-    if (parking && toilet && elevator && storage) {
+    if (parking && toilet && elevator) {
+      console.log(toilet)
       setSelectedOptions({
-        parking: parking || '',
-        type_of_wc: toilet || '',
-        elevator: elevator || '',
+        parking: parking ? 'دارد' : 'ندارد',
+        type_of_wc:
+          toilet === 'wc'
+            ? 'ایرانی'
+            : toilet === 'farangi'
+            ? 'فرنگی'
+            : toilet === 'both'
+            ? 'هردو'
+            : 'نامشخص',
+        elevator: elevator ? 'دارد' : 'ندارد',
       })
       setAdvertisementData((prev) => ({
         ...prev,
-        parking: parking === 'دارد' ? 1 : 0,
-        type_of_wc: toilet,
-        elevator: elevator === 'دارد' ? 1 : 0,
+        parking: Number(parking),
+        type_of_wc:
+          toilet === 'فرنگی' ? 'farangi' : toilet === 'هردو' ? 'both' : 'wc',
+        elevator: Number(elevator),
       }))
     }
   }, [])

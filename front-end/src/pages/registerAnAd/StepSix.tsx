@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState, useRef } from 'react'
 import { FaRegImage } from 'react-icons/fa'
 import { GoTrash } from 'react-icons/go'
 import AdRegistrationContainer from '../../components/AdRegistration/AdRegistrationContainer'
@@ -9,6 +9,35 @@ import {
   Footer,
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
+import { useAdvertisement } from '../../context/AdRegistration/useAdvertisement'
+import { createAdvertisementReq } from '../../services/axois/request/Advertisements/AdvertisementsRequest'
+import ToastNotification from '../../services/toastify/toastify'
+import { useMutation } from '@tanstack/react-query'
+import { AdvertisementData } from '../../context/AdRegistration/AdRegistration'
+import { useNavigate } from 'react-router'
+
+const keysToRemove = [
+  'NumberFloors-value',
+  'Rent-value',
+  'Room-value',
+  'Sale-value',
+  'address-value',
+  'city',
+  'description-value',
+  'elevator',
+  'parking',
+  'property_type',
+  'province',
+  'registeredPhone',
+  'title-value',
+  'transaction_type',
+  'type_of_wc',
+  'uploadedImages',
+  'Address-value',
+  'Area-value',
+  'Floor-value',
+]
+
 
 const steps: Step[] = [
   { id: 1, status: 'completed' },
@@ -20,64 +49,148 @@ const steps: Step[] = [
 ]
 
 const StepSixAdRE: React.FC = () => {
-  const [uploadedImages, setUploadedImages] = useState<(File | null)[]>(
-    Array(6).fill(null)
+  const navigate = useNavigate()
+  const [uploadedImages, setUploadedImages] = useState<
+    { id: string; src: string; file: File | null }[]
+  >(
+    Array(6)
+      .fill(null)
+      .map(() => ({ id: crypto.randomUUID(), src: '', file: null }))
   )
+
+  const [isSubmitDisabled, setIsSubmitDisabled] = useState(true)
+  const { advertisementData, setAdvertisementData } = useAdvertisement()
+  const isMounted = useRef(false)
+
+console.log(advertisementData)
 
   useEffect(() => {
     document.title = 'مرحله‌ی شش - ثبت آگهی'
   }, [])
 
+  useEffect(() => {
+    localStorage.setItem('uploadedImages', JSON.stringify(uploadedImages))
+  }, [uploadedImages])
+
+  useEffect(() => {
+    if (!isMounted.current) {
+      isMounted.current = true
+      return
+    }
+
+    setTimeout(() => {
+      const storedImages = JSON.parse(
+        localStorage.getItem('uploadedImages') || '[]'
+      )
+
+      setUploadedImages(storedImages)
+
+      setAdvertisementData((prev) => ({
+        ...prev,
+        images: storedImages
+          .map((img: { src: string }) => {
+            if (!img.src || !img.src.startsWith('data:image')) return null
+
+            try {
+              const byteCharacters = atob(img.src.split(',')[1])
+              const byteNumbers = Array.from(byteCharacters, (char) =>
+                char.charCodeAt(0)
+              )
+              const byteArray = new Uint8Array(byteNumbers)
+              return new File([byteArray], 'image.jpeg', { type: 'image/jpeg' })
+            } catch (error) {
+              console.error('Error decoding Base64:', error)
+              return null
+            }
+          })
+          .filter((file: File | null): file is File => file !== null),
+      }))
+    }, 0)
+  }, [])
+
   const handleImageUpload = useCallback(
-    (event: React.ChangeEvent<HTMLInputElement>, index: number) => {
+    (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
       const file = event.target.files?.[0]
       if (!file) return
 
-      const allowedFormats = [
-        'image/webp',
-        'image/jpeg',
-        'image/png',
-        'image/jpg',
-      ]
-      if (!allowedFormats.includes(file.type)) {
-        alert('فقط فرمت‌های webp، jpg، jpeg یا png پشتیبانی می‌شوند.')
-        return
-      }
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
 
-      setUploadedImages((prev) => {
-        const updatedImages = [...prev]
-        updatedImages[index] = file 
-        return updatedImages
-      })
+      reader.onload = () => {
+        setUploadedImages((prev) => {
+          const updatedImages = prev.map((img) =>
+            img.id === id ? { ...img, src: reader.result as string, file } : img
+          )
+
+          localStorage.setItem('uploadedImages', JSON.stringify(updatedImages))
+          // localStorage.getItem()
+
+          setAdvertisementData((prev) => ({
+            ...prev,
+            // rent_price:
+            images: updatedImages
+              .map((img) => img.file)
+              .filter((file): file is File => file !== null),
+          }))
+
+          return updatedImages
+        })
+      }
     },
     []
   )
 
-  const handleImageRemove = useCallback((index: number) => {
+  const handleImageRemove = useCallback((id: string) => {
     setUploadedImages((prev) => {
-      const updatedImages = [...prev]
-      updatedImages[index] = null
+      const updatedImages = prev.map((img) =>
+        img.id === id ? { ...img, src: '', file: null } : img
+      )
+
+      localStorage.setItem('uploadedImages', JSON.stringify(updatedImages))
+
+      setAdvertisementData((prev) => ({
+        ...prev,
+        images: updatedImages
+          .map((img) => img.file)
+          .filter((file): file is File => file !== null),
+      }))
+
       return updatedImages
     })
   }, [])
 
+  const mutation = useMutation({
+    mutationFn: (data: AdvertisementData) => createAdvertisementReq(data),
+    onSuccess: () => {
+      setIsSubmitDisabled(true)
+      keysToRemove.forEach((key) => localStorage.removeItem(key))
+      ToastNotification('success', 'آگهی با موفقیت ثبت شد', 5000)
+      navigate('/registerAnAd/RegisterDone')
+    },
+    onError: () => {
+      keysToRemove.forEach((key) => localStorage.removeItem(key))
+      ToastNotification('error', 'آگهی ثبت نشد لطفا با دقت فرم آگهی را پر کنید ', 7000)
+      navigate('/registerAnAd/RegisterError')
+
+    },
+  })
+
   const handleSubmit = () => {
-    const formData = new FormData()
-
-    uploadedImages.forEach((file, index) => {
-      if (file) {
-        formData.append(`file_${index}`, file)
-      }
-    })
-
-    fetch('https://example.com/upload', {
-      method: 'POST',
-      body: formData,
-    })
-      .then((response) => response.json())
-      .then((data) => console.log('Upload Success:', data))
-      .catch((error) => console.error('Upload Error:', error))
+    mutation.mutate(advertisementData)
   }
+
+  useEffect(() => {
+    const isFormValid =
+      advertisementData.title &&
+      advertisementData.description &&
+      advertisementData.address &&
+      advertisementData.city &&
+      advertisementData.transaction_type &&
+      advertisementData.property_type &&
+      advertisementData.images.length > 0
+
+    setIsSubmitDisabled(!isFormValid)
+  }, [advertisementData])
 
   return (
     <div className="bg-AdRegistration bg-gray-ED min-h-screen">
@@ -92,42 +205,38 @@ const StepSixAdRE: React.FC = () => {
             />
             <div className="container mx-auto p-4">
               <div className="grid grid-cols-1 xs:grid-cols-3 gap-4">
-                {uploadedImages.map((image, index) => (
+                {uploadedImages.map((image) => (
                   <div
-                    key={index}
-                    className={`relative rounded-lg h-40 flex justify-center items-center ${
-                      image
-                        ? ''
-                        : 'border-2 border-dotted border-gray-400 hover:border-primary'
-                    }`}
+                    key={image.id}
+                    className="relative rounded-lg h-40 flex justify-center items-center border-2 border-dotted border-gray-400 hover:border-primary"
                   >
-                    {image ? (
+                    {image.src ? (
                       <>
                         <img
-                          src={URL.createObjectURL(image)}
+                          src={image.src}
                           alt="Uploaded"
                           className="w-full h-full object-cover rounded-lg"
                         />
                         <button
-                          onClick={() => handleImageRemove(index)}
-                          className="cursor-pointer absolute top-2 left-2 bg-black/50 p-2 rounded-sm text-white hover:bg-opacity-70"
+                          onClick={() => handleImageRemove(image.id)}
+                          className="absolute top-2 left-2 bg-black/50 p-2 rounded-sm text-white hover:bg-opacity-70"
                         >
                           <GoTrash className="text-lg w-5 h-5" />
                         </button>
                       </>
                     ) : (
                       <label
-                        htmlFor={`upload-${index}`}
+                        htmlFor={`upload-${image.id}`}
                         className="flex flex-col items-center justify-center text-gray-500"
                       >
                         <FaRegImage className="text-4xl mb-2 cursor-pointer text-gray-400" />
                         <span className="text-sm">آپلود عکس</span>
                         <input
                           type="file"
-                          id={`upload-${index}`}
+                          id={`upload-${image.id}`}
                           className="hidden"
                           accept=".webp,.jpg,.jpeg,.png"
-                          onChange={(e) => handleImageUpload(e, index)}
+                          onChange={(e) => handleImageUpload(e, image.id)}
                         />
                       </label>
                     )}
@@ -144,18 +253,16 @@ const StepSixAdRE: React.FC = () => {
                 link="/registerAnAd/StepFive"
                 disabled={false}
               />
-              <Btn
-                title="ادامه"
-                link="/registerAnAd/RegisterDone"
-                disabled={false}
-              />
-            </div>
-            <div className="flex items-center justify-center mt-5">
               <button
+                className="transition-all duration-300 bg-primary border border-primary rounded-lg px-3 lg:px-15 py-2 text-white font-shabnam disabled:opacity-40 disabled:cursor-not-allowed hover:opacity-80 cursor-pointer"
                 onClick={handleSubmit}
-                className="px-6 py-2 bg-primary text-white rounded-lg shadow hover:bg-primary-dark"
+                disabled={isSubmitDisabled || mutation.isPending}
               >
-                ارسال تصاویر
+                {mutation.isPending
+                  ? 'در حال ارسال...'
+                  : isSubmitDisabled
+                  ? 'اطلاعات مورد نیاز را وارد کنید'
+                  : 'ثبت آگهی'}
               </button>
             </div>
           </div>

@@ -90,11 +90,11 @@ const StepTwoAdRE: React.FC = () => {
       setPropertyType(value)
       setAdvertisementData((prevData) => ({
         ...prevData,
-        property_type: value === 'تجاری' ? 'Commercial' : 'Residential',
+        property_type: value === 'تجاری' ? 'commercial' : 'residential',
       }))
       localStorage.setItem(
         'property_type',
-        value === 'تجاری' ? 'Commercial' : 'Residential'
+        value === 'تجاری' ? 'commercial' : 'residential'
       )
     },
     [setPropertyType]
@@ -119,19 +119,22 @@ const StepTwoAdRE: React.FC = () => {
     const property_typeLoacalStorage = localStorage.getItem('property_type')
     const transaction_typeLoacalStorage =
       localStorage.getItem('transaction_type')
+    const rentValue = localStorage.getItem('Rent-value')
+    const mortgageValue = localStorage.getItem('Mortgage-value')
+    const SaleValue = localStorage.getItem('Sale-value')
 
     if (property_typeLoacalStorage && transaction_typeLoacalStorage) {
       setAdvertisementData((prevData) => ({
         ...prevData,
         property_type: property_typeLoacalStorage,
+        transaction_type: transaction_typeLoacalStorage,
+        rent_price: Number(rentValue),
+        mortgage_price: Number(mortgageValue),
+        sell_price: Number(SaleValue),
       }))
       setPropertyType(
-        property_typeLoacalStorage === 'Commercial' ? 'تجاری' : 'مسکونی'
+        property_typeLoacalStorage === 'commercial' ? 'تجاری' : 'مسکونی'
       )
-      setAdvertisementData((prevData) => ({
-        ...prevData,
-        transaction_type: transaction_typeLoacalStorage,
-      }))
       setDealType(transaction_typeLoacalStorage === 'sell' ? 'فروش' : 'اجاره')
     }
   }, [])
