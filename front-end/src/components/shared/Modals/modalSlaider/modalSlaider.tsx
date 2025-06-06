@@ -4,20 +4,21 @@ import { Swiper, SwiperSlide } from 'swiper/react'
 import 'swiper/css'
 import 'swiper/css/navigation'
 import { Navigation } from 'swiper/modules'
+import { BsImageFill } from 'react-icons/bs'
+import { Image } from '../../../../pages/site/detailsProduct/detailsProduct'
 
 type ModalSlaiderProps = {
-  images: string[]
+  images: Image[]
   currentImage: string
   onClose: () => void
 }
 
 const ModalSlaider: React.FC<ModalSlaiderProps> = memo(
-  ({ images, currentImage, onClose }) => {
+  ({ images, onClose }) => {
     const [isZoomed, setIsZoomed] = useState<boolean>(false)
     const [hoverEnabled, setHoverEnabled] = useState<boolean>(true)
     const [zoomState, setZoomState] = useState<boolean>(false)
     const imageRef = useRef<HTMLDivElement>(null)
-    const initialSlide: number = images.indexOf(currentImage)
     const [hoverPosition, setHoverPosition] = useState<{
       x: number
       y: number
@@ -116,36 +117,44 @@ const ModalSlaider: React.FC<ModalSlaiderProps> = memo(
             }}
             modules={[Navigation]}
             className="mySwiper w-full h-full"
-            initialSlide={initialSlide}
           >
-            {images.map((image, index) => (
-              <SwiperSlide key={index}>
-                <div
-                  onMouseMove={handleMouseMove}
-                  onMouseLeave={handleMouseLeave}
-                  className={`relative w-full h-full bg-gray-900 overflow-hidden flex items-center justify-center ${
-                    hoverEnabled ? 'cursor-zoom-in' : ''
-                  }`}
-                >
-                  <img
-                    className={`${
-                      isZoomed || zoomState
-                        ? 'scale-125 max-w-none max-h-none'
-                        : 'max-w-full max-h-full'
-                    } object-contain transition-transform duration-300`}
-                    src={image}
-                    alt={`Slide img`}
-                    style={{
-                      transformOrigin: `${hoverPosition.x}% ${hoverPosition.y}%`,
-                      transform:
-                        hoverEnabled && hoverPosition.x && hoverPosition.y
-                          ? 'scale(2)'
-                          : 'scale(1)',
-                    }}
-                  />
-                </div>
-              </SwiperSlide>
-            ))}
+            {images.length > 0 ? (
+              images.map((image, index) => (
+                <SwiperSlide key={index}>
+                  <div
+                    onMouseMove={handleMouseMove}
+                    onMouseLeave={handleMouseLeave}
+                    className={`relative w-full h-full bg-gray-900 overflow-hidden flex items-center justify-center ${
+                      hoverEnabled ? 'cursor-zoom-in' : ''
+                    }`}
+                  >
+                    <img
+                      className={`${
+                        isZoomed || zoomState
+                          ? 'scale-125 max-w-none max-h-none'
+                          : 'max-w-full max-h-full'
+                      } object-cover transition-transform duration-300`}
+                      src={`https://saghfino.abolfazlhp.ir/storage/${image.path}`}
+                      alt={`Slide img`}
+                      style={{
+                        transformOrigin: `${hoverPosition.x}% ${hoverPosition.y}%`,
+                        transform:
+                          hoverEnabled && hoverPosition.x && hoverPosition.y
+                            ? 'scale(2)'
+                            : 'scale(1)',
+                      }}
+                    />
+                  </div>
+                </SwiperSlide>
+              ))
+            ) : (
+              <div className="w-full h-40 lg:h-56 flex items-center justify-center bg-gray-200 rounded-2xl">
+                <BsImageFill className="w-10 h-10 text-gray-500" />
+                <p className="text-gray-500 mt-2">
+                  تصویری برای نمایش موجود نیست
+                </p>
+              </div>
+            )}
           </Swiper>
         </div>
       </div>,

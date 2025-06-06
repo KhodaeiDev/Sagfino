@@ -98,7 +98,7 @@ const HeaderContent: React.FC = () => {
         ['Advertisements', `${city}-${activeButton}`],
         (oldData) => {
           return oldData
-            ? { ...oldData, data: [...oldData.data, ...newData.data] }
+            ? { ...oldData, data: [...oldData?.data, ...newData.data] }
             : newData
         }
       )
@@ -124,13 +124,14 @@ const HeaderContent: React.FC = () => {
     const cityFromUrl = searchParams.get('city')
     const transactionTypeFromUrl = searchParams.get('tr_type')
 
+    console.log(cityFromUrl, transactionTypeFromUrl)
+
     if (cityFromUrl && transactionTypeFromUrl) {
       setSearchState((prev) => ({ ...prev, isLoading: true }))
       setCity(cityFromUrl)
-      setActiveButton(activeButton)
-      triggerSearchAds()
+      setActiveButton(transactionTypeFromUrl as ButtonType)
     }
-  }, [])
+  }, [window.location.search])
 
   const checkURLAndFetchData = (): boolean => {
     const searchParams = new URLSearchParams(window.location.search)
@@ -176,12 +177,16 @@ const HeaderContent: React.FC = () => {
         }
       }
 
+      console.log(data.data)
+
       const storedData = {
-        result: data.data.slice(0, 8),
+        result: data.data,
         timestamp: Date.now(),
         city,
         transactionType: activeButton,
       }
+
+      console.log('storedData', storedData)
 
       localStorage.setItem('searchData', JSON.stringify(storedData))
       setSearchState((prev) => ({

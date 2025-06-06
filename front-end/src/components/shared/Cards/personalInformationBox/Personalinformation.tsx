@@ -46,12 +46,12 @@ const PersonalInformation: React.FC = () => {
               <span>امتیاز 4 از 5</span>
               <span>آگهی 500 فعال</span>
             </div>
-            <div
+            <button
               onClick={openModal}
-              className="  cursor-pointer  mt-2 w-40.5 h-7  lg:w-55.5 lg:h-10 center  text-white bg-primary  text-xs lg:text-sm font-shabnamMedium rounded-sm  lg:rounded-lg "
+              className="  cursor-pointer  mt-2  py-2 px-15  center  text-white bg-primary  text-xs lg:text-sm font-shabnamMedium rounded-sm  lg:rounded-lg "
             >
               اطلاعات تماس
-            </div>
+            </button>
           </div>
         </div>
       </div>

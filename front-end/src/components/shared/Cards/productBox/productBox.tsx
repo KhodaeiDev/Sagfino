@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router'
-import React, { memo } from 'react'
 import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
+import React, { memo } from 'react'
 import { Advertisement } from '../../UIComponents/Layout/HeaderComponents/headerContent/headerContent'
 type ProductBoxProps = {
   isLoading: boolean
@@ -9,6 +9,7 @@ type ProductBoxProps = {
 
 const ProductBox: React.FC<ProductBoxProps> = memo(
   ({ isLoading, productInfo }) => {
+
     return (
       <div
         className={` border w-full  h-auto 
@@ -56,7 +57,7 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
           <>
             <NavLink
               className={'relative'}
-              to={`/detailsProduct/detailsProduct/${productInfo.id}`}
+              to={`/detailsProduct/detailsProduct/${productInfo?.id}`}
             >
               <img
                 className="w-full rounded-t-xl  object-cover h-[110px]  sm:h-[170px]"

@@ -40,14 +40,11 @@ export const createAdvertisementReq = async (
   if (advertisementData.images && advertisementData.images.length > 0) {
     advertisementData.images.forEach((file: File) => {
       if (!(file instanceof File)) {
-        console.error('Invalid file format:', file)
         return
       }
       formData.append('images[]', file, file.name)
     })
   }
-
-  console.log('مقدار FormData قبل از ارسال:', [...formData.entries()])
 
   return await axiosProtectedInstance.post('/new-advertisement', formData, {
     headers: {
@@ -55,4 +52,11 @@ export const createAdvertisementReq = async (
       'Content-Type': 'multipart/form-data',
     },
   })
+}
+
+export const getProductInfo = async (
+  productId: number
+): Promise<AxiosResponse> => {
+  return await axiosProtectedInstance.get(`
+ad/show/${productId}`)
 }

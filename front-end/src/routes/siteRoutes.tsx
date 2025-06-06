@@ -30,7 +30,7 @@ const siteRoutes: RouteObject[] = [
     element: <RealEstateDetails />,
   },
   {
-    path: '/detailsProduct/detailsProduct/:page',
+    path: '/detailsProduct/detailsProduct/:productId',
     element: <DetailsProduct />,
   },
   {
