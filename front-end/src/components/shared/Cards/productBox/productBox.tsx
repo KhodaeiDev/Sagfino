@@ -56,7 +56,7 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
           <>
             <NavLink
               className={'relative'}
-              to={'/detailsProduct/detailsProduct/1'}
+              to={`/detailsProduct/detailsProduct/${productInfo.id}`}
             >
               <img
                 className="w-full rounded-t-xl  object-cover h-[110px]  sm:h-[170px]"

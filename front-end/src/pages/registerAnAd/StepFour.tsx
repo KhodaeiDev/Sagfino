@@ -54,8 +54,7 @@ const StepFourAdRE: React.FC = () => {
     [key: string]: string
   }>({})
 
-  const { advertisementData, setAdvertisementData } = useAdvertisement()
-  console.log(advertisementData)
+  const {  setAdvertisementData } = useAdvertisement()
 
   const handleSelect = (id: string, item: string) => {
     localStorage.setItem(
@@ -101,7 +100,6 @@ const StepFourAdRE: React.FC = () => {
     const elevator = localStorage.getItem('elevator')
 
     if (parking && toilet && elevator) {
-      console.log(toilet)
       setSelectedOptions({
         parking: parking ? 'دارد' : 'ندارد',
         type_of_wc:

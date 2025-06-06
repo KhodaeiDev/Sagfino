@@ -37,8 +37,7 @@ const StepTwoAdRE: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  const { advertisementData, setAdvertisementData } = useAdvertisement()
-  console.log(advertisementData)
+  const {  setAdvertisementData } = useAdvertisement()
   const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)

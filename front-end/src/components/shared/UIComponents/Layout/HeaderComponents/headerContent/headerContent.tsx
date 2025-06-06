@@ -5,7 +5,7 @@ import { searchAds } from '../../../../../../services/axois/request/Advertisemen
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ToastNotification from '../../../../../../services/toastify/toastify'
 import { useSearch } from '../../../../../../context/HomePageSearch/useSearch'
-import { useParams, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 
 export type ButtonType = 'rent' | 'sell'
 export interface Image {
@@ -119,6 +119,19 @@ const HeaderContent: React.FC = () => {
     },
   })
 
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const cityFromUrl = searchParams.get('city')
+    const transactionTypeFromUrl = searchParams.get('tr_type')
+
+    if (cityFromUrl && transactionTypeFromUrl) {
+      setSearchState((prev) => ({ ...prev, isLoading: true }))
+      setCity(cityFromUrl)
+      setActiveButton(activeButton)
+      triggerSearchAds()
+    }
+  }, [])
+
   const checkURLAndFetchData = (): boolean => {
     const searchParams = new URLSearchParams(window.location.search)
     const cityFromUrl = searchParams.get('city')
@@ -147,7 +160,6 @@ const HeaderContent: React.FC = () => {
       ]) || null
 
     if (cachedData) {
-      setCity('')
       setCachedData(cachedData)
     } else if (checkURLAndFetchData()) {
       triggerSearchAds()
@@ -172,7 +184,6 @@ const HeaderContent: React.FC = () => {
       }
 
       localStorage.setItem('searchData', JSON.stringify(storedData))
-      setCity('')
       setSearchState((prev) => ({
         ...prev,
         result: { data: data.data.slice(0, 8) },
@@ -193,7 +204,6 @@ const HeaderContent: React.FC = () => {
         transactionType: activeButton,
       }))
       setShowError(false)
-      setCity('')
     }
   }, [data])
 
@@ -208,7 +218,6 @@ const HeaderContent: React.FC = () => {
         5000
       )
       setShowError(false)
-      setCity('')
       setSearchState((prev) => ({
         ...prev,
         result: null,

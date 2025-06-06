@@ -50,8 +50,7 @@ const StepOneAdRE: React.FC = () => {
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [formType] = useState<FormType>('adPosting')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  const { advertisementData, setAdvertisementData } = useAdvertisement()
-  console.log(advertisementData)
+  const {  setAdvertisementData } = useAdvertisement()
   const { data: provincesData, isLoading } = useQuery({
     queryKey: ['Provinces'],
     queryFn: getingProvinces,

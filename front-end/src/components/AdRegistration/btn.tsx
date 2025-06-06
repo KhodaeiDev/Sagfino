@@ -7,7 +7,7 @@ interface BtnProps {
   textColor?: string
   borderColor?: string
   link?: string
-  disabled: boolean
+  disabled?: boolean
 }
 
 const Btn: React.FC<BtnProps> = memo(

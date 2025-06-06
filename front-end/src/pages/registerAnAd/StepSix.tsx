@@ -38,7 +38,6 @@ const keysToRemove = [
   'Floor-value',
 ]
 
-
 const steps: Step[] = [
   { id: 1, status: 'completed' },
   { id: 2, status: 'completed' },
@@ -62,7 +61,6 @@ const StepSixAdRE: React.FC = () => {
   const { advertisementData, setAdvertisementData } = useAdvertisement()
   const isMounted = useRef(false)
 
-console.log(advertisementData)
 
   useEffect(() => {
     document.title = 'مرحله‌ی شش - ثبت آگهی'
@@ -123,11 +121,9 @@ console.log(advertisementData)
           )
 
           localStorage.setItem('uploadedImages', JSON.stringify(updatedImages))
-          // localStorage.getItem()
 
           setAdvertisementData((prev) => ({
             ...prev,
-            // rent_price:
             images: updatedImages
               .map((img) => img.file)
               .filter((file): file is File => file !== null),
@@ -169,9 +165,12 @@ console.log(advertisementData)
     },
     onError: () => {
       keysToRemove.forEach((key) => localStorage.removeItem(key))
-      ToastNotification('error', 'آگهی ثبت نشد لطفا با دقت فرم آگهی را پر کنید ', 7000)
+      ToastNotification(
+        'error',
+        'آگهی ثبت نشد لطفا با دقت فرم آگهی را پر کنید ',
+        7000
+      )
       navigate('/registerAnAd/RegisterError')
-
     },
   })
 
