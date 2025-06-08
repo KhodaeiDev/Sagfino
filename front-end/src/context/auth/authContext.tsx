@@ -47,6 +47,7 @@ type ProviderProps = {
 
 const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   const [setUserTokenLocal] = useSaveToLocalStorage('userToken', null)
+  const [setTokenExpiryTime] = useSaveToLocalStorage('TokenExpiryTime', null)
   const [setUserInfoLoacal] = useSaveToLocalStorage('userInfo', null)
   const [getLocalUserToken] = useGetFromLocalStorage('userToken')
   const [getLocalUserInfo] = useGetFromLocalStorage('userInfo')
@@ -61,8 +62,10 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   useEffect(() => {
     const storedToken = getLocalUserToken
     const storedUserInfo = getLocalUserInfo
+    const isTokenExpired = () =>
+      Date.now() >= Number(localStorage.getItem('TokenExpiryTime'))
 
-    if (storedToken && storedUserInfo) {
+    if (isTokenExpired() && storedToken && storedUserInfo) {
       setToken(storedToken)
       setUserInfo(JSON.parse(storedUserInfo) as UserInfoType)
       setIsLoggedIn(true)
@@ -71,6 +74,10 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
 
   const login = useCallback(
     (userinfos: UserInfoType, newToken: string) => {
+      const issuedate = Date.now()
+      const expiresInMs = 24 * 60 * 60 * 1000
+      const expiresAt = issuedate + expiresInMs
+      setTokenExpiryTime(expiresAt.toString())
       setUserTokenLocal(newToken)
       setUserInfoLoacal(JSON.stringify(userinfos))
 

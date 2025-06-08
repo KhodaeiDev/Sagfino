@@ -5,7 +5,7 @@ const onSuccess = (
   config: InternalAxiosRequestConfig
 ): InternalAxiosRequestConfig => {
   const token = localStorage.getItem('userToken')?.replace(/"/g, '')
-  console.log(token)
+
   if (token) {
     config.headers.Authorization = `Bearer ${token}`
   }
