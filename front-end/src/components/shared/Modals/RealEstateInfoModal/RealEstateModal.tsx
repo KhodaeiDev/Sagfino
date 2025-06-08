@@ -3,15 +3,18 @@ import { IoCallOutline } from 'react-icons/io5'
 import { memo, useCallback, useContext, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { AuthContext } from '../../../../context/auth/authContext'
+import { UserInfos } from '../../Cards/personalInformationBox/Personalinformation'
 
 type RealEstateModalProps = {
   closeModal: () => void
   isModalVisible: boolean
   isConsultantInfo?: boolean
+  userInfos: UserInfos
 }
 
 const RealEstateModal: React.FC<RealEstateModalProps> = memo(
-  ({ closeModal, isModalVisible, isConsultantInfo }) => {
+  ({ closeModal, isModalVisible, isConsultantInfo, userInfos }) => {
+    console.log(userInfos)
     const [activeNumber, setActiveNumber] = useState<number>(1)
 
     const handleClick = useCallback(
@@ -55,7 +58,7 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
               )}
 
               <div className=" flex items-center   gap-x-2    **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
-                {auth.userInfo?.phoneNumber}
+                {userInfos?.phoneNumber}
                 <IoCallOutline className="   w-7 font-shabnam text-2xl   text-blue-tick " />
               </div>
               {/* Consultant  information */}

@@ -3,20 +3,25 @@ import { PiPencilRulerLight } from 'react-icons/pi'
 import { BsLamp } from 'react-icons/bs'
 import { FaRegBuilding } from 'react-icons/fa'
 import { PiCarLight } from 'react-icons/pi'
-import { PiHouseLineThin } from 'react-icons/pi'
+// import { PiHouseLineThin } from 'react-icons/pi'
 import { TfiLayoutSliderAlt } from 'react-icons/tfi'
 import { BsBadgeWc } from 'react-icons/bs'
-import { SlDislike } from 'react-icons/sl'
-import { SlLike } from 'react-icons/sl'
+// import { SlDislike } from 'react-icons/sl'
+// import { SlLike } from 'react-icons/sl'
+import {
+  saveAd,
+  unSaveAd,
+} from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
 
-import React, { useCallback, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import ModalSlaider from '../../../components/shared/Modals/modalSlaider/modalSlaider'
 import PersonalInformation from '../../../components/shared/Cards/personalInformationBox/Personalinformation'
 // import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 import { useParams } from 'react-router'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { getProductInfo } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { ThreeDot } from 'react-loading-indicators'
+import ToastNotification from '../../../services/toastify/toastify'
 export type Image = {
   id: number
   ad_id: number
@@ -28,6 +33,7 @@ export type Image = {
 const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState('')
+  const [isSaved, setIsSaved] = useState<boolean>(false)
   const { productId } = useParams()
 
   const { isLoading, data: productInfos } = useQuery({
@@ -35,11 +41,10 @@ const DetailsProduct: React.FC = () => {
     queryFn: () => getProductInfo(Number(productId)),
     enabled: !!productId,
   })
-  console.log(productInfos?.data.user)
 
-  const userInfos = productInfos?.data?.user
-
-  document.title = 'سقفینو - جزئیات محصول '
+  useEffect(() => {
+    document.title = 'سقفینو - جزئیات محصول '
+  }, [])
 
   const images = productInfos?.data?.images ?? []
 
@@ -54,6 +59,45 @@ const DetailsProduct: React.FC = () => {
   }, [])
 
   const adData = productInfos?.data
+  const userInfos = productInfos?.data?.user
+  const saveMutation = useMutation({
+    mutationFn: async (adId: number) => saveAd(adId),
+    onSuccess: () => {
+      setIsSaved(true)
+      ToastNotification('success', ' آگهی شما با موفقیت ذخیره شد', 6000)
+    },
+    onError: (err) => console.error(err),
+  })
+
+  const unSaveMutation = useMutation({
+    mutationFn: async (adId: number) => {
+      unSaveAd(adId)
+      ToastNotification('success', 'آگهی شما از لیست ذخیره‌ها حذف شد.', 6000)
+    },
+    onSuccess: () => setIsSaved(false),
+  })
+
+  const isLoadingSave = unSaveMutation.isPending || saveMutation.isPending
+
+  const saveAdHandler = () => {
+    if (isLoadingSave || !adData?.id) return
+
+    const token = localStorage.getItem('userToken')
+    if (!token) {
+      ToastNotification(
+        'error',
+        'برای ذخیره آگهی‌ها باید وارد حساب کاربری خود شوید.',
+        6000
+      )
+      return
+    }
+
+    if (isSaved) {
+      unSaveMutation.mutate(adData.id)
+    } else {
+      saveMutation.mutate(adData.id)
+    }
+  }
 
   if (isLoading) {
     return (
@@ -125,7 +169,18 @@ const DetailsProduct: React.FC = () => {
               <span className="text-sm lg:text-lg text-gray-90">
                 {adData?.title}
               </span>
-              <RiBookmarkLine className="w-5 h-5 text-gray-35 cursor-pointer" />
+              <button disabled={isLoadingSave}>
+                <RiBookmarkLine
+                  onClick={saveAdHandler}
+                  className={` !w-7 !h-7 flex items-center justify-center ${
+                    isSaved ? 'text-primary' : 'text-gray-35'
+                  } ${
+                    isLoadingSave
+                      ? ' opacity-50 !w-4 !h-4 !cursor-not-allowed'
+                      : '!cursor-pointer'
+                  }`}
+                />
+              </button>
             </div>
             <h3 className="text-gray-21 text-base lg:text-2xl font-bold mt-2 lg:mt-4 mb-7">
               {adData?.address}
@@ -289,7 +344,7 @@ const DetailsProduct: React.FC = () => {
           </div>
           {/* Left Section */}
           <div className="lg:col-span-5  flex justify-center xl:justify-end order-first xl:order-last  mt-5  xl:mt-28 ">
-            <PersonalInformation  />
+            <PersonalInformation userInfos={userInfos} />
           </div>
         </div>
         {/* releted products */}
@@ -300,7 +355,7 @@ const DetailsProduct: React.FC = () => {
           {/* <div className=" grid  grid-cols-2 lg:grid-cols-3 gap-4 mt-6 ">
             <ProductBox isLoading={false} />
             <ProductBox isLoading={false} />
-            <ProductBox isLoading={false} />
+            <ProductBox isLoading={false} /> 
           </div> */}
         </div>
       </div>

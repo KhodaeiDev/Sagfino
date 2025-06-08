@@ -61,7 +61,6 @@ const StepSixAdRE: React.FC = () => {
   const { advertisementData, setAdvertisementData } = useAdvertisement()
   const isMounted = useRef(false)
 
-
   useEffect(() => {
     document.title = 'مرحله‌ی شش - ثبت آگهی'
   }, [])
@@ -163,12 +162,12 @@ const StepSixAdRE: React.FC = () => {
       ToastNotification('success', 'آگهی با موفقیت ثبت شد', 5000)
       navigate('/registerAnAd/RegisterDone')
     },
-    onError: () => {
+    onError: (err) => {
       keysToRemove.forEach((key) => localStorage.removeItem(key))
       ToastNotification(
         'error',
-        'آگهی ثبت نشد لطفا با دقت فرم آگهی را پر کنید ',
-        7000
+        `آگهی ثبت نشد لطفا با دقت فرم آگهی را پر کنید  ${err}`,
+        10000
       )
       navigate('/registerAnAd/RegisterError')
     },

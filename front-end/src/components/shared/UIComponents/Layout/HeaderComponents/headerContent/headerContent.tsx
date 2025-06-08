@@ -80,26 +80,21 @@ const HeaderContent: React.FC = () => {
     setShowError(false)
   }
 
-  const filterParams = {
-    tr_type: activeButton,
-    city,
-  }
-
   const queryClient = useQueryClient()
-
   const {
     mutate: triggerSearchAds,
     data,
     isPending,
   } = useMutation({
-    mutationFn: async () => searchAds(filterParams),
+    mutationFn: async (filterParams: { tr_type: string; city: string }) =>
+      searchAds(filterParams),
     onSuccess: (newData) => {
-      queryClient.setQueryData(
+      queryClient.setQueryData<AdvertisementResponse>(
         ['Advertisements', `${city}-${activeButton}`],
         (oldData) => {
-          return oldData
-            ? { ...oldData, data: [...oldData?.data, ...newData.data] }
-            : newData
+          if (!oldData?.data || !newData?.data) return newData
+
+          return { ...oldData, data: [...oldData.data, ...newData.data] }
         }
       )
 
@@ -119,20 +114,6 @@ const HeaderContent: React.FC = () => {
     },
   })
 
-  useEffect(() => {
-    const searchParams = new URLSearchParams(window.location.search)
-    const cityFromUrl = searchParams.get('city')
-    const transactionTypeFromUrl = searchParams.get('tr_type')
-
-    console.log(cityFromUrl, transactionTypeFromUrl)
-
-    if (cityFromUrl && transactionTypeFromUrl) {
-      setSearchState((prev) => ({ ...prev, isLoading: true }))
-      setCity(cityFromUrl)
-      setActiveButton(transactionTypeFromUrl as ButtonType)
-    }
-  }, [window.location.search])
-
   const checkURLAndFetchData = (): boolean => {
     const searchParams = new URLSearchParams(window.location.search)
     const cityFromUrl = searchParams.get('city')
@@ -144,6 +125,20 @@ const HeaderContent: React.FC = () => {
       return false
     }
   }
+
+  useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search)
+    const cityFromUrl = searchParams.get('city')
+    const transactionTypeFromUrl = searchParams.get('tr_type')
+
+    if (cityFromUrl && transactionTypeFromUrl) {
+      setSearchState((prev) => ({ ...prev, isLoading: true }))
+      setCity(cityFromUrl)
+      setActiveButton(transactionTypeFromUrl as ButtonType)
+
+      triggerSearchAds({ tr_type: transactionTypeFromUrl, city: cityFromUrl })
+    }
+  }, [])
 
   const handleSearchClick = () => {
     setSearchState((prev) => ({ ...prev, isLoading: true }))
@@ -159,11 +154,16 @@ const HeaderContent: React.FC = () => {
         'Advertisements',
         `${city}-${activeButton}`,
       ]) || null
+    const searchParams = new URLSearchParams(window.location.search)
+    const cityFromUrl = searchParams.get('city')
+    const transactionTypeFromUrl = searchParams.get('tr_type')
 
+    setCity(String(cityFromUrl))
+    setActiveButton(transactionTypeFromUrl as ButtonType)
     if (cachedData) {
       setCachedData(cachedData)
     } else if (checkURLAndFetchData()) {
-      triggerSearchAds()
+      triggerSearchAds({ tr_type: activeButton, city: city })
     }
   }
 

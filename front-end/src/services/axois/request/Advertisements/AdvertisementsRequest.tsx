@@ -60,3 +60,11 @@ export const getProductInfo = async (
   return await axiosProtectedInstance.get(`
 ad/show/${productId}`)
 }
+
+export const saveAd = async (productId: number): Promise<AxiosResponse> => {
+  return await axiosProtectedInstance.post(`/ads/${productId}/save`)
+}
+
+export const unSaveAd = async (productId: number): Promise<AxiosResponse> => {
+  return await axiosProtectedInstance.delete(`/ads/${productId}/unsave`)
+}
