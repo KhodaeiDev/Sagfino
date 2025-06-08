@@ -57,7 +57,7 @@ export const createAdvertisementReq = async (
 export const getProductInfo = async (
   productId: number
 ): Promise<AxiosResponse> => {
-  return await axiosProtectedInstance.get(`
+  return await axiosUnProtectedInstance.get(`
 ad/show/${productId}`)
 }
 

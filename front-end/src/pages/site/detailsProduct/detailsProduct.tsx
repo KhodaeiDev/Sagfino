@@ -42,6 +42,7 @@ const DetailsProduct: React.FC = () => {
     enabled: !!productId,
   })
 
+  console.log(productInfos)
   useEffect(() => {
     document.title = 'سقفینو - جزئیات محصول '
   }, [])
@@ -323,13 +324,16 @@ const DetailsProduct: React.FC = () => {
                     {adData?.updated_at}
                   </span>
                 </div>
-                <div className="  flex flex-col lg:flex-row items-center gap-1 text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  border-l  border-gray-90   pl-5  ">
+                {/* <div className="  flex flex-col lg:flex-row items-center gap-1 text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  border-l  border-gray-90   pl-5  ">
                   <span> تعداد مشاهده آگهی :</span>
                   <span className=" font-shabnamBold "> 22</span>
-                </div>
+                </div> */}
                 <div className=" flex flex-col lg:flex-row items-center gap-1  text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  ">
                   <span> تعداد ذخیره آگهی :</span>
-                  <span className=" font-shabnamBold "> 6</span>
+                  <span className=" font-shabnamBold ">
+                    {' '}
+                    {adData?.saved_by_users_count}
+                  </span>
                 </div>
               </div>
             </div>
