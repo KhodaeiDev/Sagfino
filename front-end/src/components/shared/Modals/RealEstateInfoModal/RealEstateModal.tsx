@@ -1,7 +1,8 @@
 import ReactDOM from 'react-dom'
 import { IoCallOutline } from 'react-icons/io5'
-import { memo, useCallback, useState } from 'react'
+import { memo, useCallback, useContext, useState } from 'react'
 import { IoMdClose } from 'react-icons/io'
+import { AuthContext } from '../../../../context/auth/authContext'
 
 type RealEstateModalProps = {
   closeModal: () => void
@@ -20,6 +21,7 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
       [setActiveNumber]
     )
 
+    const auth = useContext(AuthContext)
     return ReactDOM.createPortal(
       <div className={`modals-parent ${isModalVisible ? 'active' : ''}`}>
         <div className="  w-full  lg:w-150   h-auto  bg-white lg:rounded-2xl pb-10">
@@ -34,24 +36,27 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
             </div>
             {/* contet */}
             <div className="  flex flex-col items-center  px-28 mt-8">
-              <img
-                className=" lg:w-40 lg:h-22 w-38 h-24   "
-                src="../../../public/img/Real Estate Logo 1.png"
-                alt="img"
-              />
-              {/* personal infomation */}
-              <h6 className="  font-shabnamBold  mb-8 text-2xl mt-3 lg:mt-8">
-                املاک توسی
-              </h6>
-              <div className=" **:flex **:items-center **:gap-x-0.5 gap-y-3 flex flex-col   **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
-                <span>
-                  ۰۹۱۲۳۴۵۶۷۸۹
-                  <IoCallOutline className="   w-7 font-shabnam text-2xl   text-blue-tick " />
-                </span>
-                <span>
-                  ۰۲۱۱۲۳۴۵۶۷۸
-                  <IoCallOutline className="  w-7 font-shabnam text-2xl text-blue-tick " />
-                </span>
+              {auth.userInfo?.role === 'real_estate_agent' ? (
+                <div className="  flex flex-col items-center ">
+                  <div className=" w-35 h-20">
+                    <img
+                      className=" w-full h-full object-contain"
+                      src="../../../public/img/Real Estate Logo 1.png"
+                      alt="img"
+                    />
+                  </div>
+                  {/* personal infomation */}
+                  <h6 className="  font-shabnamBold  mb-8 text-2xl mt-3 lg:mt-8">
+                    املاک توسی
+                  </h6>
+                </div>
+              ) : (
+                ''
+              )}
+
+              <div className=" flex items-center   gap-x-2    **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
+                {auth.userInfo?.phoneNumber}
+                <IoCallOutline className="   w-7 font-shabnam text-2xl   text-blue-tick " />
               </div>
               {/* Consultant  information */}
               {isConsultantInfo && (

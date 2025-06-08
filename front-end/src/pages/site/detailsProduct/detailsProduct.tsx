@@ -35,7 +35,9 @@ const DetailsProduct: React.FC = () => {
     queryFn: () => getProductInfo(Number(productId)),
     enabled: !!productId,
   })
-  console.log(productInfos?.data?.images[0])
+  console.log(productInfos?.data.user)
+
+  const userInfos = productInfos?.data?.user
 
   document.title = 'سقفینو - جزئیات محصول '
 
@@ -52,8 +54,6 @@ const DetailsProduct: React.FC = () => {
   }, [])
 
   const adData = productInfos?.data
-
-  console.log(adData)
 
   if (isLoading) {
     return (
@@ -289,7 +289,7 @@ const DetailsProduct: React.FC = () => {
           </div>
           {/* Left Section */}
           <div className="lg:col-span-5  flex justify-center xl:justify-end order-first xl:order-last  mt-5  xl:mt-28 ">
-            <PersonalInformation />
+            <PersonalInformation  />
           </div>
         </div>
         {/* releted products */}

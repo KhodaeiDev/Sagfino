@@ -18,7 +18,7 @@ export type UserInfoType = {
   lastName: string | null
   phoneNumber: string | null
   image: string | null
-  role: 'user' | 'admin'
+  role: 'user' | 'admin' | 'real_estate_agent'
 }
 
 type AuthContextTypes = {
