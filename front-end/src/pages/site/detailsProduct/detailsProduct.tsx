@@ -12,6 +12,7 @@ import {
   saveAd,
   unSaveAd,
 } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
+import NoProducts from '../../../components/shared/UIComponents/Layout/NoProducts/NoProducts'
 
 import React, { useCallback, useEffect, useState } from 'react'
 import ModalSlaider from '../../../components/shared/Modals/modalSlaider/modalSlaider'
@@ -22,6 +23,8 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { getProductInfo } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { ThreeDot } from 'react-loading-indicators'
 import ToastNotification from '../../../services/toastify/toastify'
+import ProductBox from '../../../components/shared/Cards/productBox/productBox'
+import { Advertisement } from '../../../components/shared/UIComponents/Layout/HeaderComponents/headerContent/headerContent'
 export type Image = {
   id: number
   ad_id: number
@@ -34,20 +37,28 @@ const DetailsProduct: React.FC = () => {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [currentImage, setCurrentImage] = useState('')
   const [isSaved, setIsSaved] = useState<boolean>(false)
-  const { productId } = useParams()
 
+  const { productId } = useParams()
   const { isLoading, data: productInfos } = useQuery({
     queryKey: ['productInfo', productId],
     queryFn: () => getProductInfo(Number(productId)),
-    enabled: !!productId,
+    staleTime: 300000,
   })
 
-  console.log(productInfos)
   useEffect(() => {
-    document.title = 'سقفینو - جزئیات محصول '
-  }, [])
+    document.title = `جزیات آگهی `
+  }, [productInfos])
+
+  const adData = productInfos?.data
+  const userInfos = productInfos?.data?.user
 
   const images = productInfos?.data?.images ?? []
+
+  useEffect(() => {
+    if (adData) {
+      setIsSaved(adData.is_saved)
+    }
+  }, [adData])
 
   const openModal = useCallback((image: string) => {
     setCurrentImage(image)
@@ -59,8 +70,6 @@ const DetailsProduct: React.FC = () => {
     setCurrentImage('')
   }, [])
 
-  const adData = productInfos?.data
-  const userInfos = productInfos?.data?.user
   const saveMutation = useMutation({
     mutationFn: async (adId: number) => saveAd(adId),
     onSuccess: () => {
@@ -77,14 +86,14 @@ const DetailsProduct: React.FC = () => {
     },
     onSuccess: () => setIsSaved(false),
   })
-
   const isLoadingSave = unSaveMutation.isPending || saveMutation.isPending
 
   const saveAdHandler = () => {
     if (isLoadingSave || !adData?.id) return
 
     const token = localStorage.getItem('userToken')
-    if (!token) {
+
+    if (token === 'null') {
       ToastNotification(
         'error',
         'برای ذخیره آگهی‌ها باید وارد حساب کاربری خود شوید.',
@@ -99,7 +108,6 @@ const DetailsProduct: React.FC = () => {
       saveMutation.mutate(adData.id)
     }
   }
-
   if (isLoading) {
     return (
       <>
@@ -256,9 +264,9 @@ const DetailsProduct: React.FC = () => {
               <div className="border border-gray-E1 rounded-md lg:rounded-xl p-4 flex justify-between items-center">
                 <span className="text-sm lg:text-lg font-bold">
                   {' '}
-                  {adData?.updated_at} در {adData?.city}
+                  {adData?.created_at} در {adData?.city}
                 </span>
-                <span className="text-sm lg:text-base">شناسه آگهی : 2344</span>
+                {/* <span className="text-sm lg:text-base">شناسه آگهی : 2344</span> */}
               </div>
             </div>
             {/* Facilities */}
@@ -356,11 +364,15 @@ const DetailsProduct: React.FC = () => {
           <h3 className=" font-shabnamBold text-xl  text-gray-21 mt-14 ">
             آگهی مشابه
           </h3>{' '}
-          {/* <div className=" grid  grid-cols-2 lg:grid-cols-3 gap-4 mt-6 ">
-            <ProductBox isLoading={false} />
-            <ProductBox isLoading={false} />
-            <ProductBox isLoading={false} /> 
-          </div> */}
+          {adData?.similar_ads.length > 0 ? (
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+              {adData.similar_ads.map((productInfo: Advertisement) => (
+                <ProductBox key={productInfo.id} productInfo={productInfo} />
+              ))}
+            </div>
+          ) : (
+            <NoProducts />
+          )}
         </div>
       </div>
       {/* Modal */}

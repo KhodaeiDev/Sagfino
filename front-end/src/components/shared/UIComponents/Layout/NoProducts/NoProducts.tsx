@@ -1,3 +1,5 @@
+import { NavLink } from 'react-router'
+
 const NoProducts = () => {
   return (
     <>
@@ -16,9 +18,12 @@ const NoProducts = () => {
               در صفحه اصلی املاک مشابهی منتظر شما هستند
             </span>
           </div>
-          <div className=" cursor-pointer center w-39 h-8  lg:w-sm lg:h-10 rounded-lg bg-primary text-white  font-shabnamMedium  text-xs lg:text-sm ">
+          <NavLink
+            to={'/'}
+            className=" cursor-pointer center w-39 h-8  lg:w-sm lg:h-10 rounded-lg bg-primary text-white  font-shabnamMedium  text-xs lg:text-sm "
+          >
             بازگشت صحفه اصلی{' '}
-          </div>
+          </NavLink>
         </div>
       </div>
     </>

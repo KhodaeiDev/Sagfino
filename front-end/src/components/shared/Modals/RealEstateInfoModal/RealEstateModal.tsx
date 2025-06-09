@@ -1,6 +1,6 @@
 import ReactDOM from 'react-dom'
 import { IoCallOutline } from 'react-icons/io5'
-import { memo, useCallback, useContext, useState } from 'react'
+import { memo, useContext } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { AuthContext } from '../../../../context/auth/authContext'
 import { UserInfos } from '../../Cards/personalInformationBox/Personalinformation'
@@ -14,15 +14,14 @@ type RealEstateModalProps = {
 
 const RealEstateModal: React.FC<RealEstateModalProps> = memo(
   ({ closeModal, isModalVisible, isConsultantInfo, userInfos }) => {
-    console.log(userInfos)
-    const [activeNumber, setActiveNumber] = useState<number>(1)
+    // const [activeNumber, setActiveNumber] = useState<number>(1)
 
-    const handleClick = useCallback(
-      (number: number) => {
-        setActiveNumber(number)
-      },
-      [setActiveNumber]
-    )
+    // const handleClick = useCallback(
+    //   (number: number) => {
+    //     setActiveNumber(number)
+    //   },
+    //   [setActiveNumber]
+    // )
 
     const auth = useContext(AuthContext)
     return ReactDOM.createPortal(
@@ -64,7 +63,7 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
               {/* Consultant  information */}
               {isConsultantInfo && (
                 <>
-                  <div className=" flex flex-col items-center justify-center gap-2.5  mt-14 lg:mt-8  text-xs lg:text-base text-blue-tick   font-shabnam ">
+                  {/* <div className=" flex flex-col items-center justify-center gap-2.5  mt-14 lg:mt-8  text-xs lg:text-base text-blue-tick   font-shabnam ">
                     <div className=" flex items-center justify-between gap-2.5  ">
                       <div className=" w-4 h-4 lg:w-6 lg:h-6 border border-blue-tick rounded-full   center text-lg ">
                         !
@@ -82,7 +81,6 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
                     <p className=" font-shabnam   text-Gray-35  text-sm ">
                       چه امتیازی به مشاور املاک توسی می دهید ؟
                     </p>
-                    {/* scoring */}
                     <div className="flex flex-row-reverse items-center justify-center gap-2 mt-3 text-sm text-gray-90">
                       {[1, 2, 3, 4, 5].map((number) => (
                         <div
@@ -98,7 +96,7 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
                         </div>
                       ))}
                     </div>
-                  </div>
+                  </div> */}
                 </>
               )}
             </div>

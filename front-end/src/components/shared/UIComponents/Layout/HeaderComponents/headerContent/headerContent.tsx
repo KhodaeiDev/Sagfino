@@ -15,6 +15,17 @@ export interface Image {
   created_at: string
   updated_at: string
 }
+
+export interface UserProfile {
+  id: number
+  firstName: string
+  lastName: string
+  phoneNumber: string
+  image?: string | null
+  created_at: string
+  updated_at: string
+}
+
 export interface Advertisement {
   id: number
   user_id: number
@@ -37,6 +48,10 @@ export interface Advertisement {
   created_at: string
   updated_at: string
   images: Image[]
+  similar_ads: Advertisement[]
+  user: UserProfile
+  is_saved: boolean
+  saved_by_users_count: number
 }
 
 export interface AdvertisementResponse {
@@ -83,24 +98,28 @@ const HeaderContent: React.FC = () => {
   const queryClient = useQueryClient()
   const {
     mutate: triggerSearchAds,
-    data,
+    data: searchData,
     isPending,
   } = useMutation({
     mutationFn: async (filterParams: { tr_type: string; city: string }) =>
       searchAds(filterParams),
     onSuccess: (newData) => {
-      queryClient.setQueryData<AdvertisementResponse>(
+      queryClient.setQueryData<Advertisement[]>(
         ['Advertisements', `${city}-${activeButton}`],
         (oldData) => {
-          if (!oldData?.data || !newData?.data) return newData
+          const newAds = newData?.data ?? []
 
-          return { ...oldData, data: [...oldData.data, ...newData.data] }
+          if (!Array.isArray(oldData) || !Array.isArray(newAds)) {
+            return newAds
+          }
+
+          return [...oldData, ...newAds]
         }
       )
 
       setSearchState((prev) => ({
         ...prev,
-        result: newData,
+        result: newData.data.data,
         city,
         isLoading: false,
         transactionType: activeButton,
@@ -168,34 +187,32 @@ const HeaderContent: React.FC = () => {
   }
 
   useEffect(() => {
-    if (data?.data && Array.isArray(data.data) && data.data.length > 0) {
-      if (window.innerWidth > 640) {
-        if (window.innerWidth > 768) {
-          window.scrollBy({ top: 600, behavior: 'smooth' })
-        } else {
-          window.scrollBy({ top: 100, behavior: 'smooth' })
-        }
+    if (
+      searchData?.data.data &&
+      Array.isArray(searchData.data.data) &&
+      searchData.data.data.length > 0
+    ) {
+      if (window.innerWidth > 768) {
+        window.scrollBy({ top: 350, behavior: 'smooth' })
+      } else {
+        window.scrollBy({ top: 100, behavior: 'smooth' })
       }
 
-      console.log(data.data)
-
       const storedData = {
-        result: data.data,
+        result: searchData.data.data,
         timestamp: Date.now(),
         city,
         transactionType: activeButton,
       }
 
-      console.log('storedData', storedData)
-
       localStorage.setItem('searchData', JSON.stringify(storedData))
       setSearchState((prev) => ({
         ...prev,
-        result: { data: data.data.slice(0, 8) },
+        result: { data: searchData.data.data.slice(0, 8) },
         isLoading: false,
         transactionType: activeButton,
       }))
-    } else if (data?.data.length === 0) {
+    } else if (searchData?.data.data.length === 0) {
       ToastNotification(
         'error',
         'هیچ آگهی‌ای برای این شهر ثبت نشده است. می‌توانید شهر دیگری را جستجو کنید یا نوع معامله (اجاره/خرید) را تغییر دهید.',
@@ -210,7 +227,7 @@ const HeaderContent: React.FC = () => {
       }))
       setShowError(false)
     }
-  }, [data])
+  }, [searchData])
 
   useEffect(() => {
     if (!cachedData || !cachedData.data || !Array.isArray(cachedData.data))
@@ -238,6 +255,7 @@ const HeaderContent: React.FC = () => {
           window.scrollBy({ top: 100, behavior: 'smooth' })
         }
       }
+
       setSearchState((prev) => ({
         ...prev,
         result: { data: cachedData.data.slice(0, 8) },

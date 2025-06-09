@@ -1,19 +1,19 @@
 import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
 import BoxHelp from '../../../components/shared/Cards/helpBox/helpBox'
 // import PublicBox from '../../components/publicBox/publicBox'
-import PublicBox from '../../../components/shared/Cards/publicBox/publicBox'
+// import PublicBox from '../../../components/shared/Cards/publicBox/publicBox'
 import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 // import NewsBox from '../../components/newsBox/newsBox'
 
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Navigation } from 'swiper/modules'
+// import { Swiper, SwiperSlide } from 'swiper/react'
+// import { Navigation } from 'swiper/modules'
 import { v4 as uuidv4 } from 'uuid'
 import 'swiper/css'
 import 'swiper/css/navigation'
-import React, { useContext, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NavLink } from 'react-router'
 // import ConsultantBox from '../../components/shared/Cards/consultantBox/consultantBox'
-import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
+// import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
 // import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import ShowSwal from '../../../services/sweetalert2/configs'
 import { useSearch } from '../../../context/HomePageSearch/useSearch'
@@ -35,14 +35,13 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     if (searchState.isLoading) {
-      setLoading(true) 
+      setLoading(true)
     } else {
       setTimeout(() => {
-        setLoading(false) 
+        setLoading(false)
       }, 1000)
     }
   }, [searchState.isLoading])
-
 
   const saghfinooHelpData = [
     {
@@ -131,7 +130,7 @@ const Home: React.FC = () => {
       {/* PropertyTypesSection */}
       <div className="PropertyTypesSection  ">
         {/* /* PropertyTypesSection  */}
-        <div className="container mb-15 lg:mb-25">
+        {/* <div className="container mb-15 lg:mb-25">
           <SectionHeader
             title={'در سقفینو دنبال چه نوع ملکی هستید'}
             dec={''}
@@ -145,7 +144,7 @@ const Home: React.FC = () => {
             <PublicBox />
             <PublicBox />
           </div>
-        </div>
+        </div> */}
         {/* services */}
         <div className="container mb-15 lg:mb-25">
           <SectionHeader

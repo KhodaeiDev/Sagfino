@@ -3,13 +3,13 @@ import CustomSkeletonLoader from '../../UIComponents/Feedback/SkeletonLoader/Ske
 import React, { memo } from 'react'
 import { Advertisement } from '../../UIComponents/Layout/HeaderComponents/headerContent/headerContent'
 type ProductBoxProps = {
-  isLoading: boolean
+  isLoading?: boolean
   productInfo: Advertisement
 }
 
 const ProductBox: React.FC<ProductBoxProps> = memo(
   ({ isLoading, productInfo }) => {
-
+    console.log(productInfo)
     return (
       <div
         className={` border w-full  h-auto 

@@ -54,11 +54,18 @@ export const createAdvertisementReq = async (
   })
 }
 
-export const getProductInfo = async (
-  productId: number
-): Promise<AxiosResponse> => {
-  return await axiosUnProtectedInstance.get(`
-ad/show/${productId}`)
+export const getProductInfo = async (productId: number) => {
+  const token = localStorage.getItem('userToken')?.replace(/"/g, '')
+
+  if (token !== 'null' || !token) {
+    return await axiosProtectedInstance.get(`ad/show/${productId}`, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    })
+  } else {
+    return await axiosProtectedInstance.get(`ad/show/${productId}`, {})
+  }
 }
 
 export const saveAd = async (productId: number): Promise<AxiosResponse> => {
