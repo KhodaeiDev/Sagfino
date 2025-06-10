@@ -64,12 +64,11 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
 
   useEffect(() => {
     const token = localStorage.getItem('userToken')
+    const storedExpiryTime = localStorage.getItem('TokenExpiryTime')
+    const isValidToken =
+      token && token !== 'null' && token.trim() !== '' && token !== undefined
 
     const checkTokenExpiry = () => {
-      const storedExpiryTime = localStorage.getItem('TokenExpiryTime')
-      const isValidToken =
-        token && token !== 'null' && token.trim() !== '' && token !== undefined
-
       if (
         !storedExpiryTime ||
         !isValidToken ||
@@ -85,10 +84,11 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
         navigate('/auth/StepOne')
       }
     }
-
-    const interval = setInterval(checkTokenExpiry, 1800000)
-    checkTokenExpiry()
-    return () => clearInterval(interval)
+    if (isValidToken && storedExpiryTime) {
+      checkTokenExpiry()
+      const interval = setInterval(checkTokenExpiry, 1800000)
+      return () => clearInterval(interval)
+    }
   }, [navigate])
 
   useEffect(() => {
