@@ -324,12 +324,12 @@ const DetailsProduct: React.FC = () => {
                 <span> آدرس :</span>
                 <span> {adData?.address}</span>
               </div>
-              <div className=" flex items-center gap-x-4  mt-10 ">
+              <div className=" w-fit flex items-center gap-x-4  mt-10 ">
                 <div className=" flex flex-col lg:flex-row items-center gap-1  text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  border-l  border-gray-90   pl-5  ">
                   <span> زمان ثبت آگهی :</span>
                   <span className=" font-shabnamBold ">
                     {' '}
-                    {adData?.updated_at}
+                    {adData?.created_at}
                   </span>
                 </div>
                 {/* <div className="  flex flex-col lg:flex-row items-center gap-1 text-10 text-gray-21  lg:text-lg   flex-wrap  mt-3  border-l  border-gray-90   pl-5  ">
