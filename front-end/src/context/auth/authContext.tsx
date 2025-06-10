@@ -12,6 +12,8 @@ import {
   useRemoveFromLocalStorage,
 } from '../../Hooks/shared/shared'
 import UserInfoProvider from './UserInfoProvider'
+import ToastNotification from '../../services/toastify/toastify'
+import { useNavigate } from 'react-router'
 
 export type UserInfoType = {
   firstName: string | null
@@ -53,6 +55,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   const [getLocalUserInfo] = useGetFromLocalStorage('userInfo')
   const removeFromLocalUserToken = useRemoveFromLocalStorage('userToken')
   const removeFromLocalUserInfos = useRemoveFromLocalStorage('userInfo')
+  const navigate = useNavigate()
 
   const [token, setToken] = useState<string | null>(null)
   const [phone, setphone] = useState<string>('')
@@ -60,12 +63,39 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null)
 
   useEffect(() => {
+    const token = localStorage.getItem('userToken')
+
+    const checkTokenExpiry = () => {
+      const storedExpiryTime = localStorage.getItem('TokenExpiryTime')
+      const isValidToken =
+        token && token !== 'null' && token.trim() !== '' && token !== undefined
+
+      if (
+        !storedExpiryTime ||
+        !isValidToken ||
+        Date.now() >= Number(storedExpiryTime)
+      ) {
+        logout()
+        ToastNotification(
+          'error',
+          'توکن شما معتبر نیست یا منقضی شده، لطفا دوباره احراز هویت را انجام دهید',
+          6000
+        )
+        localStorage.clear()
+        navigate('/auth/StepOne')
+      }
+    }
+
+    const interval = setInterval(checkTokenExpiry, 1800000)
+    checkTokenExpiry()
+    return () => clearInterval(interval)
+  }, [navigate])
+
+  useEffect(() => {
     const storedToken = getLocalUserToken
     const storedUserInfo = getLocalUserInfo
-    const isTokenExpired = () =>
-      Date.now() >= Number(localStorage.getItem('TokenExpiryTime'))
 
-    if (isTokenExpired() && storedToken && storedUserInfo) {
+    if (storedToken && storedUserInfo) {
       setToken(storedToken)
       setUserInfo(JSON.parse(storedUserInfo) as UserInfoType)
       setIsLoggedIn(true)
@@ -77,6 +107,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
       const issuedate = Date.now()
       const expiresInMs = 24 * 60 * 60 * 1000
       const expiresAt = issuedate + expiresInMs
+
       setTokenExpiryTime(expiresAt.toString())
       setUserTokenLocal(newToken)
       setUserInfoLoacal(JSON.stringify(userinfos))
