@@ -60,21 +60,10 @@ const NavBar: React.FC = () => {
                     }`
                   }
                 >
-                  اجاره
+                  اجاره | خرید
                 </NavLink>
               </li>
-              <li>
-                <NavLink
-                  to={'/shopping/shopping'}
-                  className={({ isActive }) =>
-                    `hover:text-primary hover:custom-underline-hover ${
-                      isActive ? 'text-primary custom-underline' : ''
-                    }`
-                  }
-                >
-                  خرید
-                </NavLink>
-              </li>
+           
               <li>
                 <NavLink
                   to={'/Realestates/Realestates'}
@@ -306,27 +295,13 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
             >
               <div className=" flex   gap-2  mt-5">
                 <FaHouse className="text-2xl" />
-                اجاره خانه
+                اجاره | خرید
               </div>
               <IoIosArrowBack className="text-2xl" />
             </NavLink>
           </li>
-          <li>
-            <NavLink
-              to={'/Shopping/shopping'}
-              className={({ isActive }) =>
-                `flex items-center justify-between w-full hover:text-primary  hover:custom-underline  ${
-                  isActive ? 'text-primary custom-underline' : ''
-                }`
-              }
-            >
-              <div className=" flex   gap-2  mt-5">
-                <IoKeyOutline className="text-2xl" />
-                خرید خانه{' '}
-              </div>
-              <IoIosArrowBack className="text-2xl" />
-            </NavLink>
-          </li>
+          
+       
           <li>
             <NavLink
               to={'/Realestates/Realestates'}
