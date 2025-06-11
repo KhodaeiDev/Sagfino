@@ -1,1 +1,1 @@
-export type FormType = 'register' | 'login' | 'adPosting'
+export type FormType = 'register' | 'login' | 'adPosting' | 'rent-search'

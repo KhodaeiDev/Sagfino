@@ -23,7 +23,7 @@ const SelectBox: React.FC<SelectBoxProps> = memo(
     const [isOpen, setIsOpen] = useState<boolean>(false)
 
     const toggleDropdown = useCallback(() => {
-      setIsOpen((prev) => !prev) 
+      setIsOpen((prev) => !prev)
     }, [])
 
     const handleOptionClick = useCallback(
@@ -61,7 +61,10 @@ const SelectBox: React.FC<SelectBoxProps> = memo(
                 key={option.id}
                 onClick={
                   option.id !== 0
-                    ? () => handleOptionClick(option.name, option.id)
+                    ? () => {
+                        console.log("🔍 انتخاب شد:", option.name); // 🚀 نمایش مقدار کلیک‌شده
+                        handleOptionClick(option.name, option.id);
+                      }
                     : undefined
                 }
                 className={`list-none rounded-sm transition-all duration-500 cursor-pointer px-4 py-2 
@@ -86,4 +89,3 @@ const SelectBox: React.FC<SelectBoxProps> = memo(
 )
 
 export default SelectBox
-

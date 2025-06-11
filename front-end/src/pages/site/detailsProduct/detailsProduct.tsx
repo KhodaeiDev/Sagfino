@@ -39,9 +39,14 @@ const DetailsProduct: React.FC = () => {
   const [isSaved, setIsSaved] = useState<boolean>(false)
 
   const { productId } = useParams()
+  const fetchProductInfo = useCallback(
+    () => getProductInfo(Number(productId)),
+    [productId]
+  )
+
   const { isLoading, data: productInfos } = useQuery({
     queryKey: ['productInfo', productId],
-    queryFn: () => getProductInfo(Number(productId)),
+    queryFn: fetchProductInfo,
     staleTime: 300000,
   })
 

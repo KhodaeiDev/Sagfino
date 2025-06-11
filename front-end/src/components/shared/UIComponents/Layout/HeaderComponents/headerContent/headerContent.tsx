@@ -1,6 +1,6 @@
 import { RiSearch2Line } from 'react-icons/ri'
 import Typewriter from 'typewriter-effect'
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { searchAds } from '../../../../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import ToastNotification from '../../../../../../services/toastify/toastify'
@@ -82,6 +82,7 @@ const HeaderContent: React.FC = () => {
       !/[!@#$%^&*()_+={};:'",.<>?|]/.test(trimmedCity)
     )
   }
+
   const isInvalid = validateCityName(city)
 
   const searchInputChangeHandler = (
@@ -96,13 +97,19 @@ const HeaderContent: React.FC = () => {
   }
 
   const queryClient = useQueryClient()
+
+  const fetchSearchAds = useCallback(
+    async (filterParams: { tr_type: string; city: string }) =>
+      searchAds(filterParams),
+    []
+  )
+
   const {
     mutate: triggerSearchAds,
     data: searchData,
     isPending,
   } = useMutation({
-    mutationFn: async (filterParams: { tr_type: string; city: string }) =>
-      searchAds(filterParams),
+    mutationFn: fetchSearchAds,
     onSuccess: (newData) => {
       queryClient.setQueryData<Advertisement[]>(
         ['Advertisements', `${city}-${activeButton}`],
@@ -165,6 +172,8 @@ const HeaderContent: React.FC = () => {
     const newParams = new URLSearchParams()
     newParams.set('city', city)
     newParams.set('tr_type', activeButton)
+    localStorage.setItem('rent-search-value', city)
+    localStorage.setItem('tr-type', activeButton)
 
     setSearchParams(newParams)
 

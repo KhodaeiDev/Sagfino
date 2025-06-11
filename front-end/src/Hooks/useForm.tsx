@@ -130,6 +130,14 @@ const UseForm = (formType: FormType) => {
           title: { value: '', isValid: false, errorMessage: null },
           description: { value: '', isValid: false, errorMessage: null },
         }
+      case 'rent-search':
+        return {
+          rentSearch: {
+            value: '',
+            isValid: false,
+            errorMessage: null,
+          },
+        }
       default:
         return {}
     }

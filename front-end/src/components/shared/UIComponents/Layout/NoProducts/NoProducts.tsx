@@ -1,6 +1,15 @@
+import React from 'react'
 import { NavLink } from 'react-router'
 
-const NoProducts = () => {
+type NoProductProps = {
+  des?: string
+  isBtn?: boolean
+}
+
+const NoProducts: React.FC<NoProductProps> = ({
+  des = ` در صفحه اصلی املاک مشابهی منتظر شما هستند`,
+  isBtn = true,
+}) => {
   return (
     <>
       <div className="container">
@@ -15,15 +24,20 @@ const NoProducts = () => {
               ملک با مشخصات مورد نظر پیدا نشد!
             </h3>
             <span className=" text-Gray-35 font-shabnam  lg:text-sm text-xl  ">
-              در صفحه اصلی املاک مشابهی منتظر شما هستند
+              {des}
             </span>
           </div>
-          <NavLink
-            to={'/'}
-            className=" cursor-pointer center w-39 h-8  lg:w-sm lg:h-10 rounded-lg bg-primary text-white  font-shabnamMedium  text-xs lg:text-sm "
-          >
-            بازگشت صحفه اصلی{' '}
-          </NavLink>
+
+          {isBtn ? (
+            <NavLink
+              to={'/'}
+              className=" cursor-pointer center w-39 h-8  lg:w-sm lg:h-10 rounded-lg bg-primary text-white  font-shabnamMedium  text-xs lg:text-sm "
+            >
+              بازگشت صحفه اصلی{' '}
+            </NavLink>
+          ) : (
+            ''
+          )}
         </div>
       </div>
     </>

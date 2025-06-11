@@ -29,8 +29,11 @@ const Home: React.FC = () => {
   //   setIsModalVisible(false)
   // }, [])
 
-  document.title = 'سقفینو - خانه'
+  useEffect(() => {
+    document.title = 'سقفینو - خانه'
+  }, [])
   const { searchState } = useSearch()
+
   const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
@@ -88,7 +91,7 @@ const Home: React.FC = () => {
               dec={''}
               center={false}
               btnTitle={'مشاهده همه'}
-              btnHref={''}
+              btnHref={`${'/Rent/Rent'}`}
             />
             <ShowSwal
               icon="success"
