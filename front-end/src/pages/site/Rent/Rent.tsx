@@ -4,9 +4,9 @@ import SelectBox from '../../../components/shared/UIComponents/FormElements/sele
 import { useCallback, useEffect, useState } from 'react'
 import { TbFilterSearch } from 'react-icons/tb'
 
-import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
-import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
-import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
+// import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
+// import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
+// import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import { ThreeDot } from 'react-loading-indicators'
 
 import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
@@ -24,7 +24,7 @@ const Rent: React.FC = () => {
   const [dealType, setDealType] = useState('نوع معامله')
   const [isopenModalFiltering, setOpenModalFiltering] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   const newParams = new URLSearchParams(String(location.search))
@@ -38,9 +38,9 @@ const Rent: React.FC = () => {
   //   setIsModalVisible(true)
   // }, [setIsModalVisible])
 
-  const closeModal = useCallback(() => {
-    setIsModalVisible(false)
-  }, [setIsModalVisible])
+  // const closeModal = useCallback(() => {
+  //   setIsModalVisible(false)
+  // }, [setIsModalVisible])
 
   const openModalFiltering = useCallback(() => {
     setOpenModalFiltering(true)
@@ -53,8 +53,13 @@ const Rent: React.FC = () => {
   document.title = 'سقفینو - اجاره'
 
   const fetchSearchAds = useCallback(
-    async (filterParams: { city: string; tr_type: string; pr_type: string }) =>
-      searchAds(filterParams),
+    async (filterParams: {
+      city: string
+      tr_type: string
+      pr_type?: string
+      rent_price?: string
+      sell_price?: string
+    }) => searchAds(filterParams),
     []
   )
 
@@ -66,27 +71,46 @@ const Rent: React.FC = () => {
     onSuccess: () => {},
     mutationFn: fetchSearchAds,
   })
-  console.log(filteredProducts)
+
   useEffect(() => {
-    const city = localStorage.getItem('rent-search-value') || 'تهران'
-    const trType = localStorage.getItem('tr-type') || 'rent'
-    const prType = localStorage.getItem('pr_type')
+    const storedParams: Partial<{
+      city: string
+      tr_type: string
+      pr_type: string | null
+      rent_price: string | null
+      sell_price: string | null
+    }> = {
+      city: localStorage.getItem('rent-search-value') || 'تهران',
+      tr_type: localStorage.getItem('tr-type') || 'rent',
+      pr_type: localStorage.getItem('pr_type'),
+      rent_price: localStorage.getItem('rent_price'),
+      sell_price: localStorage.getItem('sell_price'),
+    }
 
-    newParams.set('city', String(city))
-    newParams.set('tr_type', String(trType) || 'rent')
-    newParams.set('pr_type', String(prType))
+    const cityParams = newParams.get('city')
+    localStorage.setItem('rent-search-value', String(cityParams))
 
-    console.log('🔍 درخواست ارسال‌شده:', newParams.toString())
+    const filteredParams = Object.fromEntries(
+      Object.entries(storedParams).filter(([value]) => value && value !== '')
+    ) as {
+      city: string
+      tr_type: string
+      pr_type?: string
+      rent_price?: string
+      sell_price?: string
+    }
 
-    setDealType(String(trType === 'sell' ? 'فروش' : 'اجاره'))
-
-    setSearchParams(newParams)
-    adFiltering({
-      city: String(city),
-      tr_type: String(trType),
-      pr_type: String(prType),
+    Object.entries(filteredParams).forEach(([key, value]) => {
+      if (value && value !== '') {
+        newParams.set(key, value)
+      }
     })
-    console.log('درخواست داده شد')
+
+    setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
+    setSearchParams(newParams)
+
+    // ارسال فقط پارامترهای معتبر به `adFiltering`
+    adFiltering(filteredParams)
   }, [location.search, searchParams])
 
   useEffect(() => {
@@ -103,7 +127,7 @@ const Rent: React.FC = () => {
 
   const selectBoxData = [
     {
-      label: ' نوع معامله ',
+      label: 'نوع معامله',
       items: [
         { id: 1, name: 'فروش' },
         { id: 2, name: 'اجاره' },
@@ -155,8 +179,9 @@ const Rent: React.FC = () => {
             <div className=" flex items-center justify-between ">
               <SelectBox
                 options={
-                  selectBoxData.find((data) => data.label === ' نوع معامله ')
-                    ?.items || []
+                  selectBoxData.find(
+                    (data) => data.label === 'نوع معامله' || 'اجاره'
+                  )?.items || []
                 }
                 selectedOption={dealType}
                 onSelect={handleDealTypeSelect}
@@ -164,13 +189,7 @@ const Rent: React.FC = () => {
                 responsiveWidth=" w-50"
                 responsiveHeight="h-12"
               />
-              <div
-                onClick={openModalFiltering}
-                className="  flex md:hidden  items-center gap-1 cursor-pointer text-gray-1000 border-blue-400 shadow-blue-400/50 shadow-lg p-3 border w-41.5  md:h-12 h-8 rounded-lg"
-              >
-                <TbFilterSearch className=" text-xl md:text-2xl" />
-                <span>فیلتر های بیشتر</span>
-              </div>
+            
             </div>
           </div>
           {/* products */}
@@ -207,12 +226,12 @@ const Rent: React.FC = () => {
           <Pagination />
         </div>
       </div>
-      {isModalVisible && (
+      {/* {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}
           closeModal={closeModal}
         />
-      )}
+      )} */}
       {isopenModalFiltering && (
         <>
           {isMobile ? (

@@ -27,6 +27,9 @@ const Sorting: React.FC<SortingProps> = ({
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const [propertyType, setPropertyType] = useState('نوع ملک')
+  const [rentPrice, setRentPrice] = useState(' مرتب‌سازی بر اساس قیمت')
+  const [sellPrice, setSellPrice] = useState(' مرتب‌سازی بر اساس قیمت')
+  const trType = localStorage.getItem('tr-type') || 'rent'
   const newParams = new URLSearchParams(searchParams)
 
   const [formState, onInputHandler, dispatch] = UseForm(formType)
@@ -86,10 +89,52 @@ const Sorting: React.FC<SortingProps> = ({
     [setPropertyType]
   )
 
+  const handlePriceSorting = (value: string) => {
+    console.log('trType', trType)
+    if (trType === 'rent') {
+      setRentPrice(value)
+      newParams.set('rent_price', value === 'بیشترین قیمت' ? 'asc' : 'desc')
+    } else {
+      console.log('slm')
+      setSellPrice(value)
+      newParams.set('sell_price', value === 'بیشترین قیمت' ? 'asc' : 'desc')
+    }
+    setSearchParams(newParams)
+
+    localStorage.setItem(
+      trType === 'rent' ? 'rent_price' : 'sell_price',
+      value === 'بیشترین قیمت' ? 'asc' : 'desc'
+    )
+  }
+
   useEffect(() => {
     const prType = localStorage.getItem('pr_type')
+    const rentPrice = localStorage.getItem('rent_price')
+    const sellPrice = localStorage.getItem('sell_price')
 
-    setPropertyType(String(prType === 'commercial' ? 'تجاری' : 'مسکونی'))
+    setPropertyType(
+      String(
+        prType ? (prType === 'commercial' ? 'تجاری' : 'مسکونی') : 'نوع ملک'
+      )
+    )
+    setRentPrice(
+      String(
+        rentPrice
+          ? rentPrice === 'asc'
+            ? 'بیشترین قیمت'
+            : 'کمترین قیمت'
+          : ' مرتب‌سازی بر اساس قیمت'
+      )
+    )
+    setSellPrice(
+      String(
+        sellPrice
+          ? sellPrice === 'asc'
+            ? 'بیشترین قیمت'
+            : 'کمترین قیمت'
+          : ' مرتب‌سازی بر اساس قیمت'
+      )
+    )
   }, [])
 
   const selectBoxData = [
@@ -100,28 +145,21 @@ const Sorting: React.FC<SortingProps> = ({
         { id: 2, name: 'مسکونی' },
       ],
     },
+    {
+      label: ' مرتب‌سازی بر اساس قیمت',
+      items: [
+        { id: 1, name: 'بیشترین قیمت' },
+        { id: 2, name: 'کمترین قیمت' },
+      ],
+    },
   ]
 
   return (
     <>
       <div className="container">
         {/* Desktop */}
-        <div className="hidden md:flex xl:flex-row md:flex-col-reverse gap-4 items-start   mt-22">
-          <div className="flex items-center justify-start gap-2">
-            {/* {selectBoxData.map((data, index) => (
-              <SelectBox
-                key={index}
-                selectedOption={options[index]}
-                onSelect={(option) => handleSelect(index, option)}
-                width="w-27"
-                responsiveWidth="w-27"
-                responsiveHeight="h-12"
-              >
-                {data.items.map((item) => (
-                  <li key={item}>{item}</li>
-                ))}
-              </SelectBox>
-            ))} */}
+        <div className=" flex xl:flex-row flex-col-reverse gap-4 items-start h-auto   mt-10  lg:mt-20 ">
+          <div className="flex w-full  flex-wrap  lg:flex-nowrap  items-center  gap-y-8  gap-x-2">
             <SelectBox
               options={
                 selectBoxData.find((data) => data.label === 'نوع ملک')?.items ||
@@ -133,22 +171,45 @@ const Sorting: React.FC<SortingProps> = ({
               responsiveWidth="w-full"
               responsiveHeight="h-12"
             />
+
+            {trType === 'rent' ? (
+              <SelectBox
+                options={
+                  selectBoxData.find(
+                    (data) => data.label === ' مرتب‌سازی بر اساس قیمت'
+                  )?.items || []
+                }
+                selectedOption={rentPrice}
+                onSelect={handlePriceSorting}
+                width="w-full"
+                responsiveWidth="w-full"
+                responsiveHeight="h-12"
+              />
+            ) : (
+              <SelectBox
+                options={
+                  selectBoxData.find(
+                    (data) => data.label === ' مرتب‌سازی بر اساس قیمت'
+                  )?.items || []
+                }
+                selectedOption={sellPrice}
+                onSelect={handlePriceSorting}
+                width="w-full"
+                responsiveWidth="w-full"
+                responsiveHeight="h-12"
+              />
+            )}
+
             <div
               onClick={openModalFiltering}
-              className="flex items-center gap-2 cursor-pointer text-gray-1000 border-blue-400 shadow-blue-400/50 shadow-lg p-3 border w-41.5 h-12 rounded-lg"
+              className=" w-full xl:w-95
+               items-center gap-2 cursor-pointer text-gray-1000 inline-flex bg-transparent rounded-lg border px-4 border-blue-400 shadow-blue-400/50  h-12 "
             >
-              <span>فیلتر های بیشتر</span>
+              فیلتر های بیشتر
             </div>
           </div>
-          <div className=" relative w-full  flex flex-col  h-[82px] ">
-            {/* <input
-                  className="border-none  placeholder:text-xs md:placeholder:text-base outline-0 w-full font-shabnam text-Gray-35 placeholder-Gray-35"
-                  type="text"
-                  placeholder="شهر مورد نظر را جست‌وجو کنید"
-                  onChange={(event) => searchInputChangeHandler(event)}
-                  value={String(city)}
-                  onBlur={blurHandler}
-                /> */}
+          <div className=" relative w-full  h-20 flex flex-col  ">
+          
             <Input
               id="rent-search"
               type="text"
