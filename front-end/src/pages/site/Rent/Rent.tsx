@@ -25,10 +25,9 @@ const Rent: React.FC = () => {
   const [isopenModalFiltering, setOpenModalFiltering] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
-  const [, setSearchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   const newParams = new URLSearchParams(String(location.search))
-
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
   // const handleSelect = (option: string) => {
@@ -54,7 +53,7 @@ const Rent: React.FC = () => {
   document.title = 'سقفینو - اجاره'
 
   const fetchSearchAds = useCallback(
-    async (filterParams: { city: string; tr_type: string }) =>
+    async (filterParams: { city: string; tr_type: string; pr_type: string }) =>
       searchAds(filterParams),
     []
   )
@@ -67,28 +66,28 @@ const Rent: React.FC = () => {
     onSuccess: () => {},
     mutationFn: fetchSearchAds,
   })
-
+  console.log(filteredProducts)
   useEffect(() => {
-    const city = localStorage.getItem('rent-search-value')
-    const trType = localStorage.getItem('tr-type')
+    const city = localStorage.getItem('rent-search-value') || 'تهران'
+    const trType = localStorage.getItem('tr-type') || 'rent'
+    const prType = localStorage.getItem('pr_type')
 
-    if (city && trType) {
-      newParams.set('city', String(city))
-      newParams.set('tr_type', String(trType) || 'rent')
-      setDealType(String(trType === 'sell' ? 'فروش' : 'اجاره'))
+    newParams.set('city', String(city))
+    newParams.set('tr_type', String(trType) || 'rent')
+    newParams.set('pr_type', String(prType))
 
-      setSearchParams(newParams)
-    }
-  }, [])
+    console.log('🔍 درخواست ارسال‌شده:', newParams.toString())
 
-  useEffect(() => {
-    const city = localStorage.getItem('rent-search-value')
-    const trType = localStorage.getItem('tr-type')
-    if (city && trType) {
-      console.log(trType)
-      adFiltering({ city, tr_type: String(trType) })
-    }
-  }, [location.search])
+    setDealType(String(trType === 'sell' ? 'فروش' : 'اجاره'))
+
+    setSearchParams(newParams)
+    adFiltering({
+      city: String(city),
+      tr_type: String(trType),
+      pr_type: String(prType),
+    })
+    console.log('درخواست داده شد')
+  }, [location.search, searchParams])
 
   useEffect(() => {
     if (isPending) {

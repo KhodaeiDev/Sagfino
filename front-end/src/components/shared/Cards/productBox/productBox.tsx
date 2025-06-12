@@ -9,7 +9,6 @@ type ProductBoxProps = {
 
 const ProductBox: React.FC<ProductBoxProps> = memo(
   ({ isLoading, productInfo }) => {
-    console.log(productInfo)
     return (
       <div
         className={` border w-full  h-auto 

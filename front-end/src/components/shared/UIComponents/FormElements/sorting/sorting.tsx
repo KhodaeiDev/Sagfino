@@ -1,8 +1,6 @@
 import React, { useState, useCallback, useEffect } from 'react'
 import SelectBox from '../selectBox/selectBox'
 import { RiSearch2Line } from 'react-icons/ri'
-import { TbFilterSearch } from 'react-icons/tb'
-import { MdClose } from 'react-icons/md'
 import { FormType } from '../../../../../Hooks/useformType'
 import UseForm from '../../../../../Hooks/useForm'
 import Input from '../input/input'
@@ -10,7 +8,6 @@ import Input from '../input/input'
 import {
   maxValidator,
   minValidator,
-  onlyNumberValidator,
   requiredValidator,
 } from '../../../../../validators/rules'
 import { useSearchParams } from 'react-router'
@@ -24,54 +21,17 @@ const Sorting: React.FC<SortingProps> = ({
   openModalFiltering,
   loadingSearch,
 }) => {
-  const [options, setOptions] = useState<string[]>([
-    ' منطقه ',
-    'نوع ملک',
-    'قیمت',
-    '  متراژ ',
-  ])
   const [city, setCity] = useState<string>('')
 
   const [formType] = useState<FormType>('rent-search')
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [searchParams, setSearchParams] = useSearchParams()
+  const [propertyType, setPropertyType] = useState('نوع ملک')
+  const newParams = new URLSearchParams(searchParams)
 
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
-  const cityLocalStorage = localStorage.getItem('cityRent')
-  useEffect(() => {
-    if (cityLocalStorage) {
-      setCity(String(cityLocalStorage))
-    }
-  }, [])
   const [showError] = useState<boolean>(false)
-
-  const handleSelect = useCallback((index: number, value: string) => {
-    setOptions((prevOptions) => {
-      const newOptions = [...prevOptions]
-      newOptions[index] = value
-      return newOptions
-    })
-  }, [])
-
-  const selectBoxData = [
-    {
-      label: 'منطقه',
-      items: ['منطقه 1', 'منطقه 2', 'منطقه 22', 'منطقه 16', 'منطقه 6'],
-    },
-    {
-      label: 'نوع',
-      items: ['مسکونی', 'تجاری', 'بازرگانی'],
-    },
-    {
-      label: 'قیمت ',
-      items: ['ارزان‌ترین', 'گران‌ترین'],
-    },
-    {
-      label: 'متراژ',
-      items: ['بالای 40', 'بالای 60', 'بالای 80', 'بالای 100'],
-    },
-  ]
 
   const validateCityName = (city: string): boolean => {
     const trimmedCity = city.trim()
@@ -98,10 +58,8 @@ const Sorting: React.FC<SortingProps> = ({
 
   const handleSearchClick = () => {
     const city = localStorage.getItem('rent-search-value')
-    console.log('city', city)
 
     if (city) {
-      const newParams = new URLSearchParams(searchParams)
       newParams.set('city', city)
       localStorage.setItem('rent-search-value', String(city))
       setSearchParams(newParams)
@@ -114,13 +72,43 @@ const Sorting: React.FC<SortingProps> = ({
     }
   }
 
+  const handlePropertyTypeSelect = useCallback(
+    (value: string) => {
+      setPropertyType(value)
+      newParams.set('pr_type', value === 'تجاری' ? 'commercial' : 'residential')
+      setSearchParams(newParams)
+
+      localStorage.setItem(
+        'pr_type',
+        value === 'تجاری' ? 'commercial' : 'residential'
+      )
+    },
+    [setPropertyType]
+  )
+
+  useEffect(() => {
+    const prType = localStorage.getItem('pr_type')
+
+    setPropertyType(String(prType === 'commercial' ? 'تجاری' : 'مسکونی'))
+  }, [])
+
+  const selectBoxData = [
+    {
+      label: 'نوع ملک',
+      items: [
+        { id: 1, name: 'تجاری' },
+        { id: 2, name: 'مسکونی' },
+      ],
+    },
+  ]
+
   return (
     <>
       <div className="container">
         {/* Desktop */}
         <div className="hidden md:flex xl:flex-row md:flex-col-reverse gap-4 items-start   mt-22">
           <div className="flex items-center justify-start gap-2">
-            {selectBoxData.map((data, index) => (
+            {/* {selectBoxData.map((data, index) => (
               <SelectBox
                 key={index}
                 selectedOption={options[index]}
@@ -133,7 +121,18 @@ const Sorting: React.FC<SortingProps> = ({
                   <li key={item}>{item}</li>
                 ))}
               </SelectBox>
-            ))}
+            ))} */}
+            <SelectBox
+              options={
+                selectBoxData.find((data) => data.label === 'نوع ملک')?.items ||
+                []
+              }
+              selectedOption={propertyType}
+              onSelect={handlePropertyTypeSelect}
+              width="w-full"
+              responsiveWidth="w-full"
+              responsiveHeight="h-12"
+            />
             <div
               onClick={openModalFiltering}
               className="flex items-center gap-2 cursor-pointer text-gray-1000 border-blue-400 shadow-blue-400/50 shadow-lg p-3 border w-41.5 h-12 rounded-lg"
