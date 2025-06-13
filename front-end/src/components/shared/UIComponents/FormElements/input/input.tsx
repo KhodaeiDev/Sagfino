@@ -62,18 +62,25 @@ const Input: React.FC<InputProps> = memo((props) => {
   useEffect(() => {
     const storedValue = localStorage.getItem(`${props.id}-value`)
 
-    if (storedValue) {
+    // بررسی اگر `props.id` برابر `searchFilter` باشد
+    const finalValue =
+      props.id === 'searchFilter' && (!storedValue || storedValue === '')
+        ? 'تهران'
+        : storedValue
+
+    if (finalValue) {
       dispatch({
         type: 'CHANGE',
-        value: storedValue,
+        value: finalValue,
         validations: props.validations || [],
-        isValid: validator(storedValue, props.validations),
+        isValid: validator(finalValue, props.validations),
         errorMessage: null,
       })
 
-      onInputHandler(props.id, storedValue, true)
+      onInputHandler(props.id, finalValue, true)
     }
   }, [props.id])
+
 
   const element =
     props.element === 'text' ? (

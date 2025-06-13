@@ -2,7 +2,7 @@ import Sorting from '../../../components/shared/UIComponents/FormElements/sortin
 import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 import SelectBox from '../../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import { useCallback, useEffect, useState } from 'react'
-import { TbFilterSearch } from 'react-icons/tb'
+// import { TbFilterSearch } from 'react-icons/tb'
 
 // import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
 // import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
@@ -80,20 +80,17 @@ const Rent: React.FC = () => {
       rent_price: string | null
       sell_price: string | null
     }> = {
-      city: localStorage.getItem('rent-search-value') || 'تهران',
+      city: localStorage.getItem('searchFilter-value') || 'تهران',
       tr_type: localStorage.getItem('tr-type') || 'rent',
       pr_type: localStorage.getItem('pr_type'),
       rent_price: localStorage.getItem('rent_price'),
       sell_price: localStorage.getItem('sell_price'),
     }
 
-    const cityParams = newParams.get('city')
-    localStorage.setItem('rent-search-value', String(cityParams))
-
     const filteredParams = Object.fromEntries(
       Object.entries(storedParams).filter(([value]) => value && value !== '')
     ) as {
-      city: string
+      city: string 
       tr_type: string
       pr_type?: string
       rent_price?: string
@@ -109,9 +106,8 @@ const Rent: React.FC = () => {
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
     setSearchParams(newParams)
 
-    // ارسال فقط پارامترهای معتبر به `adFiltering`
     adFiltering(filteredParams)
-  }, [location.search, searchParams])
+  }, [location.search])
 
   useEffect(() => {
     if (isPending) {
@@ -189,7 +185,6 @@ const Rent: React.FC = () => {
                 responsiveWidth=" w-50"
                 responsiveHeight="h-12"
               />
-            
             </div>
           </div>
           {/* products */}

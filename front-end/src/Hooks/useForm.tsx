@@ -132,8 +132,8 @@ const UseForm = (formType: FormType) => {
         }
       case 'rent-search':
         return {
-          rentSearch: {
-            value: '',
+          searchFilter: {
+            value: 'تهران',
             isValid: false,
             errorMessage: null,
           },

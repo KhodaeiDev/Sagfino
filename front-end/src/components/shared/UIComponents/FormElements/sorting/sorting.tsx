@@ -34,6 +34,7 @@ const Sorting: React.FC<SortingProps> = ({
 
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
+  console.log(formState.inputs.searchFilter.value)
   const [showError] = useState<boolean>(false)
 
   const validateCityName = (city: string): boolean => {
@@ -47,11 +48,7 @@ const Sorting: React.FC<SortingProps> = ({
   }
   const isInvalid = validateCityName(city)
   const handleInputChange = useCallback(
-    (
-      inputID: string,
-      value: string = String(localStorage.getItem('rent-search-value')),
-      isValid: boolean
-    ) => {
+    (inputID: string, value: string, isValid: boolean) => {
       dispatch({ type: 'CLEAR_ERRORS' })
       setCity(value)
       onInputHandler(inputID, value, isValid)
@@ -60,11 +57,11 @@ const Sorting: React.FC<SortingProps> = ({
   )
 
   const handleSearchClick = () => {
-    const city = localStorage.getItem('rent-search-value')
+    const city = localStorage.getItem('searchFilter-value') || 'تهران'
 
     if (city) {
       newParams.set('city', city)
-      localStorage.setItem('rent-search-value', String(city))
+      localStorage.setItem('searchFilter-value', String(city))
       setSearchParams(newParams)
     }
   }
@@ -95,7 +92,6 @@ const Sorting: React.FC<SortingProps> = ({
       setRentPrice(value)
       newParams.set('rent_price', value === 'بیشترین قیمت' ? 'asc' : 'desc')
     } else {
-      console.log('slm')
       setSellPrice(value)
       newParams.set('sell_price', value === 'بیشترین قیمت' ? 'asc' : 'desc')
     }
@@ -111,6 +107,9 @@ const Sorting: React.FC<SortingProps> = ({
     const prType = localStorage.getItem('pr_type')
     const rentPrice = localStorage.getItem('rent_price')
     const sellPrice = localStorage.getItem('sell_price')
+    const cityDefulut = newParams.get('city') || 'تهران'
+
+    localStorage.setItem('searchFilter-value', String(cityDefulut) || 'تهران')
 
     setPropertyType(
       String(
@@ -209,9 +208,8 @@ const Sorting: React.FC<SortingProps> = ({
             </div>
           </div>
           <div className=" relative w-full  h-20 flex flex-col  ">
-          
             <Input
-              id="rent-search"
+              id="searchFilter"
               type="text"
               shouldFormat={true}
               placeholder="شهر خود را جستوجو کنید"
