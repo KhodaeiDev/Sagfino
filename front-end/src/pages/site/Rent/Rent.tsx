@@ -28,7 +28,6 @@ const Rent: React.FC = () => {
   const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
   const newParams = new URLSearchParams(searchParams)
-  const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
   // const handleSelect = (option: string) => {
   //   setSelectedOption(option)
@@ -47,6 +46,7 @@ const Rent: React.FC = () => {
   }, [setOpenModalFiltering])
 
   const closeModalFiltering = useCallback(() => {
+    console.log("arwin chra");
     setOpenModalFiltering(false)
   }, [setOpenModalFiltering])
 
@@ -249,7 +249,7 @@ const Rent: React.FC = () => {
           closeModal={closeModal}
         />
       )} */}
-      {/* {isopenModalFiltering && ( */}
+      {isopenModalFiltering && (
       <>
         {/* {isMobile ? ( */}
         {/* <FilteringModalMobail closeModalFiltering={closeModalFiltering} /> */}
@@ -257,7 +257,7 @@ const Rent: React.FC = () => {
         <FilteringModal closeModalFiltering={closeModalFiltering} />
         {/* )} */}
       </>
-      {/* )} */}
+      )}
     </>
   )
 }

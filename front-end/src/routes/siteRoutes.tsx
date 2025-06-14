@@ -1,5 +1,5 @@
 import Rent from '../pages/site/Rent/Rent'
-import Shopping from '../pages/site/Shopping/shopping'
+// import Shopping from '../pages/site/Shopping/shopping'
 import DetailsProduct from '../pages/site/detailsProduct/detailsProduct'
 import StepOne from '../pages/site/auth/StepOne'
 import StepTwo from '../pages/site/auth/StepTwo'
@@ -17,7 +17,7 @@ import { RouteObject } from 'react-router'
 const siteRoutes: RouteObject[] = [
   { path: '/', element: <Home /> },
   { path: '/Rent/Rent', element: <Rent /> },
-  { path: '/Shopping/shopping', element: <Shopping /> },
+  // { path: '/Shopping/shopping', element: <Shopping /> },
   { path: '/AboutUs/AboutUs', element: <AboutUs /> },
   { path: '/ContactUs/ContactUs', element: <ContactUs /> },
   { path: '/FAQ/FAQ', element: <FAQ /> },
