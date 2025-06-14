@@ -27,7 +27,7 @@ const Rent: React.FC = () => {
   // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
-  const newParams = new URLSearchParams(String(location.search))
+  const newParams = new URLSearchParams(searchParams)
   const isMobile = useMediaQuery({ query: '(max-width: 768px)' })
 
   // const handleSelect = (option: string) => {
@@ -59,6 +59,9 @@ const Rent: React.FC = () => {
       pr_type?: string
       rent_price?: string
       sell_price?: string
+      typeOfWc?: string
+      hasParking?: string
+      hasElevator?: string
     }) => searchAds(filterParams),
     []
   )
@@ -79,22 +82,40 @@ const Rent: React.FC = () => {
       pr_type: string | null
       rent_price: string | null
       sell_price: string | null
+      typeOfWc?: string | null
+      hasParking?: number | null
+      hasElevator?: number | null
     }> = {
       city: localStorage.getItem('searchFilter-value') || 'تهران',
       tr_type: localStorage.getItem('tr-type') || 'rent',
       pr_type: localStorage.getItem('pr_type'),
       rent_price: localStorage.getItem('rent_price'),
       sell_price: localStorage.getItem('sell_price'),
+      typeOfWc:
+        localStorage.getItem('typeOfWc') === 'فرنگی'
+          ? 'farangi'
+          : localStorage.getItem('typeOfWc') === 'هردو'
+          ? 'both'
+          : localStorage.getItem('typeOfWc') === 'ایرانی'
+          ? 'wc'
+          : '',
+      hasParking: Number(localStorage.getItem('hasParking') === 'دارد' ? 1 : 0),
+      hasElevator: Number(
+        localStorage.getItem('hasElevator') === 'دارد' ? 1 : 0
+      ),
     }
 
     const filteredParams = Object.fromEntries(
       Object.entries(storedParams).filter(([value]) => value && value !== '')
     ) as {
-      city: string 
+      city: string
       tr_type: string
       pr_type?: string
       rent_price?: string
       sell_price?: string
+      typeOfWc?: string
+      hasParking?: string
+      hasElevator?: string
     }
 
     Object.entries(filteredParams).forEach(([key, value]) => {
@@ -105,6 +126,7 @@ const Rent: React.FC = () => {
 
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
     setSearchParams(newParams)
+    console.log('filteredParams', filteredParams)
 
     adFiltering(filteredParams)
   }, [location.search])
@@ -227,15 +249,15 @@ const Rent: React.FC = () => {
           closeModal={closeModal}
         />
       )} */}
-      {isopenModalFiltering && (
-        <>
-          {isMobile ? (
-            <FilteringModalMobail closeModalFiltering={closeModalFiltering} />
-          ) : (
-            <FilteringModal closeModalFiltering={closeModalFiltering} />
-          )}
-        </>
-      )}
+      {/* {isopenModalFiltering && ( */}
+      <>
+        {/* {isMobile ? ( */}
+        {/* <FilteringModalMobail closeModalFiltering={closeModalFiltering} /> */}
+        {/* ) : ( */}
+        <FilteringModal closeModalFiltering={closeModalFiltering} />
+        {/* )} */}
+      </>
+      {/* )} */}
     </>
   )
 }
