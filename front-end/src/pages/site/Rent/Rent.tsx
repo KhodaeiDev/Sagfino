@@ -11,14 +11,28 @@ import { ThreeDot } from 'react-loading-indicators'
 
 import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
 import FilteringModal from '../../../components/shared/Modals/filteringModal/filteringModal'
-import { useMediaQuery } from 'react-responsive'
 
-import { FilteringModalMobail } from '../../../components/shared/Modals/filteringModal/filteringModal'
+// import { FilteringModalMobail } from '../../../components/shared/Modals/filteringModal/filteringModal'
 import { useMutation } from '@tanstack/react-query'
 import { searchAds } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { Advertisement } from '../../../components/shared/UIComponents/Layout/HeaderComponents/headerContent/headerContent'
 import { useLocation, useSearchParams } from 'react-router'
 import NoProducts from '../../../components/shared/UIComponents/Layout/NoProducts/NoProducts'
+
+type PaginationData = {
+  current_page: number
+  first_page_url: string
+  from: number
+  last_page: number
+  last_page_url: string
+  links: { url: string | null; label: string; active: boolean }[]
+  next_page_url: string | null
+  path: string
+  per_page: number
+  prev_page_url: string | null
+  to: number
+  total: number
+}
 
 const Rent: React.FC = () => {
   const [dealType, setDealType] = useState('نوع معامله')
@@ -27,6 +41,24 @@ const Rent: React.FC = () => {
   // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [searchParams, setSearchParams] = useSearchParams()
   const location = useLocation()
+  const [filteredProductsState, setFilteredProducts] = useState<
+    Advertisement[] | []
+  >([])
+  const [paginationDataState, setPaginationDataState] =
+    useState<PaginationData | null>(null)
+
+  const [filteredParams, setFilteredParams] = useState<{
+    city: string
+    tr_type: string
+    pr_type?: string
+    rent_price?: string
+    sell_price?: string
+    typeOfWc?: string
+    hasParking?: string
+    hasElevator?: string
+    page?: number
+  } | null>(null)
+
   const newParams = new URLSearchParams(searchParams)
 
   // const handleSelect = (option: string) => {
@@ -46,7 +78,6 @@ const Rent: React.FC = () => {
   }, [setOpenModalFiltering])
 
   const closeModalFiltering = useCallback(() => {
-    console.log("arwin chra");
     setOpenModalFiltering(false)
   }, [setOpenModalFiltering])
 
@@ -62,6 +93,7 @@ const Rent: React.FC = () => {
       typeOfWc?: string
       hasParking?: string
       hasElevator?: string
+      page?: number
     }) => searchAds(filterParams),
     []
   )
@@ -76,6 +108,19 @@ const Rent: React.FC = () => {
   })
 
   useEffect(() => {
+    if (filteredProducts?.data?.data) {
+      setFilteredProducts((prevData) => [
+        ...prevData,
+        ...filteredProducts.data.data,
+      ]) // حفظ داده‌های قبلی و افزودن جدید
+      setPaginationDataState(filteredProducts?.data || [])
+    }
+
+    console.log('داده‌های جدید:', filteredProductsState)
+  }, [filteredProducts])
+
+  console.log(paginationDataState)
+  useEffect(() => {
     const storedParams: Partial<{
       city: string
       tr_type: string
@@ -85,6 +130,7 @@ const Rent: React.FC = () => {
       typeOfWc?: string | null
       hasParking?: number | null
       hasElevator?: number | null
+      page?: number | null
     }> = {
       city: localStorage.getItem('searchFilter-value') || 'تهران',
       tr_type: localStorage.getItem('tr-type') || 'rent',
@@ -103,6 +149,7 @@ const Rent: React.FC = () => {
       hasElevator: Number(
         localStorage.getItem('hasElevator') === 'دارد' ? 1 : 0
       ),
+      page: paginationDataState?.current_page,
     }
 
     const filteredParams = Object.fromEntries(
@@ -116,13 +163,16 @@ const Rent: React.FC = () => {
       typeOfWc?: string
       hasParking?: string
       hasElevator?: string
+      page?: number
     }
 
     Object.entries(filteredParams).forEach(([key, value]) => {
       if (value && value !== '') {
-        newParams.set(key, value)
+        newParams.set(key, String(value))
       }
     })
+
+    setFilteredParams(filteredParams)
 
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
     setSearchParams(newParams)
@@ -165,6 +215,24 @@ const Rent: React.FC = () => {
     },
     [setDealType]
   )
+
+  const handlePageChange = (pageUrl: string) => {
+    console.log('ارسال درخواست به:', pageUrl)
+
+    fetch(pageUrl)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log('داده‌های جدید:', data)
+
+        // بروزرسانی داده‌های صفحه‌بندی (`paginationDataState`)
+        setPaginationDataState(data)
+
+        // ذخیره داده‌های محصولات و افزودن داده‌های جدید (`filteredProductsState`)
+        setFilteredProducts((prevData) => [...prevData, ...data.data])
+      })
+      .catch((error) => console.error('خطا در دریافت داده:', error))
+  }
+  
 
   return (
     <>
@@ -220,9 +288,9 @@ const Rent: React.FC = () => {
                 textColor=""
               />
             </div>
-          ) : filteredProducts?.data.data?.length ? (
+          ) : filteredProductsState?.length ? (
             <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-              {filteredProducts.data.data.map((productInfos: Advertisement) => (
+              {filteredProductsState.map((productInfos: Advertisement) => (
                 <ProductBox
                   key={productInfos?.id}
                   isLoading={loading}
@@ -240,7 +308,14 @@ const Rent: React.FC = () => {
       </div>
       <div className="container mt-5 mb-25.5">
         <div className=" flex items-center justify-center gap-3 ">
-          <Pagination />
+          {filteredProducts?.data?.data?.length ? (
+            <Pagination
+              links={paginationDataState?.links ?? []}
+              onPageChange={handlePageChange}
+            />
+          ) : (
+            ''
+          )}
         </div>
       </div>
       {/* {isModalVisible && (
@@ -250,13 +325,13 @@ const Rent: React.FC = () => {
         />
       )} */}
       {isopenModalFiltering && (
-      <>
-        {/* {isMobile ? ( */}
-        {/* <FilteringModalMobail closeModalFiltering={closeModalFiltering} /> */}
-        {/* ) : ( */}
-        <FilteringModal closeModalFiltering={closeModalFiltering} />
-        {/* )} */}
-      </>
+        <>
+          {/* {isMobile ? ( */}
+          {/* <FilteringModalMobail closeModalFiltering={closeModalFiltering} /> */}
+          {/* ) : ( */}
+          <FilteringModal closeModalFiltering={closeModalFiltering} />
+          {/* )} */}
+        </>
       )}
     </>
   )

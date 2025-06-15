@@ -34,7 +34,6 @@ const Sorting: React.FC<SortingProps> = ({
 
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
-  console.log(formState.inputs.searchFilter.value)
   const [showError] = useState<boolean>(false)
 
   const validateCityName = (city: string): boolean => {

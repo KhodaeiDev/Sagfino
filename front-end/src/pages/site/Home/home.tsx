@@ -54,7 +54,7 @@ const Home: React.FC = () => {
       description:
         'در میان صدها آگهی که روزانه به وب‌سایت سقفینو افزوده می‌شود، با استفاده از بیش از ۲۸ فیلتر کاربردی تلاش کرده‌ایم خانه‌ای که در جست‌وجوی آن هستید را هر چه سریعتر پیدا و اجاره کنید.',
       contentBtn: '  اجاره خانه',
-      link: '/Shopping/shopping',
+      link: '/Rent/Rent',
     },
     {
       id: uuidv4(),
@@ -63,7 +63,7 @@ const Home: React.FC = () => {
       description: `آیا می‌دانید میانگین بازدید از وب‌سایت به‌طور متوسط روزانه بالای هزاران نفر است؟
 پس به‌سادگی و با چند کلیک ساده، ملک‌تان را به‌صورت رایگان در سقفینو آگهی و در سریع‌ترین زمان ممکن معامله کنید.`,
       contentBtn: ' ثبت آگهی',
-      link: '/Shopping/shopping',
+      link: '/registerAnAd/StepOneAdRE',
     },
     {
       id: uuidv4(),
@@ -72,7 +72,7 @@ const Home: React.FC = () => {
       description: `بالای ۱ میلیون آگهی فروش در وب‌سایت سقفینو وجود دارد.
 ما علاوه بر آگهی‌های فراوان با به‌کارگیری املاک و مشاورین متخصص در هر شهر، تلاش می‌کنیم در تجربه لذت یک خرید آسان با شما سهیم باشد.`,
       contentBtn: 'خرید خانه',
-      link: '/Shopping/shopping',
+      link: '/Rent/Rent',
     },
   ]
 
@@ -168,7 +168,7 @@ const Home: React.FC = () => {
               </h5>
             </NavLink>
             <NavLink
-              to={'/Shopping/shopping'}
+              to={'/Rent/Rent'}
               className=" py-6  center flex-col  lg:py-6 lg:px-16 shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] rounded-xl  lg:rounded-2xl"
             >
               <img src="/public/svg/houses.svg" alt="svg" />
