@@ -235,36 +235,58 @@ const DetailsProduct: React.FC = () => {
 
             {/* Rent and Sale Info */}
             <div className="mt-8 flex flex-col gap-4">
-              <div className="border border-gray-E1 rounded-md lg:rounded-xl p-4 flex justify-between items-center">
-                <span className="text-sm lg:text-lg font-bold">ودیعه</span>
-                <span className="text-sm lg:text-base font-medium">
-                  {adData?.mortgage_price ? (
-                    <>
-                      {adData?.mortgage_price?.toLocaleString()}{' '}
-                      <span className=" font-normal text-xs ">
-                        میلیون تومان
-                      </span>
-                    </>
-                  ) : (
-                    'توافقی'
-                  )}
-                </span>
-              </div>
-              <div className="border border-gray-E1 rounded-md lg:rounded-xl p-4 flex justify-between items-center">
-                <span className="text-sm lg:text-lg font-bold">
-                  اجاره ماهیانه
-                </span>
-                <span className="text-sm lg:text-base font-medium">
-                  {adData?.rent_price ? (
-                    <>
-                      {adData?.rent_price.toLocaleString()}{' '}
-                      <span className="font-normal text-xs">میلیون تومان</span>
-                    </>
-                  ) : (
-                    'توافقی'
-                  )}
-                </span>
-              </div>
+              {adData?.mortgage_price ? (
+                <div>
+                  <div className="border border-gray-E1 rounded-md lg:rounded-xl p-4 flex justify-between items-center">
+                    <span className="text-sm lg:text-lg font-bold">ودیعه</span>
+                    <span className="text-sm lg:text-base font-medium">
+                      {adData?.mortgage_price ? (
+                        <>
+                          {adData?.mortgage_price?.toLocaleString()}{' '}
+                          <span className=" font-normal text-xs ">
+                            میلیون تومان
+                          </span>
+                        </>
+                      ) : (
+                        'توافقی'
+                      )}
+                    </span>
+                  </div>
+                  <div className="border border-gray-E1 rounded-md lg:rounded-xl p-4 flex justify-between items-center">
+                    <span className="text-sm lg:text-lg font-bold">
+                      اجاره ماهیانه
+                    </span>
+                    <span className="text-sm lg:text-base font-medium">
+                      {adData?.rent_price ? (
+                        <>
+                          {adData?.rent_price.toLocaleString()}{' '}
+                          <span className="font-normal text-xs">
+                            میلیون تومان
+                          </span>
+                        </>
+                      ) : (
+                        'توافقی'
+                      )}
+                    </span>
+                  </div>
+                </div>
+              ) : (
+                <div className="border border-gray-E1 rounded-md lg:rounded-xl p-4 flex justify-between items-center">
+                  <span className="text-sm lg:text-lg font-bold">فروش </span>
+                  <span className="text-sm lg:text-base font-medium">
+                    {adData?.mortgage_price ? (
+                      <>
+                        {adData?.sell_price?.toLocaleString()}{' '}
+                        <span className=" font-normal text-xs ">
+                          میلیون تومان
+                        </span>
+                      </>
+                    ) : (
+                      'توافقی'
+                    )}
+                  </span>
+                </div>
+              )}
 
               <div className="border border-gray-E1 rounded-md lg:rounded-xl p-4 flex justify-between items-center">
                 <span className="text-sm lg:text-lg font-bold">

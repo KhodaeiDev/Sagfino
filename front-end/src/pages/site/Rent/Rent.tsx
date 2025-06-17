@@ -18,6 +18,9 @@ import { searchAds } from '../../../services/axois/request/Advertisements/Advert
 import { Advertisement } from '../../../components/shared/UIComponents/Layout/HeaderComponents/headerContent/headerContent'
 import { useLocation, useSearchParams } from 'react-router'
 import NoProducts from '../../../components/shared/UIComponents/Layout/NoProducts/NoProducts'
+// import { gettingAdsPagenation } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
+import { usePaginationData } from '../../../Hooks/shared/shared'
+import { v4 as uuidv4 } from 'uuid'
 
 type PaginationData = {
   current_page: number
@@ -44,10 +47,15 @@ const Rent: React.FC = () => {
   const [filteredProductsState, setFilteredProducts] = useState<
     Advertisement[] | []
   >([])
+  const [paginatedProductsState, setPaginatedProducts] = useState<
+    Advertisement[] | []
+  >([])
+
   const [paginationDataState, setPaginationDataState] =
     useState<PaginationData | null>(null)
+  const [pageUrl, setPageUrl] = useState<string | null>(null)
 
-  const [filteredParams, setFilteredParams] = useState<{
+  const [, setFilteredParams] = useState<{
     city: string
     tr_type: string
     pr_type?: string
@@ -56,22 +64,16 @@ const Rent: React.FC = () => {
     typeOfWc?: string
     hasParking?: string
     hasElevator?: string
-    page?: number
   } | null>(null)
 
   const newParams = new URLSearchParams(searchParams)
 
-  // const handleSelect = (option: string) => {
-  //   setSelectedOption(option)
-  // }
-
-  // const openModal = useCallback(() => {
-  //   setIsModalVisible(true)
-  // }, [setIsModalVisible])
-
-  // const closeModal = useCallback(() => {
-  //   setIsModalVisible(false)
-  // }, [setIsModalVisible])
+  const savedPage = localStorage.getItem('currentPage') ?? '1'
+  useEffect(() => {
+    newParams.set('page', savedPage)
+    const newPageUrl = `https://saghfino.abolfazlhp.ir/api/ads/filter?page=${savedPage}`
+    setPageUrl(newPageUrl)
+  }, [searchParams])
 
   const openModalFiltering = useCallback(() => {
     setOpenModalFiltering(true)
@@ -93,7 +95,6 @@ const Rent: React.FC = () => {
       typeOfWc?: string
       hasParking?: string
       hasElevator?: string
-      page?: number
     }) => searchAds(filterParams),
     []
   )
@@ -109,17 +110,12 @@ const Rent: React.FC = () => {
 
   useEffect(() => {
     if (filteredProducts?.data?.data) {
-      setFilteredProducts((prevData) => [
-        ...prevData,
-        ...filteredProducts.data.data,
-      ]) // حفظ داده‌های قبلی و افزودن جدید
-      setPaginationDataState(filteredProducts?.data || [])
+      console.log('داده‌های فیلتر شده:', filteredProducts.data.data)
+      setPaginatedProducts([])
+      setFilteredProducts(filteredProducts.data.data)
     }
-
-    console.log('داده‌های جدید:', filteredProductsState)
   }, [filteredProducts])
 
-  console.log(paginationDataState)
   useEffect(() => {
     const storedParams: Partial<{
       city: string
@@ -130,7 +126,6 @@ const Rent: React.FC = () => {
       typeOfWc?: string | null
       hasParking?: number | null
       hasElevator?: number | null
-      page?: number | null
     }> = {
       city: localStorage.getItem('searchFilter-value') || 'تهران',
       tr_type: localStorage.getItem('tr-type') || 'rent',
@@ -149,7 +144,6 @@ const Rent: React.FC = () => {
       hasElevator: Number(
         localStorage.getItem('hasElevator') === 'دارد' ? 1 : 0
       ),
-      page: paginationDataState?.current_page,
     }
 
     const filteredParams = Object.fromEntries(
@@ -176,7 +170,6 @@ const Rent: React.FC = () => {
 
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
     setSearchParams(newParams)
-    console.log('filteredParams', filteredParams)
 
     adFiltering(filteredParams)
   }, [location.search])
@@ -216,53 +209,54 @@ const Rent: React.FC = () => {
     [setDealType]
   )
 
-  const handlePageChange = (pageUrl: string) => {
-    console.log('ارسال درخواست به:', pageUrl)
-
-    fetch(pageUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log('داده‌های جدید:', data)
-
-        // بروزرسانی داده‌های صفحه‌بندی (`paginationDataState`)
-        setPaginationDataState(data)
-
-        // ذخیره داده‌های محصولات و افزودن داده‌های جدید (`filteredProductsState`)
-        setFilteredProducts((prevData) => [...prevData, ...data.data])
-      })
-      .catch((error) => console.error('خطا در دریافت داده:', error))
+  const handlePageChange = (newPage: number) => {
+    const newParams = new URLSearchParams(searchParams)
+    newParams.set('page', String(newPage))
+    localStorage.setItem('currentPage', String(newPage)) 
+    setSearchParams(newParams)
   }
-  
+
+  const { data: paginationData, isLoading: isPendingPaginationData } =
+    usePaginationData(pageUrl ?? '')
+
+  useEffect(() => {
+    if (paginationData?.data) {
+      window.scrollTo({ top: 50, behavior: 'smooth' })
+      setFilteredProducts([])
+      setPaginatedProducts(paginationData.data)
+      setPaginationDataState(paginationData)
+    }
+  }, [paginationData])
 
   return (
     <>
-      <div>
+      <div className=" mb-10">
         <Sorting
           loadingSearch={loadingSearch}
           openModalFiltering={openModalFiltering}
         />
         <div className="container">
           {/* sorting */}
-          <div className="   md:flex  gap-2 my-6 items-center justify-between">
-            <div className=" flex flex-col gap-y-3">
-              <h3 className=" text-2xl font-shabnamBold">
+          <div className="md:flex gap-2 my-6 items-center justify-between">
+            <div className="flex flex-col gap-y-3">
+              <h3 className="text-2xl font-shabnamBold">
                 {' '}
                 املاک{' '}
                 {localStorage.getItem('tr-type') === 'sell'
                   ? 'فروشی'
                   : 'اجاره ای'}
               </h3>
-              <span className="  sm:h-9 font-shabnam text-primary">
-                {isPending
-                  ? ' در حال بارگذاری'
+              <span className="sm:h-9 font-shabnam text-primary">
+                {isPending || isPendingPaginationData
+                  ? 'در حال بارگذاری'
                   : `${
-                      !filteredProducts?.data?.data.length
-                        ? 'موردی یافت نشد'
-                        : `${filteredProducts?.data?.data.length} مورد یافت شد`
-                    }   `}
+                      filteredProductsState.length > 0
+                        ? filteredProductsState.length
+                        : paginatedProductsState.length
+                    } مورد یافت شد`}
               </span>
             </div>
-            <div className=" flex items-center justify-between ">
+            <div className="flex items-center justify-between">
               <SelectBox
                 options={
                   selectBoxData.find(
@@ -277,8 +271,9 @@ const Rent: React.FC = () => {
               />
             </div>
           </div>
+
           {/* products */}
-          {isPending ? (
+          {isPending || isPendingPaginationData ? (
             <div className="w-full flex items-center justify-center">
               <ThreeDot
                 variant="bounce"
@@ -288,50 +283,69 @@ const Rent: React.FC = () => {
                 textColor=""
               />
             </div>
-          ) : filteredProductsState?.length ? (
-            <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-              {filteredProductsState.map((productInfos: Advertisement) => (
-                <ProductBox
-                  key={productInfos?.id}
-                  isLoading={loading}
-                  productInfo={productInfos}
-                />
-              ))}
-            </div>
+          ) : filteredProductsState.length > 0 ? (
+            <>
+              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
+                {filteredProductsState.map((productInfos) => (
+                  <ProductBox
+                    key={uuidv4()}
+                    isLoading={loading}
+                    productInfo={productInfos}
+                  />
+                ))}
+              </div>
+
+              {/* صفحه‌بندی مخصوص داده‌های فیلتر شده */}
+              {paginationDataState?.links?.length ? (
+                <div className="flex items-center justify-center mt-10">
+                  <Pagination
+                    current_page={Number(
+                      searchParams.get('page') ??
+                        paginationDataState?.current_page
+                    )}
+                    links={paginationDataState?.links ?? []}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
+              ) : null}
+            </>
+          ) : paginatedProductsState.length > 0 ? (
+            <>
+              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
+                {paginatedProductsState.map((productInfos) => (
+                  <ProductBox
+                    key={uuidv4()}
+                    isLoading={loading}
+                    productInfo={productInfos}
+                  />
+                ))}
+              </div>
+
+              {/* صفحه‌بندی عمومی */}
+              {paginationDataState?.links?.length ? (
+                <div className="flex items-center justify-center mt-10">
+                  <Pagination
+                    current_page={Number(
+                      searchParams.get('page') ??
+                        paginationDataState?.current_page
+                    )}
+                    links={paginationDataState?.links ?? []}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
+              ) : null}
+            </>
           ) : (
             <NoProducts
-              des="شما می‌توانید در شهرهای مختلف جستجو کنید و نوع معامله را تغییر دهید."
+              des="موردی یافت نشد! لطفاً فیلترها را تغییر دهید."
               isBtn={false}
             />
           )}
         </div>
       </div>
-      <div className="container mt-5 mb-25.5">
-        <div className=" flex items-center justify-center gap-3 ">
-          {filteredProducts?.data?.data?.length ? (
-            <Pagination
-              links={paginationDataState?.links ?? []}
-              onPageChange={handlePageChange}
-            />
-          ) : (
-            ''
-          )}
-        </div>
-      </div>
-      {/* {isModalVisible && (
-        <RealEstateModal
-          isModalVisible={isModalVisible}
-          closeModal={closeModal}
-        />
-      )} */}
+
       {isopenModalFiltering && (
-        <>
-          {/* {isMobile ? ( */}
-          {/* <FilteringModalMobail closeModalFiltering={closeModalFiltering} /> */}
-          {/* ) : ( */}
-          <FilteringModal closeModalFiltering={closeModalFiltering} />
-          {/* )} */}
-        </>
+        <FilteringModal closeModalFiltering={closeModalFiltering} />
       )}
     </>
   )

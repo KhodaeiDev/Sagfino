@@ -73,7 +73,12 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
             </NavLink>
             <div className="flex flex-col gap-2.5 p-2.5 lg:px-3.5 lg:pt2.5 lg:pb-6.25">
               <div className="flex items-center clamped-text-product-Box  gap-x-[2px] justify-between font-shabnam text-10 lg:text-base text-gray-90">
-                <NavLink to={''}> {productInfo?.title.slice(0, 25)}</NavLink>
+                <NavLink
+                  to={`/detailsProduct/detailsProduct/${productInfo?.id}`}
+                >
+                  {' '}
+                  {productInfo?.title.slice(0, 25)}
+                </NavLink>
                 {/* <RiBookmarkLine
                   onClick={() => SaveAdHandler(productInfo.id)}
                   className={`cursor-pointer w-3 h-3 lg:w-6 lg:h-6  transition-all duration-500 ${
@@ -87,20 +92,32 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
                 </span>
               </div>
               <div className="flex flex-col gap-0.5 lg:gap-1 text-10 font-shabnamBold lg:text-base text-Gray-35">
-                <span>
-                  {productInfo?.rent_price
-                    ? `${productInfo?.mortgage_price?.toLocaleString(
-                        'fa'
-                      )}     میلیون تومان رهن`
-                    : ' رهن توافقی'}{' '}
-                </span>
-                <span>
-                  {productInfo?.rent_price
-                    ? `${productInfo?.rent_price?.toLocaleString(
-                        'fa'
-                      )}       میلیون تومان اجاره`
-                    : ' اجاره توافقی'}{' '}
-                </span>
+                {productInfo.rent_price ? (
+                  <div>
+                    <span>
+                      {productInfo?.rent_price
+                        ? `${productInfo?.mortgage_price?.toLocaleString(
+                            'fa'
+                          )}     میلیون تومان رهن`
+                        : ' رهن توافقی'}{' '}
+                    </span>
+                    <span>
+                      {productInfo?.rent_price
+                        ? `${productInfo?.rent_price?.toLocaleString(
+                            'fa'
+                          )}       میلیون تومان اجاره`
+                        : ' اجاره توافقی'}{' '}
+                    </span>
+                  </div>
+                ) : (
+                  <span>
+                    {productInfo?.rent_price
+                      ? `${productInfo?.sell_price?.toLocaleString(
+                          'fa'
+                        )}       میلیون تومان فروش`
+                      : ' فروش توافقی'}{' '}
+                  </span>
+                )}
               </div>
             </div>
           </>

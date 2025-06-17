@@ -1,3 +1,4 @@
+import { useQuery } from '@tanstack/react-query'
 import { useState, useEffect, useCallback } from 'react'
 
 const useSaveToLocalStorage = (
@@ -50,9 +51,35 @@ const useScrollFixed = (scrollThreshold = 168) => {
   return isFixed
 }
 
+const usePaginationData = (pageUrl: string | null) => {
+  console.log('pageUrl', pageUrl)
+  return useQuery({
+    queryKey: ['paginationData', pageUrl],
+    queryFn: async () => {
+      if (!pageUrl) {
+        throw new Error('آدرس صفحه معتبر نیست!')
+      }
+
+      const response = await fetch(pageUrl)
+
+      if (!response.ok) {
+        throw new Error(`خطای سرور: ${response.status}`)
+      }
+
+      const data = await response.json()
+      console.log('داده‌های دریافت شده:', data)
+
+      return data
+    },
+    enabled: Boolean(pageUrl),
+    staleTime: 300000,
+  })
+}
+
 export {
   useSaveToLocalStorage,
   useGetFromLocalStorage,
   useRemoveFromLocalStorage,
   useScrollFixed,
+  usePaginationData,
 }
