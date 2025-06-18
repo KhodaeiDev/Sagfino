@@ -1,9 +1,7 @@
-import React, { memo, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import ReactDOM from 'react-dom'
-import Logo from '../../UIComponents/logo/logo'
-import { IoIosArrowDown } from 'react-icons/io'
 import { IoMdClose } from 'react-icons/io'
-import { NavLink, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 
 type FilteringModal = {
   closeModalFiltering: () => void
@@ -14,6 +12,7 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
   const [activeToilet, setActiveToilet] = useState<string | null>(null)
   const [activeElevator, setActiveElevator] = useState<string | null>(null)
   const [searchParams, setSearchParams] = useSearchParams()
+  const newParams = new URLSearchParams(searchParams)
 
   const handleColumnClick = (
     setActiveColumn: React.Dispatch<React.SetStateAction<string | null>>,
@@ -23,29 +22,39 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
     setActiveColumn(value)
     localStorage.setItem(filterName, value)
   }
+
   useEffect(() => {
     setActiveParking(localStorage.getItem('hasParking') || null)
     setActiveToilet(localStorage.getItem('typeOfWc') || null)
     setActiveElevator(localStorage.getItem('hasElevator') || null)
+    localStorage.setItem('isSearchFilter', JSON.stringify(false))
   }, [])
 
   const filterSearchHandle = () => {
-    const newParams = new URLSearchParams(searchParams)
+    console.log(activeElevator, activeParking, activeToilet)
+    newParams.set('hasElevator', String(activeElevator))
     newParams.set('hasParking', String(activeParking))
     newParams.set('typeOfWc', String(activeToilet))
-    newParams.set('hasElevator', String(activeElevator))
-    closeModalFiltering()
     setSearchParams(newParams)
+    localStorage.setItem('isSearchFilter', JSON.stringify(true))
+    closeModalFiltering()
   }
 
   const removeFilters = () => {
-    setActiveParking('')
-    setActiveElevator('')
-    setActiveToilet('')
     localStorage.removeItem('hasParking')
     localStorage.removeItem('typeOfWc')
     localStorage.removeItem('hasElevator')
+    setActiveParking('')
+    setActiveElevator('')
+    setActiveToilet('')
+    localStorage.setItem('isSearchFilter', JSON.stringify(false))
+    newParams.delete('hasElevator')
+    newParams.delete('hasParking')
+    newParams.delete('typeOfWc')
+    setSearchParams(newParams)
+    closeModalFiltering()
   }
+
   const isFilterComplete = activeParking && activeToilet && activeElevator
   const buttonText = isFilterComplete ? 'جستجو' : ' فیلترها را کامل کنید'
 
@@ -121,7 +130,7 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
             <table className="min-w-full bg-white">
               <tbody>
                 <tr className="*:text-sm *:font-shabnamMedium *:py-2 *:px-6 *:border-gray-ED *:border-l">
-                  {['مهم نیست', 'دارد', 'ندارد'].map((item) => (
+                  {['دارد', 'ندارد'].map((item) => (
                     <td
                       key={item}
                       onClick={() =>
@@ -131,7 +140,7 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
                           `hasElevator`
                         )
                       }
-                      className={`cursor-pointer ${
+                      className={`cursor-pointer text-center ${
                         activeElevator === item ? 'bg-primary text-white' : ''
                       }`}
                     >

@@ -16,13 +16,12 @@ import FilteringModal from '../../../components/shared/Modals/filteringModal/fil
 import { useMutation } from '@tanstack/react-query'
 import { searchAds } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { Advertisement } from '../../../components/shared/UIComponents/Layout/HeaderComponents/headerContent/headerContent'
-import { useLocation, useSearchParams } from 'react-router'
+import { useSearchParams } from 'react-router'
 import NoProducts from '../../../components/shared/UIComponents/Layout/NoProducts/NoProducts'
 // import { gettingAdsPagenation } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
-import { usePaginationData } from '../../../Hooks/shared/shared'
 import { v4 as uuidv4 } from 'uuid'
 
-type PaginationData = {
+export type PaginationData = {
   current_page: number
   first_page_url: string
   from: number
@@ -43,17 +42,12 @@ const Rent: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false)
   // const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const location = useLocation()
   const [filteredProductsState, setFilteredProducts] = useState<
-    Advertisement[] | []
-  >([])
-  const [paginatedProductsState, setPaginatedProducts] = useState<
     Advertisement[] | []
   >([])
 
   const [paginationDataState, setPaginationDataState] =
     useState<PaginationData | null>(null)
-  const [pageUrl, setPageUrl] = useState<string | null>(null)
 
   const [, setFilteredParams] = useState<{
     city: string
@@ -64,16 +58,10 @@ const Rent: React.FC = () => {
     typeOfWc?: string
     hasParking?: string
     hasElevator?: string
+    page: string
   } | null>(null)
 
   const newParams = new URLSearchParams(searchParams)
-
-  const savedPage = localStorage.getItem('currentPage') ?? '1'
-  useEffect(() => {
-    newParams.set('page', savedPage)
-    const newPageUrl = `https://saghfino.abolfazlhp.ir/api/ads/filter?page=${savedPage}`
-    setPageUrl(newPageUrl)
-  }, [searchParams])
 
   const openModalFiltering = useCallback(() => {
     setOpenModalFiltering(true)
@@ -95,6 +83,7 @@ const Rent: React.FC = () => {
       typeOfWc?: string
       hasParking?: string
       hasElevator?: string
+      page: string
     }) => searchAds(filterParams),
     []
   )
@@ -110,25 +99,43 @@ const Rent: React.FC = () => {
 
   useEffect(() => {
     if (filteredProducts?.data?.data) {
-      console.log('داده‌های فیلتر شده:', filteredProducts.data.data)
-      setPaginatedProducts([])
       setFilteredProducts(filteredProducts.data.data)
     }
   }, [filteredProducts])
 
   useEffect(() => {
+    const isSearchMoreFilter = localStorage.getItem('isSearchFilter') === 'true'
+
+    const hasParking = isSearchMoreFilter
+      ? localStorage.getItem('hasParking') === 'دارد'
+        ? 1
+        : localStorage.getItem('hasParking') === 'ندارد'
+        ? 0
+        : null
+      : null
+
+    const hasElevator = isSearchMoreFilter
+      ? localStorage.getItem('hasElevator') === 'دارد'
+        ? 1
+        : localStorage.getItem('hasElevator') === 'ندارد'
+        ? 0
+        : null
+      : null
+
     const storedParams: Partial<{
       city: string
       tr_type: string
-      pr_type: string | null
       rent_price: string | null
-      sell_price: string | null
+      page: string
+      pr_type?: string | null
+      sell_price?: string | null
       typeOfWc?: string | null
       hasParking?: number | null
       hasElevator?: number | null
     }> = {
       city: localStorage.getItem('searchFilter-value') || 'تهران',
       tr_type: localStorage.getItem('tr-type') || 'rent',
+      page: localStorage.getItem('currentPage-Rent-sell') ?? '1',
       pr_type: localStorage.getItem('pr_type'),
       rent_price: localStorage.getItem('rent_price'),
       sell_price: localStorage.getItem('sell_price'),
@@ -140,32 +147,42 @@ const Rent: React.FC = () => {
           : localStorage.getItem('typeOfWc') === 'ایرانی'
           ? 'wc'
           : '',
-      hasParking: Number(localStorage.getItem('hasParking') === 'دارد' ? 1 : 0),
-      hasElevator: Number(
-        localStorage.getItem('hasElevator') === 'دارد' ? 1 : 0
-      ),
+      hasParking,
+      hasElevator,
     }
+    console.log('storedParams', storedParams)
 
     const filteredParams = Object.fromEntries(
-      Object.entries(storedParams).filter(([value]) => value && value !== '')
+      Object.entries(storedParams).filter(
+        ([value]) => value !== null && value !== ''
+      )
     ) as {
       city: string
       tr_type: string
+      page: string
       pr_type?: string
       rent_price?: string
       sell_price?: string
       typeOfWc?: string
       hasParking?: string
       hasElevator?: string
-      page?: number
     }
 
+    console.log('filteredParams', filteredParams)
+
     Object.entries(filteredParams).forEach(([key, value]) => {
-      if (value && value !== '') {
+      console.log(key, value)
+
+      if (value !== null && value !== '') {
         newParams.set(key, String(value))
+        setSearchParams(newParams)
+      } else {
+        newParams.delete(key)
+        setSearchParams(newParams)
       }
     })
 
+    console.log(filteredParams)
     setFilteredParams(filteredParams)
 
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
@@ -212,21 +229,16 @@ const Rent: React.FC = () => {
   const handlePageChange = (newPage: number) => {
     const newParams = new URLSearchParams(searchParams)
     newParams.set('page', String(newPage))
-    localStorage.setItem('currentPage', String(newPage)) 
+    localStorage.setItem('currentPage-Rent-sell', String(newPage))
     setSearchParams(newParams)
   }
 
-  const { data: paginationData, isLoading: isPendingPaginationData } =
-    usePaginationData(pageUrl ?? '')
-
   useEffect(() => {
-    if (paginationData?.data) {
+    if (filteredProducts?.data) {
       window.scrollTo({ top: 50, behavior: 'smooth' })
-      setFilteredProducts([])
-      setPaginatedProducts(paginationData.data)
-      setPaginationDataState(paginationData)
+      setPaginationDataState(filteredProducts?.data)
     }
-  }, [paginationData])
+  }, [filteredProducts])
 
   return (
     <>
@@ -247,13 +259,11 @@ const Rent: React.FC = () => {
                   : 'اجاره ای'}
               </h3>
               <span className="sm:h-9 font-shabnam text-primary">
-                {isPending || isPendingPaginationData
+                {isPending
                   ? 'در حال بارگذاری'
-                  : `${
-                      filteredProductsState.length > 0
-                        ? filteredProductsState.length
-                        : paginatedProductsState.length
-                    } مورد یافت شد`}
+                  : filteredProductsState.length > 0
+                  ? `${filteredProductsState.length}  موردی یافت شد `
+                  : 'موردی یافت نشد'}
               </span>
             </div>
             <div className="flex items-center justify-between">
@@ -273,7 +283,7 @@ const Rent: React.FC = () => {
           </div>
 
           {/* products */}
-          {isPending || isPendingPaginationData ? (
+          {isPending ? (
             <div className="w-full flex items-center justify-center">
               <ThreeDot
                 variant="bounce"
@@ -296,32 +306,6 @@ const Rent: React.FC = () => {
               </div>
 
               {/* صفحه‌بندی مخصوص داده‌های فیلتر شده */}
-              {paginationDataState?.links?.length ? (
-                <div className="flex items-center justify-center mt-10">
-                  <Pagination
-                    current_page={Number(
-                      searchParams.get('page') ??
-                        paginationDataState?.current_page
-                    )}
-                    links={paginationDataState?.links ?? []}
-                    onPageChange={handlePageChange}
-                  />
-                </div>
-              ) : null}
-            </>
-          ) : paginatedProductsState.length > 0 ? (
-            <>
-              <div className="grid grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-4">
-                {paginatedProductsState.map((productInfos) => (
-                  <ProductBox
-                    key={uuidv4()}
-                    isLoading={loading}
-                    productInfo={productInfos}
-                  />
-                ))}
-              </div>
-
-              {/* صفحه‌بندی عمومی */}
               {paginationDataState?.links?.length ? (
                 <div className="flex items-center justify-center mt-10">
                   <Pagination
