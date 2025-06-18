@@ -38,6 +38,7 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
     setSearchParams(newParams)
     localStorage.setItem('isSearchFilter', JSON.stringify(true))
     closeModalFiltering()
+    localStorage.setItem('currentPage-Rent-sell', '1')
   }
 
   const removeFilters = () => {

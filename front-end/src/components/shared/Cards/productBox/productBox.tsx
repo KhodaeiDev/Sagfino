@@ -77,7 +77,7 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
                   to={`/detailsProduct/detailsProduct/${productInfo?.id}`}
                 >
                   {' '}
-                  {productInfo?.title.slice(0, 25)}
+                  {productInfo?.title}
                 </NavLink>
                 {/* <RiBookmarkLine
                   onClick={() => SaveAdHandler(productInfo.id)}
@@ -88,12 +88,12 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
               </div>
               <div>
                 <span className="text-10 clamped-text-product-Box text-gray-1000 lg:text-base">
-                  {productInfo?.address.slice(0, 25)}
+                  {productInfo?.address}
                 </span>
               </div>
               <div className="flex flex-col gap-0.5 lg:gap-1 text-10 font-shabnamBold lg:text-base text-Gray-35">
                 {productInfo.rent_price ? (
-                  <div>
+                  <div className=" flex flex-col gap-y-2 ">
                     <span>
                       {productInfo?.rent_price
                         ? `${productInfo?.mortgage_price?.toLocaleString(

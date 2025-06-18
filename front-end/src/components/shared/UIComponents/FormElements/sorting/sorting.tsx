@@ -26,7 +26,7 @@ const Sorting: React.FC<SortingProps> = ({
   const [formType] = useState<FormType>('rent-search')
   const [isFocused, setIsFocused] = useState<boolean>(false)
   const [searchParams, setSearchParams] = useSearchParams()
-  const [propertyType, setPropertyType] = useState('نوع ملک')
+  const [propertyType, setPropertyType] = useState('مسکونی')
   const [rentPrice, setRentPrice] = useState(' مرتب‌سازی بر اساس قیمت')
   const [sellPrice, setSellPrice] = useState(' مرتب‌سازی بر اساس قیمت')
   const trType = localStorage.getItem('tr-type') || 'rent'
@@ -57,6 +57,7 @@ const Sorting: React.FC<SortingProps> = ({
 
   const handleSearchClick = () => {
     const city = localStorage.getItem('searchFilter-value') || 'تهران'
+    localStorage.setItem('currentPage-Rent-sell', '1')
 
     if (city) {
       newParams.set('city', city)
@@ -81,6 +82,7 @@ const Sorting: React.FC<SortingProps> = ({
         'pr_type',
         value === 'تجاری' ? 'commercial' : 'residential'
       )
+      localStorage.setItem('currentPage-Rent-sell', '1')
     },
     [setPropertyType]
   )
@@ -100,10 +102,11 @@ const Sorting: React.FC<SortingProps> = ({
       trType === 'rent' ? 'rent_price' : 'sell_price',
       value === 'بیشترین قیمت' ? 'asc' : 'desc'
     )
+    localStorage.setItem('currentPage-Rent-sell', '1')
   }
 
   useEffect(() => {
-    const prType = localStorage.getItem('pr_type')
+    const prType = localStorage.getItem('pr_type') || 'residential'
     const rentPrice = localStorage.getItem('rent_price')
     const sellPrice = localStorage.getItem('sell_price')
     const cityDefulut = newParams.get('city') || 'تهران'

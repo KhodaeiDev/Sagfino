@@ -77,13 +77,13 @@ const Rent: React.FC = () => {
     async (filterParams: {
       city: string
       tr_type: string
-      pr_type?: string
+      pr_type: string
+      page: string
       rent_price?: string
       sell_price?: string
       typeOfWc?: string
       hasParking?: string
       hasElevator?: string
-      page: string
     }) => searchAds(filterParams),
     []
   )
@@ -95,7 +95,9 @@ const Rent: React.FC = () => {
   } = useMutation({
     onSuccess: () => {},
     mutationFn: fetchSearchAds,
-  })
+  },
+  
+    )
 
   useEffect(() => {
     if (filteredProducts?.data?.data) {
@@ -127,7 +129,7 @@ const Rent: React.FC = () => {
       tr_type: string
       rent_price: string | null
       page: string
-      pr_type?: string | null
+      pr_type: string | null
       sell_price?: string | null
       typeOfWc?: string | null
       hasParking?: number | null
@@ -136,7 +138,7 @@ const Rent: React.FC = () => {
       city: localStorage.getItem('searchFilter-value') || 'تهران',
       tr_type: localStorage.getItem('tr-type') || 'rent',
       page: localStorage.getItem('currentPage-Rent-sell') ?? '1',
-      pr_type: localStorage.getItem('pr_type'),
+      pr_type: localStorage.getItem('pr_type') || 'residential',
       rent_price: localStorage.getItem('rent_price'),
       sell_price: localStorage.getItem('sell_price'),
       typeOfWc:
@@ -160,7 +162,7 @@ const Rent: React.FC = () => {
       city: string
       tr_type: string
       page: string
-      pr_type?: string
+      pr_type: string
       rent_price?: string
       sell_price?: string
       typeOfWc?: string
@@ -189,6 +191,7 @@ const Rent: React.FC = () => {
     setSearchParams(newParams)
 
     adFiltering(filteredParams)
+    
   }, [location.search])
 
   useEffect(() => {
@@ -222,6 +225,7 @@ const Rent: React.FC = () => {
       )
       setSearchParams(newParams)
       localStorage.setItem('tr-type', value === 'فروش' ? 'sell' : 'rent')
+      localStorage.setItem('currentPage-Rent-sell', '1')
     },
     [setDealType]
   )
