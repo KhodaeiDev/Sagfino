@@ -26,7 +26,7 @@ const siteRoutes: RouteObject[] = [
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },
   {
-    path: '/RealEstateDetails/RealEstateDetails/:Estate',
+    path: '/RealEstateDetails/RealEstateDetails/:estateId',
     element: <RealEstateDetails />,
   },
   {

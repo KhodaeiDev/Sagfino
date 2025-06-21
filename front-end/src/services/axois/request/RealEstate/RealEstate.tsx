@@ -1,5 +1,8 @@
 import { AxiosResponse } from 'axios'
-import { axiosUnProtectedInstance } from '../../configs/configs'
+import {
+  axiosProtectedInstance,
+  axiosUnProtectedInstance,
+} from '../../configs/configs'
 
 export const getAllRealEstates = async (
   filters: Record<string, string | null>
@@ -7,4 +10,18 @@ export const getAllRealEstates = async (
   return await axiosUnProtectedInstance.get(`/real-estates`, {
     params: filters,
   })
+}
+
+export const getRealEstateInfo = async (productId: number) => {
+  const token = localStorage.getItem('userToken')?.replace(/"/g, '')
+
+  if (token !== 'null' || !token) {
+    return await axiosProtectedInstance.get(`real-estates/${productId}`, {
+      headers: {
+        Authorization: token ? `Bearer ${token}` : '',
+      },
+    })
+  } else {
+    return await axiosProtectedInstance.get(`real-estates/${productId}`, {})
+  }
 }

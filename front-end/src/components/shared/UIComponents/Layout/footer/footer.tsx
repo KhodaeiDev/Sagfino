@@ -18,7 +18,7 @@ const Footer: React.FC = () => {
               btnTitle={''}
               btnHref={''}
             />
-            <div className=" grid grid-cols-4 gap-20 pb-4  mt-10.5 border-b border-Gray-35">
+            {/* <div className=" grid grid-cols-4 gap-20 pb-4  mt-10.5 ">
               <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm">بازارهای املاک و مستغلات</h5>
                 <NavLink
@@ -96,29 +96,7 @@ const Footer: React.FC = () => {
                   آروین قادری
                 </NavLink>
               </div>
-
-              <div className=" flex flex-col gap-2.5 font-shabnam">
-                <h5 className=" text-sm"> با ما در ارتباط باشید </h5>
-                <div className=" flex items-center gap-1 text-xs mt-0.5">
-                  <FaPhoneVolume className=" text-primary" />
-                  <span className=" font-shabnam  text-base text-gray-71 ">
-                    تلفن
-                  </span>
-                </div>
-                <div className=" flex items-center gap-1 text-xs">
-                  <TbBrandInstagramFilled className=" text-primary" />
-                  <span className=" font-shabnam  text-base text-gray-71 ">
-                    اینستاگرام
-                  </span>
-                </div>
-                <div className=" flex items-center gap-1 text-xs">
-                  <FaTelegram className=" text-primary" />
-                  <span className=" font-shabnam  text-base text-gray-71 ">
-                    تلگرام
-                  </span>
-                </div>
-              </div>
-            </div>
+            </div> */}
             <div className="grid grid-cols-4 gap-20 pt-6 pb-4 ">
               {/* logo */}
               <div className=" flex flex-col gap-2">
@@ -243,6 +221,27 @@ const Footer: React.FC = () => {
                 >
                   آگهی من
                 </NavLink>
+              </div>
+              <div className=" flex flex-col gap-2.5 font-shabnam">
+                <h5 className=" text-sm"> با ما در ارتباط باشید </h5>
+                <div className=" flex items-center gap-1 text-xs mt-0.5">
+                  <FaPhoneVolume className=" text-primary" />
+                  <span className=" font-shabnam  text-base text-gray-71 ">
+                    تلفن
+                  </span>
+                </div>
+                <div className=" flex items-center gap-1 text-xs">
+                  <TbBrandInstagramFilled className=" text-primary" />
+                  <span className=" font-shabnam  text-base text-gray-71 ">
+                    اینستاگرام
+                  </span>
+                </div>
+                <div className=" flex items-center gap-1 text-xs">
+                  <FaTelegram className=" text-primary" />
+                  <span className=" font-shabnam  text-base text-gray-71 ">
+                    تلگرام
+                  </span>
+                </div>
               </div>
             </div>
           </div>

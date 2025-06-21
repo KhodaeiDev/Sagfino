@@ -6,8 +6,9 @@ import { RealEstateType } from '../../../../pages/site/Realestates/Realestates'
 
 type RealEstateModalProps = {
   openModal?: () => void
-  estateInfo: RealEstateType 
+  estateInfo: RealEstateType
 }
+
 const EstateBox: React.FC<RealEstateModalProps> = memo(
   ({ openModal, estateInfo }) => {
     const [isLoading, setIsLoading] = useState(true)
@@ -17,14 +18,14 @@ const EstateBox: React.FC<RealEstateModalProps> = memo(
       return () => clearTimeout(timer)
     }, [])
 
-    
+    console.log(estateInfo)
 
     return (
       <>
         <NavLink
           to={`/RealEstateDetails/RealEstateDetails/${estateInfo.id}`}
           onClick={() => openModal && openModal()}
-          className=" h-auto  cursor-pointer border border-boxHelp rounded-2xl flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] items-center px-5 xl:px-12 py-4 xl:py-8"
+          className=" h-auto  cursor-pointer border border-boxHelp  rounded-lg flex flex-col shadow-[0px_2px_8px_0px_rgba(0,0,0,0.08)] items-center  "
         >
           {isLoading ? (
             <CustomSkeletonLoader
@@ -48,61 +49,59 @@ const EstateBox: React.FC<RealEstateModalProps> = memo(
                   width: '90%',
                   height: '4%',
                 },
-                {
-                  xOffset: '5%',
-                  yOffset: '80%',
-                  width: '90%',
-                  height: '4%',
-                },
-                {
-                  xOffset: '5%',
-                  yOffset: '90%',
-                  width: '90%',
-                  height: '4%',
-                },
-                {
-                  xOffset: '5%',
-                  yOffset: '100%',
-                  width: '90%',
-                  height: '4%',
-                },
-                {
-                  xOffset: '5%',
-                  yOffset: '110%',
-                  width: '90%',
-                  height: '4%',
-                },
+                // {
+                //   xOffset: '5%',
+                //   yOffset: '80%',
+                //   width: '90%',
+                //   height: '4%',
+                // },
+                // {
+                //   xOffset: '5%',
+                //   yOffset: '90%',
+                //   width: '90%',
+                //   height: '4%',
+                // },
+                // {
+                //   xOffset: '5%',
+                //   yOffset: '100%',
+                //   width: '90%',
+                //   height: '4%',
+                // },
+                // {
+                //   xOffset: '5%',
+                //   yOffset: '110%',
+                //   width: '90%',
+                //   height: '4%',
+                // },
               ]}
             />
           ) : (
             <>
-              <div className="w-23.25 h-16.5 mb-2">
+              <div className=" w-full mb-2">
                 <img
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover rounded-t-lg "
                   src={`https://saghfino.abolfazlhp.ir/storage/${estateInfo?.image}`}
                   alt="Logo"
                 />
               </div>
-              <div className="flex items-center gap-1 justify-between">
-                <h6 className="font-shabnamBold text-xs lg:text-xl text-gray-21">
+              <div className="flex items-center gap-1 justify-between   my-2 ">
+                <h6 className="font-shabnamBold text-base lg:text-2xl text-gray-21 ">
                   {estateInfo.name}
                 </h6>
                 <div className="center w-3 h-3 lg:w-4 lg:h-4 bg-blue-tick text-white rounded-full">
                   <IoIosCheckmark />
                 </div>
               </div>
-              <div className="text-gray-71 text-center flex flex-col gap-y-3 font-shabnam text-xs">
-                <span className="text-Gray-35 font-shabnamMedium text-lg">
-                  {estateInfo.address}
-                </span>
+              <div className="text-gray-71 text-center flex flex-col gap-y-3 font-shabnam text-xs  mb-6 ">
                 <span>
-                  میزان رضایتمندی: {estateInfo.rate_count} از{' '}
-                  {estateInfo?.rate_sum}
+                  میزان رضایتمندی: 5 از{' '}
+                  {estateInfo.rate === null ? 0 : estateInfo.rate}
                 </span>
-                {/* <span>آگهی‌های فعال: بیش از ۲۰۰۰</span> */}
-                {/* <span className="font-shabnamMedium">
+                <span>آگهی‌های فعال: بیش از ۲۰۰۰</span>
+                {/* <span className="font-shabnamMedium"> 
                   مشاهده نظرات کاربران (۱۲ نظر)
                 </span> */}
+                <span> آدرس : {estateInfo.address}</span>
               </div>
             </>
           )}

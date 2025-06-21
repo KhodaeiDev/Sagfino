@@ -1,5 +1,5 @@
 import ReactDOM from 'react-dom'
-import { IoCallOutline } from 'react-icons/io5'
+// import { IoCallOutline } from 'react-icons/io5'
 import { memo, useContext } from 'react'
 import { IoMdClose } from 'react-icons/io'
 import { AuthContext } from '../../../../context/auth/authContext'
@@ -37,7 +37,7 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
               </div>
             </div>
             {/* contet */}
-            <div className="  flex flex-col items-center  px-28 mt-8">
+            <div className="  flex flex-col items-center  gap-y-2   justify-start  mt-3">
               {auth.userInfo?.role === 'real_estate_agent' ? (
                 <div className="  flex flex-col items-center ">
                   <div className=" w-35 h-20">
@@ -55,10 +55,17 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
               ) : (
                 ''
               )}
-
-              <div className=" flex items-center   gap-x-2    **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
-                {userInfos?.phoneNumber}
-                <IoCallOutline className="   w-7 font-shabnam text-2xl   text-blue-tick " />
+              <div className=" flex items-start justify-center  **:font-shabnam text-base  lg:text-xl gap-2  lg:mt-0 ">
+                نام مالک :
+                <span className=" text-gray-71  text-base ">
+                  {userInfos.firstName} {userInfos.lastName}
+                </span>
+              </div>
+              <div className=" flex items-center justify-center   gap-x-2    **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
+                تلفن همراه :
+                <span  className=" text-gray-71  text-base ">
+                  {userInfos?.phoneNumber}{' '}
+                </span>
               </div>
               {/* Consultant  information */}
               {isConsultantInfo && (
