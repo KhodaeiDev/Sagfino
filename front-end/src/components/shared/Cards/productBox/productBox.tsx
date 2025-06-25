@@ -79,12 +79,7 @@ const ProductBox: React.FC<ProductBoxProps> = memo(
                   {' '}
                   {productInfo?.title}
                 </NavLink>
-                {/* <RiBookmarkLine
-                  onClick={() => SaveAdHandler(productInfo.id)}
-                  className={`cursor-pointer w-3 h-3 lg:w-6 lg:h-6  transition-all duration-500 ${
-                    isSaveAd ? ' text-primary' : 'text-gray-90'
-                  } `}
-                /> */}
+               
               </div>
               <div>
                 <span className="text-10 clamped-text-product-Box text-gray-1000 lg:text-base">

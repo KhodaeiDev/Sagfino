@@ -63,31 +63,31 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
   const [userInfo, setUserInfo] = useState<UserInfoType | null>(null)
 
   useEffect(() => {
-    const token = localStorage.getItem('userToken')
-    const storedExpiryTime = localStorage.getItem('TokenExpiryTime')
+    const token = JSON.parse(String(localStorage.getItem('userToken')))
+    const storedExpiryTime = JSON.parse(
+      String(localStorage.getItem('TokenExpiryTime'))
+    )
+    console.log(token)
     const isValidToken =
       token && token !== 'null' && token.trim() !== '' && token !== undefined
-
     const checkTokenExpiry = () => {
       if (
         !storedExpiryTime ||
         !isValidToken ||
         Date.now() >= Number(storedExpiryTime)
       ) {
+        localStorage.clear()
+        navigate('/auth/StepOne')
         logout()
         ToastNotification(
           'error',
           'توکن شما معتبر نیست یا منقضی شده، لطفا دوباره احراز هویت را انجام دهید',
           6000
         )
-        localStorage.clear()
-        navigate('/auth/StepOne')
       }
     }
-    if (isValidToken && storedExpiryTime) {
+    if (isValidToken) {
       checkTokenExpiry()
-      const interval = setInterval(checkTokenExpiry, 1800000)
-      return () => clearInterval(interval)
     }
   }, [navigate])
 

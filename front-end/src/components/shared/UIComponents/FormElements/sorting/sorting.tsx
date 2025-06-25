@@ -8,6 +8,7 @@ import Input from '../input/input'
 import {
   maxValidator,
   minValidator,
+  persianValidator,
   requiredValidator,
 } from '../../../../../validators/rules'
 import { useSearchParams } from 'react-router'
@@ -221,6 +222,7 @@ const Sorting: React.FC<SortingProps> = ({
                 requiredValidator(),
                 minValidator(2),
                 maxValidator(12),
+                persianValidator(),
               ]}
               onInputHandler={handleInputChange}
               onFocus={handleFocus}
@@ -239,6 +241,7 @@ const Sorting: React.FC<SortingProps> = ({
                   ? 'bg-gray-300 text-gray-500  !cursor-not-allowed'
                   : 'hover:bg-primary hover:border-primary hover:text-white'
               } `}
+              disabled={!isInvalid}
             >
               {!isInvalid
                 ? 'نام شهر را وارد کنید'

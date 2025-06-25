@@ -1,4 +1,3 @@
-import React, { useEffect, useState } from 'react'
 import CMSLayout from '../../components/cms/CMSLayout'
 import { NavLink } from 'react-router'
 import {
@@ -6,96 +5,152 @@ import {
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 import { GoTrash } from 'react-icons/go'
-import CustomSkeletonLoader from '../../components/shared/UIComponents/Feedback/SkeletonLoader/SkeletonLoader'
 import { FaRegEdit } from 'react-icons/fa'
+import { getAdsCreated } from '../../services/axois/request/cms/cms'
+import { useQuery } from '@tanstack/react-query'
+import { v4 as uuidv4 } from 'uuid'
+import { Advertisement } from '../../components/shared/UIComponents/Layout/HeaderComponents/headerContent/headerContent'
+import { ThreeDot } from 'react-loading-indicators'
+import { deleteAllAdsCreated } from '../../services/axois/request/cms/cms'
+import { useEffect } from 'react'
+import ToastNotification from '../../services/toastify/toastify'
+import { useQueryClient } from '@tanstack/react-query'
+import { deleteSpecificAdMe } from '../../services/axois/request/cms/cms'
 
 const MyAds: React.FC = () => {
-  document.title = 'سقفینو-آگهی های شما'
-  const [isLoading, setIsLoading] = useState(true)
+  const queryClient = useQueryClient()
 
   useEffect(() => {
-    const timer = setTimeout(() => setIsLoading(false), 2000)
-    return () => clearTimeout(timer)
-  }, [])
+    document.title = 'سقفینو-آگهی های شما'
+  },[])
+  const {
+    isLoading,
+    data: adCreatedDatas,
+    refetch,
+  } = useQuery({
+    queryKey: ['adCreated'],
+    queryFn: () => getAdsCreated(),
+    staleTime: 60000,
+  })
+
+  const deleteAllSavedHandler = async () => {
+    const res = await deleteAllAdsCreated()
+    if (res.status < 300) {
+      ToastNotification(
+        'success',
+        'تمامی آگهی های دخیره شده بامفقیت حذف شد ',
+        5000
+      )
+      queryClient.removeQueries({ queryKey: ['adCreated'] })
+    }
+  }
+
+  const deleteSpecificAd = async (id: number) => {
+    console.log(id)
+    const res = await deleteSpecificAdMe(id)
+    console.log(res)
+    if (res.status < 300) {
+      ToastNotification('success', ' آگهی مورد نظر با  موفقیت حذف شد ', 5000)
+
+      refetch()
+    }
+  }
 
   return (
     <>
       <CMSLayout title="آگهی من" panel={false}>
         <div className="w-full mt-4 flex items-center justify-start pr-6.5 gap-x-2 text-gray-1000 text-base ">
-          <GoTrash className=" w-6 h-6" />
+          <GoTrash
+            onClick={deleteAllSavedHandler}
+            className=" cursor-pointer w-6 h-6"
+          />
           پاک کردن همه آگهی‌ها
         </div>
         <div className="container">
+          {isLoading && (
+            <>
+              <div className=" flex items-center justify-center h-50 ">
+                <ThreeDot
+                  variant="bounce"
+                  color="#CB1B1B"
+                  size="large"
+                  textColor=""
+                />
+              </div>
+            </>
+          )}
           <div className=" grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-2 md:gap-4 mt-10">
-            {[...Array(2)].map((_, index) => (
+            {adCreatedDatas?.data.map((productInfo: Advertisement) => (
               <div
-                key={index}
-                className="  w-full  h-auto lg:h-87 border border-boxHelp rounded-2xl"
+                key={uuidv4()}
+                className="  w-full  h-auto  border border-boxHelp rounded-2xl"
               >
-                {isLoading ? (
-                  <CustomSkeletonLoader
-                    imageSection={{ yOffset: '0%', height: '50%' }}
-                    textSections={[
-                      {
-                        xOffset: '5%',
-                        yOffset: '55%',
-                        width: '10%',
-                        height: '7%',
-                      },
-                      {
-                        xOffset: '5%',
-                        yOffset: '68%',
-                        width: '90%',
-                        height: '4%',
-                      },
-                      {
-                        xOffset: '5%',
-                        yOffset: '81%',
-                        width: '90%',
-                        height: '4%',
-                      },
-                      {
-                        xOffset: '5%',
-                        yOffset: '94%',
-                        width: '90%',
-                        height: '4%',
-                      },
-                    ]}
+                <div className="relative">
+                  <img
+                    className="w-full h-auto rounded-t-2xl "
+                    src={``}
+                    alt="ProductImg"
+                    onError={(event) => {
+                      ;(event.target as HTMLImageElement).src =
+                        '/img/Photo Place.png'
+                    }}
                   />
-                ) : (
-                  <>
-                    <a href="#" className="relative  ">
-                      <img
-                        className="w-full h-auto rounded-t-2xl "
-                        src="/img/pexels-naim-benjelloun-2029731 1.png"
-                        alt="Product"
-                      />
-                      <div className="center w-16.25 h-5.5 lg:w-25 lg:h-9.5 rounded-xs lg:rounded-sm bg-black-blur/40 text-10 absolute top-3 right-3 font-shabnam lg:text-base">
-                        <span className="text-white"> تایید شد </span>
-                      </div>
-                      <div className="absolute top-3 left-3">
-                        <GoTrash className="cursor-pointer text-white w-4 h-4 lg:w-6 lg:h-6" />
-                      </div>
-                    </a>
-                    <div className="flex flex-col gap-2.5 p-2.5 lg:px-3.5 lg:pt2.5 lg:pb-2.5">
-                      <div className="w-full flex justify-end">
-                        <FaRegEdit className="cursor-pointer text-gray-71 w-3 h-3 lg:w-6 lg:h-6" />
-                      </div>
-                      <div className="flex items-center justify-between font-shabnam text-10 lg:text-base text-gray-90">
-                        <NavLink to="">رهن و اجاره آپارتمان تهران</NavLink>
-                      </div>
-                      <div>
-                        <span className="text-10 text-gray-1000 lg:text-base">
-                          ۸۰ متر، محدوده پاسدارن،
+                  <div className="center w-16.25 h-5.5 lg:w-25 lg:h-9.5 rounded-xs lg:rounded-sm bg-black-blur/40 text-10 absolute top-3 right-3 font-shabnam lg:text-base">
+                    <span className="text-white"> تایید شد </span>
+                  </div>
+                  <div className="absolute top-3 left-3">
+                    <GoTrash
+                      onClick={() => deleteSpecificAd(productInfo.id)}
+                      className="cursor-pointer text-white w-4 h-4 lg:w-6 lg:h-6"
+                    />
+                  </div>
+                </div>
+                <div className="flex flex-col gap-2.5 p-2.5 lg:px-3.5 lg:pt2.5 lg:pb-2.5">
+                  <div className="w-full flex justify-end">
+                    <FaRegEdit className="cursor-pointer text-gray-71 w-3 h-3 lg:w-6 lg:h-6" />
+                  </div>
+                  <div className="flex items-center justify-between font-shabnam text-10 lg:text-base text-gray-90">
+                    <NavLink
+                      to={`/detailsProduct/detailsProduct/${productInfo?.id}`}
+                    >
+                      {' '}
+                      {productInfo.title}
+                    </NavLink>
+                  </div>
+                  <div>
+                    <span className="text-10 text-gray-1000 lg:text-base">
+                      {productInfo.address}
+                    </span>
+                  </div>
+                  <div className="flex flex-col gap-0.5 lg:gap-1  pb-3 text-10 font-shabnamBold lg:text-base text-Gray-35">
+                    {productInfo.rent_price ? (
+                      <div className=" flex flex-col gap-y-2 ">
+                        <span>
+                          {productInfo?.rent_price
+                            ? `${productInfo?.mortgage_price?.toLocaleString(
+                                'fa'
+                              )}     میلیون تومان رهن`
+                            : ' رهن توافقی'}{' '}
+                        </span>
+                        <span>
+                          {productInfo?.rent_price
+                            ? `${productInfo?.rent_price?.toLocaleString(
+                                'fa'
+                              )}       میلیون تومان اجاره`
+                            : ' اجاره توافقی'}{' '}
                         </span>
                       </div>
-                      <div className="flex flex-col gap-0.5 lg:gap-1 text-10 font-shabnamBold lg:text-base text-gray-35">
-                        <span>۶۰۰ میلیون تومان رهن</span>
-                        <span>۳۱ میلیون تومان اجاره</span>
-                      </div>
-                    </div>
-                  </>
-                )}
+                    ) : (
+                      <span>
+                        {productInfo?.rent_price
+                          ? `${productInfo?.sell_price?.toLocaleString(
+                              'fa'
+                            )}       میلیون تومان فروش`
+                          : ' فروش توافقی'}{' '}
+                      </span>
+                    )}
+                  </div>
+                </div>
               </div>
             ))}
           </div>
