@@ -1,4 +1,4 @@
-import React, { memo } from 'react'
+import React, { memo, useContext } from 'react'
 import {
   NavBar,
   NavBarMobail,
@@ -11,7 +11,8 @@ import { MdOutlineReceiptLong } from 'react-icons/md'
 import { RiBookmarkLine } from 'react-icons/ri'
 import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { HiOutlineLogout } from 'react-icons/hi'
-import { NavLink } from 'react-router'
+import { NavLink, useNavigate } from 'react-router'
+import { AuthContext } from '../../context/auth/authContext'
 
 type CMSLayoutProps = {
   title: string
@@ -21,6 +22,14 @@ type CMSLayoutProps = {
 
 const CMSLayout: React.FC<CMSLayoutProps> = memo(
   ({ title, children, panel }) => {
+    const auth = useContext(AuthContext)
+
+    const navigate = useNavigate()
+
+    const logOutHandler = () => {
+      auth.logout()
+      navigate('/')
+    }
     return (
       <>
         <NavBar />
@@ -36,9 +45,18 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                   <CgProfile className=" w-10 h-10 " />
                   <div className=" flex flex-col items-center  ">
                     <h4 className=" text-Gray-35 text-lg font-shabnam ">
-                      نام کاربر
+                      {auth.userInfo?.firstName} {auth.userInfo?.lastName}
                     </h4>
-                    <span className=" text-base font-shabnam ">نوع فعالیت</span>
+                    <span className=" text-base font-shabnam ">
+                      {' '}
+                      {auth.userInfo?.role === 'user'
+                        ? 'کاربر عادی'
+                        : auth.userInfo?.role === 'admin'
+                        ? 'آدمین'
+                        : auth.userInfo?.role === 'real_estate_agent'
+                        ? 'املاکی'
+                        : ''}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -137,18 +155,12 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                     </li>
                   )}
 
-                  <li>
-                    <NavLink
-                      to={'/'}
-                      className={({ isActive }) =>
-                        isActive
-                          ? `border-primary rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
-                          : ''
-                      }
-                    >
-                      <HiOutlineLogout className=" w-5 h-5 " />
-                      <span> خروج</span>
-                    </NavLink>
+                  <li
+                    className=" cursor-pointer text-lg"
+                    onClick={() => logOutHandler()}
+                  >
+                    <HiOutlineLogout className=" w-5 h-5  !stroke-primary  " />
+                    <span className=" !text-primary  "> خروج</span>
                   </li>
                 </ul>
               </div>

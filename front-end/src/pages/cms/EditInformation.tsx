@@ -11,8 +11,8 @@ import { FaTrash } from 'react-icons/fa'
 import Btn from '../../components/AdRegistration/btn'
 
 const EditInformation: React.FC = () => {
-  document.title = "سقفینو-ویرایش اطلاعات"
-  
+  document.title = 'سقفینو-ویرایش اطلاعات'
+
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
 
   const handleImageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
