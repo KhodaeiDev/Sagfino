@@ -1,7 +1,9 @@
 import { axiosProtectedInstance } from '../../configs/configs'
 
-export const getUserAdSaved = async () => {
-  return await axiosProtectedInstance.get(`/ads/saved-ads`)
+export const getUserAdSaved = async (
+  filters: Record<string, string | null>
+) => {
+  return await axiosProtectedInstance.get(`/ads/saved-ads`, { params: filters })
 }
 
 export const deleteAllSaved = async () => {

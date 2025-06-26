@@ -149,7 +149,7 @@ const Realestates: React.FC = () => {
               requiredValidator(),
               minValidator(2),
               maxValidator(12),
-              // persianValidator(),
+              persianValidator(),
             ]}
             onInputHandler={handleInputChange}
             onFocus={handleFocus}

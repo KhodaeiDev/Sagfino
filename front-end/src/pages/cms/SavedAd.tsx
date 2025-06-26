@@ -2,7 +2,7 @@ import React, { useEffect, useCallback } from 'react'
 import CMSLayout from '../../components/cms/CMSLayout'
 import { GoTrash } from 'react-icons/go'
 import ProductBox from '../../components/shared/Cards/productBox/productBox'
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query' 
+import { useMutation } from '@tanstack/react-query'
 import { getUserAdSaved } from '../../services/axois/request/cms/cms'
 import { ThreeDot } from 'react-loading-indicators'
 import { v4 as uuidv4 } from 'uuid'
@@ -10,38 +10,45 @@ import { Advertisement } from '../../components/shared/UIComponents/Layout/Heade
 import { deleteAllSaved } from '../../services/axois/request/cms/cms'
 import ToastNotification from '../../services/toastify/toastify'
 import NoProducts from '../../components/shared/UIComponents/Layout/NoProducts/NoProducts'
+import { useSearchParams } from 'react-router'
+import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
 
 const SavedAd: React.FC = () => {
   useEffect(() => {
     document.title = 'سقفینو- آگهی ذخیره شده '
   }, [])
 
-  const queryClient = useQueryClient()
+  const [searchParams, setSearchParams] = useSearchParams()
+  const newParams = new URLSearchParams(searchParams)
+  const savedPage = localStorage.getItem('currentPage-SavedAd') ?? '1'
+
+  const fetchGetMyAds = useCallback(
+    async (filterParams: { page: string }) => getUserAdSaved(filterParams),
+    []
+  )
 
   const {
-    isLoading,
+    mutate: getingAllSavedAd,
     data: adSavedData,
-    refetch,
-  } = useQuery({
-    queryKey: ['adSaved'],
-    queryFn: () => getUserAdSaved(),
-    staleTime: 60000,
+    isPending: isLoading,
+  } = useMutation({
+    mutationFn: fetchGetMyAds,
   })
 
-  const savedAds = adSavedData?.data?.[0] || []
+
+  const savedAds = adSavedData?.data?.data?.[0] || []
   const hasSavedAds = savedAds.length > 0
 
   const deleteMutation = useMutation({
     mutationFn: deleteAllSaved,
-    
+
     onSuccess: () => {
-      refetch()
+      getingAllSavedAd({ page: savedPage })
       ToastNotification(
         'success',
         'تمامی آگهی‌های ذخیره شده با موفقیت حذف شد',
         5000
       )
-      queryClient.removeQueries({ queryKey: ['adSaved'] })
     },
     onError: (error: unknown) => {
       console.error('Error during deleteAllSaved mutation:', error)
@@ -54,6 +61,30 @@ const SavedAd: React.FC = () => {
     deleteMutation.mutate()
   }, [deleteMutation.isPending, deleteMutation.mutate])
 
+  useEffect(() => {
+    newParams.set('page', savedPage)
+    setSearchParams(newParams)
+
+    const filteredParams: { page: string } = {
+      page: savedPage,
+    }
+    getingAllSavedAd(filteredParams)
+  }, [searchParams])
+
+  const handlePageChange = (newPage: number) => {
+    const newParams = new URLSearchParams(searchParams)
+    newParams.set('page', String(newPage))
+    localStorage.setItem('currentPage-SavedAd', String(newPage))
+    setSearchParams(newParams)
+
+    setTimeout(() => {
+      if (adSavedData?.data?.data) {
+        window.scrollTo({ top: 50, behavior: 'smooth' })
+      }
+    }, 200)
+  }
+
+  console.log(adSavedData)
   return (
     <>
       <CMSLayout title="آگهی ذخیره شده " panel={false}>
@@ -100,6 +131,19 @@ const SavedAd: React.FC = () => {
             </>
           </div>
         )}
+        <div className=" flex items-center justify-center mt-10 ">
+          {adSavedData?.data?.data?.length ? (
+            <div className="flex items-center justify-center mt-10">
+              <Pagination
+                current_page={Number(
+                  searchParams.get('page') ?? adSavedData?.data?.current_page
+                )}
+                links={adSavedData?.data?.links ?? []}
+                onPageChange={handlePageChange}
+              />
+            </div>
+          ) : null}
+        </div>
       </CMSLayout>
     </>
   )

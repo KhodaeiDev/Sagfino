@@ -5,7 +5,7 @@ import {
   FooterMobail,
 } from '../../components/shared/UIComponents/Layout/footer/footer'
 import { GoTrash } from 'react-icons/go'
-import { FaRegEdit } from 'react-icons/fa'
+// import { FaRegEdit } from 'react-icons/fa'
 import { getAdsCreated } from '../../services/axois/request/cms/cms'
 import { useMutation } from '@tanstack/react-query'
 import { v4 as uuidv4 } from 'uuid'
@@ -24,7 +24,7 @@ const MyAds: React.FC = () => {
   const newParams = new URLSearchParams(searchParams)
   const savedPage = localStorage.getItem('currentPage-myads') ?? '1'
 
-  const fetchGetRealEstates = useCallback(
+  const fetchGetMyAds = useCallback(
     async (filterParams: { page: string }) => getAdsCreated(filterParams),
     []
   )
@@ -38,7 +38,7 @@ const MyAds: React.FC = () => {
     data: adCreatedDatas,
     isPending: isLoading,
   } = useMutation({
-    mutationFn: fetchGetRealEstates,
+    mutationFn: fetchGetMyAds,
   })
   const deleteAllSavedHandler = async () => {
     const res = await deleteAllAdsCreated()
@@ -53,7 +53,6 @@ const MyAds: React.FC = () => {
   }
 
   const deleteSpecificAd = async (id: number) => {
-    console.log(id)
     const res = await deleteSpecificAdMe(id)
     if (res.status < 300) {
       ToastNotification('success', ' آگهی مورد نظر با  موفقیت حذف شد ', 5000)
@@ -67,7 +66,6 @@ const MyAds: React.FC = () => {
     const filteredParams: { page: string } = {
       page: savedPage,
     }
-    console.log(filteredParams)
     getingAllRealEstates(filteredParams)
   }, [searchParams])
 
