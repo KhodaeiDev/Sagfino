@@ -35,27 +35,33 @@ const RealEstateDetails: React.FC = () => {
     setIsModalVisible(false)
   }, [setIsModalVisible])
 
-  // const handleSelect = useCallback((option: string) => {
-  //   setSelectedOption(option)
-  // }, [])
   const [isConsultantInfo, setIsConsultantInfo] = useState<boolean>(true)
+
   useEffect(() => {
+    document.title = ' سقفینو-جزئیات املاک'
     setIsConsultantInfo(false)
   }, [])
 
   useEffect(() => {
-    document.title = ' سقفینو-جزئیات املاک'
-  }, [])
+    newParams.set('page', savedPage)
+    setSearchParams(newParams)
+
+    const filteredParams: { page: string } = {
+      page: savedPage,
+    }
+    fetchProductInfo(filteredParams)
+  }, [searchParams])
 
   const { estateId } = useParams()
   const fetchProductInfo = useCallback(
-    () => getRealEstateInfo(Number(estateId)),
+    (filterParams: { page: string }) =>
+      getRealEstateInfo(Number(estateId), filterParams),
     [estateId]
   )
 
   const { isLoading, data: realEstateInfosData } = useQuery({
     queryKey: ['productInfo', estateId],
-    queryFn: fetchProductInfo,
+    queryFn: () => fetchProductInfo({ page: savedPage }),
     staleTime: 300000,
   })
 
@@ -93,6 +99,7 @@ const RealEstateDetails: React.FC = () => {
     newParams.set('page', String(newPage))
     localStorage.setItem('currentPage-RealEstatesDetailes', String(newPage))
     setSearchParams(newParams)
+    // fetchProductInfo()
   }
 
   return (

@@ -12,7 +12,10 @@ export const getAllRealEstates = async (
   })
 }
 
-export const getRealEstateInfo = async (productId: number) => {
+export const getRealEstateInfo = async (
+  productId: number,
+  filters: Record<string, string | null>
+) => {
   const token = localStorage.getItem('userToken')?.replace(/"/g, '')
 
   if (token !== 'null' || !token) {
@@ -20,6 +23,7 @@ export const getRealEstateInfo = async (productId: number) => {
       headers: {
         Authorization: token ? `Bearer ${token}` : '',
       },
+      params: filters,
     })
   } else {
     return await axiosProtectedInstance.get(`real-estates/${productId}`, {})
