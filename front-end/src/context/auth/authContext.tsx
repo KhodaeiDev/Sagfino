@@ -13,7 +13,7 @@ import {
 } from '../../Hooks/shared/shared'
 import UserInfoProvider from './UserInfoProvider'
 import ToastNotification from '../../services/toastify/toastify'
-import { useNavigate } from 'react-router'
+import { data, useNavigate } from 'react-router'
 
 export type UserInfoType = {
   firstName: string | null
@@ -115,6 +115,8 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
       setToken(newToken)
       setUserInfo(userinfos)
       setIsLoggedIn(true)
+      localStorage.setItem('lastName', String(userInfo?.lastName))
+      localStorage.setItem('name', String(userInfo?.firstName))
     },
     [setUserTokenLocal, setUserInfoLoacal]
   )

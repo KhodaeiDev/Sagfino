@@ -62,7 +62,6 @@ const Input: React.FC<InputProps> = memo((props) => {
   useEffect(() => {
     const storedValue = localStorage.getItem(`${props.id}-value`)
 
-    // بررسی اگر `props.id` برابر `searchFilter` باشد
     const finalValue =
       props.id === 'searchFilter' && (!storedValue || storedValue === '')
         ? 'تهران'

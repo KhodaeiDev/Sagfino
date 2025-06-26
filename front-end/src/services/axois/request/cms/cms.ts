@@ -9,9 +9,12 @@ export const deleteAllSaved = async () => {
 ads/saved-ads`)
 }
 
-export const getAdsCreated = async () => {
-  return await axiosProtectedInstance.get(`
-my-ads`)
+export const getAdsCreated = async (filters: Record<string, string | null>) => {
+  return await axiosProtectedInstance.get(
+    `
+my-ads`,
+    { params: filters }
+  )
 }
 
 export const deleteAllAdsCreated = async () => {

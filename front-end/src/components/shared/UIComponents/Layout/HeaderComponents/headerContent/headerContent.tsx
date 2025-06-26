@@ -52,6 +52,7 @@ export interface Advertisement {
   user: UserProfile
   is_saved: boolean
   saved_by_users_count: number
+  status?:boolean
 }
 
 export interface AdvertisementResponse {

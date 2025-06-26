@@ -71,7 +71,9 @@ const Rent: React.FC = () => {
     setOpenModalFiltering(false)
   }, [setOpenModalFiltering])
 
-  document.title = 'سقفینو - اجاره'
+  useEffect(() => {
+    document.title = 'سقفینو - اجاره'
+  }, [])
 
   const fetchSearchAds = useCallback(
     async (filterParams: {
@@ -95,9 +97,7 @@ const Rent: React.FC = () => {
   } = useMutation({
     onSuccess: () => {},
     mutationFn: fetchSearchAds,
-  },
-  
-    )
+  })
 
   useEffect(() => {
     if (filteredProducts?.data?.data) {
@@ -184,14 +184,12 @@ const Rent: React.FC = () => {
       }
     })
 
-    console.log(filteredParams)
     setFilteredParams(filteredParams)
 
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
     setSearchParams(newParams)
 
     adFiltering(filteredParams)
-    
   }, [location.search])
 
   useEffect(() => {

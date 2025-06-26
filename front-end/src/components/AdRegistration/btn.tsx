@@ -22,10 +22,8 @@ const Btn: React.FC<BtnProps> = memo(
     return (
       <NavLink
         to={disabled ? '#' : link}
-        className={`transition-all duration-300 ${bgColor} border ${borderColor} rounded-lg px-3 lg:px-15 py-2 ${textColor} font-shabnam ${
-          disabled
-            ? 'opacity-40 !cursor-not-allowed '
-            : 'hover:opacity-80 !cursor-pointer'
+        className={`transition-all duration-300 ${bgColor} border ${borderColor} hover:bg-transparent hover:text-primary  rounded-lg px-3 lg:px-15 py-2 ${textColor} font-shabnam ${
+          disabled ? 'opacity-40 !cursor-not-allowed' : ' !cursor-pointer'
         }`}
         onClick={(event) => disabled && event.preventDefault()}
       >
@@ -34,6 +32,5 @@ const Btn: React.FC<BtnProps> = memo(
     )
   }
 )
-
 
 export default Btn

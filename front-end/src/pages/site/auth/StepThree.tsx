@@ -9,6 +9,8 @@ import { useState } from 'react'
 import {
   maxValidator,
   minValidator,
+  onlyNumberValidator,
+  persianValidator,
   phoneValidator,
   requiredValidator,
 } from '../../../validators/rules'
@@ -22,10 +24,10 @@ const StepThree: React.FC = () => {
   const navigate = useNavigate()
 
   const [isChecked, setIsChecked] = useState<boolean>(false)
-  const [isFocused, setIsFocused] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
-  const [formType, setFormType] = useState<FormType>('register')
   const [isLoadingNextPage, setIsLoadingNextPage] = useState<boolean>(false)
+  const [formType, setFormType] = useState<FormType>('register')
+  const [isFocused, setIsFocused] = useState<boolean>(false)
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
   const handleFocus = () => {
@@ -33,7 +35,6 @@ const StepThree: React.FC = () => {
       setIsFocused(true)
     }
   }
-
 
   const toggleCheckbox = () => {
     setIsChecked((prev) => !prev)
@@ -128,7 +129,6 @@ const StepThree: React.FC = () => {
       setLoading(false)
     }
   }
-  
 
   const hasError =
     formState.inputs.name?.errorMessage ||
@@ -172,6 +172,7 @@ const StepThree: React.FC = () => {
                   requiredValidator(),
                   minValidator(3),
                   maxValidator(25),
+                  persianValidator(),
                 ]}
                 onInputHandler={handleInputChange}
                 onFocus={handleFocus}
@@ -196,6 +197,7 @@ const StepThree: React.FC = () => {
                   requiredValidator(),
                   minValidator(3),
                   maxValidator(25),
+                  persianValidator(),
                 ]}
                 onInputHandler={handleInputChange}
                 onFocus={handleFocus}
@@ -222,6 +224,7 @@ const StepThree: React.FC = () => {
                   minValidator(11),
                   maxValidator(11),
                   phoneValidator(),
+                  onlyNumberValidator(),
                 ]}
                 onInputHandler={handleInputChange}
                 onFocus={handleFocus}

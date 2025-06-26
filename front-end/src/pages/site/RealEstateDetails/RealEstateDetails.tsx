@@ -3,27 +3,29 @@ import {
   NavBar,
   NavBarMobail,
 } from '../../../components/shared/UIComponents/Layout/HeaderComponents/navBar/navBar'
-// import ProductBox from '../../../components/shared/Cards/productBox/productBox'
+import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 import { TiTick } from 'react-icons/ti'
 import { CiLocationOn } from 'react-icons/ci'
 import { TbHomeEco } from 'react-icons/tb'
 // import PersonalInformation from '../../../components/shared/Cards/personalInformationBox/Personalinformation'
 import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
-import {
-  Footer,
-  FooterMobail,
-} from '../../../components/shared/UIComponents/Layout/footer/footer'
-// import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
+import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
 // import SelectBox from '../../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
-import { useParams } from 'react-router'
+import { useParams, useSearchParams } from 'react-router'
 import { getRealEstateInfo } from '../../../services/axois/request/RealEstate/RealEstate'
 import { useQuery } from '@tanstack/react-query'
 import { ThreeDot } from 'react-loading-indicators'
+import { Advertisement } from '../../../components/shared/UIComponents/Layout/HeaderComponents/headerContent/headerContent'
+import NoProducts from '../../../components/shared/UIComponents/Layout/NoProducts/NoProducts'
+// import { Pagination } from 'swiper/modules'
 
 const RealEstateDetails: React.FC = () => {
-  // const [selectedOption, setSelectedOption] = useState<string>('نوع ملک')
   const [isModalVisible, setIsModalVisible] = useState<boolean>(false)
+  const [searchParams, setSearchParams] = useSearchParams()
+  const newParams = new URLSearchParams(searchParams)
+  const savedPage =
+    localStorage.getItem('currentPage-RealEstatesDetailes') ?? '1'
 
   const openModal = useCallback(() => {
     setIsModalVisible(true)
@@ -63,6 +65,13 @@ const RealEstateDetails: React.FC = () => {
   console.log(realEstateInfos)
   console.log(userAgent)
 
+  useEffect(() => {
+    if (realEstateInfos?.ads?.data?.length) {
+      newParams.set('page', savedPage)
+    }
+    setSearchParams(newParams)
+  }, [searchParams])
+
   if (isLoading) {
     return (
       <>
@@ -77,6 +86,13 @@ const RealEstateDetails: React.FC = () => {
         </div>
       </>
     )
+  }
+
+  const handlePageChange = (newPage: number) => {
+    const newParams = new URLSearchParams(searchParams)
+    newParams.set('page', String(newPage))
+    localStorage.setItem('currentPage-RealEstatesDetailes', String(newPage))
+    setSearchParams(newParams)
   }
 
   return (
@@ -126,7 +142,9 @@ const RealEstateDetails: React.FC = () => {
             </div>
             <div className=" text-gray-1000 flex items-center  justify-center lg:justify-start gap-x-2 font-shabnamBold text-xs lg:text-2xl ">
               <TbHomeEco></TbHomeEco>
-              بیش از ۴۰۰۰ آگهی‌های فعال
+              {userAgent?.ads_count
+                ? `  آگهی فعال ${userAgent?.ads_count}`
+                : 'آگهی فعالی برای این املاکی وجود ندارد'}
             </div>
             <div className=" flex items-center  justify-center lg:justify-between  ">
               <div
@@ -145,47 +163,46 @@ const RealEstateDetails: React.FC = () => {
       </div>
       {/*  Tusi Real Estate Advertisement*/}
       <div className=" mt-15 lg:mt-30 ">
-        {/* <div className="container">
+        <div className="container">
           <SectionHeader title="آگهی املاک توسی" center={false} />
-          <div className="flex  justify-start  gap-x-5 ">
-            <SelectBox
-              selectedOption={selectedOption}
-              onSelect={handleSelect}
-              responsiveWidth="w-28  lg:w-48"
-              responsiveHeight="h-8  lg:h-12"
-            >
-              <li>جدیدترین</li>
-              <li>قدیمی ترین</li>
-              <li>ارزان ترین</li>
-              <li>گران ترین</li>
-            </SelectBox>
-            <SelectBox
-              selectedOption={selectedOption}
-              onSelect={handleSelect}
-              responsiveWidth="w-28  lg:w-48"
-              responsiveHeight="h-8  lg:h-12"
-            >
-              <li>جدیدترین</li>
-              <li>قدیمی ترین</li>
-              <li>ارزان ترین</li>
-              <li>گران ترین</li>
-            </SelectBox>
-          </div>
-          <div className=" grid grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-6 gap-y-2 lg:gap-y-4 mt-10 ">
-            <ProductBox isSaved={false} />
-            <ProductBox isSaved={false} />
-            <ProductBox isSaved={false} />
-            <ProductBox isSaved={false} />
-            <ProductBox isSaved={false} />
-            <ProductBox isSaved={false} />
-          </div>
+          <span className=" text-primary ">
+            {' '}
+            {realEstateInfos?.ads?.data?.length
+              ? ` یافت شد ${realEstateInfos?.ads?.data?.length}`
+              : 'املاکی مورد نظر آگهی فعالی ندارد'}
+          </span>
+          {realEstateInfos?.ads?.data?.length ? (
+            realEstateInfos?.ads?.data.map((productInfo: Advertisement) => (
+              <div className=" grid grid-cols-2 lg:grid-cols-3 gap-x-4 lg:gap-x-6 gap-y-2 lg:gap-y-4 mt-10 ">
+                <ProductBox
+                  key={productInfo?.id}
+                  isLoading={isLoading}
+                  productInfo={productInfo}
+                />
+              </div>
+            ))
+          ) : (
+            <NoProducts des="آگهی برا این املاکی وجود ندارد" />
+          )}
           <div className=" flex items-center justify-center mt-10 ">
-            <Pagination />
+            {/* صفحه‌بندی مخصوص داده‌های فیلتر شده */}
+            {realEstateInfos?.ads?.data?.length ? (
+              <div className="flex items-center justify-center mt-10">
+                <Pagination
+                  current_page={Number(
+                    searchParams.get('page') ??
+                      realEstateInfos?.ads?.current_page
+                  )}
+                  links={realEstateInfos?.ads?.links ?? []}
+                  onPageChange={handlePageChange}
+                />
+              </div>
+            ) : null}
           </div>
-        </div> */}
+        </div>
       </div>
       {/* footer */}
-    
+
       {isModalVisible && (
         <RealEstateModal
           isModalVisible={isModalVisible}

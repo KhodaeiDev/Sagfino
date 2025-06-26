@@ -3,6 +3,7 @@ import Input from '../../../components/shared/UIComponents/FormElements/input/in
 import {
   maxValidator,
   minValidator,
+  onlyNumberValidator,
   phoneValidator,
   requiredValidator,
 } from '../../../validators/rules'
@@ -83,7 +84,6 @@ const StepOne: React.FC = () => {
       setLoading(false)
     }
   }
-  
 
   const handleInputChange = useCallback(
     (inputID: string, value: string, isValid: boolean) => {
@@ -125,6 +125,7 @@ const StepOne: React.FC = () => {
                 minValidator(11),
                 maxValidator(11),
                 phoneValidator(),
+                onlyNumberValidator(),
               ]}
               onInputHandler={handleInputChange}
               onFocus={handleFocus}

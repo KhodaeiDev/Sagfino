@@ -13,7 +13,6 @@ const UserInfoProvider: React.FC = () => {
     const storedUserInfo = getLocalUserInfo
     const data = storedUserInfo ? JSON.parse(storedUserInfo) : null
 
-
     if (storedToken) {
       const userData = {
         firstName: data.firstName,
@@ -23,6 +22,8 @@ const UserInfoProvider: React.FC = () => {
         role: data.role as 'user' | 'admin' | 'real_estate_agent',
       }
       auth.login(userData, storedToken)
+      localStorage.setItem('lastName-value', String(data?.lastName))
+      localStorage.setItem('name-value', String(data?.firstName))
     } else {
       auth.logout()
     }

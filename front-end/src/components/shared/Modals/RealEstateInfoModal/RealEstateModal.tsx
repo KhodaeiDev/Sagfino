@@ -63,10 +63,18 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
               </div>
               <div className=" flex items-center justify-center   gap-x-2    **:font-shabnam text-base  lg:text-xl mt-10 lg:mt-0 ">
                 تلفن همراه :
-                <span  className=" text-gray-71  text-base ">
-                  {userInfos?.phoneNumber}{' '}
-                </span>
+                <a
+                  href={`tel:${userInfos?.phoneNumber}`}
+                  className="text-gray-71 text-base"
+                >
+                  {userInfos?.phoneNumber}
+                </a>
               </div>
+              <span className=" text-center  text-primary text-lg">
+                {' '}
+                برای تماس با صاحب آگهی، روی شماره کلیک کنید (این قابلیت تنها روی
+                تلفن همراه فعال است).
+              </span>
               {/* Consultant  information */}
               {isConsultantInfo && (
                 <>

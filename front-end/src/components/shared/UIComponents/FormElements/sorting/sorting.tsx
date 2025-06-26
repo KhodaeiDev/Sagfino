@@ -24,14 +24,15 @@ const Sorting: React.FC<SortingProps> = ({
 }) => {
   const [city, setCity] = useState<string>('')
 
-  const [formType] = useState<FormType>('rent-search')
-  const [isFocused, setIsFocused] = useState<boolean>(false)
+ 
   const [searchParams, setSearchParams] = useSearchParams()
   const [propertyType, setPropertyType] = useState('مسکونی')
   const [rentPrice, setRentPrice] = useState(' مرتب‌سازی بر اساس قیمت')
   const [sellPrice, setSellPrice] = useState(' مرتب‌سازی بر اساس قیمت')
   const trType = localStorage.getItem('tr-type') || 'rent'
   const newParams = new URLSearchParams(searchParams)
+  const [formType] = useState<FormType>('rent-search')
+  const [isFocused, setIsFocused] = useState<boolean>(false)
 
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 

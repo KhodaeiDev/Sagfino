@@ -43,36 +43,6 @@ const EstateBox: React.FC<RealEstateModalProps> = memo(
                   width: '90%',
                   height: '4%',
                 },
-                {
-                  xOffset: '5%',
-                  yOffset: '70%',
-                  width: '90%',
-                  height: '4%',
-                },
-                // {
-                //   xOffset: '5%',
-                //   yOffset: '80%',
-                //   width: '90%',
-                //   height: '4%',
-                // },
-                // {
-                //   xOffset: '5%',
-                //   yOffset: '90%',
-                //   width: '90%',
-                //   height: '4%',
-                // },
-                // {
-                //   xOffset: '5%',
-                //   yOffset: '100%',
-                //   width: '90%',
-                //   height: '4%',
-                // },
-                // {
-                //   xOffset: '5%',
-                //   yOffset: '110%',
-                //   width: '90%',
-                //   height: '4%',
-                // },
               ]}
             />
           ) : (
@@ -97,7 +67,7 @@ const EstateBox: React.FC<RealEstateModalProps> = memo(
                   میزان رضایتمندی: 5 از{' '}
                   {estateInfo.rate === null ? 0 : estateInfo.rate}
                 </span>
-                <span>آگهی‌های فعال: بیش از ۲۰۰۰</span>
+                {/* <span>آگهی‌های فعال: بیش از ۲۰۰۰</span> */}
                 {/* <span className="font-shabnamMedium"> 
                   مشاهده نظرات کاربران (۱۲ نظر)
                 </span> */}

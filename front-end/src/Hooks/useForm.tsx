@@ -138,6 +138,27 @@ const UseForm = (formType: FormType) => {
             errorMessage: null,
           },
         }
+      case 'realestates-search':
+        return {
+          searchFilterRealestates: {
+            value: 'تهران',
+            isValid: false,
+            errorMessage: null,
+          },
+        }
+      case 'edit-information':
+        return {
+          name: {
+            value: 'تهران',
+            isValid: false,
+            errorMessage: null,
+          },
+          lastName: {
+            value: '',
+            isValid: false,
+            errorMessage: null,
+          },
+        }
       default:
         return {}
     }
