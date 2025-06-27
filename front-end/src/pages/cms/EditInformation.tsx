@@ -12,9 +12,11 @@ import {
   requiredValidator,
 } from '../../validators/rules'
 import { updateUserProfile } from '../../services/axois/request/cms/cms'
+import axios from 'axios'
 import UseForm from '../../Hooks/useForm'
 import { FormType } from '../../Hooks/useformType'
 import { AuthContext } from '../../context/auth/authContext'
+import ToastNotification from '../../services/toastify/toastify'
 
 const dataURLtoFile = (dataurl: string, filename: string): File => {
   const arr = dataurl.split(',')
@@ -88,22 +90,29 @@ const EditInformation: React.FC = () => {
   )
 
   const handleSubmit = async () => {
-    const currentName = formState.inputs.name?.value || ''
-    const currentLastName = formState.inputs.lastName?.value || ''
+    const currentName = formState.inputs.name_cms?.value || ''
+    const currentLastName = formState.inputs.lastName_cms?.value || ''
     const imageFile =
       selectedImage && hasNewImage
         ? dataURLtoFile(selectedImage, 'profile.jpg')
         : undefined
 
     if (!currentName || !currentLastName || (!imageFile && !selectedImage)) {
-      console.log('❗ لطفاً تمام فیلدها را کامل کنید.')
+      ToastNotification('error', 'لطفاً تمام فیلدها را کامل کنید.', 5000)
       return
     }
 
     const token = localStorage.getItem('userToken')
     const cleanToken = token?.replace(/^"|"$/g, '').replace(/\\/g, '')
+
     if (!cleanToken) {
       console.error('❌ توکن یافت نشد')
+      auth.logout()
+      ToastNotification(
+        'error',
+        'توکن یافت نشد، لطفاً دوباره احراز هویت انجام دهید.',
+        5000
+      )
       return
     }
 
@@ -131,19 +140,58 @@ const EditInformation: React.FC = () => {
         )
       }
 
-      console.log('✅ اطلاعات با موفقیت ذخیره شد:', res.data)
+      ToastNotification('success', 'اطلاعات با موفقیت ثبت و ذخیره شد.', 5000)
     } catch (err) {
       console.error('❌ خطا در ذخیره اطلاعات:', err)
+
+      if (axios.isAxiosError(err)) {
+        const status = err.response?.status
+
+        switch (status) {
+          case 401:
+            ToastNotification(
+              'error',
+              'دسترسی غیرمجاز! لطفاً دوباره وارد شوید.',
+              5000
+            )
+            auth.logout()
+            break
+
+          case 422:
+            ToastNotification(
+              'error',
+              'اطلاعات وارد شده معتبر نیستند. لطفاً بررسی کنید.',
+              5000
+            )
+            break
+
+          case 500:
+            ToastNotification(
+              'error',
+              'خطای داخلی سرور! لطفاً بعداً دوباره تلاش کنید.',
+              5000
+            )
+            break
+
+          default:
+            ToastNotification(
+              'error',
+              'خطایی ناشناخته رخ داده است. لطفاً مجدد امتحان کنید.',
+              5000
+            )
+        }
+      } else {
+        ToastNotification('error', 'خطا در اتصال یا پاسخ‌دهی سرور!', 5000)
+      }
     } finally {
       setIsSubmitting(false)
     }
   }
 
   const disabled =
-    !formState.isFormValid ||
-    !formState.inputs.name?.value ||
-    !formState.inputs.lastName?.value ||
-    (!hasNewImage && !selectedImage)
+    !formState.inputs.name_cms?.isValid ||
+    !formState.inputs.lastName_cms?.isValid ||
+    (!selectedImage && !auth.userInfo?.image)
 
   return (
     <CMSLayout title="ویرایش اطلاعات" panel={false}>
@@ -192,7 +240,7 @@ const EditInformation: React.FC = () => {
         {/* فرم اطلاعات */}
         <div className="flex flex-col w-full mt-4 gap-5">
           <Input
-            id="name"
+            id="name_cms"
             type="text"
             placeholder="نام خود را وارد کنید"
             element="text"
@@ -205,7 +253,7 @@ const EditInformation: React.FC = () => {
             ]}
             onInputHandler={handleInputChange}
             onFocus={handleFocus}
-            errorMessage={formState.inputs.name?.errorMessage}
+            errorMessage={formState.inputs.name_cms?.errorMessage}
             isFocused={isFocused}
             validationMessageSuccess="نام وارد شده معتبر است"
             validationMessageError="نام وارد شده معتبر نیست"
@@ -215,7 +263,7 @@ const EditInformation: React.FC = () => {
           />
 
           <Input
-            id="lastName"
+            id="lastName_cms"
             type="text"
             placeholder="نام خانوادگی خود را وارد کنید"
             element="text"
@@ -228,7 +276,7 @@ const EditInformation: React.FC = () => {
             ]}
             onInputHandler={handleInputChange}
             onFocus={handleFocus}
-            errorMessage={formState.inputs.lastName?.errorMessage}
+            errorMessage={formState.inputs.lastName_cms?.errorMessage}
             isFocused={isFocused}
             validationMessageSuccess="نام خانوادگی وارد شده معتبر است"
             validationMessageError="نام خانوادگی وارد شده معتبر نیست"

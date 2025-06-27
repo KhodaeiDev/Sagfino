@@ -67,6 +67,8 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
     const storedExpiryTime = JSON.parse(
       String(localStorage.getItem('TokenExpiryTime'))
     )
+    localStorage.setItem('lastName_cms-value', String(userInfo?.lastName))
+    localStorage.setItem('name_cms-value', String(userInfo?.firstName))
     console.log(token)
     const isValidToken =
       token && token !== 'null' && token.trim() !== '' && token !== undefined
@@ -115,8 +117,6 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
       setToken(newToken)
       setUserInfo(userinfos)
       setIsLoggedIn(true)
-      localStorage.setItem('lastName', String(userInfo?.lastName))
-      localStorage.setItem('name', String(userInfo?.firstName))
     },
     [setUserTokenLocal, setUserInfoLoacal]
   )
