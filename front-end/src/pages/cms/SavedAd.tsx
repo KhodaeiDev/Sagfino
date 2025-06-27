@@ -35,10 +35,6 @@ const SavedAd: React.FC = () => {
     mutationFn: fetchGetMyAds,
   })
 
-
-  const savedAds = adSavedData?.data?.data?.[0] || []
-  const hasSavedAds = savedAds.length > 0
-
   const deleteMutation = useMutation({
     mutationFn: deleteAllSaved,
 
@@ -83,8 +79,11 @@ const SavedAd: React.FC = () => {
       }
     }, 200)
   }
-
   console.log(adSavedData)
+
+  const savedAds = adSavedData?.data?.data || []
+  const hasSavedAds = savedAds.length > 0
+  // console.log(hasSavedAds, savedAds)
   return (
     <>
       <CMSLayout title="آگهی ذخیره شده " panel={false}>

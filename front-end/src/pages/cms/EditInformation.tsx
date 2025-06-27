@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useContext, useEffect, useState } from 'react'
 import CMSLayout from '../../components/cms/CMSLayout'
 import { CgProfile } from 'react-icons/cg'
 import { LuImagePlus } from 'react-icons/lu'
@@ -14,6 +14,7 @@ import {
 import { updateUserProfile } from '../../services/axois/request/cms/cms'
 import UseForm from '../../Hooks/useForm'
 import { FormType } from '../../Hooks/useformType'
+import { AuthContext } from '../../context/auth/authContext'
 
 const dataURLtoFile = (dataurl: string, filename: string): File => {
   const arr = dataurl.split(',')
@@ -30,8 +31,8 @@ const dataURLtoFile = (dataurl: string, filename: string): File => {
 const EditInformation: React.FC = () => {
   const [formType] = useState<FormType>('edit-information')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  const [initialName, setInitialName] = useState('')
-  const [initialLastName, setInitialLastName] = useState('')
+  const [, setInitialName] = useState('')
+  const [, setInitialLastName] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [hasNewImage, setHasNewImage] = useState(false)
@@ -41,10 +42,22 @@ const EditInformation: React.FC = () => {
     document.title = 'سقفینو-ویرایش اطلاعات'
   }, [])
 
+  const auth = useContext(AuthContext)
+  console.log(auth)
   useEffect(() => {
     setInitialName(formState.inputs.name?.value || '')
     setInitialLastName(formState.inputs.lastName?.value || '')
-  }, [formState.inputs.name?.value, formState.inputs.lastName?.value])
+
+    if (auth.userInfo?.image) {
+      setSelectedImage(
+        `https://saghfino.abolfazlhp.ir/storage/${auth.userInfo.image}`
+      )
+    }
+  }, [
+    formState.inputs.name?.value,
+    formState.inputs.lastName?.value,
+    auth.userInfo?.image,
+  ])
 
   const handleFocus = () => {
     if (!isFocused) setIsFocused(true)
@@ -87,8 +100,7 @@ const EditInformation: React.FC = () => {
       return
     }
 
-    // توکن را با کلید مناسب بخوان
-    const token = localStorage.getItem('userToken') // یا 'access_token' یا هرچی که دقیقاً هست
+    const token = localStorage.getItem('userToken')
     if (!token) {
       console.error('❌ توکن یافت نشد')
       return
@@ -103,6 +115,21 @@ const EditInformation: React.FC = () => {
     try {
       setIsSubmitting(true)
       const res = await updateUserProfile(body, token)
+
+      const updatedUser = res.data?.user
+
+      if (updatedUser && auth.login && auth.userInfo) {
+        auth.login(
+          {
+            ...auth.userInfo,
+            firstName: updatedUser.firstName,
+            lastName: updatedUser.lastName,
+            image: updatedUser.image,
+          },
+          token
+        )
+      }
+
       console.log('✅ اطلاعات با موفقیت ذخیره شد:', res.data)
     } catch (err) {
       console.error('❌ خطا در ذخیره اطلاعات:', err)
@@ -115,7 +142,7 @@ const EditInformation: React.FC = () => {
     !formState.isFormValid ||
     !formState.inputs.name?.value ||
     !formState.inputs.lastName?.value ||
-    (!hasNewImage && !selectedImage) 
+    (!hasNewImage && !selectedImage)
 
   return (
     <CMSLayout title="ویرایش اطلاعات" panel={false}>
@@ -129,6 +156,10 @@ const EditInformation: React.FC = () => {
                   src={selectedImage}
                   alt="تصویر آپلود‌شده"
                   className="w-full h-full object-cover rounded-lg"
+                  onError={(event) => {
+                    ;(event.target as HTMLImageElement).src =
+                      '/img/Photo Place.png'
+                  }}
                 />
                 <button
                   onClick={handleRemoveImage}
@@ -164,7 +195,7 @@ const EditInformation: React.FC = () => {
             type="text"
             placeholder="نام خود را وارد کنید"
             element="text"
-            className="w-full py-3 md:py-5 pr-10 rounded-xl border !border-gray-AD bg-transparent placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+            className=" w-full h-full py-3  !outline-0   md:py-5 pr-10  rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
             validations={[
               requiredValidator(),
               minValidator(3),
@@ -187,7 +218,7 @@ const EditInformation: React.FC = () => {
             type="text"
             placeholder="نام خانوادگی خود را وارد کنید"
             element="text"
-            className="w-full py-3 md:py-5 pr-10 rounded-xl border !border-gray-AD bg-transparent placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
+            className=" w-full h-full py-3  !outline-0   md:py-5 pr-10  rounded-xl  border !border-gray-AD bg-transparent bo placeholder:text-gray-1000 text-xs md:text-base font-shabnamMedium"
             validations={[
               requiredValidator(),
               minValidator(3),

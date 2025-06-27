@@ -13,7 +13,7 @@ import {
 } from '../../Hooks/shared/shared'
 import UserInfoProvider from './UserInfoProvider'
 import ToastNotification from '../../services/toastify/toastify'
-import { data, useNavigate } from 'react-router'
+import { useNavigate } from 'react-router'
 
 export type UserInfoType = {
   firstName: string | null
@@ -128,6 +128,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
       setToken(null)
       setIsLoggedIn(false)
       setUserInfo(null)
+      navigate('/')
     } catch (error) {
       console.error('Error during logout:', error)
     }

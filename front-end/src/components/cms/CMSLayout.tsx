@@ -42,7 +42,23 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
               {/* profile */}
               <div className="w-full h-26.25 border border-gray-D9 py-6 pr-6  rounded-xl ">
                 <div className=" flex  items-center gap-x-2 text-gray-71  ">
-                  <CgProfile className=" w-10 h-10 " />
+                  {auth.userInfo?.image ? (
+                    <div className="w-15.5 h-15.5  rounded-full center relative">
+                      <img
+                        src={`https://saghfino.abolfazlhp.ir/storage/${auth?.userInfo.image}`}
+                        alt="تصویر آپلود‌شده"
+                        className="w-full h-full object-cover rounded-lg"
+                        onError={(event) => {
+                          ;(event.target as HTMLImageElement).src =
+                            '/img/Photo Place.png'
+                        }}
+                      />
+                    </div>
+                  ) : (
+                    // <CgProfile className=" w-10 h-10 " />
+                    ''
+                  )}
+
                   <div className=" flex flex-col items-center  ">
                     <h4 className=" text-Gray-35 text-lg font-shabnam ">
                       {auth.userInfo?.firstName} {auth.userInfo?.lastName}
