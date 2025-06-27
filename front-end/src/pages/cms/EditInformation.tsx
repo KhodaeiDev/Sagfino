@@ -101,7 +101,8 @@ const EditInformation: React.FC = () => {
     }
 
     const token = localStorage.getItem('userToken')
-    if (!token) {
+    const cleanToken = token?.replace(/^"|"$/g, '').replace(/\\/g, '')
+    if (!cleanToken) {
       console.error('❌ توکن یافت نشد')
       return
     }
@@ -114,7 +115,7 @@ const EditInformation: React.FC = () => {
 
     try {
       setIsSubmitting(true)
-      const res = await updateUserProfile(body, token)
+      const res = await updateUserProfile(body, cleanToken)
 
       const updatedUser = res.data?.user
 
@@ -126,7 +127,7 @@ const EditInformation: React.FC = () => {
             lastName: updatedUser.lastName,
             image: updatedUser.image,
           },
-          token
+          cleanToken
         )
       }
 
