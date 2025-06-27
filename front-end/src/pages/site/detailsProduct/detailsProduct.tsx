@@ -144,7 +144,7 @@ const DetailsProduct: React.FC = () => {
           <div>
             {images.length > 0 ? (
               <img
-                className="w-full  h-full   aspect-video  "
+                className="w-full  h-full   aspect-video   "
                 src={`https://saghfino.abolfazlhp.ir/storage/${images[0]?.path}`}
                 alt="Main Image"
               />

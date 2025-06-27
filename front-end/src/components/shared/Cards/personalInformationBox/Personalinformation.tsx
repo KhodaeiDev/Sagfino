@@ -39,7 +39,7 @@ const PersonalInformation: React.FC<{ userInfos: UserInfos }> = ({
             {userInfos?.image ? (
               <img
                 src={`https://saghfino.abolfazlhp.ir/storage/${userInfos?.image}`}
-                className=" w-full h-full object-cover"
+                className=" w-full h-full rounded-lg object-cover"
                 alt="img-personal"
               />
             ) : (
