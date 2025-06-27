@@ -24,7 +24,6 @@ const Sorting: React.FC<SortingProps> = ({
 }) => {
   const [city, setCity] = useState<string>('')
 
- 
   const [searchParams, setSearchParams] = useSearchParams()
   const [propertyType, setPropertyType] = useState('مسکونی')
   const [rentPrice, setRentPrice] = useState(' مرتب‌سازی بر اساس قیمت')
@@ -58,14 +57,11 @@ const Sorting: React.FC<SortingProps> = ({
   )
 
   const handleSearchClick = () => {
-    const city = localStorage.getItem('searchFilter-value') || 'تهران'
+    const cityToSearch = city.trim() === 'همه' ? 'all' : city.trim()
+    newParams.set('city', cityToSearch)
+    localStorage.setItem('searchFilter-value', cityToSearch)
     localStorage.setItem('currentPage-Rent-sell', '1')
-
-    if (city) {
-      newParams.set('city', city)
-      localStorage.setItem('searchFilter-value', String(city))
-      setSearchParams(newParams)
-    }
+    setSearchParams(newParams)
   }
 
   const handleFocus = () => {
@@ -161,8 +157,8 @@ const Sorting: React.FC<SortingProps> = ({
     <>
       <div className="container">
         {/* Desktop */}
-        <div className=" flex xl:flex-row flex-col-reverse gap-4 items-start h-auto   mt-10  lg:mt-20 ">
-          <div className="flex w-full  flex-wrap  lg:flex-nowrap  items-center  gap-y-8  gap-x-2">
+        <div className=" flex xl:flex-row flex-col-reverse gap-4 items-center h-auto   mt-10  lg:mt-20 ">
+          <div className="flex w-full  flex-wrap  lg:flex-nowrap  items-center  gap-y-8  gap-x-2 mb-2.5">
             <SelectBox
               options={
                 selectBoxData.find((data) => data.label === 'نوع ملک')?.items ||
@@ -211,45 +207,52 @@ const Sorting: React.FC<SortingProps> = ({
               فیلتر های بیشتر
             </div>
           </div>
-          <div className=" relative w-full  h-20 flex flex-col  ">
-            <Input
-              id="searchFilter"
-              type="text"
-              shouldFormat={true}
-              placeholder="شهر خود را جستوجو کنید"
-              element="text"
-              className=" border  relative border-gray-90 py-3 rounded-lg pr-10  placeholder:text-xs md:placeholder:text-base outline-0 w-full font-shabnam text-Gray-35 placeholder-Gray-35"
-              validations={[
-                requiredValidator(),
-                minValidator(2),
-                maxValidator(12),
-                persianValidator(),
-              ]}
-              onInputHandler={handleInputChange}
-              onFocus={handleFocus}
-              errorMessage={formState.inputs.SalePrice?.errorMessage}
-              isFocused={isFocused}
-              validationMessageSuccess={` نام شهر وارد شده معتبر است`}
-              validationMessageError={` نام شهر وارد شده معتبر نیست`}
-              icon={
-                <RiSearch2Line className="absolute w-6 h-6 right-3 top-1/2 transform -translate-y-1/2  text-Gray-35 " />
-              }
-            />
-            <button
-              onClick={handleSearchClick}
-              className={`absolute  bottom-1/2 left-3 cursor-pointer border p-1 !font-shabnam border-gray-90   min-w-fit  rounded-sm text-[8px] md:text-[10px] transition-all duration-500  ${
-                loadingSearch || !isInvalid
-                  ? 'bg-gray-300 text-gray-500  !cursor-not-allowed'
-                  : 'hover:bg-primary hover:border-primary hover:text-white'
-              } `}
-              disabled={!isInvalid}
-            >
-              {!isInvalid
-                ? 'نام شهر را وارد کنید'
-                : loadingSearch
-                ? 'درحال بارگذاری'
-                : 'جستجو'}
-            </button>
+
+          <div className=' flex flex-col h-full  w-full'>
+            <span className="text-xs text-gray-500 mb-1 font-shabnam">
+              برای مشاهده‌ی تمام شهرها، کلمه{' '}
+              <strong className="text-primary">«همه»</strong> را جستجو کنید.
+            </span>
+            <div className=" relative w-full  h-20 flex flex-col  ">
+              <Input
+                id="searchFilter"
+                type="text"
+                shouldFormat={true}
+                placeholder="شهر خود را جستوجو کنید"
+                element="text"
+                className=" border  relative border-gray-90 py-3 rounded-lg pr-10  placeholder:text-xs md:placeholder:text-base outline-0 w-full font-shabnam text-Gray-35 placeholder-Gray-35"
+                validations={[
+                  requiredValidator(),
+                  minValidator(2),
+                  maxValidator(12),
+                  persianValidator(),
+                ]}
+                onInputHandler={handleInputChange}
+                onFocus={handleFocus}
+                errorMessage={formState.inputs.SalePrice?.errorMessage}
+                isFocused={isFocused}
+                validationMessageSuccess={` نام شهر وارد شده معتبر است`}
+                validationMessageError={` نام شهر وارد شده معتبر نیست`}
+                icon={
+                  <RiSearch2Line className="absolute w-6 h-6 right-3 top-1/2 transform -translate-y-1/2  text-Gray-35 " />
+                }
+              />
+              <button
+                onClick={handleSearchClick}
+                className={`absolute  bottom-1/2 left-3 cursor-pointer border p-1 !font-shabnam border-gray-90   min-w-fit  rounded-sm text-[8px] md:text-[10px] transition-all duration-500  ${
+                  loadingSearch || !isInvalid
+                    ? 'bg-gray-300 text-gray-500  !cursor-not-allowed'
+                    : 'hover:bg-primary hover:border-primary hover:text-white'
+                } `}
+                disabled={!isInvalid}
+              >
+                {!isInvalid
+                  ? 'نام شهر را وارد کنید'
+                  : loadingSearch
+                  ? 'درحال بارگذاری'
+                  : 'جستجو'}
+              </button>
+            </div>
           </div>
           {/* <div className="flex items-center">
             {cityLocalStorage ? (

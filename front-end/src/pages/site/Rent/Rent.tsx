@@ -135,7 +135,10 @@ const Rent: React.FC = () => {
       hasParking?: number | null
       hasElevator?: number | null
     }> = {
-      city: localStorage.getItem('searchFilter-value') || 'تهران',
+      city:
+        localStorage.getItem('searchFilter-value')?.trim() === 'همه'
+          ? 'all'
+          : localStorage.getItem('searchFilter-value') || 'تهران',
       tr_type: localStorage.getItem('tr-type') || 'rent',
       page: localStorage.getItem('currentPage-Rent-sell') ?? '1',
       pr_type: localStorage.getItem('pr_type') || 'residential',
@@ -188,7 +191,7 @@ const Rent: React.FC = () => {
 
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
     setSearchParams(newParams)
-
+    console.log(filteredParams)
     adFiltering(filteredParams)
   }, [location.search])
 

@@ -41,7 +41,7 @@ const Realestates: React.FC = () => {
   const newParams = new URLSearchParams(searchParams)
   const savedPage = localStorage.getItem('currentPage-RealEstates') ?? '1'
   const [city, setCity] = useState<string>(
-    localStorage.getItem('searchFilterRealestates') || 'تهران'
+    localStorage.getItem('searchFilterRealestates-value') || 'تهران'
   )
 
   useEffect(() => {
@@ -60,16 +60,20 @@ const Realestates: React.FC = () => {
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
   const handleSearchClick = () => {
-    const city =
+    const rawCity =
       localStorage.getItem('searchFilterRealestates-value') || 'تهران'
+    console.log('rawCity', rawCity, rawCity.trim() === 'همه')
+    const cityToSend = rawCity.trim() === 'همه' ? 'all' : rawCity
+
     localStorage.setItem('currentPage-Realestates', '1')
 
-    if (city) {
-      newParams.set('city', city)
-      localStorage.setItem('searchFilter-value', String(city))
+    if (cityToSend) {
+      newParams.set('city', cityToSend)
+      localStorage.setItem('searchFilter-value', cityToSend)
       setSearchParams(newParams)
     }
   }
+
   const handleFocus = () => {
     if (!isFocused) {
       setIsFocused(true)
@@ -87,13 +91,17 @@ const Realestates: React.FC = () => {
   console.log(allRealEstates)
 
   useEffect(() => {
+    const rawCity =
+      localStorage.getItem('searchFilterRealestates-value') || 'تهران'
+    console.log('rawCity', rawCity, rawCity.trim() === 'همه')
+    const cityToSend = rawCity.trim() === 'همه' ? 'all' : rawCity
     newParams.set('page', savedPage)
     newParams.set('city', city)
     setSearchParams(newParams)
 
     const filteredParams: { page: string; city: string } = {
       page: savedPage,
-      city,
+      city: cityToSend,
     }
     console.log(filteredParams)
     getingAllRealEstates(filteredParams)
@@ -137,6 +145,10 @@ const Realestates: React.FC = () => {
         <div className=" mt-12 ">
           <SectionHeader title="املاک و مستغلات" center={false} />
         </div>
+        <span className="text-xs text-gray-500 mb-1 font-shabnam">
+          برای مشاهده‌ی تمام شهرها، کلمه{' '}
+          <strong className="text-primary">«همه»</strong> را جستجو کنید.
+        </span>
         <div className=" relative w-2/4  h-20 flex flex-col  ">
           <Input
             id="searchFilterRealestates"

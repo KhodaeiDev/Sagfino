@@ -55,11 +55,7 @@ const EditInformation: React.FC = () => {
         `https://saghfino.abolfazlhp.ir/storage/${auth.userInfo.image}`
       )
     }
-  }, [
-    formState.inputs.name?.value,
-    formState.inputs.lastName?.value,
-    auth.userInfo?.image,
-  ])
+  }, [])
 
   const handleFocus = () => {
     if (!isFocused) setIsFocused(true)
