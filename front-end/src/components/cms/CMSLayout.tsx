@@ -34,7 +34,7 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
       <>
         <NavBar />
         <NavBarMobail />
-        <div className="container mt-20">
+        <div className="container mt-20 mb-50">
           {/* layot */}
           <div className=" w-full flex flex-col lg:flex-row  gap-x-6 ">
             {/* right */}

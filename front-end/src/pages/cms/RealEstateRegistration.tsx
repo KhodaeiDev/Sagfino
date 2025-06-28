@@ -221,7 +221,7 @@ const RealEstateRegistration: React.FC = () => {
       )
     }
   }, [])
- 
+
   useEffect(() => {
     const savedProvinceName = localStorage.getItem('province')
     const savedCityName = localStorage.getItem('city')
@@ -240,6 +240,15 @@ const RealEstateRegistration: React.FC = () => {
 
   return (
     <CMSLayout title=" ایجاد ویرایش ملک مستغلات" panel={false}>
+      <div className="container">
+        <div className="text-gray-700 text-xs md:text-sm font-shabnam mt-1 mr-2 ">
+          <strong className=" text-primary  font-shabnamMedium ">توجه:</strong>
+          «اول اطلاعات ملک رو ثبت کن، نگران{' '}
+          <strong className="text-primary  ">ویرایش</strong> نباش! بعد از ثبت،
+          هر وقت خواستی می‌تونی همین‌جا همه چیز رو{' '}
+          <strong className="text-primary  ">ویرایش</strong> کنی.»
+        </div>
+      </div>
       <div className="px-4 md:px-18 lg:px-24 pt-3">
         {/* تصویر پروفایل */}
         <div className="w-full flex justify-center lg:justify-start">
