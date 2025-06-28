@@ -15,7 +15,7 @@ type RealEstateModalProps = {
   isModalVisible: boolean
   isConsultantInfo?: boolean
   userInfos: UserInfos
-  realEstateInfos: RealEstateInfosTypes
+  realEstateInfos?: RealEstateInfosTypes
 }
 
 const RealEstateModal: React.FC<RealEstateModalProps> = memo(
