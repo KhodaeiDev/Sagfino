@@ -91,7 +91,7 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
     if (isValidToken) {
       checkTokenExpiry()
     }
-  }, [navigate])
+  }, [navigate, userInfo])
 
   useEffect(() => {
     const storedToken = getLocalUserToken

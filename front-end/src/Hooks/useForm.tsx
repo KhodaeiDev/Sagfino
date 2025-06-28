@@ -159,6 +159,24 @@ const UseForm = (formType: FormType) => {
             errorMessage: null,
           },
         }
+      case 'RealEstateRegistration':
+        return {
+          tagline_cms: {
+            value: 'تهران',
+            isValid: false,
+            errorMessage: null,
+          },
+          name_RealEstate_cms: {
+            value: '',
+            isValid: false,
+            errorMessage: null,
+          },
+          Address_RealEstate_cms: {
+            value: '',
+            isValid: false,
+            errorMessage: null,
+          },
+        }
       default:
         return {}
     }

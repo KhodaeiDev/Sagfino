@@ -68,8 +68,7 @@ const RealEstateDetails: React.FC = () => {
   const realEstateInfos = realEstateInfosData?.data
   const userAgent = realEstateInfos?.agent
 
-  console.log(realEstateInfos)
-  console.log(userAgent)
+
 
   useEffect(() => {
     if (realEstateInfos?.ads?.data?.length) {
@@ -145,7 +144,7 @@ const RealEstateDetails: React.FC = () => {
             </h3>
             <div className=" text-gray-1000 flex items-center  justify-center lg:justify-start  gap-x-2 font-shabnamBold text-xs lg:text-2xl ">
               <CiLocationOn></CiLocationOn>
-              تهران، نیاوران، سه راه یاسر
+              <span>{realEstateInfos?.address}</span>
             </div>
             <div className=" text-gray-1000 flex items-center  justify-center lg:justify-start gap-x-2 font-shabnamBold text-xs lg:text-2xl ">
               <TbHomeEco></TbHomeEco>
@@ -171,7 +170,10 @@ const RealEstateDetails: React.FC = () => {
       {/*  Tusi Real Estate Advertisement*/}
       <div className=" mt-15 lg:mt-30 ">
         <div className="container">
-          <SectionHeader title="آگهی املاک توسی" center={false} />
+          <SectionHeader
+            title={`آگهی های ${realEstateInfos?.name}`}
+            center={false}
+          />
           <span className=" text-primary ">
             {' '}
             {realEstateInfos?.ads?.data?.length
@@ -216,6 +218,7 @@ const RealEstateDetails: React.FC = () => {
           closeModal={closeModal}
           isConsultantInfo={isConsultantInfo}
           userInfos={userAgent}
+          realEstateInfos={realEstateInfos}
         />
       )}
     </>

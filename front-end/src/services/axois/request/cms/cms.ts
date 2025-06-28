@@ -59,3 +59,11 @@ export const updateUserProfile = async (
     }
   )
 }
+
+export const createRealEstate = (data: FormData, token: string) =>
+  axios.post(`https://saghfino.abolfazlhp.ir/api/real-estates/create`, data, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+      // Accept: 'application/json',
+    },
+  })

@@ -33,8 +33,6 @@ const dataURLtoFile = (dataurl: string, filename: string): File => {
 const EditInformation: React.FC = () => {
   const [formType] = useState<FormType>('edit-information')
   const [formState, onInputHandler, dispatch] = UseForm(formType)
-  const [, setInitialName] = useState('')
-  const [, setInitialLastName] = useState('')
   const [isFocused, setIsFocused] = useState(false)
   const [selectedImage, setSelectedImage] = useState<string | null>(null)
   const [hasNewImage, setHasNewImage] = useState(false)
@@ -47,15 +45,20 @@ const EditInformation: React.FC = () => {
   const auth = useContext(AuthContext)
   console.log(auth)
   useEffect(() => {
-    setInitialName(formState.inputs.name?.value || '')
-    setInitialLastName(formState.inputs.lastName?.value || '')
+    if (auth.userInfo) {
+      const firstName = auth.userInfo?.firstName || ''
+      const lastName = auth.userInfo?.lastName || ''
 
-    if (auth.userInfo?.image) {
-      setSelectedImage(
-        `https://saghfino.abolfazlhp.ir/storage/${auth.userInfo.image}`
-      )
+      onInputHandler('name_cms', firstName, true)
+      onInputHandler('lastName_cms', lastName, true)
+
+      if (auth.userInfo.image) {
+        setSelectedImage(
+          `https://saghfino.abolfazlhp.ir/storage/${auth.userInfo.image}`
+        )
+      }
     }
-  }, [])
+  }, [auth.userInfo])
 
   const handleFocus = () => {
     if (!isFocused) setIsFocused(true)

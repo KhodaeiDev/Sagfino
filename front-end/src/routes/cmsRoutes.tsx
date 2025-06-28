@@ -3,6 +3,7 @@ import EditInformation from '../pages/cms/EditInformation'
 import MyAds from '../pages/cms/MyAds'
 import SavedAd from '../pages/cms/SavedAd'
 import ProtectedRoute from './ProtectedRoute'
+import RealEstateRegistration from '../pages/cms/RealEstateRegistration'
 
 const cmsRoutes: RouteObject[] = [
   {
@@ -26,6 +27,14 @@ const cmsRoutes: RouteObject[] = [
     element: (
       <ProtectedRoute>
         <SavedAd />
+      </ProtectedRoute>
+    ),
+  },
+  {
+    path: 'RealEstateRegistration',
+    element: (
+      <ProtectedRoute>
+        <RealEstateRegistration />
       </ProtectedRoute>
     ),
   },

@@ -5,15 +5,27 @@ import { IoMdClose } from 'react-icons/io'
 import { AuthContext } from '../../../../context/auth/authContext'
 import { UserInfos } from '../../Cards/personalInformationBox/Personalinformation'
 
+type RealEstateInfosTypes = {
+  image: string
+  name: string
+}
+
 type RealEstateModalProps = {
   closeModal: () => void
   isModalVisible: boolean
   isConsultantInfo?: boolean
   userInfos: UserInfos
+  realEstateInfos: RealEstateInfosTypes
 }
 
 const RealEstateModal: React.FC<RealEstateModalProps> = memo(
-  ({ closeModal, isModalVisible, isConsultantInfo, userInfos }) => {
+  ({
+    closeModal,
+    isModalVisible,
+    isConsultantInfo,
+    userInfos,
+    realEstateInfos,
+  }) => {
     // const [activeNumber, setActiveNumber] = useState<number>(1)
 
     // const handleClick = useCallback(
@@ -22,7 +34,7 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
     //   },
     //   [setActiveNumber]
     // )
-
+    console.log(userInfos)
     const auth = useContext(AuthContext)
     return ReactDOM.createPortal(
       <div className={`modals-parent ${isModalVisible ? 'active' : ''}`}>
@@ -43,13 +55,17 @@ const RealEstateModal: React.FC<RealEstateModalProps> = memo(
                   <div className=" w-35 h-20">
                     <img
                       className=" w-full h-full object-contain"
-                      src="../../../public/img/Real Estate Logo 1.png"
-                      alt="img"
+                      src={`https://saghfino.abolfazlhp.ir/storage/${realEstateInfos?.image}`}
+                      alt="logo"
+                      onError={(event) => {
+                        ;(event.target as HTMLImageElement).src =
+                          '/img/Photo Place.png'
+                      }}
                     />
                   </div>
                   {/* personal infomation */}
                   <h6 className="  font-shabnamBold  mb-8 text-2xl mt-3 lg:mt-8">
-                    املاک توسی
+                    {realEstateInfos?.name}
                   </h6>
                 </div>
               ) : (

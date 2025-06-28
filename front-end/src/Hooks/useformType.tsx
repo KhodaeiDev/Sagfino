@@ -5,3 +5,4 @@ export type FormType =
   | 'rent-search'
   | 'realestates-search'
   | 'edit-information'
+  | 'RealEstateRegistration'

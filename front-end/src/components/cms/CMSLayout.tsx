@@ -13,7 +13,7 @@ import { AiOutlineCheckCircle } from 'react-icons/ai'
 import { HiOutlineLogout } from 'react-icons/hi'
 import { NavLink, useNavigate } from 'react-router'
 import { AuthContext } from '../../context/auth/authContext'
-
+import { BsHouseAdd } from 'react-icons/bs'
 type CMSLayoutProps = {
   title: string
   children: React.ReactNode
@@ -167,6 +167,21 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                       >
                         <RiBookmarkLine className=" w-5 h-5 " />
                         <span> آگهی ذخیره شده</span>
+                      </NavLink>
+                    </li>
+                  )}
+                  {!panel && auth?.userInfo?.role === 'real_estate_agent' && (
+                    <li>
+                      <NavLink
+                        to={'/cms/RealEstateRegistration'}
+                        className={({ isActive }) =>
+                          isActive
+                            ? `border-primary rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
+                            : ''
+                        }
+                      >
+                        <BsHouseAdd className="w-5 h-5 " />{' '}
+                        <span> ایجاد ویرایش املاک و مستغلات </span>
                       </NavLink>
                     </li>
                   )}

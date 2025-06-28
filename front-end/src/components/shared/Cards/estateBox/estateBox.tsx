@@ -52,6 +52,10 @@ const EstateBox: React.FC<RealEstateModalProps> = memo(
                   className="w-full h-full object-cover rounded-t-lg "
                   src={`https://saghfino.abolfazlhp.ir/storage/${estateInfo?.image}`}
                   alt="Logo"
+                  onError={(event) => {
+                    ;(event.target as HTMLImageElement).src =
+                      '/img/Photo Place.png'
+                  }}
                 />
               </div>
               <div className="flex items-center gap-1 justify-between   my-2 ">
