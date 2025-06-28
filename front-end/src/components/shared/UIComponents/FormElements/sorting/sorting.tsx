@@ -109,7 +109,11 @@ const Sorting: React.FC<SortingProps> = ({
     const sellPrice = localStorage.getItem('sell_price')
     const cityDefulut = newParams.get('city') || 'تهران'
 
-    localStorage.setItem('searchFilter-value', String(cityDefulut) || 'تهران')
+    console.log(cityDefulut)
+    localStorage.setItem(
+      'searchFilter-value',
+      String(cityDefulut) === 'all' ? 'همه' : cityDefulut || 'تهران'
+    )
 
     setPropertyType(
       String(
@@ -208,7 +212,7 @@ const Sorting: React.FC<SortingProps> = ({
             </div>
           </div>
 
-          <div className=' flex flex-col h-full  w-full'>
+          <div className=" flex flex-col h-full  w-full">
             <span className="text-xs text-gray-500 mb-1 font-shabnam">
               برای مشاهده‌ی تمام شهرها، کلمه{' '}
               <strong className="text-primary">«همه»</strong> را جستجو کنید.

@@ -19,6 +19,7 @@ type CMSLayoutProps = {
   children: React.ReactNode
   panel: boolean
 }
+import { FiBarChart2 } from 'react-icons/fi'
 
 const CMSLayout: React.FC<CMSLayoutProps> = memo(
   ({ title, children, panel }) => {
@@ -59,16 +60,16 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                     ''
                   )}
 
-                  <div className=" flex flex-col items-center  ">
+                  <div className=" flex flex-col items-center  justify-start  ">
                     <h4 className=" text-Gray-35 text-lg font-shabnam ">
                       {auth.userInfo?.firstName} {auth.userInfo?.lastName}
                     </h4>
-                    <span className=" text-base font-shabnam ">
+                    <span className=" text-base font-shabnam w-full ">
                       {' '}
                       {auth.userInfo?.role === 'user'
                         ? 'کاربر عادی'
                         : auth.userInfo?.role === 'admin'
-                        ? 'آدمین'
+                        ? 'مدیر پنل'
                         : auth.userInfo?.role === 'real_estate_agent'
                         ? 'املاکی'
                         : ''}
@@ -121,6 +122,21 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                       >
                         <AiOutlineCheckCircle className="w-5 h-5" />
                         <span> آگهی هایی ثبت شده </span>
+                      </NavLink>
+                    </li>
+                  )}
+                  {panel && (
+                    <li>
+                      <NavLink
+                        className={({ isActive }) =>
+                          isActive
+                            ? `border-primary  rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
+                            : ''
+                        }
+                        to={'/AdminPanel/UserAdsReport'}
+                      >
+                        <FiBarChart2 size={24} color=" w-5 h-5 " />
+                        <span> گزارش آماری </span>
                       </NavLink>
                     </li>
                   )}

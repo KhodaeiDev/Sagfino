@@ -75,7 +75,3 @@ export const saveAd = async (productId: number): Promise<AxiosResponse> => {
 export const unSaveAd = async (productId: number): Promise<AxiosResponse> => {
   return await axiosProtectedInstance.delete(`/ads/${productId}/unsave`)
 }
-
-export const gettingAdsPagenation = async (pageUrl: string) => {
-  return await axiosUnProtectedInstance.get(pageUrl)
-}
