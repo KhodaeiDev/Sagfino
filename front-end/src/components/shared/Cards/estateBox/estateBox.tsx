@@ -47,9 +47,9 @@ const EstateBox: React.FC<RealEstateModalProps> = memo(
             />
           ) : (
             <>
-              <div className=" w-full mb-2">
+              <div className=" w-full h-45 mb-2">
                 <img
-                  className="w-full h-full object-cover rounded-t-lg "
+                  className="w-full h-full  object-fill rounded-t-lg "
                   src={`https://saghfino.abolfazlhp.ir/storage/${estateInfo?.image}`}
                   alt="Logo"
                   onError={(event) => {

@@ -1,4 +1,4 @@
-import { useCallback, useState, useEffect } from 'react'
+import { useCallback, useState } from 'react'
 import RealEstateModal from '../../Modals/RealEstateInfoModal/RealEstateModal'
 import { FaUserCircle } from 'react-icons/fa'
 
@@ -23,11 +23,6 @@ const PersonalInformation: React.FC<{ userInfos: UserInfos }> = ({
 
   const closeModal = useCallback(() => {
     setIsModalVisible(false)
-  }, [])
-  const [isConsultantInfo, setIsConsultantInfo] = useState<boolean>(false)
-
-  useEffect(() => {
-    setIsConsultantInfo(true)
   }, [])
 
   return (
@@ -84,7 +79,6 @@ const PersonalInformation: React.FC<{ userInfos: UserInfos }> = ({
         <RealEstateModal
           isModalVisible={isModalVisible}
           closeModal={closeModal}
-          isConsultantInfo={isConsultantInfo}
           userInfos={userInfos}
         />
       )}

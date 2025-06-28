@@ -105,6 +105,8 @@ const Rent: React.FC = () => {
     }
   }, [filteredProducts])
 
+  console.log();
+
   useEffect(() => {
     const isSearchMoreFilter = localStorage.getItem('isSearchFilter') === 'true'
 

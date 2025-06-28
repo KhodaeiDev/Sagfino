@@ -38,11 +38,6 @@ const RealEstateDetails: React.FC = () => {
   const [isConsultantInfo, setIsConsultantInfo] = useState<boolean>(true)
 
   useEffect(() => {
-    document.title = ' سقفینو-جزئیات املاک'
-    setIsConsultantInfo(false)
-  }, [])
-
-  useEffect(() => {
     newParams.set('page', savedPage)
     setSearchParams(newParams)
 
@@ -68,15 +63,21 @@ const RealEstateDetails: React.FC = () => {
   const realEstateInfos = realEstateInfosData?.data
   const userAgent = realEstateInfos?.agent
 
-
-
   useEffect(() => {
     if (realEstateInfos?.ads?.data?.length) {
       newParams.set('page', savedPage)
     }
     setSearchParams(newParams)
   }, [searchParams])
+  console.log(realEstateInfos)
 
+  useEffect(() => {
+    document.title = ' سقفینو-جزئیات املاک'
+    if (realEstateInfos?.ads) {
+      setIsConsultantInfo(true)
+    }
+  }, [])
+  
   if (isLoading) {
     return (
       <>

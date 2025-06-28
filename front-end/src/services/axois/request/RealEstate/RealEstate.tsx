@@ -29,3 +29,9 @@ export const getRealEstateInfo = async (
     return await axiosProtectedInstance.get(`real-estates/${productId}`, {})
   }
 }
+
+export const scoringRequest = async (
+  scoringInfo: Record<number, number | null>
+): Promise<AxiosResponse> => {
+  return await axiosUnProtectedInstance.post(`/real-estates/rate`, scoringInfo)
+}
