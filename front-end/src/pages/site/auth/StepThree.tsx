@@ -145,14 +145,18 @@ const StepThree: React.FC = () => {
         <div className="container  center ">
           <div className="flex flex-col  gap-y-2  md:gap-y-4   text-center w-150  bg-white p-10 md:px-25 md:py-10  rounded-xl  font-shabnam text-xs  md:text-base text-gray-1000">
             <h4 className="font-shabnamBold  text-sm md:text-2xl ">ثبت نام</h4>
-            <div className="text-sm flex items-center justify-center font-shabnamMedium">
+            <div className="text-sm flex flex-col items-center justify-center font-shabnamMedium">
               <NavLink
                 to="/auth/StepOne"
                 onClick={() => setFormType('login')}
                 className={' text-xs md:text-base '}
               >
-                قبلاً ثبت‌نام کرده‌اید؟{' '}
+                قبلاً ثبت‌ نام کرده‌اید؟{' '}
                 <span className="text-primary">وارد شوید!</span>
+              </NavLink>
+              <NavLink to="/auth/AdminLogin" className="text-xs md:text-base">
+                ورود ویژه ادمین:
+                <span className="text-primary"> ورود ادمین</span>
               </NavLink>
             </div>
             <span className=" text-sm  md:text-base ">

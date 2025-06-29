@@ -177,6 +177,19 @@ const UseForm = (formType: FormType) => {
             errorMessage: null,
           },
         }
+      case 'admin-login':
+        return {
+          password_admin: {
+            value: '',
+            isValid: false,
+            errorMessage: null,
+          },
+          username_admin: {
+            value: '',
+            isValid: false,
+            errorMessage: null,
+          },
+        }
       default:
         return {}
     }

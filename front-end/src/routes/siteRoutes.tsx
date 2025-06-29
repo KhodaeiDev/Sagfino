@@ -12,12 +12,12 @@ import TermsAndConditions from '../pages/site/TermsAndConditions/TermsAndConditi
 import PrivacyPolicy from '../pages/site/PrivacyPolicy/PrivacyPolicy'
 import Home from '../pages/site/Home/home'
 import FAQ from '../pages/site/FAQ/FAQ'
+import AdminLogin from '../pages/site/auth/AdminLogin'
 import { RouteObject } from 'react-router'
 
 const siteRoutes: RouteObject[] = [
   { path: '/', element: <Home /> },
   { path: '/Rent/Rent', element: <Rent /> },
-  // { path: '/Shopping/shopping', element: <Shopping /> },
   { path: '/AboutUs/AboutUs', element: <AboutUs /> },
   { path: '/ContactUs/ContactUs', element: <ContactUs /> },
   { path: '/FAQ/FAQ', element: <FAQ /> },
@@ -25,6 +25,7 @@ const siteRoutes: RouteObject[] = [
   { path: '/auth/StepOne', element: <StepOne /> },
   { path: '/auth/StepTwo', element: <StepTwo /> },
   { path: '/auth/StepThree', element: <StepThree /> },
+  { path: '/auth/AdminLogin', element: <AdminLogin /> },
   {
     path: '/RealEstateDetails/RealEstateDetails/:estateId',
     element: <RealEstateDetails />,

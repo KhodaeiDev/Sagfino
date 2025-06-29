@@ -62,7 +62,7 @@ const NavBar: React.FC = () => {
                   اجاره | خرید
                 </NavLink>
               </li>
-           
+
               <li>
                 <NavLink
                   to={'/Realestates/Realestates'}
@@ -124,10 +124,28 @@ const NavBar: React.FC = () => {
                 >
                   <NavLink
                     to="/cms/EditInformation"
-                    className="block w-full px-4 py-2 transition-all duration-500 hover:bg-primary hover:text-white rounded-lg"
+                    className={({ isActive }) =>
+                      `block w-full px-4 py-2 transition-all duration-300 hover:bg-primary hover:text-white rounded-lg ${
+                        isActive ? 'hover:bg-primary hover:text-white' : ''
+                      }`
+                    }
                   >
                     پنل کاربری
                   </NavLink>
+                  {auth.userInfo.role == 'admin' ? (
+                    <NavLink
+                      to="/AdminPanel/users"
+                      className={({ isActive }) =>
+                        `block w-full px-4 py-2 transition-all duration-300 hover:bg-primary hover:text-white rounded-lg ${
+                          isActive ? ' bg-primary text-white ' : ''
+                        }`
+                      }
+                    >
+                      پنل مدیریت
+                    </NavLink>
+                  ) : (
+                    ''
+                  )}
                   <span
                     onClick={auth.logout}
                     className="block w-full  cursor-pointer transition-all duration-500   px-4 py-2 text-red-500 hover:bg-primary hover:text-white rounded-lg"
@@ -299,8 +317,7 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
               <IoIosArrowBack className="text-2xl" />
             </NavLink>
           </li>
-          
-       
+
           <li>
             <NavLink
               to={'/Realestates/Realestates'}

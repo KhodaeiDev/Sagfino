@@ -6,3 +6,4 @@ export type FormType =
   | 'realestates-search'
   | 'edit-information'
   | 'RealEstateRegistration'
+  | 'admin-login'
