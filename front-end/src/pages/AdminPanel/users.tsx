@@ -13,8 +13,7 @@ const Users: React.FC = () => {
 
   const [searchParams, setSearchParams] = useSearchParams()
   const newParams = new URLSearchParams(searchParams)
-  const savedPage =
-    localStorage.getItem('currentPage-RealEstatesDetailes') ?? '1'
+  const savedPage = localStorage.getItem('currentPage-usersAdminPanel') ?? '1'
 
   const {
     isLoading,
@@ -26,7 +25,7 @@ const Users: React.FC = () => {
     staleTime: 300000,
   })
 
-  const fetchProductInfo = useCallback(
+  const fetchUsers = useCallback(
     (filterParams: { page: string }) => gettingUsers(filterParams),
     [searchParams]
   )
@@ -38,13 +37,13 @@ const Users: React.FC = () => {
     const filteredParams: { page: string } = {
       page: savedPage,
     }
-    fetchProductInfo(filteredParams)
+    fetchUsers(filteredParams)
   }, [searchParams])
 
   const handlePageChange = (newPage: number) => {
     const newParams = new URLSearchParams(searchParams)
     newParams.set('page', String(newPage))
-    localStorage.setItem('currentPage', String(newPage))
+    localStorage.setItem('currentPage-usersAdminPanel', String(newPage))
     setSearchParams(newParams)
   }
   console.log(users)
