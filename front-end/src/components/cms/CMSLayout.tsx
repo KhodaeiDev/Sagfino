@@ -14,6 +14,8 @@ import { HiOutlineLogout } from 'react-icons/hi'
 import { NavLink, useNavigate } from 'react-router'
 import { AuthContext } from '../../context/auth/authContext'
 import { BsHouseAdd } from 'react-icons/bs'
+import { FaHome } from 'react-icons/fa'
+
 type CMSLayoutProps = {
   title: string
   children: React.ReactNode
@@ -122,6 +124,21 @@ const CMSLayout: React.FC<CMSLayoutProps> = memo(
                       >
                         <AiOutlineCheckCircle className="w-5 h-5" />
                         <span> آگهی هایی ثبت شده </span>
+                      </NavLink>
+                    </li>
+                  )}
+                  {panel && (
+                    <li>
+                      <NavLink
+                        className={({ isActive }) =>
+                          isActive
+                            ? `border-primary  rounded-xs border-r-6 pr-3 **:!text-Gray-35 `
+                            : ''
+                        }
+                        to={'/AdminPanel/Realestate'}
+                      >
+                        <FaHome size={20} color=" w-5 h-5 " />
+                        <span> املاکی ها </span>
                       </NavLink>
                     </li>
                   )}

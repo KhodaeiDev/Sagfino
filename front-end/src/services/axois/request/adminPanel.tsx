@@ -16,6 +16,14 @@ admin/dashboard/users`,
   )
 }
 
+export const gettingRealEstate = async (
+  filters: Record<string, string | null>
+): Promise<AxiosResponse> => {
+  return await axiosProtectedInstance.get(`/admin/dashboard/real-estates`, {
+    params: filters,
+  })
+}
+
 export const gettingAds = async (
   filters: Record<string, string | null>
 ): Promise<AxiosResponse> => {

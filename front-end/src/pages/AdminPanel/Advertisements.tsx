@@ -269,7 +269,7 @@ const Advertisements: React.FC = () => {
                         <button
                           onClick={() => deleteMutation.mutate(item.id)}
                           disabled={loadingDeleteId === item.id}
-                          className="cursor-pointer bg-red-500 text-white px-2 py-1 rounded disabled:opacity-50 disabled:cursor-not-allowed"
+                          className="cursor-pointer  hover:bg-white hover:border hover:border-primary hover:text-black duration-300 transition-all bg-red-500 text-white px-2 py-1 rounded disabled:opacity-50 disabled:cursor-not-allowed"
                         >
                           {loadingDeleteId === item.id ? 'پردازش' : 'حذف'}
                         </button>
