@@ -86,7 +86,7 @@ const StepSixAdRE: React.FC = () => {
         ...prev,
         images: storedImages
           .map((img: { src: string }) => {
-            if (!img.src || !img.src.startsWith('data:image')) return null
+            if (!img.src || !img.src.startsWith('image/')) return null
 
             try {
               const byteCharacters = atob(img.src.split(',')[1])
@@ -108,7 +108,18 @@ const StepSixAdRE: React.FC = () => {
   const handleImageUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
       const file = event.target.files?.[0]
-      if (!file) return
+      console.log('Selected file:', file)
+
+      if (!file || !file.type.startsWith('image/')) {
+        console.warn('Unsupported file or not an image.')
+        return
+      }
+
+      if (file.size > 5 * 1024 * 1024) {
+        ToastNotification('error', 'حجم عکس باید کمتر از 5 مگابایت باشد', 5000)
+        return
+      }
+
 
       const reader = new FileReader()
       reader.readAsDataURL(file)
@@ -132,7 +143,7 @@ const StepSixAdRE: React.FC = () => {
         })
       }
     },
-    []
+    [setAdvertisementData]
   )
 
   const handleImageRemove = useCallback((id: string) => {
@@ -225,7 +236,7 @@ const StepSixAdRE: React.FC = () => {
                     ) : (
                       <label
                         htmlFor={`upload-${image.id}`}
-                        className="flex flex-col items-center justify-center text-gray-500"
+                        className="flex flex-col items-center justify-center text-gray-500 w-full h-full cursor-pointer"
                       >
                         <FaRegImage className="text-4xl mb-2 cursor-pointer text-gray-400" />
                         <span className="text-sm">آپلود عکس</span>
@@ -233,7 +244,7 @@ const StepSixAdRE: React.FC = () => {
                           type="file"
                           id={`upload-${image.id}`}
                           className="hidden"
-                          accept=".webp,.jpg,.jpeg,.png"
+                          accept="image/*"
                           onChange={(e) => handleImageUpload(e, image.id)}
                         />
                       </label>

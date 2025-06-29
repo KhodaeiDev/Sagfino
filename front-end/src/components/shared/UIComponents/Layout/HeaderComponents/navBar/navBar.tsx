@@ -118,7 +118,7 @@ const NavBar: React.FC = () => {
 
               {auth.userInfo && (
                 <div
-                  className={`absolute top-8 p-3 -left-2 transition-all duration-500    opacity-0  group-hover:opacity-100 group-hover:visible   
+                  className={`absolute top-8 p-3 -left-2 transition-all duration-500 z-1000    opacity-0  group-hover:opacity-100 group-hover:visible   
                         invisible
                  flex   flex-col gap-y-2 items-center w-50 bg-white shadow-lg rounded-lg py-2`}
                 >
@@ -236,12 +236,26 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
         <div className="relative w-full">
           {/* دکمه نمایش منو */}
           <div
-            className={`font-shabnamMedium flex flex-col  items-start transition-all duration-500 ${
-              isMobileMenuOpen ? ' h-25 ' : ' !h-15'
-            }   h-20 p-4 bg-gray-100 gap-1 mt-5 cursor-pointer`}
+            className={`font-shabnamMedium flex flex-col items-start transition-all duration-500 bg-gray-100 gap-1 mt-5 cursor-pointer rounded-lg overflow-hidden ${
+              isMobileMenuOpen ? 'max-h-60 p-4' : 'max-h-14 p-4'
+            }`}
           >
             <div className=" flex items-center gap-x-2 pb-0.5 ">
-              <CgProfile className="text-2xl" />
+              {auth.isLoggedIn ? (
+                <div className=" w-9 h-9 center  rounded-full cursor-pointer   text-lg">
+                  <img
+                    src={`https://saghfino.abolfazlhp.ir/storage/${auth?.userInfo?.image}`}
+                    alt="تصویر آپلود‌شده"
+                    className="w-full h-full object-cover rounded-lg"
+                    onError={(event) => {
+                      ;(event.target as HTMLImageElement).src =
+                        '/img/Photo Place.png'
+                    }}
+                  />
+                </div>
+              ) : (
+                <CgProfile className="text-2xl" />
+              )}
               {auth.userInfo ? (
                 <span
                   onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -270,10 +284,28 @@ const MenueMobail: React.FC<MenueMobailProps> = ({ isOpen, setIsOpen }) => {
               >
                 <NavLink
                   to="/cms/EditInformation"
-                  className="block pr-8  hover:bg-gray-200 rounded-lg text-gray-900"
+                  className={({ isActive }) =>
+                    `block pr-8  hover:bg-gray-200 rounded-lg text-gray-900 ${
+                      isActive ? ' text-primary  ' : ''
+                    }`
+                  }
                 >
                   پنل کاربری
                 </NavLink>
+                {auth.userInfo.role == 'admin' ? (
+                  <NavLink
+                    to="/AdminPanel/users"
+                    className={({ isActive }) =>
+                      `block pr-8  hover:bg-gray-200 rounded-lg text-gray-900 ${
+                        isActive ? '  text-primary  underline' : ''
+                      }`
+                    }
+                  >
+                    پنل مدیریت
+                  </NavLink>
+                ) : (
+                  ''
+                )}
                 <span
                   onClick={auth.logout}
                   className=" text-right  pr-8  text-red-500 hover:bg-gray-200 rounded-lg"

@@ -2,23 +2,14 @@ import Sorting from '../../../components/shared/UIComponents/FormElements/sortin
 import ProductBox from '../../../components/shared/Cards/productBox/productBox'
 import SelectBox from '../../../components/shared/UIComponents/FormElements/selectBox/selectBox'
 import { useCallback, useEffect, useState } from 'react'
-// import { TbFilterSearch } from 'react-icons/tb'
-
-// import BoxEstate from '../../../components/shared/Cards/estateBox/estateBox'
-// import SectionHeader from '../../../components/shared/UIComponents/sectionHeader/sectionHeader'
-// import RealEstateModal from '../../../components/shared/Modals/RealEstateInfoModal/RealEstateModal'
 import { ThreeDot } from 'react-loading-indicators'
-
 import Pagination from '../../../components/shared/UIComponents/DataDisplay/pagination/pagination'
 import FilteringModal from '../../../components/shared/Modals/filteringModal/filteringModal'
-
-// import { FilteringModalMobail } from '../../../components/shared/Modals/filteringModal/filteringModal'
 import { useMutation } from '@tanstack/react-query'
 import { searchAds } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { Advertisement } from '../../../components/shared/UIComponents/Layout/HeaderComponents/headerContent/headerContent'
 import { useSearchParams } from 'react-router'
 import NoProducts from '../../../components/shared/UIComponents/Layout/NoProducts/NoProducts'
-// import { gettingAdsPagenation } from '../../../services/axois/request/Advertisements/AdvertisementsRequest'
 import { v4 as uuidv4 } from 'uuid'
 
 export type PaginationData = {
@@ -95,7 +86,7 @@ const Rent: React.FC = () => {
     data: filteredProducts,
     isPending,
   } = useMutation({
-    onSuccess: () => {},
+    mutationKey: ['products', searchParams.get('page') ?? '1'],
     mutationFn: fetchSearchAds,
   })
 
@@ -105,7 +96,7 @@ const Rent: React.FC = () => {
     }
   }, [filteredProducts])
 
-  console.log();
+  console.log()
 
   useEffect(() => {
     const isSearchMoreFilter = localStorage.getItem('isSearchFilter') === 'true'
@@ -175,8 +166,6 @@ const Rent: React.FC = () => {
       hasElevator?: string
     }
 
-    console.log('filteredParams', filteredParams)
-
     Object.entries(filteredParams).forEach(([key, value]) => {
       console.log(key, value)
 
@@ -193,7 +182,6 @@ const Rent: React.FC = () => {
 
     setDealType(filteredParams.tr_type === 'sell' ? 'فروش' : 'اجاره')
     setSearchParams(newParams)
-    console.log(filteredParams)
     adFiltering(filteredParams)
   }, [location.search])
 
