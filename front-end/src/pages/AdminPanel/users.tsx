@@ -1,178 +1,178 @@
-import React, { useState } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import CMSLayout from '../../components/cms/CMSLayout'
-
-const data = [
-  {
-    id: 1,
-    name: 'آروین',
-    lastName: 'قادری',
-    activity: 'املاکی',
-    phone: '09308064108',
-    image: '/public/img/Rectangle 52.jpg',
-    joinDate: '1404/2/3',
-  },
-  {
-    id: 2,
-    name: 'علی',
-    lastName: 'حسینی',
-    activity: 'برنامه‌نویس',
-    phone: '09123456789',
-    image: '/public/img/Rectangle 52.jpg',
-    joinDate: '1404/3/15',
-  },
-  {
-    id: 3,
-    name: 'سارا',
-    lastName: 'کاظمی',
-    activity: 'طراح گرافیک',
-    phone: '09234567890',
-    image: '/public/img/Rectangle 52.jpg',
-    joinDate: '1404/5/20',
-  },
-  {
-    id: 4,
-    name: 'سارا',
-    lastName: 'کاظمی',
-    activity: 'طراح گرافیک',
-    phone: '09234567890',
-    image: '/public/img/Rectangle 52.jpg',
-    joinDate: '1404/5/20',
-  },
-  {
-    id: 5,
-    name: 'سارا',
-    lastName: 'کاظمی',
-    activity: 'طراح گرافیک',
-    phone: '09234567890',
-    image: '/public/img/Rectangle 52.jpg',
-    joinDate: '1404/5/20',
-  },
-  {
-    id: 6,
-    name: 'سارا',
-    lastName: 'کاظمی',
-    activity: 'طراح گرافیک',
-    phone: '09234567890',
-    image: '/public/img/Rectangle 52.jpg',
-    joinDate: '1404/5/20',
-  },
-  {
-    id: 7,
-    name: 'سارا',
-    lastName: 'کاظمی',
-    activity: 'طراح گرافیک',
-    phone: '09234567890',
-    image: '/public/img/Rectangle 52.jpg',
-    joinDate: '1404/5/20',
-  },
-]
-
-const itemsPerPage = 3
+import { useSearchParams } from 'react-router'
+import { gettingUsers } from '../../services/axois/request/adminPanel'
+import { useQuery } from '@tanstack/react-query'
+import Pagination from '../../components/shared/UIComponents/DataDisplay/pagination/pagination'
+import { ThreeDot } from 'react-loading-indicators'
 
 const Users: React.FC = () => {
-  document.title = 'سقفینو- پنل مدیریت-کاربران'
-  const [currentPage, setCurrentPage] = useState(1)
+  useEffect(() => {
+    document.title = 'سقفینو- پنل مدیریت-کاربران'
+  }, [])
 
-  const totalPages = Math.ceil(data.length / itemsPerPage)
-  const currentData = data.slice(
-    (currentPage - 1) * itemsPerPage,
-    currentPage * itemsPerPage
+  const [searchParams, setSearchParams] = useSearchParams()
+  const newParams = new URLSearchParams(searchParams)
+  const savedPage =
+    localStorage.getItem('currentPage-RealEstatesDetailes') ?? '1'
+
+  const {
+    isLoading,
+    data: users,
+    error,
+  } = useQuery({
+    queryKey: ['Usres'],
+    queryFn: () => gettingUsers({ page: savedPage }),
+    staleTime: 300000,
+  })
+
+  const fetchProductInfo = useCallback(
+    (filterParams: { page: string }) => gettingUsers(filterParams),
+    [searchParams]
   )
-  
+
+  useEffect(() => {
+    newParams.set('page', savedPage)
+    setSearchParams(newParams)
+
+    const filteredParams: { page: string } = {
+      page: savedPage,
+    }
+    fetchProductInfo(filteredParams)
+  }, [searchParams])
+
+  const handlePageChange = (newPage: number) => {
+    const newParams = new URLSearchParams(searchParams)
+    newParams.set('page', String(newPage))
+    localStorage.setItem('currentPage', String(newPage))
+    setSearchParams(newParams)
+  }
+  console.log(users)
+
+  interface User {
+    id: number
+    firstName: string
+    lastName: string
+    phoneNumber: string
+    image: string
+    created_at: string
+    updated_at: string
+    role: string
+  }
+
+  if (error) {
+    return (
+      <CMSLayout title="نمودار آگهی‌ها و کاربران" panel={true}>
+        <div className="text-center text-red-500">خطا در دریافت اطلاعات</div>
+      </CMSLayout>
+    )
+  }
 
   return (
     <>
       <CMSLayout title=" کاربران" panel={true}>
-        <div className="p-2 lg:p-6 overflow-x-auto">
-          <div className="w-full">
-            <table className="table-auto border-collapse min-w-full border border-primary-tint-6 bg-white text-center shadow-lg rounded-lg">
-              <thead>
-                <tr className="bg-primary-tint-6 text-white text-xs sm:text-sm md:text-base">
-                  <th className="border border-primary-tint-6 px-4 py-2">
-                    شناسه کاربر
-                  </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
-                    نام
-                  </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
-                    نام خانوادگی
-                  </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
-                    نوع فعالیت
-                  </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
-                    شماره تلفن
-                  </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
-                    تصویر
-                  </th>
-                  <th className="border border-primary-tint-6 px-4 py-2">
-                    تاریخ عضویت
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {currentData.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="hover:bg-gray-200 text-xs sm:text-sm md:text-base"
-                  >
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      {item.id}
-                    </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      {item.name}
-                    </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      {item.lastName}
-                    </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      {item.activity}
-                    </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      {item.phone}
-                    </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      <div className="w-12 h-12 flex items-center justify-center">
-                        <img
-                          className="w-full h-full object-cover aspect-square rounded-full"
-                          src={item.image}
-                          alt="تصویر"
-                        />
-                      </div>
-                    </td>
-                    <td className="border border-primary-tint-6 px-4 py-2">
-                      {item.joinDate}
-                    </td>
+        {isLoading ? (
+          <div className="w-full flex items-center justify-center h-50">
+            <ThreeDot
+              variant="bounce"
+              color="#CB1B1B"
+              size="large"
+              text=""
+              textColor=""
+            />
+          </div>
+        ) : (
+          <div className="p-2 lg:p-6 overflow-x-auto">
+            <div className="w-full">
+              <table className="table-auto border-collapse min-w-full border border-primary-tint-6 bg-white text-center shadow-lg rounded-lg">
+                <thead>
+                  <tr className="bg-primary-tint-6 text-white text-xs sm:text-sm md:text-base">
+                    <th className="border border-primary-tint-6 px-4 py-2">
+                      شناسه کاربر
+                    </th>
+                    <th className="border border-primary-tint-6 px-4 py-2">
+                      نام
+                    </th>
+                    <th className="border border-primary-tint-6 px-4 py-2">
+                      نام خانوادگی
+                    </th>
+                    <th className="border border-primary-tint-6 px-4 py-2">
+                      نوع فعالیت
+                    </th>
+                    <th className="border border-primary-tint-6 px-4 py-2">
+                      شماره تلفن
+                    </th>
+                    <th className="border border-primary-tint-6 px-4 py-2">
+                      تصویر
+                    </th>
+                    <th className="border border-primary-tint-6 px-4 py-2">
+                      تاریخ عضویت
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {users?.data.data?.map((item: User) => (
+                    <tr
+                      key={item.id}
+                      className="hover:bg-gray-200 text-xs sm:text-sm md:text-base"
+                    >
+                      <td className="border border-primary-tint-6 px-4 py-2">
+                        {item.id}
+                      </td>
+                      <td className="border border-primary-tint-6 px-4 py-2">
+                        {item.firstName}
+                      </td>
+                      <td className="border border-primary-tint-6 px-4 py-2">
+                        {item.lastName}
+                      </td>
+                      <td className="border border-primary-tint-6 px-4 py-2">
+                        {item.role === 'user'
+                          ? 'کاربر'
+                          : item.role === 'admin'
+                          ? 'ادمین'
+                          : item.role === 'real_estate_agent'
+                          ? 'املاکی'
+                          : ''}
+                      </td>
+                      <td className="border border-primary-tint-6 px-4 py-2">
+                        {item.phoneNumber}
+                      </td>
+                      <td className="border border-primary-tint-6 px-4 py-2">
+                        <div className="w-12 h-12 flex items-center justify-center">
+                          <img
+                            className="w-full h-full object-cover aspect-square rounded-full"
+                            src={`https://saghfino.abolfazlhp.ir/storage/${item?.image}`}
+                            alt="تصویر"
+                            onError={(event) => {
+                              ;(event.target as HTMLImageElement).src =
+                                '/img/Photo Place.png'
+                            }}
+                          />
+                        </div>
+                      </td>
+                      <td className="border border-primary-tint-6 px-4 py-2">
+                        {item.created_at}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            <div className=" flex items-center justify-center gap-3 my-8 ">
+              {users?.data?.links?.length ? (
+                <div className="flex items-center justify-center mt-10">
+                  <Pagination
+                    current_page={Number(
+                      searchParams.get('page') ?? users?.data.current_page
+                    )}
+                    links={users?.data?.links ?? []}
+                    onPageChange={handlePageChange}
+                  />
+                </div>
+              ) : null}{' '}
+            </div>{' '}
           </div>
-          <div className="flex justify-center mt-4 space-x-2">
-            <button
-              className={`px-4 py-2 ${
-                currentPage === 1 ? '  cursor-not-allowed   ' : '  cursor-pointer'
-              }  bg-primary-tint-6 text-white rounded-md hover:bg-primary disabled:bg-gray-400`}
-              disabled={currentPage === 1}
-              onClick={() => setCurrentPage(currentPage - 1)}
-            >
-              قبلی
-            </button>
-            <span className="px-4 py-2">{`صفحه ${currentPage} از ${totalPages}`}</span>
-            <button
-              className={`px-4 py-2 ${
-                currentPage === totalPages
-                  ? '  cursor-not-allowed '
-                  : ' cursor-pointer'
-              }  bg-primary-tint-6 text-white rounded-md hover:bg-primary disabled:bg-gray-400`}
-              disabled={currentPage === totalPages}
-              onClick={() => setCurrentPage(currentPage + 1)}
-            >
-              بعدی
-            </button>
-          </div>
-        </div>
+        )}
       </CMSLayout>
     </>
   )
