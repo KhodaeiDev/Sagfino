@@ -5,7 +5,7 @@
 
 ---
 
-## 🌍 Online Demo | نسخه نمایشی آنلاین
+## 🌍 Online | نسخه  آنلاین
 
 📌 لینک پروژه آنلاین (Vercel):  
 🔗 [https://saghfinoo-five.vercel.app/](https://saghfinoo-five.vercel.app/)
