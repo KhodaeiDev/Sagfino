@@ -1,8 +1,6 @@
 import SectionHeader from '../../sectionHeader/sectionHeader'
 import { NavLink } from 'react-router'
-import { FaPhoneVolume } from 'react-icons/fa6'
-import { TbBrandInstagramFilled } from 'react-icons/tb'
-import { FaTelegram } from 'react-icons/fa'
+
 import Logo from '../../logo/logo'
 
 const Footer: React.FC = () => {
@@ -125,16 +123,7 @@ const Footer: React.FC = () => {
                 >
                   اجاره
                 </NavLink>
-                <NavLink
-                  className={({ isActive }) =>
-                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
-                      isActive ? 'text-primary ' : ' '
-                    }`
-                  }
-                  to={'/Shopping/shopping'}
-                >
-                  خرید
-                </NavLink>
+
                 <NavLink
                   className={({ isActive }) =>
                     `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
@@ -197,7 +186,7 @@ const Footer: React.FC = () => {
                       isActive ? 'text-primary ' : ' '
                     }`
                   }
-                  to={'profail'}
+                  to={'/cms/EditInformation'}
                 >
                   پروفایل من
                 </NavLink>
@@ -207,7 +196,7 @@ const Footer: React.FC = () => {
                       isActive ? 'text-primary ' : ' '
                     }`
                   }
-                  to={'profail'}
+                  to={'/cms/SavedAd'}
                 >
                   ملک نشان شده
                 </NavLink>
@@ -217,12 +206,12 @@ const Footer: React.FC = () => {
                       isActive ? 'text-primary ' : ' '
                     }`
                   }
-                  to={'profail'}
+                  to={'/cms/MyAds'}
                 >
                   آگهی من
                 </NavLink>
               </div>
-              <div className=" flex flex-col gap-2.5 font-shabnam">
+              {/* <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> با ما در ارتباط باشید </h5>
                 <div className=" flex items-center gap-1 text-xs mt-0.5">
                   <FaPhoneVolume className=" text-primary" />
@@ -242,7 +231,7 @@ const Footer: React.FC = () => {
                     تلگرام
                   </span>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
@@ -334,22 +323,12 @@ const FooterMobail: React.FC = () => {
                     isActive ? 'text-primary ' : ' '
                   }`
                 }
-                to={'/Shopping/shopping'}
-              >
-                خرید
-              </NavLink>
-              <NavLink
-                className={({ isActive }) =>
-                  `text-10 text-gray-71  mt-0.5 hover:text-primary   ${
-                    isActive ? 'text-primary ' : ' '
-                  }`
-                }
                 to={'/Realestates/Realestates'}
               >
                 املاک و مستغلات
               </NavLink>
             </div>
-            <div className=" flex flex-col gap-2.5 font-shabnam">
+            {/* <div className=" flex flex-col gap-2.5 font-shabnam">
               <h5 className=" text-xs"> با ما در ارتباط باشید </h5>
               <div className=" flex items-center gap-1 text-xs ">
                 <FaPhoneVolume className=" text-primary" />
@@ -369,7 +348,7 @@ const FooterMobail: React.FC = () => {
                   تلگرام
                 </span>
               </div>
-            </div>
+            </div> */}
             <div className=" flex flex-col gap-2.5 font-shabnam">
               <h5 className=" text-xs"> اطلاعات </h5>
               <NavLink
