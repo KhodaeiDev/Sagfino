@@ -77,7 +77,7 @@ const RealEstateDetails: React.FC = () => {
       setIsConsultantInfo(true)
     }
   }, [])
-  
+
   if (isLoading) {
     return (
       <>
@@ -137,8 +137,9 @@ const RealEstateDetails: React.FC = () => {
               </div>
             </div>
             <span className=" font-shabnam  text-10 lg:text-lg  text-gray-1000 ">
-              میزان رضایتمندی کاربران: {realEstateInfos?.rate_count} از{' '}
-              {realEstateInfos?.rate_sum}
+              میزان رضایتمندی کاربران:{' '}
+              {realEstateInfos.rate === null ? 0 : realEstateInfos.rate}
+              از 5
             </span>
             <h3 className=" font-shabnamBold text-Gray-35  text-xs md:text-3xl ">
               {realEstateInfos?.tagline}

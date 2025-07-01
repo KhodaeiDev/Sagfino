@@ -2,8 +2,11 @@ import SectionHeader from '../../sectionHeader/sectionHeader'
 import { NavLink } from 'react-router'
 
 import Logo from '../../logo/logo'
+import { useContext } from 'react'
+import { AuthContext } from '../../../../../context/auth/authContext'
 
 const Footer: React.FC = () => {
+  const auth = useContext(AuthContext)
   return (
     <>
       <div className=" bg-boxHelp  hidden lg:flex flex-col ">
@@ -96,7 +99,6 @@ const Footer: React.FC = () => {
               </div>
             </div> */}
             <div className="grid grid-cols-4 gap-20 pt-6 pb-4 ">
-              {/* logo */}
               <div className=" flex flex-col gap-2">
                 <NavLink to={'/'}>
                   <Logo />
@@ -110,7 +112,6 @@ const Footer: React.FC = () => {
                   با مشاورین املاک معتمد و متخصص شهرتان در ارتباط باشید.
                 </span>
               </div>
-              {/* menu */}
               <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> خدمات </h5>
                 <NavLink
@@ -178,39 +179,44 @@ const Footer: React.FC = () => {
                   حریم شخصی شما
                 </NavLink>
               </div>
-              <div className=" flex flex-col gap-2.5 font-shabnam">
-                <h5 className=" text-sm"> حساب کاربری </h5>
-                <NavLink
-                  className={({ isActive }) =>
-                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
-                      isActive ? 'text-primary ' : ' '
-                    }`
-                  }
-                  to={'/cms/EditInformation'}
-                >
-                  پروفایل من
-                </NavLink>
-                <NavLink
-                  className={({ isActive }) =>
-                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
-                      isActive ? 'text-primary ' : ' '
-                    }`
-                  }
-                  to={'/cms/SavedAd'}
-                >
-                  ملک نشان شده
-                </NavLink>
-                <NavLink
-                  className={({ isActive }) =>
-                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
-                      isActive ? 'text-primary ' : ' '
-                    }`
-                  }
-                  to={'/cms/MyAds'}
-                >
-                  آگهی من
-                </NavLink>
-              </div>
+              {auth.token ? (
+                <div className=" flex flex-col gap-2.5 font-shabnam">
+                  <h5 className=" text-sm"> حساب کاربری </h5>
+                  <NavLink
+                    className={({ isActive }) =>
+                      `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                        isActive ? 'text-primary ' : ' '
+                      }`
+                    }
+                    to={'/cms/EditInformation'}
+                  >
+                    پروفایل من
+                  </NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                        isActive ? 'text-primary ' : ' '
+                      }`
+                    }
+                    to={'/cms/SavedAd'}
+                  >
+                    ملک نشان شده
+                  </NavLink>
+                  <NavLink
+                    className={({ isActive }) =>
+                      `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                        isActive ? 'text-primary ' : ' '
+                      }`
+                    }
+                    to={'/cms/MyAds'}
+                  >
+                    آگهی من
+                  </NavLink>
+                </div>
+              ) : (
+                ''
+              )}
+
               {/* <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> با ما در ارتباط باشید </h5>
                 <div className=" flex items-center gap-1 text-xs mt-0.5">
