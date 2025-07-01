@@ -106,5 +106,5 @@
 ## 💻 کاور ui پروژه 
 
 
-<img src="Saghfinoo-cover.png" alt="img-project" /></p>
+<img src="Saghfinoo-cover.png" alt="img-project" />
 
