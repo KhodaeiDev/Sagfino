@@ -41,8 +41,11 @@ const Realestates: React.FC = () => {
   const newParams = new URLSearchParams(searchParams)
   const savedPage = localStorage.getItem('currentPage-RealEstates') ?? '1'
   const [city, setCity] = useState<string>(
-    localStorage.getItem('searchFilterRealestates-value') || 'تهران'
+    localStorage.getItem('searchFilterRealestates-value') || 'همه'
   )
+  if (!localStorage.getItem('searchFilterRealestates-value')) {
+    localStorage.setItem('searchFilterRealestates-value', 'همه')
+  }
 
   useEffect(() => {
     document.title = 'سقفینو-املاک و مستغلات'
@@ -54,14 +57,14 @@ const Realestates: React.FC = () => {
     []
   )
 
-  const [formType] = useState<FormType>('rent-search')
+  const [formType] = useState<FormType>(`realestates-search`)
   const [isFocused, setIsFocused] = useState<boolean>(false)
 
   const [formState, onInputHandler, dispatch] = UseForm(formType)
 
   const handleSearchClick = () => {
     const rawCity =
-      localStorage.getItem('searchFilterRealestates-value') || 'تهران'
+      localStorage.getItem('searchFilterRealestates-value') || 'همه'
     console.log('rawCity', rawCity, rawCity.trim() === 'همه')
     const cityToSend = rawCity.trim() === 'همه' ? 'all' : rawCity
 
@@ -92,11 +95,16 @@ const Realestates: React.FC = () => {
 
   useEffect(() => {
     const rawCity =
-      localStorage.getItem('searchFilterRealestates-value') || 'تهران'
+      localStorage.getItem('searchFilterRealestates-value') || 'همه'
     console.log('rawCity', rawCity, rawCity.trim() === 'همه')
     const cityToSend = rawCity.trim() === 'همه' ? 'all' : rawCity
+
+    if (cityToSend !== city) {
+      setCity(cityToSend)
+    }
+
     newParams.set('page', savedPage)
-    newParams.set('city', city)
+    newParams.set('city', cityToSend === 'all' ? 'همه' : cityToSend)
     setSearchParams(newParams)
 
     const filteredParams: { page: string; city: string } = {
@@ -105,7 +113,7 @@ const Realestates: React.FC = () => {
     }
     console.log(filteredParams)
     getingAllRealEstates(filteredParams)
-  }, [searchParams])
+  }, [searchParams]) // Add city and other dependencies
 
   useEffect(() => {
     if (allRealEstates?.data) {

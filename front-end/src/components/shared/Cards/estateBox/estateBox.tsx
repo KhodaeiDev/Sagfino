@@ -18,7 +18,6 @@ const EstateBox: React.FC<RealEstateModalProps> = memo(
       return () => clearTimeout(timer)
     }, [])
 
-    console.log(estateInfo)
 
     return (
       <>

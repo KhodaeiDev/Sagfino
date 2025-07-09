@@ -134,15 +134,15 @@ const UseForm = (formType: FormType) => {
         return {
           searchFilter: {
             value: 'تهران',
-            isValid: false,
+            isValid: true,
             errorMessage: null,
           },
         }
       case 'realestates-search':
         return {
           searchFilterRealestates: {
-            value: 'تهران',
-            isValid: false,
+            value: 'همه',
+            isValid: true, 
             errorMessage: null,
           },
         }

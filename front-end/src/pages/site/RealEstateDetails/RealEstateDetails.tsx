@@ -69,7 +69,6 @@ const RealEstateDetails: React.FC = () => {
     }
     setSearchParams(newParams)
   }, [searchParams])
-  console.log(realEstateInfos)
 
   useEffect(() => {
     document.title = ' سقفینو-جزئیات املاک'
