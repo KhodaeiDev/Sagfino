@@ -31,7 +31,6 @@ const FilteringModal: React.FC<FilteringModal> = ({ closeModalFiltering }) => {
   }, [])
 
   const filterSearchHandle = () => {
-    console.log(activeElevator, activeParking, activeToilet)
     newParams.set('hasElevator', String(activeElevator))
     newParams.set('hasParking', String(activeParking))
     newParams.set('typeOfWc', String(activeToilet))

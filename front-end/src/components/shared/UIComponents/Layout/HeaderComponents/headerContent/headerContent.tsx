@@ -203,7 +203,7 @@ const HeaderContent: React.FC = () => {
       searchData.data.data.length > 0
     ) {
       if (window.innerWidth > 768) {
-        window.scrollBy({ top: 350, behavior: 'smooth' })
+        window.scrollBy({ top: 700, behavior: 'smooth' })
       } else {
         window.scrollBy({ top: 100, behavior: 'smooth' })
       }

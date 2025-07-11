@@ -46,7 +46,6 @@ const Users: React.FC = () => {
     localStorage.setItem('currentPage-usersAdminPanel', String(newPage))
     setSearchParams(newParams)
   }
-  console.log(users)
 
   interface User {
     id: number

@@ -28,11 +28,6 @@ const AdminLogin: React.FC = () => {
     }
   }
 
-  console.log(
-    formState.inputs.username_admin?.value,
-    formState.inputs.password_admin?.value,
-    formState.isFormValid
-  )
   const handleInputChange = useCallback(
     (inputID: string, value: string, isValid: boolean) => {
       dispatch({ type: 'CLEAR_ERRORS' })
@@ -59,8 +54,6 @@ const AdminLogin: React.FC = () => {
         formState.inputs.password_admin.value
       )
 
-      console.log(response)
-
       if (response.status >= 200 && response.status < 300) {
         const userData: UserInfoType = {
           firstName: response?.data?.firstName,
@@ -69,7 +62,6 @@ const AdminLogin: React.FC = () => {
           image: response?.data?.image || null,
           role: 'admin',
         }
-        console.log(userData)
         auth.login(userData, response.data.token)
         ToastNotification(
           'success',

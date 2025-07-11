@@ -69,7 +69,6 @@ const AuthContextProvider: React.FC<ProviderProps> = memo(({ children }) => {
     )
     localStorage.setItem('lastName_cms-value', String(userInfo?.lastName))
     localStorage.setItem('name_cms-value', String(userInfo?.firstName))
-    console.log(token)
     const isValidToken =
       token && token !== 'null' && token.trim() !== '' && token !== undefined
     const checkTokenExpiry = () => {

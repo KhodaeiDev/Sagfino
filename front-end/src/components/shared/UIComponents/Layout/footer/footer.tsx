@@ -98,8 +98,12 @@ const Footer: React.FC = () => {
                 </NavLink>
               </div>
             </div> */}
-            <div className="grid grid-cols-4 gap-20 pt-6 pb-4 ">
-              <div className=" flex flex-col gap-2">
+            <div
+              className={`grid  ${
+                auth.token ? 'grid-cols-4' : 'grid-cols-3'
+              } gap-20 pt-6 pb-4 `}
+            >
+              <div className=" flex items-start flex-col gap-2">
                 <NavLink to={'/'}>
                   <Logo />
                 </NavLink>
@@ -112,30 +116,7 @@ const Footer: React.FC = () => {
                   با مشاورین املاک معتمد و متخصص شهرتان در ارتباط باشید.
                 </span>
               </div>
-              <div className=" flex flex-col gap-2.5 font-shabnam">
-                <h5 className=" text-sm"> خدمات </h5>
-                <NavLink
-                  className={({ isActive }) =>
-                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
-                      isActive ? 'text-primary ' : ' '
-                    }`
-                  }
-                  to={'/Rent/Rent'}
-                >
-                  اجاره
-                </NavLink>
 
-                <NavLink
-                  className={({ isActive }) =>
-                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
-                      isActive ? 'text-primary ' : ' '
-                    }`
-                  }
-                  to={'/Realestates/Realestates'}
-                >
-                  املاک و مستغلات
-                </NavLink>
-              </div>
               <div className=" flex flex-col gap-2.5 font-shabnam">
                 <h5 className=" text-sm"> اطلاعات </h5>
                 <NavLink
@@ -177,6 +158,30 @@ const Footer: React.FC = () => {
                   to={'/PrivacyPolicy/PrivacyPolicy'}
                 >
                   حریم شخصی شما
+                </NavLink>
+              </div>
+              <div className=" flex flex-col gap-2.5 font-shabnam">
+                <h5 className=" text-sm"> خدمات </h5>
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/Rent/Rent'}
+                >
+                  اجاره
+                </NavLink>
+
+                <NavLink
+                  className={({ isActive }) =>
+                    `text-xs text-gray-71  mt-0.5 hover:text-primary   ${
+                      isActive ? 'text-primary ' : ' '
+                    }`
+                  }
+                  to={'/Realestates/Realestates'}
+                >
+                  املاک و مستغلات
                 </NavLink>
               </div>
               {auth.token ? (

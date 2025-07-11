@@ -57,7 +57,7 @@ const Sorting: React.FC<SortingProps> = ({
   )
 
   const handleSearchClick = () => {
-    const cityToSearch = city.trim() === 'همه' ? 'all' : city.trim()
+    const cityToSearch = city.trim()
     newParams.set('city', cityToSearch)
     localStorage.setItem('searchFilter-value', cityToSearch)
     localStorage.setItem('currentPage-Rent-sell', '1')
@@ -86,7 +86,6 @@ const Sorting: React.FC<SortingProps> = ({
   )
 
   const handlePriceSorting = (value: string) => {
-    console.log('trType', trType)
     if (trType === 'rent') {
       setRentPrice(value)
       newParams.set('rent_price', value === 'بیشترین قیمت' ? 'asc' : 'desc')
@@ -108,8 +107,6 @@ const Sorting: React.FC<SortingProps> = ({
     const rentPrice = localStorage.getItem('rent_price')
     const sellPrice = localStorage.getItem('sell_price')
     const cityDefulut = newParams.get('city') || 'تهران'
-
-    console.log(cityDefulut)
     localStorage.setItem(
       'searchFilter-value',
       String(cityDefulut) === 'all' ? 'همه' : cityDefulut || 'تهران'
@@ -120,6 +117,7 @@ const Sorting: React.FC<SortingProps> = ({
         prType ? (prType === 'commercial' ? 'تجاری' : 'مسکونی') : 'نوع ملک'
       )
     )
+
     setRentPrice(
       String(
         rentPrice
@@ -233,7 +231,7 @@ const Sorting: React.FC<SortingProps> = ({
                 ]}
                 onInputHandler={handleInputChange}
                 onFocus={handleFocus}
-                errorMessage={formState.inputs.SalePrice?.errorMessage}
+                errorMessage={formState.inputs.searchFilter?.errorMessage}
                 isFocused={isFocused}
                 validationMessageSuccess={` نام شهر وارد شده معتبر است`}
                 validationMessageError={` نام شهر وارد شده معتبر نیست`}

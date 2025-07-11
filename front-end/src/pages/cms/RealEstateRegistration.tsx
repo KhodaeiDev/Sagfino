@@ -61,7 +61,6 @@ const RealEstateRegistration: React.FC = () => {
   }, [])
 
   const auth = useContext(AuthContext)
-  console.log(auth)
   useEffect(() => {
     setInitialName(formState.inputs.name?.value || '')
     setInitialLastName(formState.inputs.lastName?.value || '')
@@ -158,8 +157,7 @@ const RealEstateRegistration: React.FC = () => {
 
     try {
       setIsSubmitting(true)
-      const res = await createRealEstate(formData, token)
-      console.log('سرور پاسخ داد:', res.data)
+      await createRealEstate(formData, token)
       ToastNotification('success', 'ملک با موفقیت ایجاد شد!', 5000)
     } catch (err) {
       console.error('خطا در ایجاد ملک:', err)

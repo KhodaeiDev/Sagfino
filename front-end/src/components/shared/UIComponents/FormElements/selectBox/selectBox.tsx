@@ -62,7 +62,6 @@ const SelectBox: React.FC<SelectBoxProps> = memo(
                 onClick={
                   option.id !== 0
                     ? () => {
-                        console.log("🔍 انتخاب شد:", option.name); // 🚀 نمایش مقدار کلیک‌شده
                         handleOptionClick(option.name, option.id);
                       }
                     : undefined

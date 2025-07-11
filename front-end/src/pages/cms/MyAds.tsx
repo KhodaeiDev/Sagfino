@@ -38,7 +38,6 @@ const MyAds: React.FC = () => {
     mutate: getingAllRealEstates,
     data: adCreatedDatas,
     isPending: isLoading,
-    isSuccess,
   } = useMutation({
     mutationFn: fetchGetMyAds,
   })
@@ -84,7 +83,6 @@ const MyAds: React.FC = () => {
     }, 200)
   }
 
-  console.log('isLoading', isLoading, isSuccess)
 
   return (
     <>

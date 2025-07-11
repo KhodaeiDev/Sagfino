@@ -44,7 +44,6 @@ const Realestate: React.FC = () => {
     [searchParams]
   )
 
-  console.log(RealEstate)
 
   useEffect(() => {
     newParams.set('page', savedPage)

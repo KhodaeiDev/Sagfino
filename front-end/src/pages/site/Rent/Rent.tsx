@@ -96,7 +96,6 @@ const Rent: React.FC = () => {
     }
   }, [filteredProducts])
 
-  console.log()
 
   useEffect(() => {
     const isSearchMoreFilter = localStorage.getItem('isSearchFilter') === 'true'
@@ -148,7 +147,6 @@ const Rent: React.FC = () => {
       hasParking,
       hasElevator,
     }
-    console.log('storedParams', storedParams)
 
     const filteredParams = Object.fromEntries(
       Object.entries(storedParams).filter(
@@ -167,7 +165,6 @@ const Rent: React.FC = () => {
     }
 
     Object.entries(filteredParams).forEach(([key, value]) => {
-      console.log(key, value)
 
       if (value !== null && value !== '') {
         newParams.set(key, String(value))

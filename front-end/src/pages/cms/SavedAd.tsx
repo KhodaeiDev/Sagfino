@@ -79,7 +79,6 @@ const SavedAd: React.FC = () => {
       }
     }, 200)
   }
-  console.log(adSavedData)
 
   const savedAds = adSavedData?.data?.data || []
   const hasSavedAds = savedAds.length > 0

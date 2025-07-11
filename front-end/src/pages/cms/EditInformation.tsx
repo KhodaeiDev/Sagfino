@@ -43,7 +43,6 @@ const EditInformation: React.FC = () => {
   }, [])
 
   const auth = useContext(AuthContext)
-  console.log(auth)
   useEffect(() => {
     if (auth.userInfo) {
       const firstName = auth.userInfo?.firstName || ''

@@ -108,7 +108,6 @@ const StepSixAdRE: React.FC = () => {
   const handleImageUpload = useCallback(
     (event: React.ChangeEvent<HTMLInputElement>, id: string) => {
       const file = event.target.files?.[0]
-      console.log('Selected file:', file)
 
       if (!file || !file.type.startsWith('image/')) {
         console.warn('Unsupported file or not an image.')

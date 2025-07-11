@@ -65,7 +65,6 @@ const Realestates: React.FC = () => {
   const handleSearchClick = () => {
     const rawCity =
       localStorage.getItem('searchFilterRealestates-value') || 'همه'
-    console.log('rawCity', rawCity, rawCity.trim() === 'همه')
     const cityToSend = rawCity.trim() === 'همه' ? 'all' : rawCity
 
     localStorage.setItem('currentPage-Realestates', '1')
@@ -91,12 +90,10 @@ const Realestates: React.FC = () => {
     mutationFn: fetchGetRealEstates,
   })
 
-  console.log(allRealEstates)
 
   useEffect(() => {
     const rawCity =
       localStorage.getItem('searchFilterRealestates-value') || 'همه'
-    console.log('rawCity', rawCity, rawCity.trim() === 'همه')
     const cityToSend = rawCity.trim() === 'همه' ? 'all' : rawCity
 
     if (cityToSend !== city) {
@@ -111,9 +108,8 @@ const Realestates: React.FC = () => {
       page: savedPage,
       city: cityToSend,
     }
-    console.log(filteredParams)
     getingAllRealEstates(filteredParams)
-  }, [searchParams]) // Add city and other dependencies
+  }, [searchParams]) 
 
   useEffect(() => {
     if (allRealEstates?.data) {
